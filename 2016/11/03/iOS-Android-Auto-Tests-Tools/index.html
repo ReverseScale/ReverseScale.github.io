@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>最棒的 5 款开源 iOS/Android 自动化工具 | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(56)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-11-03T10:47:29.000Z" itemprop="datePublished">
+          2016-11-03
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>最棒的 5 款开源 iOS/Android 自动化工具</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#现今自动化测试在产品测试中占有很重要地位。实现测试的自动化有很多积极的意义，比如尽量缩短测试执行时间，关键发布阶段在更短时间保证更大的测试覆盖，产品开发阶段可靠和重复运行确保不引入回归问题；并且它也能最大可能地减少在重复性回归周期由于人的错误或疏忽带来的风险。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><blockquote>
+<p>摘要：现今自动化测试在产品测试中占有很重要地位。实现测试的自动化有很多积极的意义，比如尽量缩短测试执行时间，关键发布阶段在更短时间保证更大的测试覆盖， 产品开发阶段可靠和重复运行确保不引入回归问题；并且它也能最大可能地减少在重复性回归周期由于人的错误或疏忽带来的风险。</p>
+</blockquote>
+<p>市场上有大量的工具可以用来做测试自动化，其中有开源的也有付费的。尽管使用付费的或者开源的工具各有优劣，后一类的工具还是在各自动化测试社区被广泛使用。根据你的项目需求选择恰当的自动化工具是非常棘手的。</p>
+<p>下面是排名前 5 的开源 iOS 和 Andriod 自动化工具。</p>
+<h3 id="1-Calabash-适用于安卓和-iOS"><a href="#1-Calabash-适用于安卓和-iOS" class="headerlink" title="1) Calabash (适用于安卓和 iOS)"></a>1) Calabash (适用于安卓和 iOS)</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/50275424.jpg" alt=""></p>
+<p>(图片翻译：Calabash 让你能够编写和执行手机应用的接受测试，它是跨平台的，支持安卓和 iOS 的原生程序，它是开源和免费，由 Xamarin 开发并维护。)</p>
+<p><strong>这是什么？</strong><br>– Calabash 是支持安卓和 iOS 开源的接受自动化测试框架。它为安卓和 iOS 的自动化提供了一个独立的库。它支持 cucumber ，从而可以让你采用 BDD (行为驱动开发)英语母语的方式表达你的应用。</p>
+<p>Calabash 提供了一座桥让 cucumber 测试和验证能在安卓和 iOS 上执行。Cucumber 测试是编写为一组语句列表，语句有若干数目的测试场景组成。Cucumber 中的语句是用 Ruby 定义的。</p>
+<p>在 Calabash 中，一条 cucumber 语句只能定义一次，但是可以在 cucumber 脚本的不同场景中运行多次。</p>
+<p>实际的测试是用 Gherkin 编写，支持 Ruby 代码，并且运行在 cucumber 框架中。</p>
+<blockquote>
+<p>优点:<br>1.大型的社区支持。<br>2.简单的，富有感染力的类似于英语的测试语句。<br>3.支持屏幕所有的动作，比如滑动，缩放，旋转和敲击。<br>4.大型而热情的社区。<br>5.跨平台开发的支持(相同的代码在安卓和 iOS 都适用)</p>
+<p>缺点:<br>1.当测试步骤失败的时候，后续步骤会被忽略。这个会导致漏掉更严重的产品问题。<br>2.跑测试需要花费时间应为默认是总是在最开始安装应用，但是这个设定可以在代码添加钩子给覆盖掉。<br>3.需要 Calabash 框架在安装在 iOS 的 ipa 文件中。<br>4.在 iOS 上我们必须要应用的代码。<br>5.对 Ruby 之外的语言不友好。</p>
+</blockquote>
+<hr>
+<h3 id="2-Appium-支持安卓和-iOS"><a href="#2-Appium-支持安卓和-iOS" class="headerlink" title="2) Appium (支持安卓和 iOS)"></a>2) Appium (支持安卓和 iOS)</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/69687137.jpg" alt=""></p>
+<p><strong>这是什么?</strong><br>– Appium 是 Sauce实验室提供给原生,混合,和网页手机应用的开源自动化测试框架。Appium在框架中的库函数调用后台的Appium服务器从而操作连接的设备。它使用Selenium的 WebDriver来和iOS和安卓应用交互，它内部使用 JSONWireProtocol。</p>
+<p>不像Calabash它不是仅仅支持用Ruby开发, 借助Selenium WebDriver的支持，Appium能够按你选择的语言来开发，从Java，Python到Ruby，只要该语言被Selenium WebDriver支持。</p>
+<p>一 个 Appium 服务器是部署在Node服务器上的。 可以通过一组Node明年来启动一个Appium 服务器。如果使用Appium独立服务器作为你的应用服务器 (可以从Appium网站下载), 检查员工具提供了 定位/甄别/操作 你的应用中的所有定位器的能力。</p>
+<blockquote>
+<p>优点:<br>1.支持多语言。<br>2.无需访问源码。<br>3.跨平台脚本编程能力。<br>4.大社区的支持。<br>5.支持在Mac平台录制。<br>6.能够使用Appium服务器程序的‘定位’工具提取标识符。<br>7.由Appium服务器桌面程序内建支持‘Selendroid’。<br>8.还能使用供应商的框架: UIAutomation用于iOS,  UIAutomator和Selendroid分别支持android 4.2+ 和 2.3+。<br>9.支持物理设备和模拟器。<br>10.支持原生，混合和手机网络程序的自动化。</p>
+<p>缺点:<br>1.Appium服务器桌面程序常常有不稳定版本。<br>2.Window操作系统上对服务器桌面应用不支持脚本录制。</p>
+</blockquote>
+<hr>
+<h3 id="3-Robotium-Android"><a href="#3-Robotium-Android" class="headerlink" title="3) Robotium (Android)"></a>3) Robotium (Android)</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/52316165.jpg" alt=""></p>
+<p><strong>Robotium 是什么?</strong><br>– Robotium 是一个开源的测试框架，它可以用于功能测试，系统测试，验收测试等场景。Robotium 和 Selenium 非常相似，不同的是它仅能用于 Android。它遵循 Apache License 2.0 开源协议。</p>
+<p>由于它简单易用，并且能够创建出强大、健壮性良好的自动化测试场景，Robotium 正在受到越来越多的自动化测试社区用户的欢迎。<br>Robotium 使用运行时绑定 GUI 组建的方式。使用时将测试用例库，以一个应用程序的形式安装到 Android 的设备或者模拟器上，以此提供一个真实的环境用以执行测试。</p>
+<blockquote>
+<p>亮点:<br>1.让编写测试脚本工作变得轻而易举.<br>2.能够对预装应用进行自动化测试.<br>3.自动追踪当前的 activity.<br>4.由于采用了运行时绑定 GUI 组件的方式，与 Appium 相比，它能够更加快速稳定的执行测试.<br>5.可以在没有源代码，也不知道应用具体实现的条件下进行测试.<br>6.支持 Activities, Dialogs（对话框） ,Toasts, Menus（菜单）, Context Menus（上下文菜单）和其他 Android SDK 的控件.</p>
+<p>不足:<br>1.无法处理 flash 和 web 组件.<br>2.仅能够支持 Java 开发环境.<br>3.在较早期的设备上运行不够流畅.<br>4.由于不支持 iOS 设备，当自动化测试同时覆盖 android 与 iOS 的情况时，测试会被中断.<br>5.没有内置的记录和回放功能. 使用记录功能需要 TestDroid 和 Robotium Recorder 这样收费工具。</p>
+</blockquote>
+<hr>
+<h3 id="4-Frank-Android"><a href="#4-Frank-Android" class="headerlink" title="4) Frank (Android)"></a>4) Frank (Android)</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/54140149.jpg" alt=""></p>
+<p><strong>Frank是什么?</strong><br>– Frank 是一个 iOS 应用程序的自动化测试框架，它提供了一种使用 Cucumber 自然语句书写测试用例的能力。</p>
+<p>Frank 需要被编译进被测试的应用程序，这意味着你的源代码必须被修改。它是一个工具，使用的是Cucumber 和 JSON 的组合命令，并将这些命令发送到你本地应用程序中的一个服务器。然后，利用 UISpec 来执行这些命令。</p>
+<blockquote>
+<p>优点:<br>1.借助于 Cucumber 框架，可以使用容易理解的自然语句书写测试用例。<br>2.自带审查工具。<br>3.显示出了高效性，对于拥有 Selenium 和 Cucumber 自动化测试框架使用经验的团队。<br>4.活跃的社区支持。<br>5.持续扩展的功能库。</p>
+<p>不足:<br>1.有限的手势支持功能。<br>2.设备上跑测试有点困难。<br>3.需要修改配置文件才能在真实设备上运行。<br>4.缺少记录功能。</p>
+</blockquote>
+<hr>
+<h3 id="5-UIAutomator-Android"><a href="#5-UIAutomator-Android" class="headerlink" title="5)UIAutomator (Android)"></a>5)UIAutomator (Android)</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/4662067.jpg" alt=""></p>
+<p><strong>UIAutomator 是什么?</strong><br>– UIAutomator 是来自 Google 的测试框架，提供 Android 原生 app 和游戏的高级 UI 测试。它是一个 java lib，既有创建功能的 UI 测试的 API，又有运行测试的执行引擎。 Android SDK 中就带有。有很多教程帮助新手入门。它的优势在于，在运行访问不同进程时，给 JUnit 测试用例特权。</p>
+<p>尽管对于原生 app 的自动测试，它是又好又简单，但是对于自动测试 web view 的支持则是那么的有限近乎不支持。它只支持 API level16 及以上的设备，但这并没有多大问题，毕竟现在大部分都已在 API level19 及以上了。</p>
+<blockquote>
+<p>优点:<br>1.简单易用，教程丰富；<br>2.Library 支持且由 Google 社区维护；<br>3.第三方付费集成云端的测试管理。</p>
+<p>缺点:<br>1.只支持 Android4.1 和更高；<br>2.不支持脚本录制；<br>3.支持只专注于 Java；<br>4.无法获得当前的 Activity 或 Instrumentation；<br>5.当前不支持 WebView 或混合 app；<br>6.Library 只支持 Java，因此想集成到 ruby 的 cucumber（译注：Cucumber 是 BDD（行为驱动开发）中成熟的一个框架，官方网址: <a href="http://cukes.info/）框架中则比较困难，尽管" target="_blank" rel="external">http://cukes.info/）框架中则比较困难，尽管</a> Java 已有 BDD框架可用，可实际上却用的很少。</p>
+</blockquote>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/11/03/Swift-UIBezierPath-And-CAShapeLayer/" style="float: left;">
+        ← Swift 放肆地使用UIBezierPath和CAShapeLayer画各种图形
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/11/03/BaiDuYun-Frontier-Technology/">
+        前沿技术资料百度云链接 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/11/03/iOS-Android-Auto-Tests-Tools/" data-title="最棒的 5 款开源 iOS/Android 自动化工具" data-url="http://yoursite.com/2016/11/03/iOS-Android-Auto-Tests-Tools/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

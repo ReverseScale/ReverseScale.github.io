@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>iOS应用架构谈（二）：View层的组织和调用方案（上） | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(56)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-12-07T04:29:29.000Z" itemprop="datePublished">
+          2016-12-07
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>iOS应用架构谈（二）：View层的组织和调用方案（上）</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#iOS客户端应用架构看似简单，但实际上要考虑的事情不少。本文作者将以系列文章的形式来回答iOS应用架构中的种种问题，本文是其中的第二篇，主要讲View层的组织和调用方案。上篇主要讲View层的代码结构、布局，以及一些最佳实践的讨论。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>当我们开始设计View层的架构时，往往是这个App还没有开始开发，或者这个App已经发过几个版本了，然后此时需要做非常彻底的重构。</p>
+<p>一般也就是这两种时机会去做View层架构，基于这个时机的特殊性，我们在必须清楚认识到：View层的架构一旦实现或定型，在App发版后可修改的余地就已经非常之小了。因为它跟业务关联最为紧密，所以哪怕稍微动一点点，它所引发的蝴蝶效应都不见得是业务方能够hold住的。这样的情况，就要求我们在实现这个架构时，代码必须得改得勤快，不能偷懒。也必须抱着充分的自我怀疑态度，做决策时要拿捏好尺度。</p>
+<p>View层的架构非常之重要，在我看来，这部分架构是这系列文章涉及4个方面最重要的一部分，没有之一。为什么这么说？</p>
+<p><strong>View层架构是影响业务方迭代周期的因素之一</strong></p>
+<p>产品经理产生需求的速度会非常快，尤其是公司此时仍处于创业初期，在规模稍大的公司里面，产品经理也喜欢挖大坑来在leader面前刷存在感。这就导致业务工程师任务非常繁重。正常情况下让产品经理砍需求是不太可能的，因此作为架构师，在架构里有一些可做可不做的事情，最好还是能做就做掉，不要偷懒。这可以帮业务方减负，编写代码的时候也能更加关注业务。</p>
+<p>我跟一些朋友交流的时候，他们都会或多或少地抱怨自己的团队迭代速度不够快，或者说，迭代速度不合理地慢。我认为迭代速度不是想提就能提的，迭代速度的影响因素有很多，一期PRD里的任务量和任务复杂度都会影响迭代周期能达到什么样的程度。抛开这些外在的不谈，从内在原因来看，其中有一个可能就是View层架构没有做好，让业务工程师完成一个不算复杂的需求时，需要处理太多额外的事情。当然，开会多，工程师水平烂也属于迭代速度提不上去的内部原因，但这个不属于本文讨论范围。</p>
+<p>一般来说，一个不够好的View层架构，主要原因有以下五种：</p>
+<ol>
+<li>代码混乱不规范</li>
+<li>过多继承导致的复杂依赖关系</li>
+<li>模块化程度不够高，组件粒度不够细</li>
+<li>横向依赖</li>
+<li>架构设计失去传承<br>这五个地方会影响业务工程师实现需求的效率，进而拖慢迭代周期。View架构的其他缺陷也会或多或少地产生影响，但在我看来这五个是比较重要的影响因素。</li>
+</ol>
+<p>对于第五点我想做一下强调：架构的设计是一定需要有传承的，有传承的架构从整体上看会非常协调。但实际情况有可能是一个人走了，另一个顶上，即便任务交接得再完整，都不可避免不同的人有不同的架构思路，从而导致整个架构的流畅程度受到影响。要解决这个问题，一方面要尽量避免单点问题，让架构师做架构的时候再带一个人。另一方面，架构要设计得尽量简单，平缓接手人的学习曲线。我离开安居客的时候，做过保证：凡是从我手里出来的代码，终身保修。所以不要想着离职了就什么事儿都不管了，这不光是职业素养问题，还有一个是你对你的代码是否足够自信的问题。传承性对于View层架构非常重要，因为它距离业务最近，改动余地最小。</p>
+<p>所以当各位CTO、技术总监、TeamLeader们觉得迭代周期不够快时，你可以先不忙着急吼吼地去招新人，《人月神话》早就说过加人不能完全解决问题。这时候如果你可以回过头来看一下是不是View层架构不合理，把这个弄好也是优化迭代周期的手段之一。</p>
+<p>嗯，至于本系列其他三项的架构方案对于迭代周期的影响程度，我认为都不如View层架构方案对迭代周期的影响高，所以这是我认为View层架构是最重要的其中一个理由。</p>
+<p><strong>View层架构是最贴近业务的底层架构</strong></p>
+<p>View层架构虽然也算底层，但还没那么底层，它跟业务的对接面最广，影响业务层代码的程度也最深。在所有的底层都牵一发的时候，在View架构上牵一发导致业务层动全身的面积最大。</p>
+<p>所以View架构在所有架构中一旦定型，可修改的空间就最小，我们在一开始考虑View相关架构时，不光要实现功能，还要考虑更多规范上的东西。制定规范的目的一方面是防止业务工程师的代码腐蚀View架构，另一方面也是为了能够有所传承。按照规范来，总还是不那么容易出差池的。</p>
+<p>还有就是，架构师一开始考虑的东西也会有很多，不可能在第一版就把它们全部实现，对于一个尚未发版的App来说，第一版架构往往是最小完整功能集，那么在第二版第三版的发展过程中，架构的迭代任务就很有可能不只是你一个人的事情了，相信你一个人也不见得能搞定全部。所以你要跟你的合作者们有所约定。另外，第一版出去之后，业务工程师在使用过程中也会产生很多修改意见，哪些意见是合理的，哪些意见是不合理的，也要通过事先约定的规范来进行筛选，最终决定如何采纳。</p>
+<p>规范也不是一成不变的，什么时候枪毙意见，什么时候改规范，这就要靠各位的技术和经验了。</p>
+<hr>
+<h4 id="这篇文章讲什么？"><a href="#这篇文章讲什么？" class="headerlink" title="这篇文章讲什么？"></a>这篇文章讲什么？</h4><ul>
+<li>View代码结构的规定</li>
+<li>关于view的布局</li>
+<li>何时使用storyboard，何时使用nib，何时使用代码写View</li>
+<li>是否有必要让业务方统一派生ViewController？</li>
+<li>方便View布局的小工具</li>
+<li>MVC、MVVM、MVCS、VIPER</li>
+<li>本门心法</li>
+<li>跨业务时View的处理</li>
+<li>留给评论区各种补</li>
+<li>总结</li>
+</ul>
+<hr>
+<h4 id="View代码结构的规定"><a href="#View代码结构的规定" class="headerlink" title="View代码结构的规定"></a>View代码结构的规定</h4><p>架构师不是写SDK出来交付业务方使用就没事儿了的，每家公司一定都有一套代码规范，架构师的职责也包括定义代码规范。按照道理来讲，定代码规范应该是属于通识，放在这里讲的原因只是因为我这边需要为View添加一个规范。</p>
+<p>制定代码规范严格来讲不属于View层架构的事情，但它对View层架构未来的影响会比较大，也是属于架构师在设计View层架构时需要考虑的事情。制定View层规范的重要性在于：</p>
+<ol>
+<li>提高业务方View层的可读性可维护性</li>
+<li>防止业务代码对架构产生腐蚀</li>
+<li>确保传承</li>
+<li>保持架构发展的方向不轻易被不合理的意见所左右<br>在这一节里面我不打算从头开始定义一套规范，苹果有一套Coding Guidelines，当我们定代码结构或规范的时候，首先一定要符合这个规范。</li>
+</ol>
+<p>然后，相信大家各自公司里面也都有一套自己的规范，具体怎么个规范法其实也是根据各位架构师的经验而定，我这边只是建议各位在各自规范的基础上再加上下面这一点。</p>
+<p>viewController的代码应该差不多是这样：<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-7/93033542.jpg" alt=""></p>
+<p>要点如下：</p>
+<p>所有的属性都使用getter和setter</p>
+<p>不要在viewDidLoad里面初始化你的view然后再add，这样代码就很难看。在viewDidload里面只做addSubview的事情，然后在viewWillAppear里面做布局的事情（这里在最后还会讨论），最后在viewDidAppear里面做Notification的监听之类的事情。至于属性的初始化，则交给getter去做。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - life cycle</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;     </div><div class="line">  [<span class="keyword">super</span> viewDidLoad];     </div><div class="line">  <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.firstTableView];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.secondTableView];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.firstFilterLabel];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.secondFilterLabel];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.cleanButton];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.originImageView];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.processedImageView];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.activityIndicator];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.takeImageButton];</div><div class="line">  &#125;</div><div class="line">  - (<span class="keyword">void</span>)viewWillAppear:(<span class="built_in">BOOL</span>)animated &#123;     </div><div class="line">    [<span class="keyword">super</span> viewWillAppear:animated];     </div><div class="line">    <span class="built_in">CGFloat</span> width = (<span class="keyword">self</span>.view.width - <span class="number">30</span>) / <span class="number">2.0</span>f;     </div><div class="line">    <span class="keyword">self</span>.originImageView.size = <span class="built_in">CGSizeMake</span>(width, width);     </div><div class="line">    [<span class="keyword">self</span>.originImageView topInContainer:<span class="number">70</span> shouldResize:<span class="literal">NO</span>];     </div><div class="line">    [<span class="keyword">self</span>.originImageView leftInContainer:<span class="number">10</span> shouldResize:<span class="literal">NO</span>];     <span class="keyword">self</span>.processedImageView.size = <span class="built_in">CGSizeMake</span>(width, width);     </div><div class="line">    [<span class="keyword">self</span>.processedImageView right:<span class="number">10</span> FromView:<span class="keyword">self</span>.originImageView];     </div><div class="line">    [<span class="keyword">self</span>.processedImageView topEqualToView:<span class="keyword">self</span>.originImageView];     </div><div class="line">    <span class="built_in">CGFloat</span> labelWidth = <span class="keyword">self</span>.view.width - <span class="number">100</span>;     </div><div class="line">    <span class="keyword">self</span>.firstFilterLabel.size = <span class="built_in">CGSizeMake</span>(labelWidth, <span class="number">20</span>);     </div><div class="line">    [<span class="keyword">self</span>.firstFilterLabel leftInContainer:<span class="number">10</span> shouldResize:<span class="literal">NO</span>];     </div><div class="line">    [<span class="keyword">self</span>.firstFilterLabel top:<span class="number">10</span> FromView:<span class="keyword">self</span>.originImageView];     </div><div class="line">    ... ...</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这样即便在属性非常多的情况下，还是能够保持代码整齐，view的初始化都交给getter去做了。总之就是尽量不要出现以下的情况：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;     </div><div class="line">  [<span class="keyword">super</span> viewDidLoad];     </div><div class="line">  <span class="keyword">self</span>.textLabel = [[<span class="built_in">UILabel</span> alloc] init];     </div><div class="line">  <span class="keyword">self</span>.textLabel.textColor = [<span class="built_in">UIColor</span> blackColor];     </div><div class="line">  <span class="keyword">self</span>.textLabel ... ...     </div><div class="line">  <span class="keyword">self</span>.textLabel ... ...     </div><div class="line">  <span class="keyword">self</span>.textLabel ... ...     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.textLabel];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这种做法就不够干净，都扔到getter里面去就好了。关于这个做法，在唐巧的技术博客里面有一篇文章和我所提倡的做法不同，这个我会放在后面详细论述。</p>
+<p><strong>getter和setter全部都放在最后</strong></p>
+<p>因为一个ViewController很有可能会有非常多的view，就像上面给出的代码样例一样，如果getter和setter写在前面，就会把主要逻辑扯到后面去，其他人看的时候就要先划过一长串getter和setter，这样不太好。然后要求业务工程师写代码的时候按照顺序来分配代码块的位置，先是life cycle，然后是Delegate方法实现，然后是event response，然后才是getters and setters。这样后来者阅读代码时就能省力很多。</p>
+<p><strong>每一个delegate都把对应的protocol名字带上，delegate方法不要到处乱写，写到一块区域里面去</strong></p>
+<p>比如UITableViewDelegate的方法集就老老实实写上#pragma mark - UITableViewDelegate。这样有个好处就是，当其他人阅读一个他并不熟悉的Delegate实现方法时，他只要按住command然后去点这个protocol名字，Xcode就能够立刻跳转到对应这个Delegate的protocol定义的那部分代码去，就省得他到处找了。</p>
+<p><strong>event response专门开一个代码区域</strong></p>
+<p>所有button、gestureRecognizer的响应事件都放在这个区域里面，不要到处乱放。</p>
+<p><strong>关于private methods，正常情况下ViewController里面不应该写</strong></p>
+<p>不是delegate方法的，不是event response方法的，不是life cycle方法的，就是private method了。对的，正常情况下ViewController里面一般是不会存在private methods的，这个private methods一般是用于日期换算、图片裁剪啥的这种小功能。这种小功能要么把它写成一个category，要么把他做成一个模块，哪怕这个模块只有一个函数也行。</p>
+<p>ViewController基本上是大部分业务的载体，本身代码已经相当复杂，所以跟业务关联不大的东西能不放在ViewController里面就不要放。另外一点，这个private method的功能这时候只是你用得到，但是将来说不定别的地方也会用到，一开始就独立出来，有利于将来的代码复用。</p>
+<p><strong>为什么要这样要求？</strong></p>
+<p>我见过无数ViewController，代码布局乱得一塌糊涂，这里一个delegate那里一个getter，然后ViewController的代码一般都死长死长的，看了就让人头疼。</p>
+<p>定义好这个规范，就能使得ViewController条理清晰，业务方程序员很能够区分哪些放在ViewController里面比较合适，哪些不合适。另外，也可以提高代码的可维护性和可读性。</p>
+<hr>
+<h4 id="关于View的布局"><a href="#关于View的布局" class="headerlink" title="关于View的布局"></a>关于View的布局</h4><p>业务工程师在写View的时候一定逃不掉的就是这个命题。用Frame也好用Autolayout也好，如果没有精心设计过，布局部分一定惨不忍睹。</p>
+<p>直接使用CGRectMake的话可读性很差，光看那几个数字，也无法知道view和view之间的位置关系。用Autolayout可读性稍微好点儿，但生成Constraint的长度实在太长，代码观感不太好。</p>
+<p>Autolayout这边可以考虑使用Masonry，代码的可读性就能好很多。如果还有使用Frame的，可以考虑一下使用这个项目。</p>
+<p>这个项目里面提供了Frame相关的方便方法(UIView+LayoutMethods)，里面的方法也基本涵盖了所有布局的需求，可读性非常好，使用它之后基本可以和CGRectMake说再见了。因为天猫在最近才切换到支持iOS6，所以之前天猫都是用Frame布局的，在天猫App中，首页，范儿部分页面的布局就使用了这些方法。使用这些方便方法能起到事半功倍的效果。</p>
+<p>这个项目也提供了Autolayout方案下生产Constraints的方便方法(UIView+AEBHandyAutoLayout)，可读性比原生好很多。我当时在写这系列方法的时候还不知道有Masonry。知道有Masonry之后我特地去看了一下，发现Masonry功能果然强大。不过这系列方法虽然没有Masonry那么强大，但是也够用了。当时安居客iPad版App全部都是Autolayout来做的View布局，就是使用的这个项目里面的方法。可读性很好。</p>
+<p>让业务工程师使用良好的工具来做View的布局，能提高他们的工作效率，也能减少bug发生的几率。架构师不光要关心那些高大上的内容，也要多给业务工程师提供方便易用的小工具，才能发挥架构师的价值。</p>
+<hr>
+<h4 id="何时使用storyboard，何时使用nib，何时使用代码写View"><a href="#何时使用storyboard，何时使用nib，何时使用代码写View" class="headerlink" title="何时使用storyboard，何时使用nib，何时使用代码写View"></a>何时使用storyboard，何时使用nib，何时使用代码写View</h4><p>这个问题唐巧的博客里这篇文章也提到过，我的意见和他是基本一致的。</p>
+<p>在这里我还想补充一些内容：</p>
+<p>具有一定规模的团队化iOS开发（10人以上）有以下几个特点：</p>
+<ol>
+<li>同一份代码文件的作者会有很多，不同作者同时修改同一份代码的情况也不少见。因此，使用Git进行代码版本管理时出现Conflict的几率也比较大。</li>
+<li>需求变化非常频繁，产品经理一时一个主意，为了完成需求而针对现有代码进行微调的情况，以及针对现有代码的部分复用的情况也比较多。</li>
+<li>复杂界面元素、复杂动画场景的开发任务比较多。<br>如果这三个特点你一看就明白了，下面的解释就可以不用看了。如果你针对我的倾向愿意进一步讨论的，可以先看我下面的解释，看完再说。</li>
+</ol>
+<p><strong>同一份代码文件的作者会有很多，不同作者同时修改同一份代码的情况也不少见。因此，使用Git进行代码版本管理时出现Conflict的几率也比较大。</strong></p>
+<p>iOS开发过程中，会遇到最蛋疼的两种Conflict一个是project.pbxproj，另外一个就是StoryBoard或XIB。因为这些文件的内容的可读性非常差，虽然苹果在XCode5（现在我有点不确定是不是这个版本了）中对StoryBoard的文件描述方式做了一定的优化，但只是把可读性从非常差提升为很差。</p>
+<p>然而在StoryBoard中往往包含了多个页面，这些页面基本上不太可能都由一个人去完成，如果另一个人在做StoryBoard的操作的时候，出于某些目的动了一下不属于他的那个页面，比如为了美观调整了一下位置。然后另外一个人也因为要添加一个页面，而在Storyboard中调整了一下某个其他页面的位置。那么针对这个情况我除了说个呵呵以外，我就只能说：祝你好运。看清楚哦，这还没动具体的页页面内容呢。</p>
+<p>但如果使用代码绘制View，Conflict一样会发生，但是这种Conflict就好解很多了，你懂的。</p>
+<p><strong>需求变化非常频繁，产品经理一时一个主意，为了完成需求而针对现有代码进行微调的情况，以及针对现有代码的部分复用的情况也比较多。</strong></p>
+<p>我觉得产品经理一时一个主意不是他的错，他说不定也是被逼的，比如谁都会来掺和一下产品的设计，公司里的所有人，上至CEO，下至基层员工都有可能对产品设计评头论足，只要他个人有个地方用得不爽（极大可能是个人喜好）然后又正好跟产品经理比较熟悉能够搭得上话，都会提出各种意见。产品经理躲不起也惹不起，有时也是没办法，嗯。</p>
+<p>但落实到工程师这边来，这种情况就很蛋疼。因为这种改变有时候不光是UI，UI所对应的逻辑也有要改的可能，工程师就会两边文件都改，你原来link的那个view现在不link了，然后你的outlet对应也要删掉，这两部分只要有一个没做，编译通过之后跑一下App，一会儿就crash了。看起来这不是什么大事儿，但很影响心情。</p>
+<p>另外，如果出现部分的代码复用，比如说某页面下某个View也希望放在另外一个页面里，相关的操作就不是复制粘贴这么简单了，你还得重新link一遍。也很影响心情。</p>
+<p><strong>复杂界面元素，复杂动画交互场景的开发任务比较多。</strong></p>
+<p>要是想在基于StoryBoard的项目中做一个动画，很烦。做几个复杂界面元素，也很烦。有的时候我们挂Custom View上去，其实在StoryBoard里面看来就是一个空白View。然后另外一点就是，当你的layout出现问题需要调整的时候，还是挺难找到问题所在的，尤其是在复杂界面元素的情况下。</p>
+<p>所以在针对View层这边的要求时，我也是建议不要用StoryBoard。实现简单的东西，用Code一样简单，实现复杂的东西，Code比StoryBoard更简单。所以我更加提倡用code去画view而不是storyboard。</p>
+<hr>
+<h4 id="是否有必要让业务方统一派生ViewController"><a href="#是否有必要让业务方统一派生ViewController" class="headerlink" title="是否有必要让业务方统一派生ViewController"></a>是否有必要让业务方统一派生ViewController</h4><p>有的时候我们出于记录用户操作行为数据的需要，或者统一配置页面的目的，会从UIViewController里面派生一个自己的ViewController，来执行一些通用逻辑。比如天猫客户端要求所有的ViewController都要继承自TMViewController。这个统一的父类里面针对一个ViewController的所有生命周期都做了一些设置，至于这里都有哪些设置对于本篇文章来说并不重要。在这里我想讨论的是，在设计View架构时，如果为了能够达到统一设置或执行统一逻辑的目的，使用派生的手段是有必要的吗？</p>
+<p>我觉得没有必要，为什么没有必要？</p>
+<ol>
+<li>使用派生比不使用派生更容易增加业务方的使用成本</li>
+<li>不使用派生手段一样也能达到统一设置的目的<br>这两条原因是我认为没有必要使用派生手段的理由，如果两条理由你都心领神会，那么下面的就可以不用看了。如果你还有点疑惑，请看下面我来详细讲一下原因。</li>
+</ol>
+<p><strong>为什么使用了派生，业务方的使用成本会提升？</strong></p>
+<p>其实不光是业务方的使用成本，架构的维护成本也会上升。那么具体的成本都来自于哪里呢？</p>
+<p><strong>集成成本</strong>：这里讲的集成成本是这样的：如果业务方自己开了一个独立demo，快速完成了某个独立流程，现在他想把这个现有流程集合进去。那么问题就来了，他需要把所有独立的UIViewController改变成TMViewController。那为什么不是一开始就立刻使用TMViewController呢？因为要想引入TMViewController，就要引入整个天猫App所有的业务线，所有的基础库，因为这个父类里面涉及很多天猫环境才有的内容，所谓拔出萝卜带出泥，你要是想简单继承一下就能搞定的事情，搭环境就要搞半天，然后这个小Demo才能跑得起来。</p>
+<p>对于业务层存在的所有父类来说，它们是很容易跟项目中的其他代码纠缠不清的，这使得业务方开发时遇到一个两难问题：要么把所有依赖全部搞定，然后基于App环境（比如天猫）下开发Demo，要么就是自己Demo写好之后，按照环境要求改代码。这里的两难问题都会带来成本，都会影响业务方的迭代进度。</p>
+<p>我不确定各位所在公司是否会有这样的情况，但我可以在这里给大家举一个我在阿里的真实的例子：我最近在开发某滤镜Demo和相关页面流程，最终是要合并到天猫这个App里面去的。使用天猫环境进行开发的话，pod install完所有依赖差不多需要10分钟，然后打开workspace之后，差不多要再等待1分钟让xcode做好索引，然后才能正式开始工作。在这里要感谢一下则平，因为他在此基础上做了很多优化，使得这个1分钟已经比原来的时间短很多了。但如果天猫环境有更新，你就要再重复一次上面的流程，否则 就很有可能编译不过。</p>
+<p>拜托，我只是想做个Demo而已，不想搞那么复杂。</p>
+<p><strong>上手接受成本</strong>：新来的业务工程师有的时候不见得都记得每一个ViewController都必须要派生自TMViewController而不是直接的UIViewController。新来的工程师他不能直接按照苹果原生的做法去做事情，他需要额外学习，比如说：所有的ViewController都必须继承自TMViewController。</p>
+<p><strong>架构的维护难度</strong>：尽可能少地使用继承能提高项目的可维护性，具体内容我在《跳出面向对象思想（一） 继承》里面说了，在这里我想偷懒不想把那篇文章里说过的东西再说一遍。</p>
+<p>其实对于业务方来说，主要还是第一个集成成本比较蛋疼，因为这是长痛，每次要做点什么事情都会遇到。第二点倒还好，短痛。第三点跟业务工程师没啥关系。</p>
+<p><strong>那么如果不使用派生，我们应该使用什么手段？</strong></p>
+<p>我的建议是使用AOP。</p>
+<p>在架构师实现具体的方案之前，必须要想清楚几个问题，然后才能决定采用哪种方案。是哪几个问题？</p>
+<ol>
+<li>方案的效果，和最终要达到的目的是什么？</li>
+<li>在自己的知识体系里面，是否具备实现这个方案的能力？</li>
+<li>在业界已有的开源组件里面，是否有可以直接拿来用的轮子？<br>这三个问题按照顺序一一解答之后，具体方案就能出来了。</li>
+</ol>
+<p><strong>我们先看第一个问题：方案的效果，和最终要达到的目的是什么？</strong></p>
+<p>方案的效果应该是：</p>
+<ol>
+<li>业务方可以不用通过继承的方法，然后框架能够做到对ViewController的统一配置。</li>
+<li>业务方即使脱离框架环境，不需要修改任何代码也能够跑完代码。业务方的ViewController一旦丢入框架环境，不需要修改任何代码，框架就能够起到它应该起的作用。</li>
+</ol>
+<p>其实就是要实现不通过业务代码上对框架的主动迎合，使得业务能够被框架感知这样的功能。细化下来就是两个问题，框架要能够拦截到ViewController的生命周期，另一个问题就是，拦截的定义时机。</p>
+<p>对于方法拦截，很容易想到Method Swizzling，那么我们可以写一个实例，在App启动的时候添加针对UIViewController的方法拦截，这是一种做法。还有另一种做法就是，使用NSObject的load函数，在应用启动时自动监听。使用后者的好处在于，这个模块只要被项目包含，就能够发挥作用，不需要在项目里面添加任何代码。</p>
+<p>然后另外一个要考虑的事情就是，原有的TMViewController（所谓的父类）也是会提供额外方法方便子类使用的，Method Swizzling只支持针对现有方法的操作，拓展方法的话，嗯，当然是用Category啦。</p>
+<p>我本人不赞成Category的过度使用，但鉴于Category是最典型的化继承为组合的手段，在这个场景下还是适合使用的。还有的就是，关于Method Swizzling手段实现方法拦截，业界也已经有了现成的开源库：Aspects，我们可以直接拿来使用。</p>
+<p>我这边有个非常非常小的Demo可以放出来给大家，这个Demo只是一个点睛之笔，有一些话我也写在这个Demo里面了，各位架构师们你们可以基于各自公司App的需求去拓展。</p>
+<p>这个Demo不包含Category，毕竟Category还是得你们自己去写啊～然后这套方案能够完成原来通过派生手段所有可以完成的任务，但同时又允许业务方不必添加任何代码，直接使用原生的UIViewController。</p>
+<p>然后另外要提醒的是，这方案的目的是消除不必要的继承，虽然不限定于UIViewController，但它也是有适用范围的，在适用继承的地方，还是要老老实实使用继承。比如你有一个数据模型，是由基本模型派生出的一整套模型，那么这个时候还是老老实实使用继承。至于拿捏何时使用继承，相信各位架构师一定能够处理好，或者你也可以参考我前面提到的那篇文章来控制拿捏的尺度。</p>
+<hr>
+<h4 id="关于在哪儿写Constraints？"><a href="#关于在哪儿写Constraints？" class="headerlink" title="关于在哪儿写Constraints？"></a>关于在哪儿写Constraints？</h4><p>其实在viewWillAppear这里改变UI元素不是很可靠，Autolayout发生在viewWillAppear之后，严格来说这里通常不做视图位置的修改，而用来更新Form数据。改变位置可以放在viewWilllayoutSubview或者didLayoutSubview里，而且在viewDidLayoutSubview确定UI位置关系之后设置autoLayout比较稳妥。另外，viewWillAppear在每次页面即将显示都会调用，viewWillLayoutSubviews虽然在lifeCycle里调用顺序在viewWillAppear之后，但是只有在页面元素需要调整时才会调用，避免了Constraints的重复添加。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-7/26584965.jpg" alt=""></p>
+<p>苹果在文档中指出，updateViewConstraints是用来做add constraints的地方。</p>
+<p>但是在这里有一个回答者说updateViewConstraints并不适合做添加Constraints的事情。</p>
+<p>综合各种测试和各种文档，我现在觉得还是在viewDidLoad里面开一个layoutPageSubviews的方法，然后在这个里面创建Constraints并添加，会比较好。就是像下面这样：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;     </div><div class="line">  [<span class="keyword">super</span> viewDidLoad];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.firstView];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.secondView];     </div><div class="line">  [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.thirdView];     </div><div class="line">  [<span class="keyword">self</span> layoutPageSubviews];</div><div class="line">  &#125;</div><div class="line">  - (<span class="keyword">void</span>)layoutPageSubviews &#123;     </div><div class="line">    [<span class="keyword">self</span>.view addConstraints:xxxConstraints];     </div><div class="line">    [<span class="keyword">self</span>.view addConstraints:yyyConstraints];     </div><div class="line">    [<span class="keyword">self</span>.view addConstraints:zzzConstraints];</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这个做法是目前我自己觉得可能比较合适的做法，当然也欢迎其他同学继续拿出自己的看法，我们来讨论。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/12/07/iOS-Framework03/" style="float: left;">
+        ← iOS应用架构谈（二）：View层的组织和调用方案（下）
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/12/07/iOS-Framework01/">
+        iOS应用架构谈（一）：架构设计的方法论 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/12/07/iOS-Framework02/" data-title="iOS应用架构谈（二）：View层的组织和调用方案（上）" data-url="http://yoursite.com/2016/12/07/iOS-Framework02/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>零基础学习开发小程序 实战篇 | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(56)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-12-06T04:29:29.000Z" itemprop="datePublished">
+          2016-12-06
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>零基础学习开发小程序 实战篇</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#给大家分享一个励志案例：因为喜欢逛知乎，自己做出了一款「仿知乎」小程序，能帮大家轻松愉悦地迈出小程序开发的第一步。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="开始实战开发"><a href="#开始实战开发" class="headerlink" title="开始实战开发"></a>开始实战开发</h4><p><strong>1. 列表式的数据渲染</strong></p>
+<p><img src="http://p1.bqimg.com/567571/ac77a1de5ab6649d.jpg" alt=""></p>
+<p>类似于「首页」以及「发现页」这种标准列表式的数据展现方式，微信提供了很好的方案：列表渲染。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;block wx:<span class="keyword">for</span>=<span class="string">"&#123;&#123;feed&#125;&#125;"</span> wx:<span class="keyword">for</span>-index=<span class="string">"idx"</span> wx:<span class="keyword">for</span>-item=<span class="string">"item"</span> data-idx=<span class="string">"&#123;&#123;idx&#125;&#125;"</span>&gt;</div><div class="line">  &lt;view class="feed-item"&gt;</div><div class="line">    &lt;view class="feed-source"&gt;</div><div class="line">      &lt;a class=""&gt;</div><div class="line">        &lt;view class="avatar"&gt;</div><div class="line">          &lt;image src="&#123;&#123;item.feed_source_img&#125;&#125;"&gt; &lt;/image&gt;</div><div class="line">        &lt;/view&gt;</div><div class="line">        &lt;text&gt; &#123;&#123;item.feed_source_name&#125;&#125; &#123;&#123;item.feed_source_txt&#125;&#125; &lt;/text&gt;</div><div class="line">      &lt;/a&gt;</div><div class="line">      &lt;image class="item-more" mode="aspectFit" src="../../images/more.png"&gt;&lt;/image&gt;</div><div class="line">    &lt;/view&gt;</div><div class="line">    &lt;view class="feed-content"&gt;</div><div class="line">      &lt;view class="question" qid="&#123;&#123;question_id&#125;&#125;" bindtap="bindQueTap"&gt;</div><div class="line">        &lt;a class="question-link"&gt;</div><div class="line">          &lt;text&gt;&#123;&#123;item.question&#125;&#125;&lt;/text&gt;</div><div class="line">        &lt;/a&gt;</div><div class="line">      &lt;/view&gt;</div><div class="line">      &lt;view class="answer-body"&gt;</div><div class="line">        &lt;view bindtap="bindItemTap"&gt;</div><div class="line">          &lt;text class="answer-txt" aid="&#123;&#123;answer_id&#125;&#125;"&gt; &#123;&#123;item.answer_ctnt&#125;&#125; &lt;/text&gt;</div><div class="line">        &lt;/view&gt;</div><div class="line">        &lt;view class="answer-actions" bindtap="bindItemTap"&gt;</div><div class="line">          &lt;view class="like dot"&gt; &lt;a&gt;&#123;&#123;item.good_num&#125;&#125; 赞同 &lt;/a&gt; &lt;/view&gt;</div><div class="line">          &lt;view class="comments dot"&gt; &lt;a&gt;&#123;&#123;item.comment_num&#125;&#125; 评论 &lt;/a&gt; &lt;/view&gt;</div><div class="line">          &lt;view class="follow-it"&gt; &lt;a&gt;关注问题&lt;/a&gt; &lt;/view&gt;</div><div class="line">        &lt;/view&gt;</div><div class="line">      &lt;/view&gt;</div><div class="line">    &lt;/view&gt;</div><div class="line">  &lt;/view&gt;</div><div class="line">&lt;<span class="regexp">/block&gt;</span></div></pre></td></tr></table></figure>
+<p>可以直观地看出，就是 for 循环用重复的结构渲染一组数据：</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/1996010.jpg" alt=""></p>
+<p>同样也使用了 for 渲染的，还有顶部的发现页和通知页等顶部的自定义 tabbar。</p>
+<hr>
+<p><strong>2. 顶部 Tabbar 实现</strong></p>
+<p><img src="http://p1.bqimg.com/567571/28b728eede4403bb.jpg" alt=""></p>
+<p>微信只提供了底部 tabbar，所以顶部的要自己写喽~</p>
+<p>顶部 tab bar 的实现在于 for 列表渲染以及 JS 配合。</p>
+<p>实例 WXML 代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"top-tab flex-wrp flex-tab "</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"toptab</span></span></div><div class="line">        flex-item &#123;&#123;currentNavtab==idx ? 'active' : ''&#125;&#125;" <span class="attr">wx:for</span>=<span class="string">"&#123;&#123;navTab&#125;&#125;"</span> <span class="attr">wx:for-index</span>=<span class="string">"idx"</span> <span class="attr">wx:for-item</span>=<span class="string">"itemName"</span> <span class="attr">data-idx</span>=<span class="string">"&#123;&#123;idx&#125;&#125;"</span> <span class="attr">bindtap</span>=<span class="string">"switchTab"</span>&gt; &#123;&#123;itemName&#125;&#125; <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">scroll-view</span> <span class="attr">scroll-y</span>=<span class="string">"true"</span> <span class="attr">class</span>=<span class="string">"container discovery withtab"</span> <span class="attr">bindscrolltoupper</span>=<span class="string">"upper"</span> <span class="attr">bindscrolltolower</span>=<span class="string">"lower"</span> <span class="attr">scroll-into-view</span>=<span class="string">"&#123;&#123;toView&#125;&#125;"</span> <span class="attr">scroll-top</span>=<span class="string">"&#123;&#123;scrollTop&#125;&#125;"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ctnt0"</span> <span class="attr">hidden</span>=<span class="string">"&#123;&#123;currentNavtab==0 ? '' : true&#125;&#125;"</span>&gt;</span> <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ctnt1 placehold"</span> <span class="attr">hidden</span>=<span class="string">"&#123;&#123;currentNavtab==1 ? '' : true&#125;&#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">text</span>&gt;</span>圆桌<span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ctnt2 placehold"</span> <span class="attr">hidden</span>=<span class="string">"&#123;&#123;currentNavtab==2 ? '' : true&#125;&#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">text</span>&gt;</span>热门<span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ctnt3 placehold"</span> <span class="attr">hidden</span>=<span class="string">"&#123;&#123;currentNavtab==3 ? '' : true&#125;&#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">text</span>&gt;</span>收藏<span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">scroll-view</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>JS 代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//discovery.js</span></div><div class="line">Page(&#123;</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">navTab</span>: [<span class="string">"推荐"</span>, <span class="string">"圆桌"</span>, <span class="string">"热门"</span>, <span class="string">"收藏"</span>]</div><div class="line">    , <span class="attr">currentNavtab</span>: <span class="string">"0"</span></div><div class="line">  &#125;</div><div class="line">  , <span class="attr">onLoad</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'onLoad'</span>)</div><div class="line">  &#125;</div><div class="line">  , <span class="attr">switchTab</span>: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.setData(&#123;</div><div class="line">      <span class="attr">currentNavtab</span>: e.currentTarget.dataset.idx</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>由于微信不支持使用 DOM 访问对象，也就是不支持 dom 和 window 对象，所以 tab bar 的实现依赖于微信提供的视图层的展示逻辑，以及视图与数据之间的绑定机制。</p>
+<blockquote>
+<p>绑定点击事件，通过改变一个 data- 属性的值，来控制元素的类的改变（从而改变样式等）。</p>
+</blockquote>
+<hr>
+<p><strong>3. 轮播图</strong></p>
+<p>以下是实现的 WXML 代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">swiper</span> <span class="attr">class</span>=<span class="string">"activity"</span> <span class="attr">indicator-dots</span>=<span class="string">"&#123;&#123;indicatorDots&#125;&#125;"</span> <span class="attr">autoplay</span>=<span class="string">"&#123;&#123;autoplay&#125;&#125;"</span> <span class="attr">interval</span>=<span class="string">"&#123;&#123;interval&#125;&#125;"</span> <span class="attr">duration</span>=<span class="string">"&#123;&#123;duration&#125;&#125;"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">block</span> <span class="attr">wx:for</span>=<span class="string">"&#123;&#123;imgUrls&#125;&#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">swiper-item</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">"&#123;&#123;item&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"slide-image"</span> <span class="attr">width</span>=<span class="string">"355"</span> <span class="attr">height</span>=<span class="string">"155"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">swiper-item</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">block</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>JS 代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">imgUrls: [</div><div class="line">  <span class="string">'../../images/24213.jpg'</span></div><div class="line">  , <span class="string">'../../images/24280.jpg'</span></div><div class="line">  , <span class="string">'../../images/1444983318907-_DSC1826.jpg'</span></div><div class="line">]</div><div class="line">  , <span class="attr">indicatorDots</span>: <span class="literal">false</span></div><div class="line">  , <span class="attr">autoplay</span>: <span class="literal">true</span></div><div class="line">  , <span class="attr">interval</span>: <span class="number">5000</span></div><div class="line">  , <span class="attr">duration</span>: <span class="number">1000</span></div><div class="line">  , <span class="attr">feed</span>: []</div><div class="line">  , <span class="attr">feed_length</span>: <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<p>轮播图的实现使用的是微信提供的 swiper 组件，该组件贴心的提供了各种属性选择，常用的包括 autoplay，interval 时间 duration 等</p>
+<p>swiper-item 中包含的是所有轮播的图片，为了方便修改图片数据，同样采用 for 渲染绑定 data 的方式。</p>
+<hr>
+<p><strong>4. 下拉刷新，上拉加载，以及数据请求</strong></p>
+<p>刷新及继续加载的动作，依靠的是 scroll-view 标签，及配套的 upper 和 lower 事件。</p>
+<p>标签的属性提供了 bindscrolltoupper 和 bindscrolltolower 来绑定滚动到顶部及底部所触发的事件，同时 upper-threshold 和 lower-threshold 能够调整触发时距边界的距离。</p>
+<p>除上述之外，<strong>小程序的 API 还提供横向滚动、滚动触发事件、设置滚动条位置等接口。</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">scroll-view</span> <span class="attr">scroll-y</span>=<span class="string">"true"</span> <span class="attr">class</span>=<span class="string">"container"</span> <span class="attr">bindscrolltoupper</span>=<span class="string">"upper"</span> <span class="attr">upper-threshold</span>=<span class="string">"10"</span> <span class="attr">lower-threshold</span>=<span class="string">"5"</span> <span class="attr">bindscrolltolower</span>=<span class="string">"lower"</span> <span class="attr">scroll-into-view</span>=<span class="string">"&#123;&#123;toView&#125;&#125;"</span> <span class="attr">scroll-top</span>=<span class="string">"&#123;&#123;scrollTop&#125;&#125;"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">block</span> <span class="attr">wx:for</span>=<span class="string">"&#123;&#123;feed&#125;&#125;"</span> <span class="attr">wx:for-index</span>=<span class="string">"idx"</span> <span class="attr">wx:for-item</span>=<span class="string">"item"</span> <span class="attr">data-idx</span>=<span class="string">"&#123;&#123;idx&#125;&#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"feed-item"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"feed-source"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">""</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"avatar"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">"&#123;&#123;item.feed_source_img&#125;&#125;"</span>&gt;</span> <span class="tag">&lt;/<span class="name">image</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">text</span>&gt;</span> &#123;&#123;item.feed_source_name&#125;&#125; &#123;&#123;item.feed_source_txt&#125;&#125; <span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">image</span> <span class="attr">class</span>=<span class="string">"item-more"</span> <span class="attr">mode</span>=<span class="string">"aspectFit"</span> <span class="attr">src</span>=<span class="string">"../../images/more.png"</span>&gt;</span> <span class="tag">&lt;/<span class="name">image</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"feed-content"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"question"</span> <span class="attr">qid</span>=<span class="string">"&#123;&#123;question_id&#125;&#125;"</span> <span class="attr">bindtap</span>=<span class="string">"bindQueTap"</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"question-link"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;item.question&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"answer-body"</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">view</span> <span class="attr">bindtap</span>=<span class="string">"bindItemTap"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">"answer-txt"</span> <span class="attr">aid</span>=<span class="string">"&#123;&#123;answer_id&#125;&#125;"</span>&gt;</span> &#123;&#123;item.answer_ctnt&#125;&#125; <span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"answer-actions"</span> <span class="attr">bindtap</span>=<span class="string">"bindItemTap"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"like dot"</span>&gt;</span> <span class="tag">&lt;<span class="name">a</span>&gt;</span>&#123;&#123;item.good_num&#125;&#125; 赞同 <span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"comments dot"</span>&gt;</span> <span class="tag">&lt;<span class="name">a</span>&gt;</span>&#123;&#123;item.comment_num&#125;&#125; 评论 <span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"follow-it"</span>&gt;</span> <span class="tag">&lt;<span class="name">a</span>&gt;</span>关注问题<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">block</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">scroll-view</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>滚动至顶或至底时，触发的加载数据的事件，本应该调用微信提供的网络请求 API 来获取数据。</p>
+<blockquote>
+<p>但是比较坑的是，<strong>我在选择写仿知乎 demo 的时候没有注意到知乎不提供开放 API，而微信的 API 不支持直接对 JSON 文件进行本地请求。</strong></p>
+</blockquote>
+<p>无奈之下，选择在 JS 文件中伪造一段数据，用 module.exports 抛出，来 fake 数据请求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">upper: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  wx.showNavigationBarLoading()</div><div class="line">  <span class="keyword">this</span>.refresh();</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"upper"</span>);</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    wx.hideNavigationBarLoading();</div><div class="line">    wx.stopPullDownRefresh();</div><div class="line">  &#125;, <span class="number">2000</span>);</div><div class="line">&#125;, <span class="attr">lower</span>: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  wx.showNavigationBarLoading();</div><div class="line">  <span class="keyword">var</span> that = <span class="keyword">this</span>;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    wx.hideNavigationBarLoading();</div><div class="line">    that.nextLoad();</div><div class="line">  &#125;, <span class="number">1000</span>);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"lower"</span>)</div><div class="line">&#125;, <span class="comment">//scroll: function (e) &#123;</span></div><div class="line"><span class="comment">//  console.log("scroll")</span></div><div class="line"><span class="comment">//&#125;,</span></div><div class="line"><span class="comment">//网络请求数据, 实现刷新</span></div><div class="line">refresh0: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> index_api = <span class="string">''</span>;</div><div class="line">  util.getData(index_api).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="comment">//this.setData(&#123;</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">//&#125;);</span></div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">  &#125;);</div><div class="line">&#125;, <span class="comment">//使用本地 fake 数据实现刷新效果</span></div><div class="line">refresh: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> feed = util.getDiscovery();</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"loaddata"</span>);</div><div class="line">  <span class="keyword">var</span> feed_data = feed.data;</div><div class="line">  <span class="keyword">this</span>.setData(&#123;</div><div class="line">    <span class="attr">feed</span>: feed_data</div><div class="line">    , <span class="attr">feed_length</span>: feed_data.length</div><div class="line">  &#125;);</div><div class="line">&#125;, <span class="comment">//使用本地 fake 数据实现继续加载效果</span></div><div class="line">nextLoad: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> next = util.discoveryNext();</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"continueload"</span>);</div><div class="line">  <span class="keyword">var</span> next_data = next.data;</div><div class="line">  <span class="keyword">this</span>.setData(&#123;</div><div class="line">    <span class="attr">feed</span>: <span class="keyword">this</span>.data.feed.concat(next_data)</div><div class="line">    , <span class="attr">feed_length</span>: <span class="keyword">this</span>.data.feed_length + next_data.length</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于是 fake 的数据，所以这个 demo 并没有做真实的带参跳转，查询等功能。</p>
+<p>加载数据的同时，使用微信提供的加载动画 <strong>wx.showNavigationBarLoading();</strong>。</p>
+<p><img src="http://p1.bqimg.com/567571/b2427e36a9f49107.jpg" alt=""></p>
+<hr>
+<p><strong>5. 其他</strong></p>
+<ul>
+<li>为了实现点击跳转页面，使用了 wx.navigateTo 进行页面跳转以及点击事件绑定；</li>
+<li>部分常用组件的模块化；</li>
+<li>input、image 组件等的使用。</li>
+</ul>
+<hr>
+<p><strong>6. 后续</strong></p>
+<p>其实还有大量的组件和 API 还没有用过，这个 demo 也许后续还会有更新呦，这取决于懒癌少女的病情严重程度了。</p>
+<hr>
+<h4 id="一点感受"><a href="#一点感受" class="headerlink" title="一点感受"></a>一点感受</h4><p>其实作为一个小前端，由于工作中的原因，使用 MVVM 其实是非常少的。</p>
+<p>不过，写了这个微信小程序 demo 之后，更加把这方面的思维理顺了。当然，写完之后回头看，还是有超多的不足，明明好些地方能再换一种写法的。</p>
+<p>这毕竟是我第一次尝试用新鲜热乎的东西写小 demo，也是第一次尝试写教程……或者算是记录？whatever~~</p>
+<ul>
+<li>界面及交互设计来自知乎 Android 版本</li>
+<li>工具: 微信 web 开发者工具</li>
+<li>数据: 没有开放 API, 所以使用伪造本地数据</li>
+</ul>
+<p>功能及使用的组件等</p>
+<ul>
+<li>列表式渲染数据</li>
+<li>自定义顶部 tabbar</li>
+<li>下拉刷新</li>
+<li>上拉加载更多</li>
+<li>轮播图</li>
+</ul>
+<h4 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h4><p>首页下拉刷新等<br><img src="http://p1.bpimg.com/567571/a52bd38db7e731cf.gif" alt=""></p>
+<p>顶部自定义 Tab 切换<br><img src="http://p1.bpimg.com/567571/5169efd45192d47d.gif" alt=""></p>
+<p>页面跳转<br><img src="http://p1.bpimg.com/567571/97281f3e5432b6c6.gif" alt=""></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/12/06/AsyncSwift/" style="float: left;">
+        ← Swift Async 异步处理封装
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/12/06/MosaicImage/">
+        Swift 图片打码功能实现 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/12/06/WXAppZhiHuDo/" data-title="零基础学习开发小程序 实战篇" data-url="http://yoursite.com/2016/12/06/WXAppZhiHuDo/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Git配置管理发布流程 | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(56)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-11-22T03:29:29.000Z" itemprop="datePublished">
+          2016-11-22
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Git配置管理发布流程</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>关于Git，这里有你想知道的一切：<br><a href="https://git-scm.com" target="_blank" rel="external">https://git-scm.com</a></p>
+<hr>
+<h4 id="git-管理模型"><a href="#git-管理模型" class="headerlink" title="git 管理模型"></a>git 管理模型</h4><p>分布式但集中化，这是对 git 管理模型最好的阐述。模型图如下图所示：</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-22/32589645.jpg" alt=""></p>
+<p>上图中 origin 是一个 ” 中心库 ” ，当然这个中心库只是被认为是这样 ( 因为 Git 是分布式的，从技术层面上来说是没有中心库的 ) 。</p>
+<p>每个开发者 pull 和 push 到 origin ，但除了中心化的 push-pull 关系外，每个开发者还可以从其他开发者那 pull changes 。比如说，对于一个比较大的新特性，在把代码提交到 origin 之前，很可能会安排 2 个或多个开发者。上图中有几个小团队： Alice 和Bob ， Alice 和 David ， Clair 和 David 。团队成员先把代码 pull 到队长那里，再由队长 pull 到 origin 库。</p>
+<h4 id="主要分支设计"><a href="#主要分支设计" class="headerlink" title="主要分支设计"></a>主要分支设计</h4><p>中心仓库有两个分支：master 和 develop 。</p>
+<p>origin 上的 master 分支， Git 用户应该很熟悉，跟 master 并行的有一个 develop 分支。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-22/60743470.jpg" alt=""></p>
+<p>我们把 origin/master 作为主要分支，源码的 HEAD 总是表示 production-ready( 可随时部署 ) 状态。而 origin/develop 上的代码是为下一次的代码发布准备的。每日构建也是基于此分支。</p>
+<p>当 develop 分支达到了一个稳定状态并准备发布时，所有的改变都要合并到 master 分支，并标上版本号。这样每次与 master 合并都会会有新的部署发布。如下是相关命令：</p>
+<p>$git checkout –b develop master</p>
+<p>在 develop 分支上进行开发工作。</p>
+<p>$git checkout master</p>
+<p>$git merge –no-ff develop</p>
+<h4 id="支持分支设计"><a href="#支持分支设计" class="headerlink" title="支持分支设计"></a>支持分支设计</h4><p>我们的开发模型使用了一些支持分支放在 master 和 develop 分支的旁边，方便开发小组之间的并行开发。不像主要分支，这些分支是有时间限制的，因为他们最终都会被移除。</p>
+<p>我们会使用到的不同的分支有： Feature branches 、 Release branches 、 Hotfix branches 。</p>
+<p>每个分支都有各自的作用，并且有严格的规定，如：只能从哪个分支上去新开分支，只能合并到那个分支。</p>
+<h4 id="Feature-branches"><a href="#Feature-branches" class="headerlink" title="Feature branches"></a>Feature branches</h4><p>规定如下：</p>
+<p>继承分支：develop</p>
+<p>合并分支：develop</p>
+<p>命名规范：除了 master,develop,release- ,hotfix-Feature branches 是用来开发新特性的 ( 短期，远期都可以 ) 。当开始开发新特性时，很可能不知道这个特性会出现在哪个目标版本。一旦开发完成就可以合并到 develop，当然如果开发失败，就可以抛弃。</p>
+<h4 id="创建及完成一个-Feature-branch"><a href="#创建及完成一个-Feature-branch" class="headerlink" title="创建及完成一个 Feature branch"></a>创建及完成一个 Feature branch</h4><p>根据 Feature branches 的规定，创建命令如下：</p>
+<p>$ git checkout -b myfeature develop</p>
+<p>新特性完成时，可以合并到 develop</p>
+<p>$ git checkout develop</p>
+<p>$ git merge –no-ff myfeature</p>
+<p>$ git branch -d myfeature</p>
+<p>$ git push origin develop—no-ff ( 注： no fast foward) 标签，使得每一次的合并都创建一个新的 commit 记录。即使这个 commit 只是 fast-foward ，这样可以避免丢失信息。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-22/52316138.jpg" alt=""></p>
+<h4 id="Release-branch"><a href="#Release-branch" class="headerlink" title="Release branch"></a>Release branch</h4><p>规定如下：</p>
+<p>继承分支：develop</p>
+<p>合并分支：develop 和 master</p>
+<p>命名规范：release-*</p>
+<p>Release branch 是为新的 production release 准备的，可以有一些小的 bug ，并为发布准备一些元数据 ( 版本号，构建日期等等 ) 。把所有的这些工作都放到 Release branch ， develop branch 就能更清晰地知道下一个版本要开发哪些特性。</p>
+<p>从 develop 分支合并到 release 分支的关键因素是 :develop 分支达到了 release 分支所要求的状态。至少所有针对该 release 的特性要被合并。至于那些将来会有的特性可以先放一放。然后就是为接下来即将要发布的版本分配一个版本号。</p>
+<h4 id="创建一个-Release-branch"><a href="#创建一个-Release-branch" class="headerlink" title="创建一个 Release branch"></a>创建一个 Release branch</h4><p>Release branch 是通过 develop 分支而创建。举个例子，假如 1.1.5 是当前的 production release ，然后会有一个比较大的版本发布。 develop 的状态已经可以发布版本了，经过商榷后，决定发布为 1.2 版本，所以我们创建一个 release 分支，并给这个分支一个新的版本号</p>
+<p>$ git checkout -b release-1.2 develop</p>
+<p>这个新分支可能会存在一定的时间，直到可以被合并到 production branch 。这段时间内， bug 修补可以在这个分支上进行 ( 而不是 develop 分支 ) 。添加新特性 ( 尤其比较大的 ) 是不允许的。最后还是要被合并到 develop ，然后继续在 develop 分支上开发，直到下一个版本。</p>
+<h4 id="完成一个-release-branch"><a href="#完成一个-release-branch" class="headerlink" title="完成一个 release branch"></a>完成一个 release branch</h4><p>当 release branch 已经准备就绪，需要做几件事。首先， release 分支被合并到 master 分支上 ( 每一个提交到 master 上的 commit 都是一个新版本，切记 ) 。然后 master 上的 commit 都要添加 tag ，方便将来查看和回滚。最后 release 上所做的修改必须合并到 develop 分支上，保证 bug 已被修补。</p>
+<p>前两个步骤：</p>
+<p>$ git checkout master</p>
+<p>$ git merge –no-ff release-1.2</p>
+<p>$ git tag -a 1.2</p>
+<p>为了把 release 上的改变保存到 develop ，我们需要合并到 develop</p>
+<p>$ git checkout develop</p>
+<p>$ git merge –no-ff release-1.2</p>
+<p>这个步骤可能会导致冲突，如果这样的话，解决冲突，然后再提交。</p>
+<p>现在一切都完成了，可以把 release branch 干掉了。</p>
+<p>$ git branch -d release-1.2</p>
+<h4 id="Hotfix-branch"><a href="#Hotfix-branch" class="headerlink" title="Hotfix branch"></a>Hotfix branch</h4><p><strong>规定如下</strong>：</p>
+<p>继承分支：master</p>
+<p>合并分支：develop 和 master</p>
+<p>命名规范： hotfix-*</p>
+<p>Hotfix branch 和 Release branch 有几分相似，都是为了新的 production release 而准备的。比如运行过程中发现了 bug ，就必须快速解决，这时就可以创建一个 Hotfix branch ，解决完后合并到 master 分支上。好处是开发人员可以继续工作，有专人来负责搞定这个 bug 。</p>
+<h4 id="创建-Hotfix-branch"><a href="#创建-Hotfix-branch" class="headerlink" title="创建 Hotfix branch"></a>创建 Hotfix branch</h4><p>Hotfix 是从 master 分支上创建的。假如当前运行版本是 1.2 ，然后发现有 bug ，但是 develop 还在开发中，不太稳定，这时就可以新开一个 Hotfix branch ，然后开始解决问题。</p>
+<p>$ git checkout -b hotfix-1.2.1 master</p>
+<p>解决问题，一次或几次 commit</p>
+<p>$ git commit -m “Fixed severe production problem”</p>
+<p>完成 Hotfix branch</p>
+<p>当结束时， bugfix 要被合并到 master ，同时也要合并到 develop ，保证下个版本发布时该 bug 已被修复。这跟 release branch 完成时一样。</p>
+<p>首先更新 master 和 tag release</p>
+<p>$ git checkout master</p>
+<p>$ git merge –no-ff hotfix-1.2.1</p>
+<p>$ git tag -a 1.2.1</p>
+<p>接下来与 develop 合并</p>
+<p>$ git checkout develop</p>
+<p>$ git merge –no-ff hotfix-1.2.1</p>
+<p>有一个例外，就是当存在一个 release branch 存在时， bugfix 要被合并到 release 而不是 develop ，因为 release 最终会被合并到 develop 。</p>
+<p>最后移除 branch</p>
+<p>$ git branch -d hotfix-1.2.1</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>这个管理模型应该算是达到行业标准的一个模型了。在实际的开发过程中，如果不用太过于考虑项目成本及项目成员的能力水平时，这样的模型应当是首选。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/11/23/iStat-3/" style="float: left;">
+        ← 用Swift实现自动录音器
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/11/22/WeChat-App/">
+        风口浪尖上的微信小程序入坑指南 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/11/22/Git-Pull/" data-title="Git配置管理发布流程" data-url="http://yoursite.com/2016/11/22/Git-Pull/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
