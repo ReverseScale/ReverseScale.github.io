@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>iOS 10 新特性 对隐私权限的管理 | Steven&#39;s Blog</title>
+  <title>iOS 中常用的第三方库整理思路 | Steven&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -222,8 +222,8 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-11-03T06:23:29.000Z" itemprop="datePublished">
-          2016-11-03
+      <time datetime="2016-12-28T03:29:29.000Z" itemprop="datePublished">
+          2016-12-28
       </time>
     
     
@@ -232,40 +232,133 @@
     
     
 </span>
-                <h1>iOS 10 新特性 对隐私权限的管理</h1>
+                <h1>iOS 中常用的第三方库整理思路</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#比如访问的摄像头、麦克风等硬件，都需要提前请求应用权限、允许后才可以使用，或者现在要提前声明，虽然以往要求不严格。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>在iOS10中比如遇到崩溃，日志：</p>
-<p>崩溃日志:</p>
+      		<p>#现在对于我们 iOS 开发来说，基本上说不可能不使用第三方轮子啦，毕竟没那么多时间，而且自己造的轮子往往想着成为上图中的最后一个，结果却成了上图中第二个或第一个啦，当然大公司另当别论。下面我从之前用过的第三方轮子和看到不错的轮子进行总结一下。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><strong>索引中的轮子图举例</strong><br><img src="http://og1yl0w9z.bkt.clouddn.com/16-12-28/47030674-file_1482891065406_9dc4.jpg" alt=""></p>
+<h4 id="一、基本流程使用的第三方轮子"><a href="#一、基本流程使用的第三方轮子" class="headerlink" title="一、基本流程使用的第三方轮子"></a>一、基本流程使用的第三方轮子</h4><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-12-28/51953312-file_1482891183816_8d20.png" alt=""><br>基本流程使用的第三方轮子</p>
+<ul>
+<li>Reachability</li>
+<li>Masonry</li>
+<li>SnapKit</li>
+<li>AFNetworking</li>
+<li>Alamofire</li>
+<li>YTKNetwork</li>
+<li>YYModel</li>
+<li>Mantle</li>
+<li>JSONModel</li>
+<li>SwiftyJSON</li>
+<li>MBProgressHUD</li>
+<li>SVProgressHUD</li>
+<li>JGProgressHUD</li>
+<li>FMDB</li>
+<li>Realm<br>上述是有重复同一功能的，而如何选择呢，这个我们可以根据项目的具体情况来确定。</li>
+</ul>
+<hr>
+<h4 id="二、列表相关的轮子"><a href="#二、列表相关的轮子" class="headerlink" title="二、列表相关的轮子"></a>二、列表相关的轮子</h4><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-12-28/47885988-file_1482891258303_c428.png" alt=""><br>列表相关的轮子</p>
+<ul>
+<li>MJRefresh</li>
+<li>EGOTableViewPullRefresh：(这个不更新了，但刚开始用就是它，有感情)</li>
+<li>SVPullToRefresh</li>
+<li>DZNEmptyDataSet</li>
+<li>CHTCollectionViewWaterfallLayout</li>
+<li>UICollectionViewLeftAlignedLayout</li>
+<li>UITableView+FDTemplateLayoutCell</li>
+<li>SWTableViewCell</li>
+<li>RETableViewManager: 自定义TableView 多种类型的展示。<br>其他还有很多类似功能的，这是我个人从中选择的几个，后续添加中……</li>
+</ul>
+<hr>
+<h4 id="三、图片相关的轮子"><a href="#三、图片相关的轮子" class="headerlink" title="三、图片相关的轮子"></a>三、图片相关的轮子</h4><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-12-28/46257490-file_1482891285561_2d06.png" alt=""><br>图片相关的轮子</p>
+<ul>
+<li>YYWebImage</li>
+<li>SDWebImage</li>
+<li>MWPhotoBrowser</li>
+<li>IDMPhotoBrowser</li>
+<li>HUPhotoBrowser</li>
+<li>QBImagePicker</li>
+<li>CTAssetsPickerController</li>
+<li>FastImageCache：加载图片速度的优化，很厉害<br>PS：简友CoderKo1o加： PYPhotoBrowser （图片浏览，功能完善中···）</li>
+</ul>
+<p>此处Browser 和 Picker 功能是有些重复的，还是看项目需求来选择吧。</p>
+<hr>
+<h4 id="四、其他可能用的轮子"><a href="#四、其他可能用的轮子" class="headerlink" title="四、其他可能用的轮子"></a>四、其他可能用的轮子</h4><p><strong>4-1、偏工具类的轮子</strong></p>
+<p>IQKeyboardManager：零行代码解决键盘上移的问题</p>
+<p>PNChart：各种图表的展示</p>
+<ul>
+<li>Charts：Swift Charts</li>
+<li>MMDrawerController：侧边栏的 Controller</li>
+<li>RESideMenu： QQ 侧边栏的效果</li>
+<li>ENSwiftSideMenu: 简洁版的侧滑菜单</li>
+<li>UUChatTableView：聊天对话的时候，可以参考</li>
+<li>JSQMessagesViewController：也是聊天对话的，个人认为更适合</li>
+<li>SAMKeychain： 保存keychain的</li>
+<li>AESCrypt-ObjC: AES 加密/解密</li>
+<li>BabyBluetooth： 一个易使用的蓝牙库</li>
+<li>BluetoothKit: 让我们更容易的操作蓝牙的封装库，Swift</li>
+<li>Mobileplayer-ios: Swift 媒体播放器</li>
+<li>PDTSimpleCalendar: 日历</li>
+<li>PYSearch: 搜索类中，有热门标签、历史记录标签。</li>
+<li>VTMagic : 类似网易、腾讯等应用的菜单分页组</li>
+<li>DLSlieView：也是类似网易上部选择导航的效果</li>
+<li>HMSegmentedControl：选择 （可以和DLSlieView比较一下）</li>
+<li>GUITabPagerViewController： 也是上部 tabBar 点击或滑动的效果</li>
+<li>WMPageController： 同上顶部导航VC 切换</li>
+<li>SDCycleScrollView： 循环轮播</li>
+<li>SCLAlertView： 自定义的UIAlertView，更漂亮哦</li>
+<li>Shimmer：具有闪烁效果的第三方控件</li>
+<li>TTTAttributedLabel： 富文本的Label</li>
+<li>JSBadgeView：类似系统的 Badge,购物车时常用</li>
+<li>JVFloatLabeledTextField： 特殊效果的textField</li>
+<li>TextFieldEffects： 有标注的textFiled</li>
+<li>VBFPopFlatButton： 各种稀奇古怪的动画button</li>
+<li>FXBlurView：对视图进行模糊操作</li>
+</ul>
+<p><strong>4-2、不一定常用，但很有意思的一些动画轮子</strong></p>
+<ul>
+<li>CBStoreHouseRefreshControl：刷新时，不一样的动画</li>
+<li>LTMorphingLabel：很cool 的文字展示</li>
+<li>ZLSwipeableView ： 不一样的翻页效果</li>
+<li>Animated-tab-bar： 有动画的tabBar</li>
+<li>Hamburger-button ： 变换的 Button，个人比较喜欢</li>
+<li>Folding-cell：点击Cell 时，有折叠的动画效果，很赞</li>
+</ul>
+<p><strong>4-3、另外一些第三方库</strong></p>
+<ul>
+<li>JSPatch：热修复，为项目动态添加模块，或替换项目原生代码动态修复 bug</li>
+<li>ReactiveCocoa： 函数响应式编程，使用 MVVM 搭</li>
+<li>RxSwift：Swift 函数响应式编程框架。</li>
+<li>BlocksKit： blocks 包，喜欢用 block的非常适合，学习 block 的好库。</li>
+<li>JKCategories：iOS 中常用到的 Category ，可以好好学习</li>
+<li>YYKit：庞大、丰富的 iOS 组件，也是学习的好地方。</li>
+<li>CocoaAsyncSocket：异步 socket 通讯类库</li>
+<li>GPUImage：图片过滤</li>
+<li>AsyncDisplayKit：将图像解码、布局以及渲染操作放在后台线程，带来更好的用户交互体验的框架。</li>
+<li>PromiseKit : 一个用来出来异步的编程框架（Swift）<br>暂时大部分记录的还是 Objective-C 相关的， 说真的 github 上还有好多优秀的轮子等待我们挖掘，当然有好的轮子也希望可以多互相分享，此处持续添加中······。</li>
+</ul>
 <blockquote>
-<p>This app has crashed because it attempted to access privacy-sensitive data without a usage description.  The app’s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</p>
+<p>话又说回来，我个人还是一向 遵循尽量用苹果本身提供的 API 的原则，虽说与上面有矛盾。毕竟引入一个第三方库有时还是有一些不确定的因素的，如果可能，尽量自己开发和实现相应的功能，第三方库尽量只作为参考。 （当然一切以开发速度为第一的情况下，那就先用吧）</p>
 </blockquote>
-<p>你需要在info.plist文件 添加一个“NSContactsUsageDescription ”的Key，Value添加一个描述。</p>
-<p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/41423281.jpg" alt=""></p>
-<p>视频播放 需要在info.Plist中配置</p>
-<p>官方解释：This app has crashed because it attempted to access privacy-sensitive data without a usage description.  The app’s Info.plist must contain an NSAppleMusicUsageDescription key with a string value explaining to the user how the app uses this data.</p>
-<p>访问用户的隐私数据,并且没有向用户说明,必须在plist(info.plist)中配置这个key  NSAppleMusicUsageDescription 并且向用户说明.</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/11/03/iOS10-characteristics-UITabBarController/" style="float: left;">
-        ← iOS 10 新特性 UITabBarController 中的改进
+    <a class="pull-left" href="/2016/12/28/CAAnimation/" style="float: left;">
+        ← iOS 动画的一知半解
     </a>
     
     
-    <a class="pull-right" href="/2016/11/03/RESTful-API/">
-        RESTful API 设计指南 →
+    <a class="pull-right" href="/2016/12/20/ReactNativeTX/">
+        React Native通信机制详解 →
     </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/11/03/iOS10-characteristics-Privacy-rights/" data-title="iOS 10 新特性 对隐私权限的管理" data-url="http://yoursite.com/2016/11/03/iOS10-characteristics-Privacy-rights/"></div>
+<div class="ds-thread" data-thread-key="2016/12/28/Third-Tools/" data-title="iOS 中常用的第三方库整理思路" data-url="http://yoursite.com/2016/12/28/Third-Tools/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"reversescale"};
 (function() {
