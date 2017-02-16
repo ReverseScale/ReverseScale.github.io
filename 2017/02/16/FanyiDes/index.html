@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>iOS一款调用简单快捷的雷达图(蜘蛛图表)控件 | Steven&#39;s Blog</title>
+  <title>红色调翻译应用界面设计 | Steven&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -226,8 +226,8 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-12-05T07:31:29.000Z" itemprop="datePublished">
-          2016-12-05
+      <time datetime="2017-02-16T10:50:54.000Z" itemprop="datePublished">
+          2017-02-16
       </time>
     
     
@@ -236,32 +236,27 @@
     
     
 </span>
-                <h1>iOS一款调用简单快捷的雷达图(蜘蛛图表)控件</h1>
+                <h1>红色调翻译应用界面设计</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#简单快捷的创建一个雷达统计图，使用JJRadarChart三方库，统计类应用推荐使用。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-5/83081877.jpg" alt=""></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"JJRadarChart.h"</span></span></div><div class="line"><span class="keyword">void</span> msg(<span class="built_in">NSString</span> *message) &#123;</div><div class="line">    [[[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"提示"</span> message:message delegate:<span class="literal">nil</span> cancelButtonTitle:<span class="string">@"确定"</span> otherButtonTitles:<span class="literal">nil</span>, <span class="literal">nil</span>] show];</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () &lt;<span class="title">JJRadarChartDataSource</span>, <span class="title">JJRadarChartDelegate</span>&gt; </span>&#123;</div><div class="line">    JJRadarChart *chart;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">//根据frame创建雷达图表</span></div><div class="line">    chart = [[JJRadarChart alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">self</span>.view.frame.size.width, <span class="keyword">self</span>.view.frame.size.width)];</div><div class="line">    chart.center = <span class="built_in">CGPointMake</span>(half(<span class="keyword">self</span>.view.frame.size.width), half(<span class="keyword">self</span>.view.frame.size.height));</div><div class="line">    <span class="comment">//设置数据源</span></div><div class="line">    chart.dataSource = <span class="keyword">self</span>;</div><div class="line">    <span class="comment">//设置代理</span></div><div class="line">    chart.delegate = <span class="keyword">self</span>;</div><div class="line">    <span class="comment">//添加控件</span></div><div class="line">    [<span class="keyword">self</span>.view addSubview:chart];</div><div class="line">&#125;</div><div class="line"><span class="meta">#pragma mark - JJRadarChartDataSource</span></div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfItemsInRadarChart:(JJRadarChart *)radarChart &#123;</div><div class="line">    <span class="comment">//一共6组, 模拟</span></div><div class="line">    <span class="keyword">return</span> <span class="number">6</span>;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSInteger</span>)radarChart:(JJRadarChart *)radarChart maxCountAtIndex:(<span class="built_in">NSInteger</span>)index &#123;</div><div class="line">    <span class="comment">//每组最大100, 模拟</span></div><div class="line">    <span class="keyword">return</span> <span class="number">100</span>;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSInteger</span>)radarChart:(JJRadarChart *)radarChart rankAtIndex:(<span class="built_in">NSInteger</span>)index &#123;</div><div class="line">    <span class="comment">//随机数, 模拟数据</span></div><div class="line">    <span class="built_in">NSInteger</span> randNum = arc4random_uniform(<span class="number">94</span>);</div><div class="line">    <span class="keyword">return</span> index + randNum;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSString</span> *)radarChart:(JJRadarChart *)radarChart titleOfItemAtIndex:(<span class="built_in">NSInteger</span>)index &#123;</div><div class="line">    <span class="comment">//模拟数据</span></div><div class="line">    <span class="built_in">NSArray</span> *arr = @[<span class="string">@"公交"</span>, <span class="string">@"食宿"</span>, <span class="string">@"日用"</span>, <span class="string">@"娱乐"</span>, <span class="string">@"购物"</span>, <span class="string">@"其他"</span>];</div><div class="line">    <span class="keyword">return</span> arr[index];</div><div class="line">&#125;</div><div class="line"><span class="meta">#pragma mark - JJRadarChartDelegate</span></div><div class="line">- (<span class="keyword">void</span>)radarChart:(JJRadarChart *)radarChart didDisplayCurrentPoint:(<span class="built_in">CGPoint</span>)point atIndex:(<span class="built_in">NSInteger</span>)index &#123;</div><div class="line"><span class="comment">//    NSLog(@"当前%zd点在%@", index, NSStringFromCGPoint(point));</span></div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)radarChart:(JJRadarChart *)radarChart didDisplayMaxPoint:(<span class="built_in">CGPoint</span>)point atIndex:(<span class="built_in">NSInteger</span>)index &#123;</div><div class="line"><span class="comment">//    NSLog(@"最大%zd点在%@", index, NSStringFromCGPoint(point));</span></div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)radarChart:(JJRadarChart *)radarChart didSelectedItemAtIndex:(<span class="built_in">NSInteger</span>)index &#123;</div><div class="line">    <span class="comment">//取出对应序号的item</span></div><div class="line">    <span class="built_in">UIButton</span> *btn = [radarChart radarItemAtIndex:index];</div><div class="line">    <span class="comment">//取出对应序号当前数值百分比</span></div><div class="line">    <span class="built_in">CGFloat</span> percentage = [radarChart percentageAtIndex:index];</div><div class="line">    <span class="comment">//拼接字符串</span></div><div class="line">    <span class="built_in">NSString</span> *msgStr = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"当前%@为%.0f%%"</span>, btn.titleLabel.text, percentage];</div><div class="line">    <span class="comment">//弹窗显示</span></div><div class="line">    msg(msgStr);</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+      		<p>#一套红色系的翻译软件设计套版，简洁大气。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>旅游翻译App界面设计&amp;设计规范iOS<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/74110541-file_1487242314491_636c.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/2361381-file_1487242356379_1d6f.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/62848450-file_1487242367211_c486.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/30453372-file_1487242377449_cc59.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/73136296-file_1487242388032_13511.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/93763435-file_1487242411448_15b10.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/57277668-file_1487242428338_17aa3.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/3305729-file_1487242457861_181d6.png" alt=""></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/12/05/Images-iphone/" style="float: left;">
-        ← iOS 任意屏幕尺寸截屏  并保存相册
-    </a>
     
-    
-    <a class="pull-right" href="/2016/12/05/CotEditor/">
-        OS X 的文本编辑器 CotEditor →
+    <a class="pull-right" href="/2017/02/16/YellowDes/">
+        深色黄调社交应用界面设计 →
     </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/12/05/JJRadarChart/" data-title="iOS一款调用简单快捷的雷达图(蜘蛛图表)控件" data-url="http://yoursite.com/2016/12/05/JJRadarChart/"></div>
+<div class="ds-thread" data-thread-key="2017/02/16/FanyiDes/" data-title="红色调翻译应用界面设计" data-url="http://yoursite.com/2017/02/16/FanyiDes/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"reversescale"};
 (function() {
