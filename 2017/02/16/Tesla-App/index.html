@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Swift - 自动优化照片，改善图像质量 | Steven&#39;s Blog</title>
+  <title>特斯拉应用设计版图 | Steven&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -226,8 +226,8 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-11-08T13:50:21.000Z" itemprop="datePublished">
-          2016-11-08
+      <time datetime="2017-02-16T11:40:54.000Z" itemprop="datePublished">
+          2017-02-16
       </time>
     
     
@@ -236,36 +236,27 @@
     
     
 </span>
-                <h1>Swift - 自动优化照片，改善图像质量</h1>
+                <h1>特斯拉应用设计版图</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#Core Image能通过分析图片的各个属性，人脸的区域等进行自动优化图片。我们只需要调用autoAdjustmentFiltersWithOptions这个API方法获取各个自动增强滤镜来优化图片即可。不管是人物照片还是风景照均可增强效果。（以前另外还有个叫autoAdjustmentFilters的方法，现已废除。）</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h3 id="1-具体使用的滤镜如下："><a href="#1-具体使用的滤镜如下：" class="headerlink" title="1.具体使用的滤镜如下："></a>1.具体使用的滤镜如下：</h3><p>（1）CIRedEyeCorrection：修复因相机的闪光灯导致的各种红眼<br>（2）CIFaceBalance：调整肤色<br>（3）CIVibrance：在不影响肤色的情况下，改善图像的饱和度<br>（4）CIToneCurve：改善图像的对比度<br>（5）CIHighlightShadowAdjust：改善阴影细节</p>
-<h3 id="2-autoAdjustmentFiltersWithOptions方法参数说明（字典类型）："><a href="#2-autoAdjustmentFiltersWithOptions方法参数说明（字典类型）：" class="headerlink" title="2.autoAdjustmentFiltersWithOptions方法参数说明（字典类型）："></a>2.autoAdjustmentFiltersWithOptions方法参数说明（字典类型）：</h3><p>（1）CIDetectorImageOrientation提供图像方向：使Core Image能更精确的定位到脸的位置，对CIRedEyeCorrection和CIFaceBalance滤镜很有用。<br>（2）kCIImageAutoAdjustEnhance设为false ：只需要消除红眼，不要其他滤镜<br>（3）kCIImageAutoAdjustRedEye设为false ：消除红眼不要，其他滤镜都要</p>
-<h3 id="3-效果图如下（右侧为优化后的）："><a href="#3-效果图如下（右侧为优化后的）：" class="headerlink" title="3.效果图如下（右侧为优化后的）："></a>3.效果图如下（右侧为优化后的）：</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-8/94086447.jpg" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-8/98766121.jpg" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-8/37359073.jpg" alt=""></p>
-<h3 id="4-代码如下（所有滤镜都使用）："><a href="#4-代码如下（所有滤镜都使用）：" class="headerlink" title="4.代码如下（所有滤镜都使用）："></a>4.代码如下（所有滤镜都使用）：</h3><p>lazy方式实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBOutlet weak var imageView: UIImageView!</span></div><div class="line"></div><div class="line">//图片原图</div><div class="line">lazy var originalImage: UIImage = &#123;</div><div class="line">    <span class="keyword">return</span> UIImage(named: <span class="string">"IMG_0473.jpg"</span>)</div><div class="line">&#125;()!</div><div class="line"></div><div class="line">lazy var context: CIContext = &#123;</div><div class="line">    <span class="keyword">return</span> CIContext(options: nil)</div><div class="line">&#125;()</div></pre></td></tr></table></figure></p>
-<p>图片优化功能：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//优化图片</div><div class="line"><span class="meta">    @IBAction func autoAdjustImage(sender: AnyObject) &#123;</span></div><div class="line">        var inputImage = CIImage(image: originalImage)</div><div class="line">        let options:[String : AnyObject] = [CIDetectorImageOrientation:<span class="number">1</span>] //图片方向</div><div class="line">        let filters = inputImage!.autoAdjustmentFiltersWithOptions(options)</div><div class="line">        //遍历所有滤镜，依次处理图像</div><div class="line">        <span class="keyword">for</span> filter: CIFilter <span class="keyword">in</span> filters &#123;</div><div class="line">            filter.setValue(inputImage, forKey: kCIInputImageKey)</div><div class="line">            inputImage = filter.outputImage</div><div class="line">        &#125;</div><div class="line">        let cgImage = context.createCGImage(inputImage!, fromRect: inputImage!.extent)</div><div class="line">        self.imageView.image = UIImage(CGImage: cgImage!)</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>还原图片功能：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//还原图片</div><div class="line"><span class="meta">    @IBAction func resetImage(sender: AnyObject) &#123;</span></div><div class="line">        self.imageView.image = originalImage</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+      		<p>#你有可能还买不起一辆特斯拉，但你要有一张特斯拉移动应用的界面图…。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/60057978-file_1487242896776_dd2e.png" alt=""></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/11/09/Warning-and-Elimination/" style="float: left;">
-        ← iOS 警告收录及科学快速的消除方法
-    </a>
     
-    
-    <a class="pull-right" href="/2016/11/08/CISepiaTone/">
-        Swift - 给图片添加滤镜效果（棕褐色老照片滤镜，黑白滤镜） →
+    <a class="pull-right" href="/2017/02/16/FanyiDes/">
+        红色调翻译应用界面设计 →
     </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/11/08/Core-Image/" data-title="Swift - 自动优化照片，改善图像质量" data-url="http://yoursite.com/2016/11/08/Core-Image/"></div>
+<div class="ds-thread" data-thread-key="2017/02/16/Tesla-App/" data-title="特斯拉应用设计版图" data-url="http://yoursite.com/2017/02/16/Tesla-App/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"reversescale"};
 (function() {
