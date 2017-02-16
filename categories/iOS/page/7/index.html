@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>轻量级的HTTP开发库 Unirest | Steven&#39;s Blog</title>
+  <title>Category: iOS | Steven&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="post-template">
+<body class="home-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -218,65 +218,69 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      
-<section id="intro">
-    <div class="container">
-        <div class="row col-md-offset-2">
-            <div class="col-md-8">
-    			<span class="post-meta">
-      <time datetime="2016-12-05T05:31:29.000Z" itemprop="datePublished">
-          2016-12-05
-      </time>
-    
-    
-    | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
-    
-    
-</span>
-                <h1>轻量级的HTTP开发库 Unirest</h1>
+      <!-- ============================ Hero Image =========================== -->
+
+<section id="hero" class="scrollme">
+    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                    <div>
+                        
+                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                        <p></p>
+                        
+                        <h2></h2>
+                        <p>珍惜你能看到的每一个清晨。</p>
+                        
+
+                    </div>
+                </div>
             </div>
+            <!-- // .col-md-12 -->
         </div>
-        <div class="col-md-8 col-md-offset-2">
-      		<p>#Unirest 是一个轻量级的 HTTP 请求库，涵盖 Node、Ruby、Java、PHP、Python、Objective-C、.NET 等多种语言。可发起 GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS 请求。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-5/62157023.jpg" alt=""></p>
-<p>Java 版本的示例代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">HttpResponse&lt;JsonNode&gt; jsonResponse = Unirest.post(<span class="string">"http://httpbin.org/post"</span>)</div><div class="line">  .header(<span class="string">"accept"</span>, <span class="string">"application/json"</span>)</div><div class="line">  .field(<span class="string">"parameter"</span>, <span class="string">"value"</span>)</div><div class="line">  .field(<span class="string">"foo"</span>, <span class="string">"bar"</span>)</div><div class="line">  .asJson();</div><div class="line"><span class="comment">//参数处理</span></div><div class="line">Unirest.get(<span class="string">"http://httpbin.org/&#123;method&#125;"</span>)</div><div class="line">  .routeParam(<span class="string">"method"</span>, <span class="string">"get"</span>)</div><div class="line">  .field(<span class="string">"name"</span>, <span class="string">"Mark"</span>)</div><div class="line">  .asJson();</div><div class="line"><span class="comment">//异步请求</span></div><div class="line">Future&lt;HttpResponse&lt;JsonNode&gt;&gt; future = Unirest.post(<span class="string">"http://httpbin.org/post"</span>)</div><div class="line">  .header(<span class="string">"accept"</span>, <span class="string">"application/json"</span>)</div><div class="line">  .field(<span class="string">"param1"</span>, <span class="string">"value1"</span>)</div><div class="line">  .field(<span class="string">"param2"</span>, <span class="string">"value2"</span>)</div><div class="line">  .asJsonAsync(<span class="keyword">new</span> Callback&lt;JsonNode&gt;() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">failed</span><span class="params">(UnirestException e)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"The request has failed"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completed</span><span class="params">(HttpResponse&lt;JsonNode&gt; response)</span> </span>&#123;</div><div class="line">         <span class="keyword">int</span> code = response.getCode();</div><div class="line">         Map&lt;String, String&gt; headers = response.getHeaders();</div><div class="line">         JsonNode body = response.getBody();</div><div class="line">         InputStream rawBody = response.getRawBody();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancelled</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"The request has been cancelled"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-
-            <div class="clearfix"></div>
-            <hr class="nogutter">
-        </div>
-        <nav class="pagination" role="pagination">
-    
-    <a class="pull-left" href="/2016/12/05/CotEditor/" style="float: left;">
-        ← OS X 的文本编辑器 CotEditor
-    </a>
-    
-    
-    <a class="pull-right" href="/2016/12/05/FBMemoryProfiler/">
-        iOS内存监测工具 FBMemoryProfiler →
-    </a>
-    
-</nav>
-
-        <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/12/05/Unirest/" data-title="轻量级的HTTP开发库 Unirest" data-url="http://yoursite.com/2016/12/05/Unirest/"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"reversescale"};
-(function() {
-	var ds = document.createElement('script');
-	ds.type = 'text/javascript';ds.async = true;
-	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	ds.charset = 'UTF-8';
-	(document.getElementsByTagName('head')[0] 
-	 || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
-</div>
+        <div class="herofade beige-dk"></div>
     </div>
 </section>
 
+<!-- Height spacing helper -->
+<div class="heightblock"></div>
+<!-- // End height spacing helper -->
 
+<!-- ============================ END Hero Image =========================== -->
+
+
+
+
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row boxes">
+                    
+                    
+                        
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                            
+                              <h4 class="title"><a href="/2016/11/03/GCD-Section-One/">GCD 学习（一）简介</a></h4>
+                            
+                            <p><time datetime="2016-11-03T02:56:29.000Z"><a href="/2016/11/03/GCD-Section-One/">2016-11-03</a></time></p>
+                        </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </div>
+</section> 
+
+<section id="statement">
+    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
+        <div class="row">
+            <p>知天高，行渐远。</p>
+        </div>
+    </div>
+</section>
       
 <!-- ============================ Footer =========================== -->
 
