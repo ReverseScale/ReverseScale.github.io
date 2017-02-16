@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Category: iOS | Steven&#39;s Blog</title>
+  <title>浅谈iOS延迟执行的几种方式以及比较 | Steven&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -220,156 +220,69 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      <!-- ============================ Hero Image =========================== -->
-
-<section id="hero" class="scrollme">
-    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
-                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
-                    <div>
-                        
-                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
-                        <p></p>
-                        
-                        <h2></h2>
-                        <p>珍惜你能看到的每一个清晨。</p>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <!-- // .col-md-12 -->
-        </div>
-        <div class="herofade beige-dk"></div>
-    </div>
-</section>
-
-<!-- Height spacing helper -->
-<div class="heightblock"></div>
-<!-- // End height spacing helper -->
-
-<!-- ============================ END Hero Image =========================== -->
-
-
-
-
-<section id="services">
+      
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/07/iOS-Framework03/">iOS应用架构谈（二）：View层的组织和调用方案（下）</a></h4>
-                            
-                            <p><time datetime="2016-12-07T04:40:29.000Z"><a href="/2016/12/07/iOS-Framework03/">2016-12-07</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/07/iOS-Framework02/">iOS应用架构谈（二）：View层的组织和调用方案（上）</a></h4>
-                            
-                            <p><time datetime="2016-12-07T04:29:29.000Z"><a href="/2016/12/07/iOS-Framework02/">2016-12-07</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/07/iOS-Framework01/">iOS应用架构谈（一）：架构设计的方法论</a></h4>
-                            
-                            <p><time datetime="2016-12-07T03:29:29.000Z"><a href="/2016/12/07/iOS-Framework01/">2016-12-07</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/07/fitModelAndso/">MVC和胖瘦Model的比喻</a></h4>
-                            
-                            <p><time datetime="2016-12-07T02:29:29.000Z"><a href="/2016/12/07/fitModelAndso/">2016-12-07</a></time></p>
-                        </div>
-                    
-                        
-                            </div><div class="row boxes">
-                            
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/07/StackTable/">Swift 表格扩展工具</a></h4>
-                            
-                            <p><time datetime="2016-12-06T16:29:29.000Z"><a href="/2016/12/07/StackTable/">2016-12-07</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/GZGridView/">Swift 格子控件工具</a></h4>
-                            
-                            <p><time datetime="2016-12-06T14:29:29.000Z"><a href="/2016/12/06/GZGridView/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/LineTagView/">Swift 滚动标签视图封装</a></h4>
-                            
-                            <p><time datetime="2016-12-06T13:29:29.000Z"><a href="/2016/12/06/LineTagView/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/AsyncSwift/">Swift Async 异步处理封装</a></h4>
-                            
-                            <p><time datetime="2016-12-06T07:29:29.000Z"><a href="/2016/12/06/AsyncSwift/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                            </div><div class="row boxes">
-                            
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/MosaicImage/">Swift 图片打码功能实现</a></h4>
-                            
-                            <p><time datetime="2016-12-06T04:29:29.000Z"><a href="/2016/12/06/MosaicImage/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/05/Images-iphone/">iOS 任意屏幕尺寸截屏  并保存相册</a></h4>
-                            
-                            <p><time datetime="2016-12-05T08:31:29.000Z"><a href="/2016/12/05/Images-iphone/">2016-12-05</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-02-16T14:29:29.000Z" itemprop="datePublished">
+          2017-02-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>浅谈iOS延迟执行的几种方式以及比较</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#简单的剖析几种延迟执行的方法及特点。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="一、performSelector方法："><a href="#一、performSelector方法：" class="headerlink" title="一、performSelector方法："></a>一、performSelector方法：</h4><p>[self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0f];</p>
+<p>特点: 此方式要求必须在主线程中执行，否则无效。 是一种非阻塞的执行方式， 暂时未找到取消执行的方法。</p>
+<hr>
+<h4 id="二、定时器-NSTimer："><a href="#二、定时器-NSTimer：" class="headerlink" title="二、定时器:NSTimer："></a>二、定时器:NSTimer：</h4><p>[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(delayMethod) userInfo:nil repeats:NO];</p>
+<p>特点: 此方式要求必须在主线程中执行，否则无效。 是一种非阻塞的执行方式， 可以通过NSTimer类的- (void)invalidate;取消执行</p>
+<hr>
+<h4 id="三、sleep方式："><a href="#三、sleep方式：" class="headerlink" title="三、sleep方式："></a>三、sleep方式：</h4><p>[NSThread sleepForTimeInterval:1.0f];</p>
+<p>特点: 此方式在主线程和子线程中均可执行。 是一种阻塞的执行方式，建议放到子线程中，以免卡住界面 没有找到取消执行的方法</p>
+<hr>
+<h4 id="四、GCD方式："><a href="#四、GCD方式：" class="headerlink" title="四、GCD方式："></a>四、GCD方式：</h4><p>dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ dispatch_async(dispatch_get_main_queue(), ^{ [self delayMethod]; }); });</p>
+<p>特点: 此方式可以在参数中选择执行的线程。 是一种非阻塞的执行方式， 没有找到取消执行的方法。</p>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>知天高，行渐远。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/02/16/RunTime-iOS-Exm/">
+        iOS RunTime实例+代码 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/02/16/iOS-n-DoTme/" data-title="浅谈iOS延迟执行的几种方式以及比较" data-url="http://yoursite.com/2017/02/16/iOS-n-DoTme/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
