@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>iOS RunTime实例+代码 | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(62)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-02-16T13:29:29.000Z" itemprop="datePublished">
+          2017-02-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>iOS RunTime实例+代码</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#经常有被提及的Runtime机制，特意整理了下相关的资料。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="Runtime-常见的使用有：（本文将详细用代码展示）"><a href="#Runtime-常见的使用有：（本文将详细用代码展示）" class="headerlink" title="Runtime 常见的使用有：（本文将详细用代码展示）"></a>Runtime 常见的使用有：（本文将详细用代码展示）</h4><p>1.动态创建一个类(比如KVO的底层实现)</p>
+<p>2.动态地为某个类添加属性\方法, 修改属性值\方法</p>
+<p>3.遍历一个类的所有成员变量(属性)\所有方法</p>
+<p>4.动态交换两个方法的实现</p>
+<p>5.实现分类也可以添加属性</p>
+<p>6.实现NSCoding的自动归档和解档</p>
+<p>7.实现字典转模型的自动转换</p>
+<p>8.Hook拦截</p>
+<hr>
+<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line">#import &lt;objc/runtime.h&gt;</div><div class="line">#import &quot;Teacher.h&quot;</div><div class="line">#import &quot;WZLSerializeKit.h&quot;</div><div class="line">[@interface](https://my.oschina.net/u/996807) ViewController ()</div><div class="line">[@end](https://my.oschina.net/u/567204)</div><div class="line">@implementation ViewController</div><div class="line">- (void)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">#pragma mark - 创建类、添加实例变量、添加实例方法</div><div class="line">    // 新建Person类</div><div class="line">    Class Person = objc_allocateClassPair([NSObject class], &quot;Person&quot;, 0);</div><div class="line">    // 给Person类添加一个NSString类型的实例变量（instance variable），第四个参数是对其方式，第五个参数是参数类型</div><div class="line">    class_addIvar(Person, &quot;name&quot;, sizeof(NSString *), 0, &quot;@&quot;);</div><div class="line">    // 添加属性</div><div class="line">    objc_property_attribute_t type = &#123;&quot;T&quot;, &quot;@\&quot;NSString\&quot;&quot;&#125;;</div><div class="line">    objc_property_attribute_t ownership = &#123; &quot;C&quot;, &quot;&quot; &#125;;</div><div class="line">    objc_property_attribute_t backingivar = &#123; &quot;V&quot;, &quot;_ivar1&quot;&#125;;</div><div class="line">    objc_property_attribute_t attrs[] = &#123;type, ownership, backingivar&#125;;</div><div class="line">    class_addProperty(Person, &quot;property2&quot;, attrs, 3);</div><div class="line">    // 给Person类添加一个实例方法（instance method）</div><div class="line">    // &quot;v@:@&quot;,解释v-返回值void类型,@-self指针id类型,:-SEL指针SEL类型</div><div class="line">    class_addMethod(Person, @selector(getName), (IMP)getName, &quot;v@:&quot;);</div><div class="line">    // v@:@&quot;,解释v-返回值void类型,@-self指针id类型,:-SEL指针SEL类型,@-函数第一个参数为id类型</div><div class="line">    class_addMethod(Person, @selector(setName:), (IMP)setName, &quot;v@:@&quot;);</div><div class="line">    // 注册Person类后才可使用</div><div class="line">    objc_registerClassPair(Person);</div><div class="line">    // 实例化一个Person类对象</div><div class="line">    id person = [[Person alloc] init];</div><div class="line">    // 设置实例变量的值</div><div class="line">    [person setValue:@&quot;jacedy&quot; forKey:@&quot;name&quot;];</div><div class="line">//    object_setInstanceVariable(person, &quot;name&quot;, (void *)&amp;str);在ARC下不允许使用</div><div class="line">    // 调用getName方法</div><div class="line">    NSLog(@&quot;nameValue: %@&quot;, [person getName]);  // objc_msgSend(person, @selector(getName))</div><div class="line">    // 重置name值</div><div class="line">    [person setName:@&quot;jabit&quot;];</div><div class="line">    NSLog(@&quot;nameValue: %@&quot;, [person performSelector:@selector(getName)]);</div><div class="line">#pragma mark - 遍历实例变量、属性、实例方法</div><div class="line">    // 遍历所有实例变量</div><div class="line">    unsigned int ivarCount = 0;</div><div class="line">    Ivar *ivars = class_copyIvarList([Person class], &amp;ivarCount);</div><div class="line">    for (int i = 0; i &lt; ivarCount; i++)</div><div class="line">    &#123;</div><div class="line">        Ivar ivar = ivars[i];</div><div class="line">        NSLog(@&quot;变量名:%s&quot;, ivar_getName(ivar));</div><div class="line">    &#125;</div><div class="line">    // 遍历所有属性(这里已为UIImage类添加了一个sexProperty属性）</div><div class="line">    unsigned int propertyCount = 0;</div><div class="line">    objc_property_t *propertys = class_copyPropertyList([UIImage class], &amp;propertyCount);</div><div class="line">    for (int i = 0; i &lt; propertyCount; i++) &#123;</div><div class="line">        objc_property_t property = propertys[i];</div><div class="line">        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];</div><div class="line">        if ([propertyName isEqualToString:@&quot;sexProperty&quot;]) &#123;</div><div class="line">            NSLog(@&quot;属性名 %s found&quot;, property_getName(property));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    // 遍历所有实例方法</div><div class="line">    unsigned int methodCount = 0;</div><div class="line">    Method *methods = class_copyMethodList([Person class], &amp;methodCount);</div><div class="line">    for (int i = 0; i &lt; methodCount; i++) &#123;</div><div class="line">        Method method = methods[i];</div><div class="line">        SEL selector = method_getName(method);</div><div class="line">        NSLog(@&quot;方法名:%@&quot;, NSStringFromSelector(selector));</div><div class="line">    &#125;</div><div class="line">#pragma mark - 交换两个方法测试</div><div class="line">    [UIImage imageNamed:@&quot;123456789.png&quot;];</div><div class="line">#pragma mark - 编码与解码</div><div class="line">    Teacher *teacher = [[Teacher alloc] init];</div><div class="line">    teacher.name = @&quot;jacedy&quot;;</div><div class="line">    teacher.age = 18;</div><div class="line">    [teacher setValue:@&quot;jabit&quot; forKey:@&quot;_father&quot;];</div><div class="line">    //set value of superClass</div><div class="line">    teacher.introInBiology = @&quot;I am a biology on earth&quot;;</div><div class="line">    //[teacher setValue:@(10000) forKey:@&quot;_hairCountInBiology&quot;];//no access to private instance in super</div><div class="line">    NSLog(@&quot;Before archiver:\n%@&quot;, [teacher description]);</div><div class="line">    WZLSERIALIZE_ARCHIVE(teacher, @&quot;Teacher&quot;, [self filePath]);</div><div class="line">    Teacher *theTeacher = nil;</div><div class="line">    WZLSERIALIZE_UNARCHIVE(theTeacher, @&quot;Teacher&quot;, [self filePath]);</div><div class="line">    Teacher *copyTeacher = [teacher copy];</div><div class="line">    NSLog(@&quot;copyTeacher:%@&quot;, [copyTeacher description]);</div><div class="line">#pragma mark - Hook</div><div class="line">    Method m1 = class_getInstanceMethod([self class], @selector(viewWillAppear:));</div><div class="line">    Method m2 = class_getInstanceMethod([self class], @selector(jk_viewWillAppear:));</div><div class="line">    BOOL isSuccess = class_addMethod([self class], @selector(viewWillAppear:), method_getImplementation(m2), method_getTypeEncoding(m2));</div><div class="line">    if (isSuccess) &#123;</div><div class="line">        // 添加成功：说明源方法m1现在的实现为交换方法m2的实现，现在将源方法m1的实现替换到交换方法m2中</div><div class="line">        class_replaceMethod([self class], @selector(jk_viewWillAppear:), method_getImplementation(m1), method_getTypeEncoding(m1));</div><div class="line">    &#125;else &#123;</div><div class="line">        //添加失败：说明源方法已经有实现，直接将两个方法的实现交换即</div><div class="line">        method_exchangeImplementations(m1, m2);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">-(void)viewWillAppear:(BOOL)animated &#123;</div><div class="line">    [super viewWillAppear:animated];</div><div class="line">    NSLog(@&quot;viewWillAppear&quot;);</div><div class="line">&#125;</div><div class="line">- (void)jk_viewWillAppear:(BOOL)animated &#123;</div><div class="line">    NSLog(@&quot;Hook : 拦截到viewwillApear的实现，在其基础上添加了这行代码&quot;);</div><div class="line">    [self jk_viewWillAppear:YES];</div><div class="line">&#125;</div><div class="line">#pragma mark - 变量name的get方法</div><div class="line">// 这个方法实际上没有被调用,但是必须实现否则不会调用下面的方法</div><div class="line">- (id)getName</div><div class="line">&#123;</div><div class="line">    NSLog(@&quot;getName called&quot;);</div><div class="line">    // 获取实例变量</div><div class="line">    Ivar nameIvar = class_getInstanceVariable([self class], &quot;name&quot;);</div><div class="line">    // 获取实例变量的值</div><div class="line">    id name = object_getIvar(self, nameIvar);</div><div class="line">    return name;</div><div class="line">&#125;</div><div class="line">// 实际调用的是这个方法</div><div class="line">static id getName(id self, SEL _cmd) //self和_cmd是必须的，在之后可以随意添加其他参数</div><div class="line">&#123;</div><div class="line">    NSLog(@&quot;static getName called&quot;);</div><div class="line">    // 获取实例变量</div><div class="line">    Ivar nameIvar = class_getInstanceVariable([self class], &quot;name&quot;);</div><div class="line">    // 获取实例变量的值</div><div class="line">    id name = object_getIvar(self, nameIvar);</div><div class="line">    return name;</div><div class="line">&#125;</div><div class="line">#pragma mark - 变量name的set方法</div><div class="line">- (void)setName:(id)name</div><div class="line">&#123;</div><div class="line">    NSLog(@&quot;setName called&quot;);</div><div class="line">    // 获取实例变量</div><div class="line">    Ivar nameIvar = class_getInstanceVariable([self class], &quot;name&quot;);</div><div class="line">    // 设置实例变量的值</div><div class="line">    object_setIvar(self, nameIvar, name);</div><div class="line">&#125;</div><div class="line">static void setName(id self, SEL _cmd, id name) //self和_cmd是必须的，在之后可以随意添加其他参数</div><div class="line">&#123;</div><div class="line">    NSLog(@&quot;static setName called&quot;);</div><div class="line">    // 获取实例变量</div><div class="line">    Ivar nameIvar = class_getInstanceVariable([self class], &quot;name&quot;);</div><div class="line">    // 设置实例变量的值</div><div class="line">    object_setIvar(self, nameIvar, name);</div><div class="line">&#125;</div><div class="line">#pragma mark - 测试方法</div><div class="line">- (void)firstMethod &#123;</div><div class="line">    NSLog(@&quot;firstMethod&quot;);</div><div class="line">&#125;</div><div class="line">- (void)secondMethod &#123;</div><div class="line">    NSLog(@&quot;secondMethod&quot;);</div><div class="line">&#125;</div><div class="line">- (void)thirdMethod &#123;</div><div class="line">    NSLog(@&quot;thirdMethod&quot;);</div><div class="line">&#125;</div><div class="line">- (void)fourthMethod &#123;</div><div class="line">    NSLog(@&quot;fourthMethod&quot;);</div><div class="line">&#125;</div><div class="line">- (NSString *)filePath</div><div class="line">&#123;</div><div class="line">    NSString *archiverFilePath = [NSString stringWithFormat:@&quot;%@/archiver&quot;, NSHomeDirectory()];</div><div class="line">    return archiverFilePath;</div><div class="line">&#125;</div><div class="line">/*</div><div class="line"> struct objc_class &#123;</div><div class="line"> Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line"> #if !__OBJC2__</div><div class="line"> Class super_class                       OBJC2_UNAVAILABLE;  // 父类</div><div class="line"> const char *name                        OBJC2_UNAVAILABLE;  // 类名</div><div class="line"> long version                            OBJC2_UNAVAILABLE;  // 类的版本信息，默认为0</div><div class="line"> long info                               OBJC2_UNAVAILABLE;  // 类信息，供运行期使用的一些位标识</div><div class="line"> long instance_size                      OBJC2_UNAVAILABLE;  // 该类的实例变量大小</div><div class="line"> struct objc_ivar_list *ivars            OBJC2_UNAVAILABLE;  // 该类的成员变量链表</div><div class="line"> struct objc_method_list **methodLists   OBJC2_UNAVAILABLE;  // 方法定义的链表</div><div class="line"> struct objc_cache *cache                OBJC2_UNAVAILABLE;  // 方法缓存</div><div class="line"> struct objc_protocol_list *protocols    OBJC2_UNAVAILABLE;  // 协议链表</div><div class="line"> #endif</div><div class="line"> &#125; OBJC2_UNAVAILABLE;</div><div class="line"> &gt;&gt;为什么Class的第一个成员也是Class呢，它的内存布局岂不是和底下的object一样了？其实这就是类对象（class object）与实例对象（instance object）的区别了。</div><div class="line"> Object-C对类对象与实例对象中的 isa 所指向的类结构作了不同的命名：类对象中的 isa 指向类结构被称作 metaclass，metaclass 存储类的static类成员变量与static类成员方法（+开头的方法）；实例对象中的 isa 指向类结构称作 class（普通的），class 结构存储类的普通成员变量与普通成员方法（-开头的方法）.</div><div class="line"> **************</div><div class="line"> struct objc_object &#123;</div><div class="line"> Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line"> &#125;;</div><div class="line"> typedef struct objc_object *id;</div><div class="line"> &gt;&gt; id可以用来表示任意一个对象，它是一个 objc_object 结构类型的指针，其第一个成员是一个 objc_class 结构类型的指针。</div><div class="line"> 一个对象（Object）的isa指向了这个对象的类（Class），而这个对象的类（Class）的isa指向了metaclass。这样我们就可以找到静态方法和变量了。</div><div class="line"> **************</div><div class="line"> // 获取类中指定名称实例成员变量的信息</div><div class="line"> Ivar class_getInstanceVariable ( Class cls, const char *name );</div><div class="line"> // 获取类成员变量的信息</div><div class="line"> Ivar class_getClassVariable ( Class cls, const char *name );</div><div class="line"> // 添加成员变量</div><div class="line"> BOOL class_addIvar ( Class cls, const char *name, size_t size, uint8_t alignment, const char *types );</div><div class="line"> // 获取实例方法</div><div class="line"> Method class_getInstanceMethod ( Class cls, SEL name );</div><div class="line"> // 获取类方法</div><div class="line"> Method class_getClassMethod ( Class cls, SEL name );</div><div class="line"> */</div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<hr>
+<div align="center">Runtime 实例:<br><a href="https://github.com/Jacedy/Runtime" target="_blank" rel="external"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/02/16/Tesla-App/">
+        特斯拉应用设计版图 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/02/16/RunTime-iOS-Exm/" data-title="iOS RunTime实例+代码" data-url="http://yoursite.com/2017/02/16/RunTime-iOS-Exm/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
