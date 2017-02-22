@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>iOS中几种数据持久化方案 | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(66)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-02-22T03:46:05.000Z" itemprop="datePublished">
+          2017-02-22
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>iOS中几种数据持久化方案</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#所谓的持久化，就是将数据保存到硬盘中，使得在应用程序或机器重启后可以继续访问之前保存的数据。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>在iOS开发中，有很多数据持久化的方案，接下来我将尝试着介绍一下5种方案：</p>
+<ul>
+<li>plist文件（属性列表）</li>
+<li>preference（偏好设置）</li>
+<li>NSKeyedArchiver（归档）</li>
+<li>SQLite 3</li>
+<li>CoreData</li>
+</ul>
+<hr>
+<h4 id="沙盒"><a href="#沙盒" class="headerlink" title="沙盒"></a>沙盒</h4><p>在介绍各种存储方法之前，有必要说明以下沙盒机制。iOS程序默认情况下只能访问程序自己的目录，这个目录被称为“沙盒”。</p>
+<p><strong>1.结构</strong></p>
+<p>既然沙盒就是一个文件夹，那就看看里面有什么吧。沙盒的目录结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 应用程序包</div><div class="line">Documents</div><div class="line">Library</div><div class="line">    Caches</div><div class="line">    Preferences</div><div class="line">tmp</div></pre></td></tr></table></figure>
+<p><strong>2.目录特性</strong></p>
+<p>虽然沙盒中有这么多文件夹，但是没有文件夹都不尽相同，都有各自的特性。所以在选择存放目录时，一定要认真选择适合的目录。</p>
+<p>“应用程序包”: 这里面存放的是应用程序的源文件，包括资源文件和可执行文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *path = [[NSBundle mainBundle] bundlePath];</div><div class="line">NSLog(@&quot;%@&quot;, path);</div></pre></td></tr></table></figure>
+<p>Documents: 最常用的目录，iTunes同步该应用时会同步此文件夹中的内容，适合存储重要数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</div><div class="line">NSLog(@&quot;%@&quot;, path);</div></pre></td></tr></table></figure>
+<p>Library/Caches: iTunes不会同步此文件夹，适合存储体积大，不需要备份的非重要数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;</div><div class="line">NSLog(@&quot;%@&quot;, path);</div></pre></td></tr></table></figure>
+<p>Library/Preferences: iTunes同步该应用时会同步此文件夹中的内容，通常保存应用的设置信息。</p>
+<p>tmp: iTunes不会同步此文件夹，系统可能在应用没运行时就删除该目录下的文件，所以此目录适合保存应用中的一些临时文件，用完就删除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *path = NSTemporaryDirectory();</div><div class="line">NSLog(@&quot;%@&quot;, path);</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="plist文件"><a href="#plist文件" class="headerlink" title="plist文件"></a>plist文件</h4><p>plist文件是将某些特定的类，通过XML文件的方式保存在目录中。</p>
+<p>可以被序列化的类型只有如下几种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">NSArray;</div><div class="line">NSMutableArray;</div><div class="line">NSDictionary;</div><div class="line">NSMutableDictionary;</div><div class="line">NSData;</div><div class="line">NSMutableData;</div><div class="line">NSString;</div><div class="line">NSMutableString;</div><div class="line">NSNumber;</div><div class="line">NSDate;</div></pre></td></tr></table></figure>
+<p><strong>1.获得文件路径</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;</div><div class="line">    NSString *fileName = [path stringByAppendingPathComponent:@&quot;123.plist&quot;];</div></pre></td></tr></table></figure></p>
+<p><strong>2.存储</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSArray *array = @[@&quot;123&quot;, @&quot;456&quot;, @&quot;789&quot;];</div><div class="line">[array writeToFile:fileName atomically:YES];</div></pre></td></tr></table></figure></p>
+<p><strong>3.读取</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSArray *result = [NSArray arrayWithContentsOfFile:fileName];</div><div class="line">NSLog(@&quot;%@&quot;, result);</div></pre></td></tr></table></figure></p>
+<p><strong>注意</strong></p>
+<ul>
+<li>只有以上列出的类型才能使用plist文件存储。</li>
+<li>存储时使用writeToFile: atomically:方法。 其中atomically表示是否需要先写入一个辅助文件，再把辅助文件拷贝到目标文件地址。这是更安全的写入文件方法，一般都写YES。</li>
+<li>读取时使用arrayWithContentsOfFile:方法。</li>
+</ul>
+<hr>
+<h4 id="Preference"><a href="#Preference" class="headerlink" title="Preference"></a>Preference</h4><p><strong>1.使用方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//1.获得NSUserDefaults文件</div><div class="line">NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];</div><div class="line">//2.向文件中写入内容</div><div class="line">[userDefaults setObject:@&quot;AAA&quot; forKey:@&quot;a&quot;];</div><div class="line">[userDefaults setBool:YES forKey:@&quot;sex&quot;];</div><div class="line">[userDefaults setInteger:21 forKey:@&quot;age&quot;];</div><div class="line">//2.1立即同步</div><div class="line">[userDefaults synchronize];</div><div class="line">//3.读取文件</div><div class="line">NSString *name = [userDefaults objectForKey:@&quot;a&quot;];</div><div class="line">BOOL sex = [userDefaults boolForKey:@&quot;sex&quot;];</div><div class="line">NSInteger age = [userDefaults integerForKey:@&quot;age&quot;];</div><div class="line">NSLog(@&quot;%@, %d, %ld&quot;, name, sex, age);</div></pre></td></tr></table></figure>
+<p><strong>注意</strong></p>
+<ul>
+<li>偏好设置是专门用来保存应用程序的配置信息的，一般不要在偏好设置中保存其他数据。</li>
+<li>如果没有调用synchronize方法，系统会根据I/O情况不定时刻地保存到文件中。所以如果需要立即写入文件的就必须调用synchronize方法。</li>
+<li>偏好设置会将所有数据保存到同一个文件中。即preference目录下的一个以此应用包名来命名的plist文件。</li>
+</ul>
+<hr>
+<h4 id="NSKeyedArchiver"><a href="#NSKeyedArchiver" class="headerlink" title="NSKeyedArchiver"></a>NSKeyedArchiver</h4><p>归档在iOS中是另一种形式的序列化，只要遵循了NSCoding协议的对象都可以通过它实现序列化。由于决大多数支持存储数据的Foundation和Cocoa Touch类都遵循了NSCoding协议，因此，对于大多数类来说，归档相对而言还是比较容易实现的。</p>
+<p><strong>1.遵循NSCoding协议</strong></p>
+<p>NSCoding协议声明了两个方法，这两个方法都是必须实现的。一个用来说明如何将对象编码到归档中，另一个说明如何进行解档来获取一个新对象。</p>
+<ul>
+<li>遵循协议和设置属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//1.遵循NSCoding协议</div><div class="line">  @interface Person : NSObject   //2.设置属性</div><div class="line">  @property (strong, nonatomic) UIImage *avatar;</div><div class="line">  @property (copy, nonatomic) NSString *name;</div><div class="line">  @property (assign, nonatomic) NSInteger age;</div><div class="line">  @end</div></pre></td></tr></table></figure>
+<ul>
+<li>实现协议方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//解档</div><div class="line">  - (id)initWithCoder:(NSCoder *)aDecoder &#123;</div><div class="line">      if ([super init]) &#123;</div><div class="line">          self.avatar = [aDecoder decodeObjectForKey:@&quot;avatar&quot;];</div><div class="line">          self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];</div><div class="line">          self.age = [aDecoder decodeIntegerForKey:@&quot;age&quot;];</div><div class="line">      &#125;</div><div class="line">      return self;</div><div class="line">  &#125;</div><div class="line">  //归档</div><div class="line">  - (void)encodeWithCoder:(NSCoder *)aCoder &#123;</div><div class="line">      [aCoder encodeObject:self.avatar forKey:@&quot;avatar&quot;];</div><div class="line">      [aCoder encodeObject:self.name forKey:@&quot;name&quot;];</div><div class="line">      [aCoder encodeInteger:self.age forKey:@&quot;age&quot;];</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>特别注意</li>
+</ul>
+<p>如果需要归档的类是某个自定义类的子类时，就需要在归档和解档之前先实现父类的归档和解档方法。即 [super encodeWithCoder:aCoder] 和 [super initWithCoder:aDecoder] 方法;</p>
+<p><strong>2.使用</strong></p>
+<p>需要把对象归档是调用NSKeyedArchiver的工厂方法 archiveRootObject: toFile: 方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</div><div class="line">  Person *person = [[Person alloc] init];</div><div class="line">  person.avatar = self.avatarView.image;</div><div class="line">  person.name = self.nameField.text;</div><div class="line">  person.age = [self.ageField.text integerValue];</div><div class="line">  [NSKeyedArchiver archiveRootObject:person toFile:file];</div></pre></td></tr></table></figure>
+<p>需要从文件中解档对象就调用NSKeyedUnarchiver的一个工厂方法 unarchiveObjectWithFile: 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.data&quot;];</div><div class="line">  Person *person = [NSKeyedUnarchiver unarchiveObjectWithFile:file];</div><div class="line">  if (person) &#123;</div><div class="line">     self.avatarView.image = person.avatar;</div><div class="line">     self.nameField.text = person.name;</div><div class="line">     self.ageField.text = [NSString stringWithFormat:@&quot;%ld&quot;, person.age];</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p><strong>注意</strong></p>
+<ul>
+<li>必须遵循并实现NSCoding协议</li>
+<li>保存文件的扩展名可以任意指定</li>
+<li>继承时必须先调用父类的归档解档方法</li>
+</ul>
+<hr>
+<h4 id="SQLite3"><a href="#SQLite3" class="headerlink" title="SQLite3"></a>SQLite3</h4><p>之前的所有存储方法，都是覆盖存储。如果想要增加一条数据就必须把整个文件读出来，然后修改数据后再把整个内容覆盖写入文件。所以它们都不适合存储大量的内容。<br><strong>1.字段类型</strong><br>表面上SQLite将数据分为以下几种类型：</p>
+<ul>
+<li>integer : 整数</li>
+<li>real : 实数（浮点数）</li>
+<li>text : 文本字符串</li>
+<li>blob : 二进制数据，比如文件，图片之类的</li>
+</ul>
+<p>实际上SQLite是无类型的。即不管你在创表时指定的字段类型是什么，存储是依然可以存储任意类型的数据。而且在创表时也可以不指定字段类型。SQLite之所以什么类型就是为了良好的编程规范和方便开发人员交流，所以平时在使用时最好设置正确的字段类型！主键必须设置成integer。</p>
+<p><strong>2. 准备工作</strong><br>准备工作就是导入依赖库啦，在iOS中要使用SQLite3，需要添加库文件：libsqlite3.dylib并导入主头文件，这是一个C语言的库，所以直接使用SQLite3还是比较麻烦的。</p>
+<p><strong>3.使用</strong></p>
+<ul>
+<li>创建数据库并打开</li>
+</ul>
+<p>操作数据库之前必须先指定数据库文件和要操作的表，所以使用SQLite3，首先要打开数据库文件，然后指定或创建一张表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">*  打开数据库并创建一个表</div><div class="line">*/</div><div class="line">- (void)openDatabase &#123;</div><div class="line">   //1.设置文件名</div><div class="line">   NSString *filename = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.db&quot;];</div><div class="line">   //2.打开数据库文件，如果没有会自动创建一个文件</div><div class="line">   NSInteger result = sqlite3_open(filename.UTF8String, &amp;_sqlite3);</div><div class="line">   if (result == SQLITE_OK) &#123;</div><div class="line">       NSLog(@&quot;打开数据库成功！&quot;);</div><div class="line">       //3.创建一个数据库表</div><div class="line">       char *errmsg = NULL;</div><div class="line">       sqlite3_exec(_sqlite3, &quot;CREATE TABLE IF NOT EXISTS t_person(id integer primary key autoincrement, name text, age integer)&quot;, NULL, NULL, &amp;errmsg);</div><div class="line">       if (errmsg) &#123;</div><div class="line">           NSLog(@&quot;错误：%s&quot;, errmsg);</div><div class="line">       &#125; else &#123;</div><div class="line">           NSLog(@&quot;创表成功！&quot;);</div><div class="line">       &#125;</div><div class="line">   &#125; else &#123;</div><div class="line">       NSLog(@&quot;打开数据库失败！&quot;);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>执行指令</li>
+</ul>
+<p>使用 sqlite3_exec() 方法可以执行任何SQL语句，比如创表、更新、插入和删除操作。但是一般不用它执行查询语句，因为它不会返回查询到的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">*  往表中插入1000条数据</div><div class="line">*/</div><div class="line">- (void)insertData &#123;</div><div class="line">NSString *nameStr;</div><div class="line">NSInteger age;</div><div class="line">for (NSInteger i = 0; i &lt; 1000; i++) &#123;</div><div class="line">  nameStr = [NSString stringWithFormat:@&quot;Bourne-%d&quot;, arc4random_uniform(10000)];</div><div class="line">  age = arc4random_uniform(80) + 20;</div><div class="line">  NSString *sql = [NSString stringWithFormat:@&quot;INSERT INTO t_person (name, age) VALUES(&apos;%@&apos;, &apos;%ld&apos;)&quot;, nameStr, age];</div><div class="line">  char *errmsg = NULL;</div><div class="line">  sqlite3_exec(_sqlite3, sql.UTF8String, NULL, NULL, &amp;errmsg);</div><div class="line">  if (errmsg) &#123;</div><div class="line">      NSLog(@&quot;错误：%s&quot;, errmsg);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">NSLog(@&quot;插入完毕！&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>查询指令</li>
+</ul>
+<p>前面说过一般不使用 sqlite3_exec() 方法查询数据。因为查询数据必须要获得查询结果，所以查询相对比较麻烦。</p>
+<ul>
+<li><p>sqlite3_prepare_v2() : 检查sql的合法性</p>
+</li>
+<li><p>sqlite3_step() : 逐行获取查询结果，不断重复，直到最后一条记录</p>
+</li>
+<li><p>sqlite3_coloum_xxx() : 获取对应类型的内容，iCol对应的就是SQL语句中字段的顺序，从0开始。根据实际查询字段的属性，使用sqlite3_column_xxx取得对应的内容即可。</p>
+</li>
+<li><p>sqlite3_finalize() : 释放stmt</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">**</div><div class="line">*  从表中读取数据到数组中</div><div class="line">*/</div><div class="line">- (void)readData &#123;</div><div class="line">   NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:1000];</div><div class="line">   char *sql = &quot;select name, age from t_person;&quot;;</div><div class="line">   sqlite3_stmt *stmt;</div><div class="line">   NSInteger result = sqlite3_prepare_v2(_sqlite3, sql, -1, &amp;stmt, NULL);</div><div class="line">   if (result == SQLITE_OK) &#123;</div><div class="line">       while (sqlite3_step(stmt) == SQLITE_ROW) &#123;</div><div class="line">           char *name = (char *)sqlite3_column_text(stmt, 0);</div><div class="line">           NSInteger age = sqlite3_column_int(stmt, 1);</div><div class="line">           //创建对象</div><div class="line">           Person *person = [Person personWithName:[NSString stringWithUTF8String:name] Age:age];</div><div class="line">           [mArray addObject:person];</div><div class="line">       &#125;</div><div class="line">       self.dataList = mArray;</div><div class="line">   &#125;</div><div class="line">   sqlite3_finalize(stmt);</div></pre></td></tr></table></figure>
+<p><strong>4.总结</strong><br>总得来说，SQLite3的使用还是比较麻烦的，因为都是些c语言的函数，理解起来有些困难。不过在一般开发过程中，使用的都是第三方开源库 FMDB，封装了这些基本的c语言方法，使得我们在使用时更加容易理解，提高开发效率。</p>
+<hr>
+<h4 id="FMDB"><a href="#FMDB" class="headerlink" title="FMDB"></a>FMDB</h4><p><strong>1.简介</strong><br>FMDB是iOS平台的SQLite数据库框架，它是以OC的方式封装了SQLite的C语言API，它相对于cocoa自带的C语言框架有如下的优点:</p>
+<ul>
+<li>使用起来更加面向对象，省去了很多麻烦、冗余的C语言代码</li>
+<li>对比苹果自带的Core Data框架，更加轻量级和灵活</li>
+<li>提供了多线程安全的数据库操作方法，有效地防止数据混乱</li>
+</ul>
+<p>注：FMDB的gitHub地址（<a href="https://github.com/ccgus/fmdb）" target="_blank" rel="external">https://github.com/ccgus/fmdb）</a><br><strong>2.核心类</strong><br>FMDB有三个主要的类：</p>
+<ul>
+<li><p>FMDatabase<br>一个FMDatabase对象就代表一个单独的SQLite数据库，用来执行SQL语句</p>
+</li>
+<li><p>FMResultSet<br>使用FMDatabase执行查询后的结果集</p>
+</li>
+<li><p>FMDatabaseQueue<br>用于在多线程中执行多个查询或更新，它是线程安全的</p>
+</li>
+</ul>
+<p><strong>3.打开数据库</strong></p>
+<p>和c语言框架一样，FMDB通过指定SQLite数据库文件路径来创建FMDatabase对象，但FMDB更加容易理解，使用起来更容易，使用之前一样需要导入sqlite3.dylib。打开数据库方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@&quot;person.db&quot;];</div><div class="line">FMDatabase *database = [FMDatabase databaseWithPath:path];    </div><div class="line">if (![database open]) &#123;</div><div class="line">    NSLog(@&quot;数据库打开失败！&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>值得注意的是，Path的值可以传入以下三种情况：</p>
+<ul>
+<li><p>具体文件路径，如果不存在会自动创建</p>
+</li>
+<li><p>空字符串@””，会在临时目录创建一个空的数据库，当FMDatabase连接关闭时，数据库文件也被删除</p>
+</li>
+<li><p>nil，会创建一个内存中临时数据库，当FMDatabase连接关闭时，数据库会被销毁</p>
+</li>
+</ul>
+<p><strong>4.更新</strong><br>在FMDB中，除查询以外的所有操作，都称为“更新”, 如：create、drop、insert、update、delete等操作，使用executeUpdate:方法执行更新：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//常用方法有以下3种：   </div><div class="line">- (BOOL)executeUpdate:(NSString*)sql, ...</div><div class="line">- (BOOL)executeUpdateWithFormat:(NSString*)format, ...</div><div class="line">- (BOOL)executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray *)arguments</div><div class="line">//示例</div><div class="line">[database executeUpdate:@&quot;CREATE TABLE IF NOT EXISTS t_person(id integer primary key autoincrement, name text, age integer)&quot;];   </div><div class="line">//或者  </div><div class="line">[database executeUpdate:@&quot;INSERT INTO t_person(name, age) VALUES(?, ?)&quot;, @&quot;Bourne&quot;, [NSNumber numberWithInt:42]];</div></pre></td></tr></table></figure></p>
+<p><strong>5.查询</strong><br>查询方法也有3种，使用起来相当简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (FMResultSet *)executeQuery:(NSString*)sql, ...</div><div class="line">- (FMResultSet *)executeQueryWithFormat:(NSString*)format, ...</div><div class="line">- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments</div></pre></td></tr></table></figure></p>
+<p>查询示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//1.执行查询</div><div class="line">FMResultSet *result = [database executeQuery:@&quot;SELECT * FROM t_person&quot;];</div><div class="line">//2.遍历结果集</div><div class="line">while ([result next]) &#123;</div><div class="line">    NSString *name = [result stringForColumn:@&quot;name&quot;];</div><div class="line">    int age = [result intForColumn:@&quot;age&quot;];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>6.线程安全</strong><br>在多个线程中同时使用一个FMDatabase实例是不明智的。不要让多个线程分享同一个FMDatabase实例，它无法在多个线程中同时使用。 如果在多个线程中同时使用一个FMDatabase实例，会造成数据混乱等问题。所以，请使用 FMDatabaseQueue，它是线程安全的。以下是使用方法：</p>
+<ul>
+<li><p>创建队列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:aPath];</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[queue inDatabase:^(FMDatabase *database) &#123;    </div><div class="line">          [database executeUpdate:@&quot;INSERT INTO t_person(name, age) VALUES (?, ?)&quot;, @&quot;Bourne_1&quot;, [NSNumber numberWithInt:1]];    </div><div class="line">          [database executeUpdate:@&quot;INSERT INTO t_person(name, age) VALUES (?, ?)&quot;, @&quot;Bourne_2&quot;, [NSNumber numberWithInt:2]];    </div><div class="line">          [database executeUpdate:@&quot;INSERT INTO t_person(name, age) VALUES (?, ?)&quot;, @&quot;Bourne_3&quot;, [NSNumber numberWithInt:3]];      </div><div class="line">          FMResultSet *result = [database executeQuery:@&quot;select * from t_person&quot;];    </div><div class="line">         while([result next]) &#123;   </div><div class="line">         &#125;    </div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>而且可以轻松地把简单任务包装到事务里：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[queue inTransaction:^(FMDatabase *database, BOOL *rollback) &#123;    </div><div class="line">          [database executeUpdate:@&quot;INSERT INTO t_person(name, age) VALUES (?, ?)&quot;, @&quot;Bourne_1&quot;, [NSNumber numberWithInt:1]];    </div><div class="line">          [database executeUpdate:@&quot;INSERT INTO t_person(name, age) VALUES (?, ?)&quot;, @&quot;Bourne_2&quot;, [NSNumber numberWithInt:2]];    </div><div class="line">          [database executeUpdate:@&quot;INSERT INTO t_person(name, age) VALUES (?, ?)&quot;, @&quot;Bourne_3&quot;, [NSNumber numberWithInt:3]];      </div><div class="line">          FMResultSet *result = [database executeQuery:@&quot;select * from t_person&quot;];    </div><div class="line">             while([result next]) &#123;   </div><div class="line">             &#125;   </div><div class="line">           //回滚</div><div class="line">           *rollback = YES;  </div><div class="line">    &#125;];</div></pre></td></tr></table></figure></p>
+<p>FMDatabaseQueue 后台会建立系列化的G-C-D队列，并执行你传给G-C-D队列的块。这意味着 你从多线程同时调用调用方法，GDC也会按它接收的块的顺序来执行。</p>
+<hr>
+<h4 id="CoreData"><a href="#CoreData" class="headerlink" title="CoreData"></a>CoreData</h4><p><strong>1.准备工作</strong></p>
+<ul>
+<li>创建数据库<ol>
+<li>新建文件，选择CoreData -&gt; DataModel</li>
+<li>添加实体（表），Add Entity</li>
+<li>给表中添加属性，点击Attributes下方的‘+’号</li>
+</ol>
+</li>
+<li>创建模型文件<ol>
+<li>新建文件，选择CoreData -&gt; NSManaged Object subclass</li>
+<li>根据提示，选择实体</li>
+</ol>
+</li>
+<li>通过代码，关联数据库和实体</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">   [super viewDidLoad];</div><div class="line">   /*</div><div class="line">    * 关联的时候，如果本地没有数据库文件，Ｃoreadata自己会创建</div><div class="line">   */</div><div class="line">   // 1. 上下文</div><div class="line">   NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];</div><div class="line">   // 2. 上下文关连数据库</div><div class="line">   // 2.1 model模型文件</div><div class="line">   NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];</div><div class="line">   // 2.2 持久化存储调度器</div><div class="line">   // 持久化，把数据保存到一个文件，而不是内存</div><div class="line">   NSPersistentStoreCoordinator *store = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];</div><div class="line">   // 2.3 设置CoreData数据库的名字和路径</div><div class="line">   NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];</div><div class="line">   NSString *sqlitePath = [doc stringByAppendingPathComponent:@&quot;company.sqlite&quot;];</div><div class="line">   [store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:sqlitePath] options:nil error:nil];</div><div class="line">   context.persistentStoreCoordinator = store;</div><div class="line">   _context = context;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>CoreData的基本操作（CURD）</strong></p>
+<ul>
+<li>添加元素 - Create</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-(IBAction)addEmployee&#123;</div><div class="line">   // 创建一个员工对象</div><div class="line">   //Employee *emp = [[Employee alloc] init]; 不能用此方法创建</div><div class="line">   Employee *emp = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Employee&quot; inManagedObjectContext:_context];</div><div class="line">   emp.name = @&quot;wangwu&quot;;</div><div class="line">   emp.height = @1.80;</div><div class="line">   emp.birthday = [NSDate date];</div><div class="line">   // 直接保存数据库</div><div class="line">   NSError *error = nil;</div><div class="line">   [_context save:&amp;error];</div><div class="line">   if (error) &#123;</div><div class="line">       NSLog(@&quot;%@&quot;,error);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>读取数据 - Read</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">-(IBAction)readEmployee&#123;</div><div class="line">      // 1.FetchRequest 获取请求对象</div><div class="line">      NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Employee&quot;];</div><div class="line">      // 2.设置过滤条件</div><div class="line">      // 查找zhangsan</div><div class="line">      NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;name = %@&quot;,</div><div class="line">                          @&quot;zhangsan&quot;];</div><div class="line">      request.predicate = pre;</div><div class="line">      // 3.设置排序</div><div class="line">      // 身高的升序排序</div><div class="line">      NSSortDescriptor *heigtSort = [NSSortDescriptor sortDescriptorWithKey:@&quot;height&quot; ascending:NO];</div><div class="line">      request.sortDescriptors = @[heigtSort];</div><div class="line">      // 4.执行请求</div><div class="line">      NSError *error = nil;</div><div class="line">      NSArray *emps = [_context executeFetchRequest:request error:&amp;error];</div><div class="line">      if (error) &#123;</div><div class="line">          NSLog(@&quot;error&quot;);</div><div class="line">      &#125;</div><div class="line">      //NSLog(@&quot;%@&quot;,emps);</div><div class="line">      //遍历员工</div><div class="line">      for (Employee *emp in emps) &#123;</div><div class="line">          NSLog(@&quot;名字 %@ 身高 %@ 生日 %@&quot;,emp.name,emp.height,emp.birthday);</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>修改数据 - Update</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">-(IBAction)updateEmployee&#123;</div><div class="line">   // 改变zhangsan的身高为2m</div><div class="line">   // 1.查找到zhangsan</div><div class="line">   // 1.1FectchRequest 抓取请求对象</div><div class="line">   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Employee&quot;];</div><div class="line">   // 1.2设置过滤条件</div><div class="line">   // 查找zhangsan</div><div class="line">   NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;name = %@&quot;, @&quot;zhangsan&quot;];</div><div class="line">   request.predicate = pre;</div><div class="line">   // 1.3执行请求</div><div class="line">   NSArray *emps = [_context executeFetchRequest:request error:nil];</div><div class="line">   // 2.更新身高</div><div class="line">   for (Employee *e in emps) &#123;</div><div class="line">       e.height = @2.0;</div><div class="line">   &#125;</div><div class="line">   // 3.保存</div><div class="line">   NSError *error = nil;</div><div class="line">   [_context save:&amp;error];</div><div class="line">   if (error) &#123;</div><div class="line">       NSLog(@&quot;%@&quot;,error);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>删除数据 - Delete</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">-(IBAction)deleteEmployee&#123;</div><div class="line">   // 删除 lisi</div><div class="line">   // 1.查找lisi</div><div class="line">   // 1.1FectchRequest 抓取请求对象</div><div class="line">   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Employee&quot;];</div><div class="line">   // 1.2设置过滤条件</div><div class="line">   // 查找zhangsan</div><div class="line">   NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;name = %@&quot;,</div><div class="line">                       @&quot;lisi&quot;];</div><div class="line">   request.predicate = pre;</div><div class="line">   // 1.3执行请求</div><div class="line">   NSArray *emps = [_context executeFetchRequest:request error:nil];</div><div class="line">   // 2.删除</div><div class="line">   for (Employee *e in emps) &#123;</div><div class="line">       [_context deleteObject:e];</div><div class="line">   &#125;</div><div class="line">   // 3.保存</div><div class="line">   NSError *error = nil;</div><div class="line">   [_context save:&amp;error];</div><div class="line">   if (error) &#123;</div><div class="line">       NSLog(@&quot;%@&quot;,error);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>2.CoreData的表关联</strong></p>
+<ul>
+<li><p>创建数据库</p>
+<ol>
+<li>新建文件，选择CoreData -&gt; DataModel</li>
+<li>添加实体（表），Add Entity ， 注意：这里根据关联添加多个实体</li>
+<li>给表中添加属性，点击Attributes下方的‘+’号</li>
+</ol>
+</li>
+<li><p>创建模型文件</p>
+<ol>
+<li>新建文件，选择CoreData -&gt; NSManaged Object subclass</li>
+<li>根据提示，选择实体，注意：这里先选择被关联的实体，最后添加最上层的实体</li>
+</ol>
+</li>
+<li><p>通过代码，关联数据库和实体</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">   [super viewDidLoad];</div><div class="line">   /*</div><div class="line">    * 关联的时候，如果本地没有数据库文件，Ｃoreadata自己会创建</div><div class="line">    */</div><div class="line">   // 1. 上下文</div><div class="line">   NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];</div><div class="line">   // 2. 上下文关连数据库</div><div class="line">   // 2.1 model模型文件</div><div class="line">   NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];</div><div class="line">   // 2.2 持久化存储调度器</div><div class="line">   // 持久化，把数据保存到一个文件，而不是内存</div><div class="line">   NSPersistentStoreCoordinator *store = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];</div><div class="line">   // 2.3 设置CoreData数据库的名字和路径</div><div class="line">   NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];</div><div class="line">   NSString *sqlitePath = [doc stringByAppendingPathComponent:@&quot;company.sqlite&quot;];</div><div class="line">   [store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:sqlitePath] options:nil error:nil];</div><div class="line">   context.persistentStoreCoordinator = store;</div><div class="line">   _context = context;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>添加元素 - Create</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">-(IBAction)addEmployee&#123;</div><div class="line">   // 1. 创建两个部门 ios android</div><div class="line">   //1.1 iOS部门</div><div class="line">   Department *iosDepart = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Department&quot; inManagedObjectContext:_context];</div><div class="line">   iosDepart.name = @&quot;ios&quot;;</div><div class="line">   iosDepart.departNo = @&quot;0001&quot;;</div><div class="line">   iosDepart.createDate = [NSDate date];</div><div class="line">   //1.2 Android部门</div><div class="line">   Department *andrDepart = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Department&quot; inManagedObjectContext:_context];</div><div class="line">   andrDepart.name = @&quot;android&quot;;</div><div class="line">   andrDepart.departNo = @&quot;0002&quot;;</div><div class="line">   andrDepart.createDate = [NSDate date];</div><div class="line">   //2. 创建两个员工对象 zhangsan属于ios部门 lisi属于android部门</div><div class="line">   //2.1 zhangsan</div><div class="line">   Employee *zhangsan = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Employee&quot; inManagedObjectContext:_context];</div><div class="line">   zhangsan.name = @&quot;zhangsan&quot;;</div><div class="line">   zhangsan.height = @(1.90);</div><div class="line">   zhangsan.birthday = [NSDate date];</div><div class="line">   zhangsan.depart = iosDepart;</div><div class="line">   //2.2 lisi</div><div class="line">   Employee *lisi = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Employee&quot; inManagedObjectContext:_context];</div><div class="line">   lisi.name = @&quot;lisi&quot;;</div><div class="line">   lisi.height = @2.0;</div><div class="line">   lisi.birthday = [NSDate date];</div><div class="line">   lisi.depart = andrDepart;</div><div class="line">   //3. 保存数据库</div><div class="line">   NSError *error = nil;</div><div class="line">   [_context save:&amp;error];</div><div class="line">   if (error) &#123;</div><div class="line">       NSLog(@&quot;%@&quot;,error);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>读取信息 - Read</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">-(IBAction)readEmployee&#123;</div><div class="line">   // 读取ios部门的员工</div><div class="line">   // 1.FectchRequest 抓取请求对象</div><div class="line">   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Employee&quot;];</div><div class="line">   // 2.设置过滤条件</div><div class="line">   NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;depart.name = %@&quot;,@&quot;android&quot;];</div><div class="line">   request.predicate = pre;</div><div class="line">   // 4.执行请求</div><div class="line">   NSError *error = nil;</div><div class="line">   NSArray *emps = [_context executeFetchRequest:request error:&amp;error];</div><div class="line">   if (error) &#123;</div><div class="line">       NSLog(@&quot;error&quot;);</div><div class="line">   &#125;</div><div class="line">   //遍历员工</div><div class="line">   for (Employee *emp in emps) &#123;</div><div class="line">       NSLog(@&quot;名字 %@ 部门 %@&quot;,emp.name,emp.depart.name);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>注：其他功能与前几种类似，这里不在赘述</li>
+</ul>
+<p><strong>3.CoreData的模糊查询</strong></p>
+<p>准备工作和上面类似，主要是查询方式不同</p>
+<ul>
+<li>模糊查询</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">-(IBAction)readEmployee&#123;</div><div class="line">   // 1.FectchRequest 抓取请求对象</div><div class="line">   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Employee&quot;];</div><div class="line">   // 2.设置排序</div><div class="line">   // 按照身高的升序排序</div><div class="line">   NSSortDescriptor *heigtSort = [NSSortDescriptor sortDescriptorWithKey:@&quot;height&quot; ascending:NO];</div><div class="line">   request.sortDescriptors = @[heigtSort];</div><div class="line">   // 3.模糊查询</div><div class="line">   // 3.1 名字以&quot;wang&quot;开头</div><div class="line">//    NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;name BEGINSWITH %@&quot;,@&quot;wangwu1&quot;];</div><div class="line">//    request.predicate = pre;</div><div class="line">   // 名字以&quot;1&quot;结尾</div><div class="line">//    NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;name ENDSWITH %@&quot;,@&quot;1&quot;];</div><div class="line">//    request.predicate = pre;</div><div class="line">   // 名字包含&quot;wu1&quot;</div><div class="line">//    NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;name CONTAINS %@&quot;,@&quot;wu1&quot;];</div><div class="line">//    request.predicate = pre;</div><div class="line">   // like 匹配</div><div class="line">   NSPredicate *pre = [NSPredicate predicateWithFormat:@&quot;name like %@&quot;,@&quot;*wu12&quot;];</div><div class="line">   request.predicate = pre;</div><div class="line">   // 4.执行请求</div><div class="line">   NSError *error = nil;</div><div class="line">   NSArray *emps = [_context executeFetchRequest:request error:&amp;error];</div><div class="line">   if (error) &#123;</div><div class="line">       NSLog(@&quot;error&quot;);</div><div class="line">   &#125;</div><div class="line">   //遍历员工</div><div class="line">   for (Employee *emp in emps) &#123;</div><div class="line">       NSLog(@&quot;名字 %@ 身高 %@ 生日 %@&quot;,emp.name,emp.height,emp.birthday);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>分页查询</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">-(void)pageSeacher&#123;</div><div class="line">   // 1. FectchRequest 抓取请求对象</div><div class="line">   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Employee&quot;];</div><div class="line">   // 2. 设置排序</div><div class="line">   // 身高的升序排序</div><div class="line">   NSSortDescriptor *heigtSort = [NSSortDescriptor sortDescriptorWithKey:@&quot;height&quot; ascending:NO];</div><div class="line">   request.sortDescriptors = @[heigtSort];</div><div class="line">   // 3. 分页查询</div><div class="line">   // 总有共有15数据</div><div class="line">   // 每次获取6条数据</div><div class="line">   // 第一页 0,6</div><div class="line">   // 第二页 6,6</div><div class="line">   // 第三页 12,6 3条数据</div><div class="line">   // 3.1 分页的起始索引</div><div class="line">   request.fetchOffset = 12;</div><div class="line">   // 3.2 分页的条数</div><div class="line">   request.fetchLimit = 6;</div><div class="line">   // 4. 执行请求</div><div class="line">   NSError *error = nil;</div><div class="line">   NSArray *emps = [_context executeFetchRequest:request error:&amp;error];</div><div class="line">   if (error) &#123;</div><div class="line">       NSLog(@&quot;error&quot;);</div><div class="line">   &#125;</div><div class="line">   // 5. 遍历员工</div><div class="line">   for (Employee *emp in emps) &#123;</div><div class="line">       NSLog(@&quot;名字 %@ 身高 %@ 生日 %@&quot;,emp.name,emp.height,emp.birthday);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>4.多个数据库的使用</strong></p>
+<blockquote>
+<p>创建多个数据库，即创建多个DataModel<br>一个数据库对应一个上下文<br>需要根据bundle名创建上下文<br>添加或读取信息，需要根据不同的上下文，访问不同的实体</p>
+</blockquote>
+<ul>
+<li>关联数据库和实体</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">   [super viewDidLoad];</div><div class="line">   // 一个数据库对应一个上下文</div><div class="line">   _companyContext = [self setupContextWithModelName:@&quot;Company&quot;];</div><div class="line">   _weiboContext = [self setupContextWithModelName:@&quot;Weibo&quot;];</div><div class="line">&#125;        </div><div class="line">/**</div><div class="line">*  根据模型文件，返回一个上下文</div><div class="line">*/</div><div class="line">-(NSManagedObjectContext *)setupContextWithModelName:(NSString *)modelName&#123;</div><div class="line">   // 1. 上下文</div><div class="line">   NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];</div><div class="line">   // 2. 上下文关连数据库</div><div class="line">   // 2.1 model模型文件</div><div class="line">   // 注意：如果使用下面的方法，如果 bundles为nil 会把bundles里面的所有模型文件的表放在一个数据库</div><div class="line">   //NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];</div><div class="line">   // 改为以下的方法获取：</div><div class="line">   NSURL *companyURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@&quot;momd&quot;];</div><div class="line">   NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:companyURL];</div><div class="line">   // 2.2 持久化存储调度器</div><div class="line">   // 持久化，把数据保存到一个文件，而不是内存</div><div class="line">   NSPersistentStoreCoordinator *store = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];</div><div class="line">   // 2.3 告诉Coredata数据库的名字和路径</div><div class="line">   NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];</div><div class="line">   NSString *sqliteName = [NSString stringWithFormat:@&quot;%@.sqlite&quot;,modelName];</div><div class="line">   NSString *sqlitePath = [doc stringByAppendingPathComponent:sqliteName];</div><div class="line">   [store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:sqlitePath] options:nil error:nil];</div><div class="line">   context.persistentStoreCoordinator = store;</div><div class="line">   // 3. 返回上下文</div><div class="line">   return context;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>添加元素</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-(IBAction)addEmployee&#123;</div><div class="line">   // 1. 添加员工</div><div class="line">   Employee *emp = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Employee&quot; inManagedObjectContext:_companyContext];</div><div class="line">   emp.name = @&quot;zhagsan&quot;;</div><div class="line">   emp.height = @2.3;</div><div class="line">   emp.birthday = [NSDate date];</div><div class="line">   // 直接保存数据库</div><div class="line">   [_companyContext save:nil];</div><div class="line">   // 2. 发微博</div><div class="line">   Status *status =[NSEntityDescription insertNewObjectForEntityForName:@&quot;Status&quot; inManagedObjectContext:_weiboContext];</div><div class="line">   status.text = @&quot;发了一条微博！&quot;;</div><div class="line">   status.createDate = [NSDate date];</div><div class="line">   [_weiboContext save:nil];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="声明："><a href="#声明：" class="headerlink" title="声明："></a>声明：</h4><p>1.以上内容属于本人整理的笔记，如有错误的地方希望能告诉我，大家共同进步。</p>
+<p>2.以上内容有些段落或语句可能是本人从其他地方Copy而来，如有侵权，请及时告诉我。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/02/21/Coding-About/">
+        Coding 目录结构和第三方类库 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/02/22/DataTimer/" data-title="iOS中几种数据持久化方案" data-url="http://yoursite.com/2017/02/22/DataTimer/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
