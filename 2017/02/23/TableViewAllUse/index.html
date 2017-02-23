@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Category: iOS | Steven&#39;s Blog</title>
+  <title>iOS解决UITableView中Cell重用机制导致内容出错的方法总结 | Steven&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -220,156 +220,82 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      <!-- ============================ Hero Image =========================== -->
-
-<section id="hero" class="scrollme">
-    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
-                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
-                    <div>
-                        
-                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
-                        <p></p>
-                        
-                        <h2></h2>
-                        <p>珍惜你能看到的每一个清晨。</p>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <!-- // .col-md-12 -->
-        </div>
-        <div class="herofade beige-dk"></div>
-    </div>
-</section>
-
-<!-- Height spacing helper -->
-<div class="heightblock"></div>
-<!-- // End height spacing helper -->
-
-<!-- ============================ END Hero Image =========================== -->
-
-
-
-
-<section id="services">
+      
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/07/StackTable/">Swift 表格扩展工具</a></h4>
-                            
-                            <p><time datetime="2016-12-06T16:29:29.000Z"><a href="/2016/12/07/StackTable/">2016-12-07</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/GZGridView/">Swift 格子控件工具</a></h4>
-                            
-                            <p><time datetime="2016-12-06T14:29:29.000Z"><a href="/2016/12/06/GZGridView/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/LineTagView/">Swift 滚动标签视图封装</a></h4>
-                            
-                            <p><time datetime="2016-12-06T13:29:29.000Z"><a href="/2016/12/06/LineTagView/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/AsyncSwift/">Swift Async 异步处理封装</a></h4>
-                            
-                            <p><time datetime="2016-12-06T07:29:29.000Z"><a href="/2016/12/06/AsyncSwift/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                            </div><div class="row boxes">
-                            
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/06/MosaicImage/">Swift 图片打码功能实现</a></h4>
-                            
-                            <p><time datetime="2016-12-06T04:29:29.000Z"><a href="/2016/12/06/MosaicImage/">2016-12-06</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/05/NSCountedSet/">使用NSCountedSet 统计重复元素的个数</a></h4>
-                            
-                            <p><time datetime="2016-12-05T08:31:29.000Z"><a href="/2016/12/05/NSCountedSet/">2016-12-05</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/05/Images-iphone/">iOS 任意屏幕尺寸截屏  并保存相册</a></h4>
-                            
-                            <p><time datetime="2016-12-05T08:31:29.000Z"><a href="/2016/12/05/Images-iphone/">2016-12-05</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/05/JJRadarChart/">iOS一款调用简单快捷的雷达图(蜘蛛图表)控件</a></h4>
-                            
-                            <p><time datetime="2016-12-05T07:31:29.000Z"><a href="/2016/12/05/JJRadarChart/">2016-12-05</a></time></p>
-                        </div>
-                    
-                        
-                            </div><div class="row boxes">
-                            
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/05/CotEditor/">OS X 的文本编辑器 CotEditor</a></h4>
-                            
-                            <p><time datetime="2016-12-05T06:31:29.000Z"><a href="/2016/12/05/CotEditor/">2016-12-05</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/12/05/FBMemoryProfiler/">iOS内存监测工具 FBMemoryProfiler</a></h4>
-                            
-                            <p><time datetime="2016-12-05T05:29:29.000Z"><a href="/2016/12/05/FBMemoryProfiler/">2016-12-05</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-02-23T06:17:36.000Z" itemprop="datePublished">
+          2017-02-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>iOS解决UITableView中Cell重用机制导致内容出错的方法总结</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#UITableView继承自UIScrollview,是苹果为我们封装好的一个基于scroll的控件。可是重用机制却往往使不明所以的新手痛苦不堪。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>上面主要是一个个的UITableViewCell,可以让UITableViewCell响应一些点击事件，也可以在UITableViewCell中加入UITextField或者UITextView等子视图，使得可以在cell上进行文字编辑。</p>
+<p>UITableView中的cell可以有很多，一般会通过重用cell来达到节省内存的目的:通过为每个cell指定一个重用标识符(reuseIdentifier),即指定了单元格的种类,当cell滚出屏幕时,会将滚出屏幕的单元格放入重用的queue中，当某个未在屏幕上的单元格要显示的时候，就从这个queue中取出单元格进行重用。</p>
+<p>但对于多变的自定义cell，有时这种重用机制会出错。比如，当一个cell含有一个UITextField的子类并被放在重用queue中以待重用，这时如果一个未包含任何子视图的cell要显示在屏幕上，就会取出并使用这个重用的cell显示在无任何子视图的cell中，这时候就会出错。</p>
+<p>解决方法：</p>
+<hr>
+<p><strong>方法1 改变获得cell的方法</strong><br>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-(UITableViewCell*)dequeueReusableCellWithIdentifier:(NSString*)identifier</div></pre></td></tr></table></figure>
+<p>换为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-(UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath</div></pre></td></tr></table></figure>
+<p>重用机制调用的就是dequeueReusableCellWithIdentifier这个方法，方法的意思就是“出列可重用的cell”，因而只要将它换为cellForRowAtIndexPath（只从要更新的cell的那一行取出cell），就可以不使用重用机制，因而问题就可以得到解决，虽然可能会浪费一些空间。</p>
+<p>示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </div><div class="line">&#123;    </div><div class="line">   static NSString *CellIdentifier = @&quot;Cell&quot;;    </div><div class="line">  // UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //改为以下的方法    </div><div class="line">   UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath]; //根据indexPath准确地取出一行，而不是从cell重用队列中取出    </div><div class="line">   if (cell == nil) &#123;    </div><div class="line">   cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </div><div class="line">   &#125;    </div><div class="line">   //...其他代码                                  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>方法2 通过为每个cell指定不同的重用标识符(reuseIdentifier)来解决</strong></p>
+<p>重用机制是根据相同的标识符来重用cell的，标识符不同的cell不能彼此重用。于是我们将每个cell的标识符都设置为不同，就可以避免不同cell重用的问题了。</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </div><div class="line">&#123;            </div><div class="line">   NSString *CellIdentifier = [NSString stringWithFormat:@&quot;Cell%d%d&quot;, [indexPath section], [indexPath row]];//以indexPath来唯一确定cell    </div><div class="line">   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //出列可重用的cell    </div><div class="line">   if (cell == nil) &#123;    </div><div class="line">     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </div><div class="line">   &#125;    </div><div class="line">   //...其他代码    </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>方法3 删除重用cell的所有子视图</strong><br>这个方法是通过删除重用的cell的所有子视图，从而得到一个没有特殊格式的cell，供其他cell重用。</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </div><div class="line">&#123;    </div><div class="line">   static NSString *CellIdentifier = @&quot;Cell&quot;;    </div><div class="line">   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //出列可重用的cell    </div><div class="line">  if (cell == nil) &#123;    </div><div class="line">     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </div><div class="line">   &#125;    </div><div class="line">  else    </div><div class="line">  &#123;    </div><div class="line">     //删除cell的所有子视图    </div><div class="line">     while ([cell.contentView.subviews lastObject] != nil)    </div><div class="line">    &#123;    </div><div class="line">     [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];    </div><div class="line">     &#125;    </div><div class="line">   &#125;    </div><div class="line">   //...其他代码    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>知天高，行渐远。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/02/23/CollectionVIewPuBu/" style="float: left;">
+        ← iOS-CollectionView瀑布流框架搭建
+    </a>
+    
+    
+    <a class="pull-right" href="/2017/02/23/ThreeForIn/">
+        iOS容易造成循环引用的三种场景,就在你我身边! →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/02/23/TableViewAllUse/" data-title="iOS解决UITableView中Cell重用机制导致内容出错的方法总结" data-url="http://yoursite.com/2017/02/23/TableViewAllUse/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
