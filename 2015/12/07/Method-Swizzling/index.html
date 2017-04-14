@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Objective-C的hook方案之Method Swizzling | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(75)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-12-07T11:31:29.000Z" itemprop="datePublished">
+          2015-12-07
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Objective-C的hook方案之Method Swizzling</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#（手机淘宝架构组的侠武同学曾经给我分享过一个问题）曾经有一个工程师在监听Notification之后，没有写释放监听的代码，当然，找到这个原因又是很漫长的一段故事，现在找到原因了，然而监听这个Notification的对象有那么多，不知道具体是哪个Notificaiton，也不知道那个没释放监听的对象是谁。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>后来折腾了很久大家都没办法的时候，有一个经验丰富的工程师提出用hook（Method Swizzling）的方式，最终找到了那个没释放监听的对象，bug修复了。</p>
+<p>在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外，还有更加灵活的方法吗？在Objective-C编程中，如何实现hook呢？标题有点大，计划分几篇来总结。</p>
+<p>本文主要介绍针对selector的hook，主角被标题剧透了———— <strong>Method Swizzling</strong> 。</p>
+<hr>
+<h4 id="Method-Swizzling-原理"><a href="#Method-Swizzling-原理" class="headerlink" title="Method Swizzling 原理"></a>Method Swizzling 原理</h4><p>在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。<br>每个类都有一个方法列表，存放着selector的名字和方法实现的映射关系。IMP有点类似函数指针，指向具体的Method实现。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-7/2661034.jpg" alt=""></p>
+<p>我们可以利用 method_exchangeImplementations 来交换2个方法中的IMP，我们可以利用 class_replaceMethod 来修改类，我们可以利用 method_setImplementation 来直接设置某个方法的IMP，……</p>
+<p>归根结底，都是偷换了selector的IMP，如下图所示：</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-7/63456470.jpg" alt=""></p>
+<hr>
+<h4 id="Method-Swizzling-实践"><a href="#Method-Swizzling-实践" class="headerlink" title="Method Swizzling 实践"></a>Method Swizzling 实践</h4><p>举个例子好了，我想钩一下NSArray的lastObject 方法，只需两个步骤。</p>
+<p><strong>第一步：给NSArray加一个我自己的lastObject</strong><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"NSArray+Swizzle.h"</span>   </span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSArray</span> (<span class="title">Swizzle</span>)    </span></div><div class="line">- (<span class="keyword">id</span>)myLastObject &#123;  </div><div class="line">    <span class="keyword">id</span> ret = [<span class="keyword">self</span> myLastObject];  </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"**********  myLastObject *********** "</span>);  </div><div class="line">    <span class="keyword">return</span> ret;  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>乍一看，这不递归了么？别忘记这是我们准备调换IMP的selector，[self myLastObject] 将会执行真的 [self lastObject]。</p>
+<p><strong>第二步：调换IMP</strong><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span>  </span></div><div class="line"><span class="meta">#import <span class="meta-string">"NSArray+Swizzle.h"</span>   </span></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[]) &#123;  </div><div class="line">   <span class="keyword">@autoreleasepool</span> &#123;  </div><div class="line">   Method ori_Method =  class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(lastObject));  </div><div class="line">   Method my_Method = class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(myLastObject));  </div><div class="line">   method_exchangeImplementations(ori_Method, my_Method);  </div><div class="line">   <span class="built_in">NSArray</span> *array = @[<span class="string">@"0"</span>,<span class="string">@"1"</span>,<span class="string">@"2"</span>,<span class="string">@"3"</span>];  </div><div class="line">   <span class="built_in">NSString</span> *string = [array lastObject];  </div><div class="line">   <span class="built_in">NSLog</span>(<span class="string">@"TEST RESULT : %@"</span>,string);  </div><div class="line">     <span class="keyword">return</span> <span class="number">0</span>;  </div><div class="line">   &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>控制台输出Log：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">2013</span><span class="number">-07</span><span class="number">-18</span> <span class="number">16</span>:<span class="number">26</span>:<span class="number">12.585</span> Hook[<span class="number">1740</span>:c07] **********  myLastObject ***********   </div><div class="line"><span class="number">2013</span><span class="number">-07</span><span class="number">-18</span> <span class="number">16</span>:<span class="number">26</span>:<span class="number">12.589</span> Hook[<span class="number">1740</span>:c07] TEST RESULT : <span class="number">3</span></div></pre></td></tr></table></figure></p>
+<p>结果很让人欣喜，是不是忍不住想给UIWebView的loadRequest: 加 TODO 了呢？</p>
+<hr>
+<h4 id="Method-Swizzling-的封装"><a href="#Method-Swizzling-的封装" class="headerlink" title="Method Swizzling 的封装"></a>Method Swizzling 的封装</h4><p>之前在github上找到的RNSwizzle，推荐给大家，可以搜一下。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  </span></div><div class="line"><span class="comment">//  RNSwizzle.m  </span></div><div class="line"><span class="comment">//  MethodSwizzle  </span></div><div class="line"><span class="meta">#import <span class="meta-string">"RNSwizzle.h"</span>  </span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span>  </span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">RNSwizzle</span>)  </span></div><div class="line">+ (IMP)swizzleSelector:(SEL)origSelector withIMP:(IMP)newIMP &#123;  </div><div class="line">  Class <span class="keyword">class</span> = [<span class="keyword">self</span> <span class="keyword">class</span>];  </div><div class="line">  Method origMethod = class_getInstanceMethod(<span class="keyword">class</span>,  </div><div class="line">  IMP origIMP = method_getImplementation(origMethod);  </div><div class="line">  <span class="keyword">if</span>(!class_addMethod(<span class="keyword">self</span>, origSelector, newIMP, method_getTypeEncoding(origMethod))) &#123;  </div><div class="line">     method_setImplementation(origMethod, newIMP);  </div><div class="line">  &#125;  </div><div class="line">  <span class="keyword">return</span> origIMP;  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="Method-Swizzling-危险不危险"><a href="#Method-Swizzling-危险不危险" class="headerlink" title="Method Swizzling 危险不危险"></a>Method Swizzling 危险不危险</h4><p>针对这个问题，我在stackoverflow上看到了满意的答案，这里翻译一下，总结记录在本文中，以示分享：</p>
+<p>使用 Method Swizzling 编程就好比切菜时使用锋利的刀，一些人因为担心切到自己所以害怕锋利的刀具，可是事实上，使用钝刀往往更容易出事，而利刀更为安全。<br>Method swizzling 可以帮助我们写出更好的，更高效的，易维护的代码。但是如果滥用它，也将会导致难以排查的bug。</p>
+<hr>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>好比设计模式，如果我们摸清了一个模式的门道，使用该模式与否我们自己心里有数。单例模式就是一个很好的例子，它饱受争议但是许多人依旧使用它。Method Swizzling也是一样，一旦你真正理解它的优势和弊端，使用它与否你应该就有你自己的观点。</p>
+<hr>
+<h4 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h4><p>这里是一些 Method Swizzling的陷阱：<br>Method swizzling is not atomicChanges behavior of un-owned codePossible naming conflictsSwizzling changes the method’s argumentsThe order of swizzles mattersDifficult to understand (looks recursive)Difficult to debug</p>
+<p>我将逐一分析这些点，增进对Method Swizzling的理解的同时，并搞懂如何应对。</p>
+<p>Method swizzling is not atomic<br>我所见过的使用method swizzling实现的方法在并发使用时基本都是安全的。95%的情况里这都不会是个问题。通常你替换一个方法的实现，是希望它在整个程序的生命周期里有效的。也就是说，你会把 method swizzling 修改方法实现的操作放在一个加号方法 +(void)load里，并在应用程序的一开始就调用执行。你将不会碰到并发问题。假如你在 +(void)initialize初始化方法中进行swizzle，那么……rumtime可能死于一个诡异的状态。</p>
+<p>Changes behavior of un-owned code<br>这是swizzling的一个问题。我们的目标是改变某些代码。swizzling方法是一件灰常灰常重要的事，当你不只是对一个NSButton类的实例进行了修改，而是程序中所有的NSButton实例。因此在swizzling时应该多加小心，但也不用总是去刻意避免。</p>
+<p>想象一下，如果你重写了一个类的方法，而且没有调用父类的这个方法，这可能会引起问题。大多数情况下，父类方法期望会被调用（至少文档是这样说的）。如果你在swizzling实现中也这样做了，这会避免大部分问题。还是调用原始实现吧，如若不然，你会费很大力气去考虑代码的安全问题。</p>
+<p>Possible naming conflicts</p>
+<p>命名冲突贯穿整个Cocoa的问题. 我们常常在类名和类别方法名前加上前缀。不幸的是，命名冲突仍是个折磨。但是swizzling其实也不必过多考虑这个问题。我们只需要在原始方法命名前做小小的改动来命名就好，比如通常我们这样命名：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSView</span> : <span class="title">NSObject</span>  </span></div><div class="line">- (<span class="keyword">void</span>)setFrame:(<span class="built_in">NSRect</span>)frame;  </div><div class="line"><span class="keyword">@end</span>  </div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSView</span> (<span class="title">MyViewAdditions</span>)  </span></div><div class="line">- (<span class="keyword">void</span>)my_setFrame:(<span class="built_in">NSRect</span>)frame &#123;  </div><div class="line">  <span class="comment">// do custom work  </span></div><div class="line">  [<span class="keyword">self</span> my_setFrame:frame];  </div><div class="line">&#125;  </div><div class="line">+ (<span class="keyword">void</span>)load &#123;  </div><div class="line">   [<span class="keyword">self</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:<span class="keyword">@selector</span>(my_setFrame:)];  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>这段代码运行正确，但是如果my_setFrame: 在别处被定义了会发生什么呢？<br>这个问题不仅仅存在于swizzling，这里有一个替代的变通方法：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSView</span> (<span class="title">MyViewAdditions</span>)  </span></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> MySetFrame(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="built_in">NSRect</span> frame);  </div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> (*SetFrameIMP)(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="built_in">NSRect</span> frame);  </div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> MySetFrame(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="built_in">NSRect</span> frame) &#123;  </div><div class="line">  <span class="comment">// do custom work  </span></div><div class="line">  SetFrameIMP(<span class="keyword">self</span>, _cmd, frame);  </div><div class="line">&#125;  </div><div class="line">+ (<span class="keyword">void</span>)load &#123;  </div><div class="line">  [<span class="keyword">self</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:(IMP)MySetFrame store:(IMP *)&amp;SetFrameIMP];  </div><div class="line">&#125;   </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>看起来不那么Objectice-C了（用了函数指针），这样避免了selector的命名冲突。<br>最后给出一个较完美的swizzle方法的定义：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> IMP *IMPPointer;  </div><div class="line"><span class="built_in">BOOL</span> class_swizzleMethodAndStore(Class <span class="keyword">class</span>, SEL original, IMP replacement, IMPPointer store) &#123;  </div><div class="line">  IMP imp = <span class="literal">NULL</span>;  </div><div class="line">  Method method = class_getInstanceMethod(<span class="keyword">class</span>, original);  </div><div class="line">  <span class="keyword">if</span> (method) &#123;  </div><div class="line">     <span class="keyword">const</span> <span class="keyword">char</span> *type = method_getTypeEncoding(method);  </div><div class="line">     imp = class_replaceMethod(<span class="keyword">class</span>, original, replacement, type);  </div><div class="line">     <span class="keyword">if</span> (!imp) &#123;  </div><div class="line">        imp = method_getImplementation(method);  </div><div class="line">     &#125;  </div><div class="line">  &#125;  </div><div class="line">  <span class="keyword">if</span> (imp &amp;&amp; store) &#123; *store = imp; &#125;  </div><div class="line">    <span class="keyword">return</span> (imp != <span class="literal">NULL</span>);  </div><div class="line">  &#125;  </div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">FRRuntimeAdditions</span>)  </span></div><div class="line">+ (<span class="built_in">BOOL</span>)swizzle:(SEL)original with:(IMP)replacement store:(IMPPointer)store &#123;  </div><div class="line">  <span class="keyword">return</span> class_swizzleMethodAndStore(<span class="keyword">self</span>, original, replacement, store);  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>Swizzling changes the method’s arguments<br>我认为这是最大的问题。想正常调用method swizzling 将会是个问题。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span> my_setFrame:frame];</div></pre></td></tr></table></figure></p>
+<p>直接调用my_setFrame: ， runtime做的是<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_msgSend(<span class="keyword">self</span>, <span class="keyword">@selector</span>(my_setFrame:), frame);</div></pre></td></tr></table></figure></p>
+<p>runtime去寻找my_setFrame:的方法实现, _cmd参数为 my_setFrame: ，但是事实上runtime找到的方法实现是原始的 setFrame: 的。</p>
+<p>一个简单的解决办法：使用上面介绍的swizzling定义。</p>
+<p>The order of swizzles matters</p>
+<p>多个swizzle方法的执行顺序也需要注意。假设 setFrame: 只定义在NSView中，想像一下按照下面的顺序执行：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSButton</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:<span class="keyword">@selector</span>(my_buttonSetFrame:)];  </div><div class="line">[<span class="built_in">NSControl</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:<span class="keyword">@selector</span>(my_controlSetFrame:)];  </div><div class="line">[<span class="built_in">NSView</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:<span class="keyword">@selector</span>(my_viewSetFrame:)];</div></pre></td></tr></table></figure></p>
+<p>What happens when the method on NSButton is swizzled? Well most swizzling will ensure that it’s not replacing the implementation of setFrame: for all views, so it will pull up the instance method. This will use the existing implementation to re-define setFrame: in the NSButton class so that exchanging implementations doesn’t affect all views. The existing implementation is the one defined on NSView. The same thing will happen when swizzling on NSControl (again using the NSView implementation).</p>
+<p>When you call setFrame: on a button, it will therefore call your swizzled method, and then jump straight to the setFrame: method originally defined on NSView. The NSControl and NSView swizzled implementations will not be called.</p>
+<p>But what if the order were:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSView</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:<span class="keyword">@selector</span>(my_viewSetFrame:)];  </div><div class="line">[<span class="built_in">NSControl</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:<span class="keyword">@selector</span>(my_controlSetFrame:)];  </div><div class="line">[<span class="built_in">NSButton</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:<span class="keyword">@selector</span>(my_buttonSetFrame:)];</div></pre></td></tr></table></figure></p>
+<p>Since the view swizzling takes place first, the control swizzling will be able to pull up the right method. Likewise, since the control swizzling was before the button swizzling, the button will pull up the control’s swizzled implementation of setFrame:. This is a bit confusing, but this is the correct order. How can we ensure this order of things?</p>
+<p>Again, just use load to swizzle things. If you swizzle in load and you only make changes to the class being loaded, you’ll be safe. The load method guarantees that the super class load method will be called before any subclasses. We’ll get the exact right order!</p>
+<p>这段贴了原文，硬翻译太拗口……总结一下就是：多个有继承关系的类的对象swizzle时，从子类对象开始 。 如果先swizzle父类对象，那么后面子类对象swizzle时就无法拿到真正的原始方法实现了。</p>
+<p>多个有继承关系的类的对象swizzle时，先从父对象开始。 这样才能保证子类方法拿到父类中的被swizzle的实现。在+(void)load中swizzle不会出错，就是因为load类方法会默认从父类开始调用。</p>
+<p>Difficult to understand (looks recursive)</p>
+<p>（新方法的实现）看起来像递归，但是看看上面已经给出的 swizzling 封装方法, 使用起来就很易读懂.<br>这个问题是已完全解决的了！</p>
+<p>Difficult to debug</p>
+<p>debug时打出的backtrace，其中掺杂着被swizzle的方法名，一团糟啊！上面介绍的swizzle方案，使backtrace中打印出的方法名还是很清晰的。但仍然很难去debug，因为很难记住swizzling影响过什么。给你的代码写好文档（即使只有你一个人会看到）。养成一个好习惯，不会比调试多线程问题还难的。</p>
+<hr>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>如果使用恰当，Method swizzling 还是很安全的.一个简单安全的方法是，仅在load中swizzle。 和许多其他东西一样，它也是有危险性的，但理解它了也就可以正确恰当的使用它了。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/02/21/Coding-About/" style="float: left;">
+        ← Coding 目录结构和第三方类库
+    </a>
+    
+    
+    <a class="pull-right" href="/2015/12/05/NSCountedSet/">
+        使用NSCountedSet 统计重复元素的个数 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/12/07/Method-Swizzling/" data-title="Objective-C的hook方案之Method Swizzling" data-url="http://yoursite.com/2015/12/07/Method-Swizzling/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
