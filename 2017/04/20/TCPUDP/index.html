@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>TCP UDP优缺点及使用场景 | Steven&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML/" class="animsition-link">HTML<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(4)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(77)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-04-20T04:12:52.000Z" itemprop="datePublished">
+          2017-04-20
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>TCP UDP优缺点及使用场景</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#TCP (Transmission Control Protocol)和UDP(User Datagram Protocol)协议属于传输层协议。其中TCP提供IP环境下的数据可靠传输，它提供的服务包括数据流传送、可靠性、有效流控、全双工操作和多路复用。通过面向连接、端到端和可靠的数据包发送。通俗说，它是事先为所发送的数据开辟出连接好的通道，然后再进行数据发送；而UDP则不为IP提供可靠性、流控或差错恢复功能。(百度百科)</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="概览和对比"><a href="#概览和对比" class="headerlink" title="概览和对比"></a>概览和对比</h4><p>一般来说，TCP对应的是可靠性要求高的应用，而UDP对应的则是可靠性要求低、传输经济的应用。TCP支持的应用协议主要有：Telnet、FTP、SMTP等；UDP支持的应用层协议主要有：NFS（网络文件系统）、SNMP（简单网络管理协议）、DNS（主域名称系统）、TFTP（通用文件传输协议）等。</p>
+<p>这里仅对比简单说明：<br>1.1 TCP的优点：<br><strong>可靠，稳定</strong><br>TCP的可靠性体现在传输数据之前，三次握手建立连接（四次挥手释放连接），并且在数据传递时，有确认、窗口、重传、拥塞控制机制，数据传完之后，断开连接用来节省系统资源。</p>
+<p>1.2 TCP的缺点：<br><strong>慢，效率低，占用系统资源高，易被攻击</strong><br>传数据之前建立连接，这样会消耗时间，而且在消息传递时，确认机制、重传机制和拥塞控制机制都会消耗大量的时间，而且要在每台设备上维护所有的传输连接。而每个连接都会占用系统的CPU、内存等硬件软件资源。并且TCP的取而机制、三次握手，这些也导致TCP容易被人利用，实现DOS,DDOS攻击。</p>
+<p>2.1 UDP的优点：<br><strong>快，比TCP稍安全</strong></p>
+<p>UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，udp是一个无状态的传输协议，所以他在传输数据时非常快。M没有TCP的这些机制，UDP较TCP被攻击者利用的漏洞就要少一些。UDP也是无法避免攻击的，比如：UDP flood攻击。</p>
+<p>2.2 UDP的缺点：<br><strong>不可靠，不稳定</strong><br>因为UDP没有TCP的那些可靠机制，在网络质量不好时很容易丢包。</p>
+<hr>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p><strong>什么时候应该使用TCP：</strong><br>当对网络通讯质量有要求的时候，比如：整个数据要准确无误的传递给对方，这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。<br>在日常生活中，常见使用TCP协议的应用如下：<br>浏览器，用的HTTP；<br>FlashFXP，用的FTP；<br>Outlook，用的POP、SMTP；<br>Putty，用的Telnet、SSH；<br>QQ文件传输…</p>
+<p><strong>什么时候应该使用UDP：</strong><br>当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。<br>比如，日常生活中，常见使用UDP协议的应用如下：<br>QQ语音;<br>QQ视频;<br>TFTP…</p>
+<hr>
+<h4 id="优化篇"><a href="#优化篇" class="headerlink" title="优化篇"></a>优化篇</h4><p><strong>提高TCP可靠性优化</strong><br>TCP通过下列方式来提高传输可靠性：<br>1、应用数据被分割成TCP认为最适合发送的数据块。这和UDP完全不同，应用程序产生的数据报长度将保持不变。<br>(将数据截断为合理的长度)</p>
+<p>2、当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。<br>(超时重发)</p>
+<p>3、当TCP收到发自TCP连接另一端的数据，它将发送一个确认。这个确认不是立即发送，通常将推迟几分之一秒 。<br>(对于收到的请求，给出确认响应)<br> (之所以推迟，可能是要对包做完整校验)<br>4、 TCP将保持它首部和数据的检验和。这是一个端到端的检验和，目的是检测数据在传输过程中的任何变化。如果收到段的检验和有差错，TCP将丢弃这个报文段和不确认收到此报文段。<br> (校验出包有错，丢弃报文段，不给出响应，TCP发送数据端，超时时会重发数据)</p>
+<p>5、既然TCP报文段作为IP数据报来传输，而IP数据报的到达可能会失序，因此TCP报文段的到达也可能会失序。如果必要，TCP将对收到的数据进行重新排序，将收到的数据以正确的顺序交给应用层。<br> (对失序数据进行重新排序，然后才交给应用层)</p>
+<p>6、既然IP数据报会发生重复，TCP的接收端必须丢弃重复的数据。<br>(对于重复数据，能够丢弃重复数据)</p>
+<p>7、TCP还能提供流量控制。TCP连接的每一方都有固定大小的缓冲空间。TCP的接收端只允许另一端发送接收端缓冲区所能接纳的数据。这将防止较快主机致使较慢主机的缓冲区溢出。<br>(TCP可以进行流量控制，防止较快主机致使较慢主机的缓冲区溢出)TCP使用的流量控制协议是可变大小的滑动窗口协议。</p>
+<p><strong>基于UDP的可靠数据传输协议的实现分析-可靠性怎么保证</strong></p>
+<p>发送方的处理：<br>1） 包发送确认后，由于还没有收到确认，先缓存<br>2） 收到确认包后，从缓存中删除发送的包<br>3） 接收方将丢失的包通知过来，或者超过一定的时候，若还没有收到确认的包，进行重传（注意，这个由接收线程触发）</p>
+<p>接收方的处理：<br>1） 接收到包的数据，先将数据放到缓存中，a. 若有丢包现象，通知发送方，同时记录丢失的包 b.若是重传的包，从丢失的列表中删除<br>2） 发送确认包<br>3） 丢失的包，超时会让发送方再次发送</p>
+<p>一些情况分析：<br>情况1：发送包a，接收方确认a，发送方收到确认：正常<br>情况2：发送包a，接收方确认a，发送方没有收到确认：发送方会重发此包，接收方收到此包忽略<br>情况3：发送包a，接收方没有收到a：发送方重发此包<br>情况4：发送包a，一直收不到确认，超过一定次数或时间后，结束<br>情况4：发送包a失败，结束</p>
+<hr>
+<h4 id="网易云信IM-推送保障及网络优化实践"><a href="#网易云信IM-推送保障及网络优化实践" class="headerlink" title="网易云信IM 推送保障及网络优化实践"></a>网易云信IM 推送保障及网络优化实践</h4><p>基于当下网络环境，总结出手机网络有三个特点：</p>
+<blockquote>
+<p>第一个是慢，尤其是2G，3G网络，慢的令人发指。当我们收发图片视频这类比较大的文件时，就会看到蛋疼的菊花一圈一圈不停的转。<br>第二个是断，手机跟着人不停的移动，网络也不停的在切换，从 Wi-Fi 到移动网络，从一个基站到另一个基站，从有信号到没信号，都可能导致网络中断。有些制式的网络，接打电话也会导致数据网络断开。另外，移动基站还有 NAT 超时，到一个连接上长时间空闲后，基站就会默默的将连接断开，没有任何通知。<br>第三个是贵，这个就不用多说，看中国移动每天净赚一个亿就知道了。</p>
+</blockquote>
+<p>在云信整个通信系统中，有三种类型的连接：TCP，UDP，HTTP。虽说这三个并不是同一层的协议，不过毕竟都在应用的更下层，因此这么划分也无妨。3种类型的协议对应了不同的业务应用。TCP主要是用户长连接，也就是普通IM消息和信令的传输，UDP用于传输实时音视频数据流，而HTTP则主要用在音频，图片等文件的上传下载上。对于不同的业务，优化的关注点会有一些不相同。</p>
+<p>长连接是云信所有业务的基础，使用量也是最大的，因此优化也是从基础开始。 在这里我们举两个例子。<br><img src="http://i2.muimg.com/567571/84ab3fcb1cf99060.jpg" alt=""><br>第一个是协议的选择。前面说，长连接的使用量是最大，选择一个合适的协议至关重要。如果是刚开始接触IM开发，一般会选择一些开源的协议，比如XMPP，SIP等。这是XMPP协议的一个请求样例，可以看到是一段XML格式的文本数据。这是基于SIP的SIMPLE协议的一个请求样例，可以看到是一段类似HTTP协议的文本数据。这些协议的优势在于开源，有成熟的解决方案可以使用，扩展性好，甚至还可以和其他系统互联互通，协议的可读性也非常好。但是在普遍比较臃肿，冗余字段很多，在昂贵的移动网络里面用起来会让人觉肉疼。云信采用的是私有的二进制协议，这是一个请求的数据样例，这里是把二进制数据转为了16进制显示出来，每个字节这里显示为两个字符。可以看到二进制协议的特点在于完全失去了可读性，但是，却带来极高的表达效率，相对于文本协议，可以节省非常多的数据流量。<br><img src="http://i1.piimg.com/567571/423a194e4a7b0af7.jpg" alt=""><br>另一个例子是登录的优化。由于移动网络经常断开，所以登录常常是心跳之外交互最多的协议了。使用量越大，优化就越有意义。一般而言，登录会经过这么几步。</p>
+<p>第一步是LBS。这里的LBS不是经常说的基于地址位置的服务，在不同的厂商可能也有不同的叫法，反正作用都是获取服务器的IP地址。像云信这种需要提供全球服务的系统，在世界各地都要部署服务器，用户登录时，肯定要选择一台最优的服务器接入服务。通过lbs，客户端可以获取离自己最近，连通性最好的服务器连接机IP地址，服务器也可以据此做负载均衡。</p>
+<p>拿到服务器连接机IP后，客户端就去连接该服务器。</p>
+<p>连接成功，需要有一次握手。这个握手不是TCP的三次握手，而是为了建立安全连接，同服务器协商加密算法和加密密钥。</p>
+<p>然后就发送登录请求，这里会带上用户认证信息，本机设备信息等数据。</p>
+<p>登录成功之后，就是同步数据，包括离线消息，用户信息，群组信息等。一般而言，这里不会去做全量同步，而是采用基于时间戳的增量同步。</p>
+<p>在移动网络上，每一次交互都需要比较长的时间，同时，每一次网络请求电量消耗也是很大的。所以，优化的方向就是尽量减少交互次数，而方法则是合并请求，并行操作以及省略请求。</p>
+<p>LBS和连接这两个步骤是可以并行完成的。如果前面已经获取过LBS，这里可以有之前的缓存地址，如果没有，可以先连一个默认地址。</p>
+<p>其次是握手和登录也可以并行操作。在握手包中，就可以把加密后的登录包直接带上去了。如果是断线重连，我们还可以简化登录，直接带上上一次登录的会话ID，一来减少服务器鉴权压力，二则可以直接带回在断线期间是否有未读消息等数据，如果没有，则能直接将同步这一步省略掉。如果有，同步也可以只做部分同步，只去拉去离线消息即可。等到 App 切换到前台，才去同步其他的信息。</p>
+<p>通过这些优化，登录时间可以降为原来的1/2到1/3，登录的流量消耗也可以节省30%左右。<br><img src="http://i1.piimg.com/567571/c2e532ed34ef0b53.jpg" alt=""><br>实时音视频对实时性要求很高，但可以容忍一定的丢包，所以我们选择 UDP 私有协议来作为底层的传输协议。如果只是普通的IM消息，对网络情况其实不是太敏感，最多也就是慢一点，菊花转得久一点。但对于这种视频电话，如果网络差了，发生了经常性卡顿，或者是延迟很高，图像出现花屏，音视频不同步了，这个功能其实也就相当于废弃了。而且，音视频数据量本身也比较大，在弱网环境下发生问题的概率就更大了。</p>
+<p>UDP 协议是不可靠，为了提高弱网下的实时音视频的通话效果，需要使用相关方案来做 QoS 保障：主要包括了基于 UDP 协议的拥塞控制、前向纠错 FEC 技术及相关的重传技术。同时网络层需要能够实时的探测到网络状态，作为底层调整 QoS 策略的依据，同时需要回调上层，来动态调整音视频的码率，做到音视频码率自适应。通过上面的 QoS 保障，我们实际测试在 20% 的随机丢包弱网环境下，音视频通话还能够正常进行。</p>
+<p>第二是音频，我们的音频编解码主要以Opus为主，它具备高音质，高压缩率，高抗丢包等特性，非常适合移动网络。我们使用智能的jitterbuffer算法来平滑由于网络抖动引起的声音卡顿和延迟累计问题。配合PLC丢包补偿算法，来降低音频丢包后的爆音。同时，我们使用自研的高性能降噪算法，配合回声消除、自动增益和舒适噪音等音频处理算法来进一步保证音频部分的质量。</p>
+<p>对于视频，我们使用时域分层的H264视频编码器，来降低丢包对视频流畅性的影响，同时支持动态帧率和动态分辨率，方便上层根据业务需求进行切换。现在用户对于视频的清晰度要求越来越高，我们的实时通话系统当前能够支持720p。720p下纯软件编解码对CPU开销过大，因此在可以开启硬件编解码的机器上，对于需要720p清晰度的都尽量使用硬件编解码。</p>
+<p>由于音视频的网络优化如果全部细说，恐怕再加1个小时也讲不完，所以这里我只提了一些优化的方向供大家参考，就不一一展开了。</p>
+<p>下面再来看看对于HTTP的优化。图片语音是IM的必需元素，而且本身数据比较大。在弱网环境下，快速的上传下载，更少的等待时间可以带来更好的用户体验。</p>
+<p>断点续传可以减少因网络原因导致的重复传输，减少传输时间，节省流量。</p>
+<p>图片预加载技术可以根据不用网络情况，在收到消息后，就加载不同素质的预览图片，甚至直接将原图预加载，做到用户点开即看。</p>
+<p>上面两个是比较基础的优化措施，下面两个则比较高级一点。<br><img src="http://i1.piimg.com/567571/d597435ef06a3bb7.jpg" alt=""><br><img src="http://i4.buimg.com/567571/51b085db7f3919dd.jpg" alt=""><br>图片和语音这种文件我们并没有通过长连接收发，而是通过HTTP去做上传下载。传统上通过HTTP上传时，文件会分为一片一片，传完一片，收到回包，才会穿下一个分片，一直到最终传输完成。可以看到，服务器返回ack这段时间，上传通道其实是空闲的，如果把这段时间利用起来，可以节约不少上传时间。Pipeline就是为此而来。通过重叠利用http请求的响应等待时间，加快传输速度。使用pipeline，需要修改HttpClient，同时还需要服务器提供支持。视网络具体情况，使用pipeline后，一次上传可以减少20%至30%的时间。<br><img src="http://i4.buimg.com/567571/e5150dc708a8e550.jpg" alt=""><br>常规发送语音消息需要这几步，先录音，然后计算hash值，然后上传，上传完毕后，服务器计算一下校验和，通过后语音消息发送成功。在前面录制语音时，网络其实也是空闲的。把这段时间利用起来，则可以减少后面上传步骤的时间。优化后，流程就变成这样。在录制的过程中，每录完一段，就作为一个分片直接上传。直到最后录完，计算好hash，再把最后一个分片带上hash信息上传。这里除了客户端的改动，也是需要服务器支持。服务器在开始接收时，很多信息都不明确，需要开辟缓存来记录整次上传过程。对于比较差的网络，边录边传的效果会更好，毕竟纯语音的比特率并不高，基本都能做到录完就传完。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/04/20/CPUGPU/">
+        iOS CPU、GPU及渲染过程入门解析 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/04/20/TCPUDP/" data-title="TCP UDP优缺点及使用场景" data-url="http://yoursite.com/2017/04/20/TCPUDP/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

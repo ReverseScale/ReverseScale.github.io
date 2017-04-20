@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>使用NSCountedSet 统计重复元素的个数 | Steven&#39;s Blog</title>
+  <title>Steven&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="post-template">
+<body class="home-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -132,7 +132,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(75)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(77)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -220,14 +220,49 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      
+      <!-- ============================ Hero Image =========================== -->
+
+<section id="hero" class="scrollme">
+    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                    <div>
+                        
+                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                        <p></p>
+                        
+                        <h2></h2>
+                        <p>珍惜你能看到的每一个清晨。</p>
+                        
+
+                    </div>
+                </div>
+            </div>
+            <!-- // .col-md-12 -->
+        </div>
+        <div class="herofade beige-dk"></div>
+    </div>
+</section>
+
+<!-- Height spacing helper -->
+<div class="heightblock"></div>
+<!-- // End height spacing helper -->
+
+<!-- ============================ END Hero Image =========================== -->
+<!-- ============================ Content =========================== -->
+
 <section id="intro">
     <div class="container">
-        <div class="row col-md-offset-2">
-            <div class="col-md-8">
-    			<span class="post-meta">
-      <time datetime="2016-12-05T08:31:29.000Z" itemprop="datePublished">
-          2016-12-05
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2014/11/02/Markdown-Editer/">Markdown 编辑阅读器</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2014-11-02T12:56:29.000Z" itemprop="datePublished">
+          2014-11-02
       </time>
     
     
@@ -236,49 +271,40 @@
     
     
 </span>
-                <h1>使用NSCountedSet 统计重复元素的个数</h1>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        <p>#我们理解您需要更便捷更高效的工具记录思想，整理笔记、知识，并将其中承载的价值传播给他人，<strong>Cmd Markdown</strong> 是我们给出的答案 —— 我们为记录思想和分享知识提供更专业的工具。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a>
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2014/11/02/Markdown-Editer/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
             </div>
         </div>
-        <div class="col-md-8 col-md-offset-2">
-      		<p>#可能你会发现这个类的父类是NSMutableSet。纳尼？不是说NSMutableSet是不可以储存重复对象的吗。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>其实NSCountedSet也是不能储存重复的对象的，查看Apple文档中对这个类的描述有这么一句：<br>Each distinct object inserted into an NSCountedSet object has a counter associated with it.</p>
-<p>插入NSCountedSet对象的每个不同的对象都有一个与之相关的计数器</p>
-<p>也就是说如果遇到重复对象的加入，这个对象的计数器就会+1。所以可以到这个类有个名叫 <strong>- (NSUInteger)countForObject:(id)object</strong> 的方法来统计重复对象的个数。  </p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = @[@<span class="number">1</span>, @<span class="number">2</span>, @<span class="number">2</span>, @<span class="number">1</span>];  </div><div class="line"><span class="built_in">NSCountedSet</span> *set = [[<span class="built_in">NSCountedSet</span> alloc]initWithArray:array];  </div><div class="line">[set enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, BOOLBOOL *stop) &#123;  </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ =&gt; %d"</span>, obj, [set countForObject:obj]);  </div><div class="line">&#125;];</div></pre></td></tr></table></figure>
-
-            <div class="clearfix"></div>
-            <hr class="nogutter">
-        </div>
+        
         <nav class="pagination" role="pagination">
-    
-    <a class="pull-left" href="/2016/12/05/Images-iphone/" style="float: left;">
-        ← iOS 任意屏幕尺寸截屏  并保存相册
-    </a>
-    
-    
-    <a class="pull-right" href="/2016/12/05/JJRadarChart/">
-        iOS一款调用简单快捷的雷达图(蜘蛛图表)控件 →
-    </a>
-    
-</nav>
-
-        <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/12/05/NSCountedSet/" data-title="使用NSCountedSet 统计重复元素的个数" data-url="http://yoursite.com/2016/12/05/NSCountedSet/"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"reversescale"};
-(function() {
-	var ds = document.createElement('script');
-	ds.type = 'text/javascript';ds.async = true;
-	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	ds.charset = 'UTF-8';
-	(document.getElementsByTagName('head')[0] 
-	 || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
-</div>
+          <a class="pull-left" href="/page/10/">← Newer Posts</a>
+          
+        </nav>
     </div>
 </section>
-
+<section id="statement">
+    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
+        <div class="row">
+            <p>知天高，行渐远。</p>
+        </div>
+    </div>
+</section>
+<!-- ============================ END Content =========================== -->
 
       
 <!-- ============================ Footer =========================== -->
