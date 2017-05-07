@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Grand Central Dispatch Tutorial for Swift 3(1) | Steven&#39;s Technology Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Technology Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Technology Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(79)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(3)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Technology Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-05-07T04:10:21.000Z" itemprop="datePublished">
+          2017-05-07
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Grand Central Dispatch Tutorial for Swift 3(1)</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#在 Swift 3 中，GCD 进行了重大改革，从基于 C 的 API 转向包括新类和新数据结构的 “Swiftier” API。这第一部分将解释 GCD 的作用，并展示几种基本的 GCD 功能。本教程已由 Christine Abernathy 更新为 Swift 3,以前的教程是由 BjornRuud 撰写的。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h4><p>Grand Central Dispatch (GCD) is a low-level API for managing concurrent operations. GCD can help you improve your app’s responsiveness by defering computationally expensive tasks to the background. It’s an easier concurrency model to work with than locks and threads.<br>In Swift 3, GCD got a major revamp, moving from a C-based API to a “Swiftier” API that included new classes and new data structures.<br>In this two-part Grand Central Dispatch tutorial, you’ll learn the ins and outs of GCD. This first part will explain what GCD does and showcase several basic GCD functions. In the second part, you’ll learn about some advanced functions GCD has to offer.<br>You’ll build upon an existing application called GooglyPuff. GooglyPuff is a non-optimized, “thread-unsafe” app that overlays googly eyes on detected faces using Core Image’s face detection API. You can select images to apply this effect on from your Photo Library or select images downloaded from the internet.<br>Your mission in this tutorial, if you choose to accept it, is to use GCD to optimize the app and ensure you can safely call code from different threads.</p>
+<hr>
+<h4 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h4><p>Download the starter project for this tutorial and unzip it. Run the project in Xcode to see what you have to work with.<br>(<a href="https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Starter.zip" target="_blank" rel="external">https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Starter.zip</a>)<br>The home screen is initially empty. Tap + then select Le Internet to download predefined images from the internet. Tap the first image and you’ll see googly eyes added to the face.<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/6392827-file_1494130747026_a393.png" alt=""><br>There are four classes that you’ll primarily be working with in this tutorial:<br>PhotoCollectionViewController: The initial view controller. It displays the selected photos as thumbnails.<br>PhotoDetailViewController: Displays a selected photo from PhotoCollectionViewController and adds googly eyes to the image.<br>Photo: This is a protocol describing the properties of a photo. It provides an image, thumbnail and their corresponding statuses. Two classes are provided which implement the protocol: DownloadPhoto which instantiate a photo from an instance of URL, and AssetPhoto which instantiates a photo from an instance of PHAsset.<br>PhotoManager: This manages all the Photo objects.<br>There are a few problems with the app. One that you may have noticed when running the app is that the download complete alert is premature. You’ll fix this in the second part of the series.<br>In this first part, you’ll work on a few improvements including optimizing the googly-fying process and making PhotoManager thread safe.</p>
+<hr>
+<h4 id="GCD-Concepts"><a href="#GCD-Concepts" class="headerlink" title="GCD Concepts"></a>GCD Concepts</h4><p>To understand GCD, you need to be comfortable with several concepts related to concurrency and threading.</p>
+<p><strong>Concurrency</strong></p>
+<p>In iOS a process or application is made up of one or more threads. The threads are managed independently by the operating system scheduler. Each thread can execute concurrently but it’s up to the system to decide if this happens and how it happens.<br>Single-core devices can achieve concurrency through time-slicing. They would run one thread, perform a context switch, then run another thread.</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/69750691-file_1494130791921_f97e.png" alt=""><br>Multi-core devices on the other hand, execute multiple threads at the same time via parallelism.<br>GCD is built on top of threads. Under the hood it manages a shared thread pool. With GCD you add blocks of code or work items to dispatch queues and GCD decides which thread to execute them on.<br>As you structure your code, you’ll find code blocks that can run simultaneously and some that should not. This then allows you to use GCD to take advantage of concurrent execution.<br>Note that GCD decides how much parallelism is required based on the system and available system resources. It’s important to note that parallelism requires concurrency, but concurrency does not guarantee parallelism.<br>Basically, concurrency is about structure while parallelism is about execution.</p>
+<p><strong>Queues</strong><br>GCD provides dispatch queues represented by DispatchQueue to manage tasks you submit and execute them in a FIFO order guaranteeing that the first task submitted is the first one started.<br>Dispatch queues are thread-safe which means that you can access them from multiple threads simultaneously. The benefits of GCD are apparent when you understand how dispatch queues provide thread safety to parts of your own code. The key to this is to choose the right kind of dispatch queue and the right dispatching function to submit your work to the queue.<br>Queues can be either serial or concurrent. Serial queues guarantee that only one task runs at any given time. GCD controls the execution timing. You won’t know the amount of time between one task ending and the next one beginning:<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/15817485-file_1494130832036_123f9.png" alt=""><br>Concurrent queues allow multiple tasks to run at the same time. Tasks are guaranteed to start in the order they were added. Tasks can finish in any order and you have no knowledge of the time it will take for the next task to start, nor the number of tasks that are running at any given time.<br>See the sample task execution below:<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/67554060-file_1494130869333_5f09.png" alt=""></p>
+<p>Notice how Task 1, Task 2, and Task 3 start quickly one after the other. On the other hand, Task 1 took a while to start after Task 0. Also notice that while Task 3 started after Task 2, it finished first.<br>The decision of when to start a task is entirely up to GCD. If the execution time of one task overlaps with another, it’s up to GCD to determine if it should run on a different core, if one is available, or instead to perform a context switch to run a different task.<br>GCD provides three main types of queues:<br>Main queue: runs on the main thread and is a serial queue.<br>Global queues: concurrent queues that are shared by the whole system. There are four such queues with different priorities : high, default, low, and background. The background priority queue is I/O throttled.<br>Custom queues: queues that you create which can be serial or concurrent. These actually trickle down into being handled by one of the global queues.<br>When setting up the global concurrent queues, you don’t specify the priority directly. Instead you specify a Quality of Service (QoS) class property. This will indicate the task’s importance and guide GCD into determining the priority to give to the task.<br>The QoS classes are:<br>User-interactive: This represents tasks that need to be done immediately in order to provide a nice user experience. Use it for UI updates, event handling and small workloads that require low latency. The total amount of work done in this class during the execution of your app should be small. This should run on the main thread.<br>User-initiated: The represents tasks that are initiated from the UI and can be performed asynchronously. It should be used when the user is waiting for immediate results, and for tasks required to continue user interaction. This will get mapped into the high priority global queue.<br>Utility: This represents long-running tasks, typically with a user-visible progress indicator. Use it for computations, I/O, networking, continous data feeds and similar tasks. This class is designed to be energy efficient. This will get mapped into the low priority global queue.<br>Background: This represents tasks that the user is not directly aware of. Use it for prefetching, maintenance, and other tasks that don’t require user interaction and aren’t time-sensitive. This will get mapped into the background priority global queue.</p>
+<p><strong>Synchronous vs. Asynchronous</strong><br>With GCD, you can dispatch a task either synchronously or asynchronously.<br>A synchronous function returns control to the caller after the task is completed.<br>An asynchronous function returns immediately, ordering the task to be done but not waiting for it. Thus, an asynchronous function does not block the current thread of execution from proceeding on to the next function.</p>
+<p><strong>Managing Tasks</strong><br>You’ve heard about tasks quite a bit by now. For the purposes of this tutorial you can consider a task to be a closure. Closures are self-contained, callable blocks of code that can be stored and passed around.<br>Tasks that you submit to a DispatchQueue are encapsulated by DispatchWorkItem. You can configure the behavior of a DispatchWorkItem such as its QoS class or whether to spawn a new detached thread.</p>
+<p><strong>Handling Background Tasks</strong><br>With all this pent up GCD knowledge, it’s time for your first app improvement!<br>Head back to the app and add some photos from your Photo Library or use the Le Internet option to download a few. Tap on a photo. Notice how long it takes for the photo detail view to show up. The lag is more pronounced when viewing large images on slower devices.<br>Overloading a view controller’s viewDidLoad() is easy to do resulting in long waits before the view appears. It’s best offload work to the background if it’s not absolutely essential at load time.<br>This sounds like a job for DispatchQueue‘s async!<br>Open PhotoDetailViewController.swift. Modify viewDidLoad() and replace these two lines:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> overlayImage = faceOverlayImageFromImage(image)</div><div class="line">fadeInNewImage(overlayImage)</div></pre></td></tr></table></figure>
+<p>With the following code:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global(qos: .userInitiated).async &#123; <span class="comment">// 1</span></div><div class="line">  <span class="keyword">let</span> overlayImage = <span class="keyword">self</span>.faceOverlayImageFromImage(<span class="keyword">self</span>.image)</div><div class="line">  <span class="type">DispatchQueue</span>.main.async &#123; <span class="comment">// 2</span></div><div class="line">    <span class="keyword">self</span>.fadeInNewImage(overlayImage) <span class="comment">// 3</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Here’s what the code’s doing step by step:<br>You move the work to a background global queue and run the work in the closure asynchronously. This lets viewDidLoad() finish earlier on the main thread and makes the loading feel more snappy. Meanwhile, the face detection processing is started and will finish at some later time.<br>At this point, the face detection processing is complete and you’ve generated a new image. Since you want to use this new image to update your UIImageView, you add a new closure to the main queue. Remember – you must always access UIKit classes on the main thread!<br>Finally, you update the UI with fadeInNewImage(_ :) which performs a fade-in transition of the new googly eyes image.<br>Build and run the app. Download photos through Le Internet option. Select a photo and you’ll notice that the view controller loads up noticeably faster and adds the googly eyes after a short delay:</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/40958984-file_1494131031578_384b.png" alt=""><br>This lends a nice before and after effect to the app as the googly eyes are added. Even if you were trying to load an insanely huge image, your app wouldn’t hang as the view controller is loaded.<br>In general, you’ll want to use async when you need to perform a network-based or CPU intensive task in the background and not block the current thread.<br>Here’s a quick guide of how and when to use the various queues with async:<br>Main Queue: This is a common choice to update the UI after completing work in a task on a concurrent queue. To do this, you’ll code one closure inside another. Targeting the main queue and calling async guarantees that this new task will execute sometime after the current method finishes.<br>Global Queue: This is a common choice to perform non-UI work in the background.<br>Custom Serial Queue: A good choice when you want to perform background work serially and track it. This eliminates resource contention since you know only one task at a time is executing. Note that if you need the data from a method, you must inline another closure to retrieve it or consider using sync.</p>
+<p><strong>Delaying Task Execution</strong><br>DispatchQueue allows you to delay task execution. Care should be taken not to use this to solve race conditions or other timing bugs through hacks like introducing delays. Use this when you want a task to run at a specific time.<br>Consider the user experience of your app for a moment. It’s possible that users might be confused about what to do when they open the app for the first time — were you? :]<br>It would be a good idea to display a prompt to the user if there aren’t any photos. You should also consider how the user’s eyes will navigate the home screen. If you display a prompt too quickly, they might miss it as their eyes linger on other parts of the view. A one-second delay before displaying the prompt should be enough to catch the user’s attention and guide them.<br>Open PhotoCollectionViewController.swift and fill in the implementation for showOrHideNavPrompt():<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> delayInSeconds = <span class="number">1.0</span> <span class="comment">// 1</span></div><div class="line"><span class="type">DispatchQueue</span>.main.asyncAfter(deadline: .now() + delayInSeconds) &#123; <span class="comment">// 2</span></div><div class="line">  <span class="keyword">let</span> <span class="built_in">count</span> = <span class="type">PhotoManager</span>.sharedManager.photos.<span class="built_in">count</span></div><div class="line">  <span class="keyword">if</span> <span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</div><div class="line">    <span class="keyword">self</span>.navigationItem.prompt = <span class="literal">nil</span></div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">self</span>.navigationItem.prompt = <span class="string">"Add photos with faces to Googlyify them!"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Here’s what’s going on above:<br>You specify a variable for the amount of time to delay.<br>You then wait for the specified time then asynchronously run the block which updates the photos count and updates the prompt.<br>showOrHideNavPrompt() executes in viewDidLoad() and anytime your UICollectionView is reloaded.<br>Build and run the app. There should be a slight delay before a prompt is displayed:<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/72470146-file_1494131137507_9897.png" alt=""><br>Wondering when it’s appropriate to use asyncAfter? Generally it’s a good choice to use it in the main queue. You’ll want to use caution when using asyncAfter on other queues such as the global background queues or a custom serial queue. You’re better off sticking to the main queue.<br>Why not use Timer? You could consider using it if you have repeated tasks which are easier to schedule with Timer. Here are two reasons to stick with dispatch queue’s asyncAfter.<br>One is readability. To use Timer you have to define a method then create the timer with a selector or invocation to the defined method. With DispatchQueue and asyncAfter you simply add a closure.<br>Timer is scheduled on run loops so you would also have to make sure it was scheduled on the run loop you want it to fire (and in some cases for the correct run loop modes). In this regard, working with dispatch queues is easier.</p>
+<hr>
+<h4 id="Managing-Singletons"><a href="#Managing-Singletons" class="headerlink" title="Managing Singletons"></a>Managing Singletons</h4><p>Singletons. Love them or hate them, they’re as popular in iOS as cat photos on the web. :]<br>One frequent concern with singletons is that often they’re not thread safe. This concern is justified given their use: singletons are often used from multiple controllers accessing the singleton instance at the same time. Your PhotoManager class is a singleton, so you’ll need to consider this issue.<br>Thread safe code can be safely called from multiple threads or concurrent tasks without causing any problems such as data corruption, or app crashes. Code that is not thread safe must only be run in one context at a time.<br>There are two thread safety cases to consider, during initialization of the singleton instance and during reads and writes to the instance.<br>Initialization turns out to be the easy case because of how Swift initializes global variables. Global variables are initialized when they are first accessed, and they are guaranteed to be initialized in an atomic fashion. That is, the code performing initialization is treated as a critical section and is guaranteed to complete before any other thread gets access to the global variable.<br>A critical section is a piece of code that must not be executed concurrently, that is, from two threads at once. This is usually because the code manipulates a shared resource such as a variable that can become corrupt if it’s accessed by concurrent processes.<br>Open up PhotoManager.swift to see how the singleton is initialized:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> _sharedManager = <span class="type">PhotoManager</span>()</div></pre></td></tr></table></figure>
+<p>The private global _ sharedManager variable is used to initialize PhotoManager lazily. This happens only on the first access which you can see here:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">var</span> <span class="title">sharedManager</span>: <span class="title">PhotoManager</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> _sharedManager</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>The public sharedManager variable returns the private _ sharedManager variable. Swift ensures that this operation is thread safe.<br>You still have to deal with thread safety when accessing code in the singleton that manipulates shared internal data. You can handle this through methods such as synchronizing data access. You’ll see one approach in the next section.</p>
+<hr>
+<h4 id="Handling-the-Readers-Writers-Problem"><a href="#Handling-the-Readers-Writers-Problem" class="headerlink" title="Handling the Readers-Writers Problem"></a>Handling the Readers-Writers Problem</h4><p>In Swift, any variable declared with the let keyword is considered a constant and is read-only and thread-safe. Declare the variable with the var keyword however, and it becomes mutable and not thread-safe unless the data type is designed to be so. The Swift collection types like Array and Dictionary are not thread-safe when declared mutable.<br>Although many threads can read a mutable instance of Array simultaneously without issue, it’s not safe to let one thread modify the array while another is reading it. Your singleton doesn’t prevent this condition from happening in its current state.<br>To see the problem, take a look at addPhoto(_ :) in PhotoManager.swift, which has been reproduced below:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addPhoto</span><span class="params">(<span class="number">_</span> photo: Photo)</span></span> &#123;</div><div class="line">  _photos.append(photo)</div><div class="line">  <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">    <span class="keyword">self</span>.postContentAddedNotification()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>This is a write method as it modifies a mutable array object.<br>Now take a look at the photos property, reproduced below:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fileprivate <span class="keyword">var</span> _photos: [<span class="type">Photo</span>] = []</div><div class="line"><span class="keyword">var</span> photos: [<span class="type">Photo</span>] &#123;</div><div class="line">  <span class="keyword">return</span> _photos</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>The getter for this property is termed a read method as it’s reading the mutable array. The caller gets a copy of the array and is protected against mutating the original array inappropriately. This does not provide any protection against one thread calling the write method addPhoto(_ :) while simultaneously another thread calls the getter for the photos property.</p>
+<blockquote>
+<p>Note: In the code above, why does the caller get a copy of the photos array? In Swift parameters and return types of functions are either passed by reference or by value.<br>Passing by value results in a copy of the object, and changes to the copy will not affect the original. By default in Swift class instances are passed by reference and structs passed by value. Swift’s built-in data types like Array and Dictionary, are implemented as structs.<br>It may look like there’s a lot of copying in your code when passing collections back and forth. Don’t worry about the memory usage implications of this. The Swift collection types are optimized to only make copies when necessary, for instance when an array passed by value is modified for the first time after being passed.</p>
+</blockquote>
+<p>This is the classic software development Readers-Writers Problem. GCD provides an elegant solution of creating a read/write lock using dispatch barriers. Dispatch barriers are a group of functions acting as a serial-style bottleneck when working with concurrent queues.<br>When you submit a DispatchWorkItem to a dispatch queue you can set flags to indicate that it should be the only item executed on the specified queue for that particular time. This means that all items submitted to the queue prior to the dispatch barrier must complete before the DispatchWorkItem will execute.<br>When the DispatchWorkItem‘s turn arrives, the barrier executes it and ensures that the queue does not execute any other tasks during that time. Once finished, the queue returns to its default implementation.<br>The diagram below illustrates the effect of a barrier on various asynchronous tasks:</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/14547308-file_1494131989190_5ed7.png" alt=""><br>Notice how in normal operation the queue acts just like a normal concurrent queue. But when the barrier is executing, it essentially acts like a serial queue. That is, the barrier is the only thing executing. After the barrier finishes, the queue goes back to being a normal concurrent queue.<br>Use caution when using barriers in global background concurrent queues as these queues are shared resources. Using barriers in a custom serial queue is redundant as it already executes serially. Using barriers in custom concurrent queue is a great choice for handling thread safety in atomic of critical areas of code.<br>You’ll use a custom concurrent queue to handle your barrier function and separate the read and write functions. The concurrent queue will allow multiple read operations simultaneously.<br>Open PhotoManager.swift and add a private property just above the _ photos declaration:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fileprivate <span class="keyword">let</span> concurrentPhotoQueue =</div><div class="line">  <span class="type">DispatchQueue</span>(</div><div class="line">    label: <span class="string">"com.raywenderlich.GooglyPuff.photoQueue"</span>, <span class="comment">// 1</span></div><div class="line">    attributes: .concurrent) <span class="comment">// 2</span></div></pre></td></tr></table></figure>
+<p>This initializes concurrentPhotoQueue as a concurrent queue.<br>You set up label with a descriptive name that is helpful during debugging. Typically you’ll use the reversed DNS style naming convention.<br>You specify a concurrent queue.<br>Next, replace addPhoto(_ :) with the following code:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addPhoto</span><span class="params">(<span class="number">_</span> photo: Photo)</span></span> &#123;</div><div class="line">  concurrentPhotoQueue.async(flags: .barrier) &#123; <span class="comment">// 1</span></div><div class="line">    <span class="keyword">self</span>._photos.append(photo) <span class="comment">// 2</span></div><div class="line">    <span class="type">DispatchQueue</span>.main.async &#123; <span class="comment">// 3</span></div><div class="line">      <span class="keyword">self</span>.postContentAddedNotification()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Here’s how your new write function works:<br>You dispatch the write operation asynchronously with a barrier. When it executes, it will be the only item in your queue.<br>You add the object to the array.<br>Finally you post a notification that you’ve added the photo. This notification should be posted on the main thread because it will do UI work. So you dispatch another task asynchronously to the main queue to trigger the notification.<br>This takes care of the write, but you also need to implement the photos read method.<br>To ensure thread safety with your writes, you need to perform reads on the concurrentPhotoQueue queue. You need return data from the function call so an asynchronous dispatch won’t cut it. In this case, sync would be an excellent candidate.<br>Use sync to keep track of your work with dispatch barriers, or when you need to wait for the operation to finish before you can use the data processed by the closure.<br>You need to be careful though. Imagine if you call sync and target the current queue you’re already running on. This will result in a deadlock situation.<br>Two (or sometimes more) items — in most cases, threads — are said to be deadlocked if they all get stuck waiting for each other to complete or perform another action. The first can’t finish because it’s waiting for the second to finish. But the second can’t finish because it’s waiting for the first to finish.<br>In your case, the sync call will wait until the closure finishes, but the closure can’t finish (it can’t even start!) until the currently executing closure is finished, which can’t! This should force you to be conscious of which queue you’re calling from — as well as which queue you’re passing in.<br>Here’s a quick overview of when and where to use sync:<br>Main Queue: Be VERY careful for the same reasons as above; this situation also has potential for a deadlock condition.<br>Global Queue: This is a good candidate to sync work through dispatch barriers or when waiting for a task to complete so you can perform further processing.<br>Custom Serial Queue: Be VERY careful in this situation; if you’re running in a queue and call sync targeting the same queue, you’ll definitely create a deadlock.<br>Still in PhotoManager.swift modify the photos property getter:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> photos: [<span class="type">Photo</span>] &#123;</div><div class="line">  <span class="keyword">var</span> photosCopy: [<span class="type">Photo</span>]!</div><div class="line">  concurrentPhotoQueue.sync &#123; <span class="comment">// 1</span></div><div class="line">    photosCopy = <span class="keyword">self</span>._photos <span class="comment">// 2</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> photosCopy</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Here’s what’s going on step-by-step:<br>Dispatch synchronously onto the concurrentPhotoQueue to perform the read.<br>Store a copy of the photo array in photosCopy and return it.<br>Build and run the app. Download photos through Le Internet option. It should behave as before but underneath the hood, you have some very happy threads.</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-5-7/95338031-file_1494132082336_e07c.png" alt=""></p>
+<p>Congratulations — your PhotoManager singleton is now thread safe. No matter where or how you read or write photos, you can be confident that it will be done in a safe manner with no surprises.</p>
+<hr>
+<h4 id="Where-To-Go-From-Here"><a href="#Where-To-Go-From-Here" class="headerlink" title="Where To Go From Here?"></a>Where To Go From Here?</h4><p>In this Grand Central Dispatch tutorial, you learned how to make your code thread safe and how to maintain the responsiveness of the main thread while performing CPU intensive tasks.<br>You can download the completed project which contains all the improvements made in this tutorial so far. In the second part of this tutorial you’ll continue to improve upon this project.<br>If you plan on optimizing your own apps, you really should be profiling your work with the Time Profile template in Instruments. Using this utility is outside the scope of this tutorial, so check out How to Use Instruments for a excellent overview.<br>Also make sure that you profile with an actual device, since testing on the Simulator can give very different results that are different from what your users will experience.<br>You may also want to check out this excellent talk by Rob Pike on Concurrency vs Parallelism.<br>Our iOS Concurrency with GCD and Operations video tutorial series also covers a lot of the same topics that we’ve covered in this tutorial.<br>In the next part of this tutorial you’ll dive even deeper into GCD’s API to do even more cool stuff.<br>If you have any questions or comments, feel free to join the discussion below!</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/04/20/applehome/">
+        “住”了一回苹果智能家居公寓，发现了 Homekit 的几大真相 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/05/07/Swift3-center01/" data-title="Grand Central Dispatch Tutorial for Swift 3(1)" data-url="http://yoursite.com/2017/05/07/Swift3-center01/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reversescale"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

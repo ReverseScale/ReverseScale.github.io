@@ -17,12 +17,12 @@
 <!--<![endif]-->
 
 <head>
-  <title>Swift 滚动标签视图封装 | Steven&#39;s Blog</title>
+  <title>Swift 滚动标签视图封装 | Steven&#39;s Technology Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content="Steven's Blog">
+    <meta name="generator" content="Steven's Technology Blog">
     <meta name="author" content="Steven">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -30,7 +30,7 @@
     <!-- Favicon, (keep icon in root folder) -->
     <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
 
-    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Technology Blog" type="application/atom+xml">
     <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
 	
     <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
@@ -130,7 +130,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(78)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(79)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -181,7 +181,7 @@
                     <!-- Info-bar -->
                     <nav>
                         <ul class="nav">
-                            <li><a href="/" class="animsition-link">Steven's Blog</a></li>
+                            <li><a href="/" class="animsition-link">Steven's Technology Blog</a></li>
                             <li class="nolink"><span>Always </span>Creative.</li>
                             
                             <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
@@ -243,7 +243,7 @@
 <p>viewController 调用方法：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">myView = <span class="type">LineTagView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>,<span class="number">100</span>, <span class="keyword">self</span>.view.frame.size.width, <span class="number">39</span>))</div><div class="line">myView?.delegate = <span class="keyword">self</span></div><div class="line">myView?.borderColor = <span class="type">UIColor</span>.brownColor()</div><div class="line">myView?.textColor = <span class="type">UIColor</span>.brownColor()</div><div class="line">myView?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">13</span>)</div><div class="line">myView?.itemsArray = [<span class="string">"龟苓膏"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"人参"</span>,<span class="string">"鳖"</span>,<span class="string">"白吃丸吃丸"</span>]</div><div class="line"><span class="keyword">self</span>.view.addSubview(myView!)</div><div class="line">myView?.reloadData()</div></pre></td></tr></table></figure>
 <hr>
-<p>Delegate &amp;&amp; 更新方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ImagesBrowseViewController</span>:<span class="title">LineTagViewDelegate</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">BtnClickIndex</span><span class="params">(index: Int)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Index-----:<span class="subst">\(index)</span>"</span>)</div><div class="line">        myView?.frame = <span class="type">CGRectMake</span>(<span class="number">0</span>,<span class="number">100</span>, <span class="keyword">self</span>.view.frame.size.width / <span class="number">2</span>, <span class="number">42</span>)</div><div class="line">        myView?.itemsArray = [<span class="string">"人参"</span>,<span class="string">"鳖"</span>,<span class="string">"白吃丸吃丸"</span>,<span class="string">"欧赔"</span>,<span class="string">"龟苓膏"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"人参"</span>,<span class="string">"鳖"</span>]</div><div class="line">        myView?.reloadData()</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>Delegate &amp;&amp; 更新方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ImagesBrowseViewController</span>:<span class="title">LineTagViewDelegate</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">BtnClickIndex</span><span class="params">(index: Int)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Index-----:\(index)"</span>)</div><div class="line">        myView?.frame = <span class="type">CGRectMake</span>(<span class="number">0</span>,<span class="number">100</span>, <span class="keyword">self</span>.view.frame.size.width / <span class="number">2</span>, <span class="number">42</span>)</div><div class="line">        myView?.itemsArray = [<span class="string">"人参"</span>,<span class="string">"鳖"</span>,<span class="string">"白吃丸吃丸"</span>,<span class="string">"欧赔"</span>,<span class="string">"龟苓膏"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"人参"</span>,<span class="string">"鳖"</span>]</div><div class="line">        myView?.reloadData()</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <hr>
 <p>效果截图：（自适应）</p>
 <div align="left"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/60535316.jpg" width="50%" height="50%"></div>
