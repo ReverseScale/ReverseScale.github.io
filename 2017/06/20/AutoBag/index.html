@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>iOS 推送问题相关汇总 | Steven&#39;s Technology Blog</title>
+  <title>Xcode 自动打包发布脚本 | Steven&#39;s Technology Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -224,8 +224,8 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2017-03-16T04:55:21.000Z" itemprop="datePublished">
-          2017-03-16
+      <time datetime="2017-06-20T13:23:17.000Z" itemprop="datePublished">
+          2017-06-20
       </time>
     
     
@@ -234,106 +234,63 @@
     
     
 </span>
-                <h1>iOS 推送问题相关汇总</h1>
+                <h1>Xcode 自动打包发布脚本</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#作为项目中和业务联系比较大并且又限定每月操作次数的推送操作，总要总结一些问题经验的。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>Q 1：为啥收不到推送（1）？</p>
-<p>如果收到推送时，App 在前台运行，那么：</p>
-<p>iOS 10 before 顶部横幅不会弹出。没有任何展示，你以为「没有收到推送」。<br>iOS 10 after 如果没有实现以下代码，也是不会有任何提示的，你以为「没有收到推送」。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//UNUserNotificationCenterDelegate</div><div class="line">-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler&#123;</div><div class="line">  completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+      		<p>#记得之前在创业公司，开发任务重，提测前常常加班到晚上12点，就算bug修完，也要等半个小时看着Xcode不慌不忙的打包完成上传测试平台发邮件才能安心回家。鉴于这种惨痛经历，利用闲暇时间就搞一搞自动打包脚本，整理方法并适配Xcode 8.2之后版本。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="第一步-安装fir-cil"><a href="#第一步-安装fir-cil" class="headerlink" title="第一步 安装fir-cil"></a>第一步 安装fir-cil</h4><p>fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ruby -v # &gt; 1.9.3</div><div class="line">$ gem install fir-cli</div></pre></td></tr></table></figure>
+<p><strong>常见的安装问题</strong><br>(1)使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ xcode-select --install        # OS X 系统</div><div class="line">$ sudo apt-get install ruby-dev # Linux 系统</div></pre></td></tr></table></figure></p>
+<p>(2)现 Permission denied 相关错误:<br>解决：在命令前加上 sudo<br>(3)出现 Gem::RemoteFetcher::FetchError 相关错误:<br>解决：更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ gem sources --remove https://rubygems.org/</div><div class="line">$ gem sources -a https://ruby.taobao.org/</div><div class="line">$ gem sources -l</div><div class="line">*** CURRENT SOURCES ***</div><div class="line">https://ruby.taobao.org</div><div class="line"># 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉</div><div class="line">gem update --system</div><div class="line">gem install fir-cli</div></pre></td></tr></table></figure></p>
+<p>(4)Mac OS X 10.11 以后的版本, 由于10.11引入了 rootless, 无法直接安装 fir-cli, 有以下三种解决办法:<br>方法一： 使用 Homebrew 及 RVM 安装 Ruby, 再安装 fir-cli(推荐)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Install Homebrew:</div><div class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div><div class="line"># Install RVM:</div><div class="line">$ \curl -sSL https://get.rvm.io | bash -s stable --ruby</div><div class="line">$ gem install fir-cli</div></pre></td></tr></table></figure></p>
+<p>方法二： 指定 fir-cli 中 bin 文件的 PATH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ export PATH=/usr/local/bin:$PATH;gem install -n /usr/local/bin fir-cli</div></pre></td></tr></table></figure></p>
+<p>方法三： 重写 Ruby Gem 的 bindir<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ echo &apos;gem: --bindir /usr/local/bin&apos; &gt;&gt; ~/.gemrc</div><div class="line">$ gem install fir-cli</div></pre></td></tr></table></figure></p>
 <hr>
-<p>Q 2：为啥收不到推送（2）？</p>
-<p>iOS 使用推送需要 配置推送证书，如果你配过了，仍然收不到推送，建议再配一遍。笔者曾经多次远程控制手把手给其他开发者配置证书，结果全都重新配一遍就能收到推送了。</p>
+<h4 id="第二步-登录fir-im"><a href="#第二步-登录fir-im" class="headerlink" title="第二步 登录fir.im"></a>第二步 登录fir.im</h4><p>先到 <a href="https://fir.im" target="_blank" rel="external">https://fir.im</a> 创建项目，得到 API Token 并复制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fir login</div></pre></td></tr></table></figure>
+<p>命令用于使用 API token 登录 fir.im, 并使用发布应用等相关命令.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fir me</div></pre></td></tr></table></figure>
+<p>命令用于查看当前登录用户信息.</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ fir login XXX_YOUR_API_TOKEN_XXX</div><div class="line">I, [2016-03-08T12:48:56.499435 #13043]  INFO -- : Login succeed, previous user&apos;s email: xxx@fir.im</div><div class="line">I, [2016-03-08T12:48:56.507044 #13043]  INFO -- : Login succeed, current  user&apos;s email: xxx@fir.im</div><div class="line">I, [2016-03-08T12:48:56.507147 #13043]  INFO -- :</div><div class="line"></div><div class="line">$ fir me</div><div class="line">I, [2016-03-08T12:48:14.175488 #12986]  INFO -- : Login succeed, current user&apos;s email: xxx@fir.im</div><div class="line">I, [2016-03-08T12:48:14.175687 #12986]  INFO -- : Login succeed, current user&apos;s name:  xxx</div><div class="line">I, [2016-03-08T12:48:14.175765 #12986]  INFO -- :</div></pre></td></tr></table></figure></p>
 <hr>
-<p>Q 3：为啥收不到推送（3）？<br><img src="http://i1.piimg.com/567571/53366516fbdf5c00.jpg" alt=""></p>
+<h4 id="第三步-下载并配置-shell-脚本"><a href="#第三步-下载并配置-shell-脚本" class="headerlink" title="第三步 下载并配置 shell 脚本"></a>第三步 下载并配置 shell 脚本</h4><p>1.把文件夹导入工程目录根目录下</p>
+<blockquote>
+<p>ps:我的项目直接放在桌面上</p>
+</blockquote>
+<p>Xcode 8.2 完全弃用了 PackageApplication 方法，新版 Xcode 需要用新方法来打包，Xcode8.2 之前的版本可以选择使用注释部分代码实现功能。</p>
+<blockquote>
+<p>ps:第一次自己搞脚本，里面的代码很乱很乱乱，待整理</p>
+</blockquote>
+<p>新方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xcodebuild  </div><div class="line">-exportArchive \</div><div class="line">-archivePath $&#123;export_archive_path&#125; \</div><div class="line">-exportPath $&#123;export_ipa_path&#125; \</div><div class="line">-exportOptionsPlist $&#123;ExportOptionsPlistPath&#125;</div></pre></td></tr></table></figure></p>
+<p>下载地址在底部</p>
+<p>2.配置 shell 脚本<br>（1）一键打包 配置（此脚本不需要fir相关）<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/4333417.jpg" alt=""><br>根据具体项目填写</p>
+<p>控制台到脚本所在目录下，启动脚本(必要时加管理员权限)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh build_install.sh</div></pre></td></tr></table></figure></p>
+<p>正常情况会出现如下选项，对应Xcode打包时的几种模式。<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/12300381.jpg" alt=""><br>（2）一键打包同时上传fir测试平台 配置（需要登录fir设置Token）<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/42192725.jpg" alt=""><br>由于是上传测试平台，一些选项就默认了，所以需要配置的参数较少。<br>成功上传 提示文字 （小飞机 …）<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/29580740.jpg" alt=""><br>（3）其他的功能脚本由于实用性不高（其实我懒得搞），暂时没有适配调制，有兴趣的朋友可以自行配置试用，包括：邮件发送、打包App Store等等。</p>
 <hr>
-<p>Q 4：为啥收不到推送（4）？</p>
-<p>推送时开发环境、发布环境一一对应。环境不对应，收不到。</p>
+<h4 id="第四步-执行shell脚本，打包上传"><a href="#第四步-执行shell脚本，打包上传" class="headerlink" title="第四步 执行shell脚本，打包上传"></a>第四步 执行shell脚本，打包上传</h4><ul>
+<li>首先把这个脚本文件放到你的项目工程目录下</li>
+<li>然后打开终端，cd到脚本文件在的目录下，执行命名sh build_deployto_fir.sh</li>
+</ul>
+<p>然后看到一下类似的画面说明上传成功：<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-16/11747150.jpg" alt=""></p>
 <hr>
-<p>Q 5：为啥收不到推送（5）？</p>
-<p>要在 Apple Developer Center 把你的测试设备加入到 Device 里面。</p>
+<h4 id="附录-执行脚本过程中遇到的问题和解决方案"><a href="#附录-执行脚本过程中遇到的问题和解决方案" class="headerlink" title="附录 执行脚本过程中遇到的问题和解决方案"></a>附录 执行脚本过程中遇到的问题和解决方案</h4><p>1.fir: command not found</p>
+<p>这个是因为没有安装fir-cil，导致找不到相应的命令行，只需要安装一下就行了，详情见上文写的如何安装fir-cil。</p>
+<p>2.README: No such file or directory</p>
+<p>那是因为你的脚本目录下没有README的文件，只需要建一个README的文件就行了，打开终端，cd到当前位置，然后执行下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch README</div></pre></td></tr></table></figure></p>
+<p>3.ERROR – : Token can not be blank</p>
+<p>这个原因是因为你没有登录fir导致的，你执行这个脚本之前应该先登录一下fir，详情请看上文写的登录fir.im。</p>
 <hr>
-<p>Q 6：为啥收不到推送（6）？</p>
-<p>一台手机能收到，另一台不能收到。要把你的另一台测试设备也加入到 Apple Deveice 里面。。。</p>
-<hr>
-<p>Q 7：为啥收不到推送（7）？</p>
-<p>高峰时段你再等几秒就收到了。</p>
-<hr>
-<p>Q 8：为啥还是收不到推送（8）？？？</p>
-<p>Apple 服务器宕机了，并不是所有的设备都收不到推送了，而是新的设备无法成功注册推送服务了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在该方法中，无法返回有效的 deviceToken 值了。等两天就好了。</p>
-<hr>
-<p>Q 9：为啥生产环境收不到推送？</p>
-<p>打包，安装，测试。即可。</p>
-<hr>
-<p>Q 10：为啥 App 右上角的角标 badge 不清 0？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];</div></pre></td></tr></table></figure></p>
-<hr>
-<p>Q 11：为啥 App 右上角的角标 badge 不自增？</p>
-<p>推送时 badge 参数设置： +n自增、-n自减、n固定值。 自增、自减一般第三方推送服务支持才有。</p>
-<hr>
-<p>Q 12：为啥 App 在后台收到推送代码不执行？</p>
-<p>Background Remote Notification</p>
-<hr>
-<p>Q 13：为啥 App 在杀死后收到推送代码不执行？</p>
-<p>App 杀死啥代码都不能执行。iOS 10 你可以试试 Notification Service Extension，详情见 这篇文章 的 Service Extension 部分。</p>
-<hr>
-<p>Q 14：为啥收到推送没声音（1）？</p>
-<p>哥哥手机左侧静音键麻烦拨上来。</p>
-<hr>
-<p>Q 15：为啥收到推送没声音（2）？</p>
-<p>推送时 sound 字段设置为：default</p>
-<hr>
-<p>Q 16：为啥收到推送不播放自定义声音（1）？</p>
-<p>1.声音文件拖拽并拷贝并生成索引到工程任意位置（在 Xcode 里拖拽） 2.推送时 sound 字段设置为：name.mp3。需要名字后缀完全一样。</p>
-<hr>
-<p>Q 17：为啥收到推送不播放自定义声音（2）？</p>
-<p>拖拽文件时没有选择拷贝，连线测试有声音，拔线没声音，声音文件在电脑里，拔线后缺失。从工程目录删除该文件，再重新添加再 build。</p>
-<hr>
-<p>Q 18：为啥点击 App 图标进入 App 收不到推送（1）？</p>
-<p>要点推送横幅、通知中心条目进入 App 才能收到。</p>
-<hr>
-<p>Q 19：为啥点击 App 图标进入 App 收不到推送（2）？</p>
-<p>解决方法：再发一条透传消息。只处理消息，不处理推送。不论点哪里进的 App，都能保证该事件被处理。</p>
-<hr>
-<p>Q 20：为啥推送一条手机会收到两条一样的？</p>
-<p>iOS 9 的 bug。</p>
-<hr>
-<p>Q 21：为啥点击横幅不能跳转到指定的界面？<br>点击推送启动 App 在这里捕获推送内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions&#123;</div><div class="line">    NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>点击推送从后台唤醒 App 在这里捕获推送内容：<br>iOS 7 before<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>iOS 7~9<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>iOS 10<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//UNUserNotificationCenterDelegate</div><div class="line"> - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler&#123;</div><div class="line">     NSDictionary *userInfo = response.notification.request.content.userInfo;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<p>Q 22：为啥点击了推送，通知中心条目不消除（1）？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];</div></pre></td></tr></table></figure>
-<hr>
-<p>Q 23：为啥点击了推送，通知中心条目不消除（2）？</p>
-<p>推送时 badge 参数为 0，再调用 Q 22 导致通知中心没有发生变化，此时应设为1，再设为0：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];</div><div class="line">[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];</div></pre></td></tr></table></figure>
-<hr>
-<p>Q 24：为啥用户不允许通知，以后再也不能弹出请求通知权限的提示窗了？</p>
-<p>先获取用户推送权限设置情况：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//  iOS 8 before</div><div class="line">  UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];</div><div class="line"></div><div class="line">//  iOS 8~9</div><div class="line">  UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];</div><div class="line">  UIUserNotificationType type = settings.types;</div><div class="line"></div><div class="line">//  iOS 10</div><div class="line">  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];</div><div class="line">  [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) &#123;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>如果没开，跳转到 设置 - yourApp 页面让用户设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];</div></pre></td></tr></table></figure></p>
-<hr>
-<p>Q 25：为啥 iOS 10 不能注册推送服务？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//  iOS 8 before</div><div class="line">UIRemoteNotificationType type = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;</div><div class="line">[application registerForRemoteNotificationTypes:type];</div><div class="line"></div><div class="line">//  iOS 8~9</div><div class="line">UIUserNotificationType type = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;</div><div class="line">UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:type categories:nil];</div><div class="line">[application registerUserNotificationSettings:setting];</div><div class="line"></div><div class="line">//  iOS 10</div><div class="line">UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];</div><div class="line">[center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) &#123;</div><div class="line">    if (!error) &#123;</div><div class="line">      NSLog(@&quot;request authorization succeeded!&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;];</div></pre></td></tr></table></figure></p>
-<hr>
-<p>Q 26：为啥原作者懂的这么多？<br>因为他是极光推送的可耐程序猿葛格^^。</p>
-<hr>
-<p>Q 27：为啥总是那么多为啥？<br>因为他可能是个东北银~~。</p>
+<div align="center">百度云盘：自动打包脚本 验证码: twnc<br><a href="https://pan.baidu.com/share/init?shareid=1312829421&uk=1399092270" target="_blank" rel="external"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2017/03/16/reactNativeYH/" style="float: left;">
-        ← ReactNative优化--压缩APK安装包大小
-    </a>
     
-    
-    <a class="pull-right" href="/2017/02/23/CollectionVIewPuBu/">
-        iOS-CollectionView瀑布流框架搭建 →
+    <a class="pull-right" href="/2017/06/14/Swift3-1new/">
+        Swift 3.1 新特征 →
     </a>
     
 </nav>
