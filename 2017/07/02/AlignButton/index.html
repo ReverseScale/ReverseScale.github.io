@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>iOS 10 新特性 UITabBarController 中的改进 | Steven&#39;s Technology Blog</title>
+  <title>轻量级卡片布局封装 | Steven&#39;s Technology Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -226,8 +226,8 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-11-03T06:43:29.000Z" itemprop="datePublished">
-          2016-11-03
+      <time datetime="2017-07-02T14:08:07.000Z" itemprop="datePublished">
+          2017-07-02
       </time>
     
     
@@ -236,26 +236,31 @@
     
     
 </span>
-                <h1>iOS 10 新特性 UITabBarController 中的改进</h1>
+                <h1>轻量级卡片布局封装</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#在iOS 10之前，tabBarItem上的文字颜色，默认是 蓝色，上面的新消息提醒数字badge 默认是红色的，未选中的TabBarItem的文字颜色默认是黑色的，我们修改的话，也只能修改它的默认颜色 ，其它的就不能进行个性化定制，使用起来非常的不方便，iOS10之后我们可以轻松个性化定制了。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>UITabBarController 中的改进如上</p>
-<p>核心代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">//<span class="number">1.</span>创建出三个UIViewcontroller 对象</div><div class="line">OneViewController *oneVc =[[OneViewController alloc] init]; //<span class="number">2.</span>设置每一个控制器上的tabbar</div><div class="line">oneVc.view.backgroundColor =[UIColor redColor];</div><div class="line">//设置标题</div><div class="line">oneVc.tabBarItem.title = @<span class="string">"首页"</span>; TwoViewController *twovC =[[TwoViewController alloc] init]; twovC.view.backgroundColor =[UIColor purpleColor]; //设置标题</div><div class="line">twovC.tabBarItem.title = @<span class="string">"圈子"</span>; ThreeViewController *threVC =[[ThreeViewController alloc] init];</div><div class="line">threVC.view.backgroundColor =[UIColor blueColor];</div><div class="line">//设置标题</div><div class="line">threVC.tabBarItem.title = @<span class="string">"社交"</span>;</div><div class="line"></div><div class="line">//<span class="number">2.</span>将创建好的三个普通控制器加入到tabbarController 控制器中</div><div class="line">[self addChildViewController:oneVc];</div><div class="line">[self addChildViewController:twovC];</div><div class="line">[self addChildViewController:threVC];</div><div class="line">//改变tabbar 上面的文字默认颜色</div><div class="line">oneVc.tabBarController.tabBar.tintColor =[UIColor yellowColor];</div><div class="line">twovC.tabBarController.tabBar.tintColor =[UIColor yellowColor];</div><div class="line">threVC.tabBarController.tabBar.tintColor =[UIColor yellowColor];</div><div class="line">//使用iOS <span class="number">10</span>新推出的 修改 tabbar 未选中的tintColor 颜色</div><div class="line">//这一句代码将 tabbar 未选中的时候的默认色- 黑色改为红色</div><div class="line">oneVc.tabBarController.tabBar.unselectedItemTintColor =[UIColor redColor];</div><div class="line">//tabbarItem 中属性</div><div class="line">//数字提醒的颜色 在iOS <span class="number">10</span>之前的版本默认都是数字提醒都是红色</div><div class="line">oneVc.tabBarItem.badgeColor = [UIColor orangeColor];</div><div class="line">oneVc.tabBarItem.badgeValue = @<span class="string">"90"</span>;</div><div class="line">//将tabBarItem 中数字提醒默认的白色改掉 使用富文本修改</div><div class="line">[oneVc.tabBarItem setBadgeTextAttributes:@&#123; NSForegroundColorAttributeName:[UIColor blackColor] &#125; forState:UIControlStateNormal];</div></pre></td></tr></table></figure></p>
-
+      		<p>#日常开发中对卡片布局需求很多，而 CollectionView 的量级又过重，就想着封装一份轻量级的卡片布局工具，基于 UIView+UIButton，支持图片、文字、自适应布局和手势等，使用安全方便。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-30/43420438.jpg" alt="image"></p>
+<h2 id="Requirements-要求"><a href="#Requirements-要求" class="headerlink" title="Requirements 要求"></a>Requirements 要求</h2><ul>
+<li>iOS 7+</li>
+<li>Xcode 8+</li>
+</ul>
+<hr>
+<h2 id="Usage-使用方法"><a href="#Usage-使用方法" class="headerlink" title="Usage 使用方法"></a>Usage 使用方法</h2><h3 id="AutoAlignButtonView-封装方法"><a href="#AutoAlignButtonView-封装方法" class="headerlink" title="AutoAlignButtonView 封装方法"></a>AutoAlignButtonView 封装方法</h3><h4 id="1-基本方法"><a href="#1-基本方法" class="headerlink" title="1.基本方法"></a>1.基本方法</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">* 是否九宫格 默认:打开</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> isScratchableLatex;</div><div class="line"><span class="comment">/*</span></div><div class="line">* 是：自动布局</div><div class="line">*    countHorizonal 九宫格横排数量</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> countHorizonal;</div><div class="line"><span class="comment">/*</span></div><div class="line">* 否：参数布局</div><div class="line">*    buttonVerticalPadding 竖向间距</div><div class="line">*    buttonHorizonalPadding 横向间距</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> buttonVerticalPadding;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> buttonHorizonalPadding;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="2-增强方法"><a href="#2-增强方法" class="headerlink" title="2.增强方法"></a>2.增强方法</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">* 是否开启圆角 默认:关闭 打开后根据需要设置圆角参数（离屏渲染待优化）</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> isCornerRadius;</div><div class="line"><span class="comment">// 数据源 （必选方法）</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *dataTitleArray;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *dataImagesArray;</div><div class="line"><span class="comment">// 点击事件delegate</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span>&lt;AutoAlignButtonViewDelegate&gt; delegate;</div></pre></td></tr></table></figure>
+<hr>
+<p>使用简单、效率高效、进程安全~~~如果你有更好的建议,希望不吝赐教!<br>Github：<a href="https://github.com/ReverseScale/AutoAlignButton" target="_blank" rel="external">https://github.com/ReverseScale/AutoAlignButton</a></p>
+<h3 id="你的star是我持续更新的动力"><a href="#你的star是我持续更新的动力" class="headerlink" title="你的star是我持续更新的动力!"></a>你的star是我持续更新的动力!</h3>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/11/03/iOS10-characteristics-UILabel-Display-Bug/" style="float: left;">
-        ← iOS 10 新特性 适配Label显示不全问题
-    </a>
     
-    
-    <a class="pull-right" href="/2016/11/03/iOS10-characteristics-Privacy-rights/">
-        iOS 10 新特性 对隐私权限的管理 →
+    <a class="pull-right" href="/2017/07/02/AutoWebView/">
+        高效自动的WebView方案 →
     </a>
     
 </nav>
