@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>GCD 学习（五）dispatch_barrier_async | Steven&#39;s Technology Blog</title>
+  <title>iOS版微信抢红包插件 | Steven&#39;s Technology Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -226,8 +226,8 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-11-03T03:14:29.000Z" itemprop="datePublished">
-          2016-11-03
+      <time datetime="2017-07-02T14:15:57.000Z" itemprop="datePublished">
+          2017-07-02
       </time>
     
     
@@ -236,27 +236,63 @@
     
     
 </span>
-                <h1>GCD 学习（五）dispatch_barrier_async</h1>
+                <h1>iOS版微信抢红包插件</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#dispatch_barrier_async 作用是在并行队列中，等待前面两个操作并行操作完成。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>先看段代码</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue = dispatch_queue_create(<span class="string">"my.concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-1"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-2"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_barrier_async(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-barrier"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-3"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-4"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>dispatch_barrier_async 作用是在并行队列中，等待前面两个操作并行操作完成，这里是并行输出<br>dispatch-1，dispatch-2<br>然后执行<br>dispatch_barrier_async中的操作，(现在就只会执行这一个操作)执行完成后，即输出<br>“dispatch-barrier，<br>最后该并行队列恢复原有执行状态，继续并行执行<br>dispatch-3,dispatch-4。</p>
-
+      		<p>#目前市面上最稳定、功能最全的 iOS 版微信抢红包插件。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h2 id="功能特色"><a href="#功能特色" class="headerlink" title="功能特色"></a>功能特色</h2><ul>
+<li><p><strong>完全原生体验</strong></p>
+<p>  完美嵌入微信设置中，无需安装其它无关应用。开启插件后，所有抢红包工作都会默默进行，不会影响微信的正常使用流程。</p>
+</li>
+<li><p><strong>可自由设置延迟抢红包时间</strong></p>
+<p>  有效防止抢红包速度太快而被拉黑或者踢出群聊。</p>
+</li>
+<li><p><strong>可设置防止同时抢多个红包</strong></p>
+<p>  最大程度避免被系统检测出使用插件，红包抢得更安心。</p>
+</li>
+<li><p><strong>可设置过滤特定的群聊</strong></p>
+<p>  防止落入公司群或者点餐群抢红包的尴尬境地。</p>
+</li>
+<li><p><strong>更新速度快</strong></p>
+<p>  紧跟微信更新，社区活跃，失效后第一时间进行修复。</p>
+</li>
+<li><p><strong>安全、值得信赖</strong></p>
+<p>  源码完全公开透明，Cydia 市场超过万次下载，值得你拥有</p>
+</li>
+</ul>
+<hr>
+<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><ul>
+<li>越狱手机<ol>
+<li>cydia 市场：直接在 cydia 市场搜索 <code>WeChatRedEnvelop</code>，下载安装即可</li>
+<li>手动编译安装：参考 <a href="http://www.swiftyper.com/2016/01/25/ios-tweak-install-guide/" target="_blank" rel="external">iOS微信抢红包Tweak安装教程</a> 教程</li>
+</ol>
+</li>
+<li>非越狱手机：参考 <a href="http://www.swiftyper.com/2016/12/26/wechat-redenvelop-tweak-for-non-jailbroken-iphone/" target="_blank" rel="external">免越狱版 iOS 抢红包插件</a> 教程</li>
+</ul>
+<hr>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>完整的更新日志请参考<a href="./CHANGELOG.md">CHANGELOG</a>。</p>
+<hr>
+<h2 id="版权及免责声明"><a href="#版权及免责声明" class="headerlink" title="版权及免责声明"></a>版权及免责声明</h2><p>本插件是由本人学习<a href="https://www.amazon.cn/gp/product/B00VFDVY7E/ref=as_li_tf_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B00VFDVY7E&amp;linkCode=as2&amp;tag=buginux-23" target="_blank" rel="external">iOS应用逆向工程</a>后并由<a href="https://github.com/iosre" target="_blank" rel="external">该书作者</a>进行指导后开发的，所有代码都由本人完成。</p>
+<p>外挂有风险，使用需谨慎。</p>
+<p>要使用本插件，请使用者自行承担各种状况，包括但不限于“禁用红包功能”以及“微信封号”。</p>
+<hr>
+<h2 id="应用截图"><a href="#应用截图" class="headerlink" title="应用截图"></a>应用截图</h2><p><img src="https://ooo.0o0.ooo/2017/07/02/595901d71ec75.jpeg" alt="image"></p>
+<p><img src="https://ooo.0o0.ooo/2017/07/02/595901e986ed3.jpeg" alt="image"></p>
+<hr>
+<h2 id="支持作者"><a href="#支持作者" class="headerlink" title="支持作者"></a>支持作者</h2><p>本项目的所有逆向分析工作，代码编写工作都由本人一人完成。</p>
+<p>插件的开发占用了我大量的时间和精力，如果你觉得这个插件对你有帮助（帮你抢到了比之前更多的红包），不妨进行一下小额捐赠，这样我会有更大的动力去完善、优化它。</p>
+<hr>
+<p>使用简单、效率高效、进程安全~~~如果你有更好的建议,希望不吝赐教!<br>Github：<a href="https://github.com/ReverseScale/WeChatRedEnvelop" target="_blank" rel="external">https://github.com/ReverseScale/WeChatRedEnvelop</a></p>
+<h3 id="你的star是我持续更新的动力"><a href="#你的star是我持续更新的动力" class="headerlink" title="你的star是我持续更新的动力!"></a>你的star是我持续更新的动力!</h3>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/11/03/GCD-Section-Six/" style="float: left;">
-        ← GCD 学习（六）dispatch_async 和dispatch_sync
-    </a>
     
-    
-    <a class="pull-right" href="/2016/11/03/GCD-Section-Four/">
-        GCD 学习（四）dispatch_group →
+    <a class="pull-right" href="/2017/07/02/AlignButton/">
+        轻量级卡片布局封装 →
     </a>
     
 </nav>
