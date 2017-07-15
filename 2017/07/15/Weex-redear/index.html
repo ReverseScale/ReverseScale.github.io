@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Category: 设计 | Steven&#39;s Technology Blog</title>
+  <title>Weex 使用体验 引文 | Steven&#39;s Technology Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -220,96 +220,89 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      <!-- ============================ Hero Image =========================== -->
-
-<section id="hero" class="scrollme">
-    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
-                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
-                    <div>
-                        
-                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
-                        <p></p>
-                        
-                        <h2></h2>
-                        <p>---“莫愁前路无知己，天下谁人不识君”---</p>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <!-- // .col-md-12 -->
-        </div>
-        <div class="herofade beige-dk"></div>
-    </div>
-</section>
-
-<!-- Height spacing helper -->
-<div class="heightblock"></div>
-<!-- // End height spacing helper -->
-
-<!-- ============================ END Hero Image =========================== -->
-
-
-
-
-<section id="services">
+      
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2017/02/16/Tesla-App/">特斯拉应用设计版图</a></h4>
-                            
-                            <p><time datetime="2017-02-16T11:40:54.000Z"><a href="/2017/02/16/Tesla-App/">2017-02-16</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2017/02/16/FanyiDes/">红色调翻译应用界面设计</a></h4>
-                            
-                            <p><time datetime="2017-02-16T10:50:54.000Z"><a href="/2017/02/16/FanyiDes/">2017-02-16</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2017/02/16/YellowDes/">深色黄调社交应用界面设计</a></h4>
-                            
-                            <p><time datetime="2017-02-16T10:40:54.000Z"><a href="/2017/02/16/YellowDes/">2017-02-16</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2017/02/16/Dota2-My/">Dota2 游戏素材绘制</a></h4>
-                            
-                            <p><time datetime="2017-02-16T10:20:54.000Z"><a href="/2017/02/16/Dota2-My/">2017-02-16</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-07-15T06:01:30.000Z" itemprop="datePublished">
+          2017-07-15
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Weex 使用体验 引文</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#自从Weex出生的那一天起，就无法摆脱和React Native相互比较的命运。React Native宣称“Learn once, write anywhere”，而Weex宣称“Write Once, Run Everywhere”。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h3 id="一-React-Native-和-Weex"><a href="#一-React-Native-和-Weex" class="headerlink" title="一. React Native 和 Weex"></a>一. React Native 和 Weex</h3><p>Weex从出生那天起，就被给予了一统三端的厚望。React Native可以支持iOS、Android，而Weex可以支持iOS、Android、HTML5。</p>
+<p>在Native端，两者的最大的区别可能就是在对JSBundle是否分包。React Native官方只允许将React Native基础JS库和业务JS一起打成一个JS bundle，没有提供分包的功能，所以如果想节约流量就必须制作分包打包工具。而Weex默认打的JS bundle只包含业务JS代码，体积小很多，基础JS库包含在Weex SDK中，这一点Weex与Facebook的React Native和微软的Cordova相比，Weex更加轻量，体积小巧。</p>
+<p>在JS端，Weex又被人称为Vue Native，所以 React Native 和 Weex 的区别就在 React 和 Vue 两者上了。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/11241921.jpg" alt=""></p>
+<p>笔者没有写过React Native，所以也没法客观的去比较两者。不过知乎上有一个关于Weex 和 React Native很好的对比文章《weex&amp;React Native对比》，推荐大家阅读。</p>
+<p>前两天@Allen 许帅也在Glow 技术团队博客上面发布了一篇《React Native 在 Glow 的实践》这篇文章里面也谈了很多关于React Native实践相关的点，也强烈推荐大家去阅读。</p>
+<hr>
+<h3 id="二-入门基础"><a href="#二-入门基础" class="headerlink" title="二. 入门基础"></a>二. 入门基础</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/99170027.jpg" alt=""></p>
+<p>关于小白想入门Weex，当然最基础的还是要通读文档，文档是官方最好的学习资料。官方的基础文档有两份：</p>
+<ul>
+<li>教程文档</li>
+<li>手册文档</li>
+</ul>
+<p>在文档手册里面包含了Weex所有目前有的组件，模块，每个组件和模块的用法和属性。遇到问题可以先过来翻翻。很有可能有些组件和模块没有那些属性。</p>
+<hr>
+<h3 id="三-工具-Weex全家桶和脚手架"><a href="#三-工具-Weex全家桶和脚手架" class="headerlink" title="三.工具 Weex全家桶和脚手架"></a>三.工具 Weex全家桶和脚手架</h3><p>看完官方文档以后，就可以开始上手构建工程项目了。</p>
+<p>我司在知乎上面写了4篇关于《Weex入坑指南的》。这四篇文章还是很值得看的。</p>
+<p>Weex也和前端项目一样，拥有它自己的脚手架全家桶。weex-toolkit + weexpack + playground + code snippets + weex-devtool。</p>
+<p>weex-toolkit是用来初始化项目，编译，运行，debug所有工具。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/19552632.jpg" alt=""></p>
+<p>weexpack是用来打包JSBundle的，实际也是对Webpack的封装。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/98702208.jpg" alt=""></p>
+<p>playground是一个上架的App，这个可以用来通过扫码实时在手机上显示出实际的页面。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/52112956.jpg" alt=""></p>
+<p>code snippets这个是一个在线的playground。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/58576581.jpg" alt=""></p>
+<p>我相信大家应该都有Native的App，如果真的App都没有，那就用weexpack命令初始化一个新的项目。如果已经有App项目了，那么weex命令就只是用来运行和调试的。</p>
+<p>已经有iOS项目的，可以通过cocospod直接安装Weex的SDK，初始化SDK以后，Native就可以使用Weex了。加载的JS的地址改成自己公司服务器的IP。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#define CURRENT_IP @&quot;your computer device ip&quot;</div><div class="line">// ...</div><div class="line"></div><div class="line">// 修改端口号到你的端口号</div><div class="line">#define DEMO_URL(path) [NSString stringWithFormat:@&quot;http://%@:8080/%s&quot;, DEMO_HOST, #path]</div><div class="line"></div><div class="line">// 修改 JS 文件路径</div><div class="line">#define HOME_URL [NSString stringWithFormat:@&quot;http://%@:8080/app.weex.js&quot;, DEMO_HOST]</div></pre></td></tr></table></figure>
+<p>这样整个项目就可以跑起来了。</p>
+<p>这里还有一点需要说明的是，项目虽然跑起来了，但是每次运行都需要启动npm，打开Weex的前端环境。这里有两个做法。</p>
+<p>第一种做法是直接Hook Xcode的run命令，在Xcode配置里面加入启动npm的脚本。比如下面这样：</p>
+<p>第二种做法就是每次运行之前，自己手动npm run dev。我个人还是喜欢这种方式，因为在Xcode运行完成之前，一定可以在命令行上面打完这些命令。</p>
+<p>再说说如何Debug，这块使用的是weex-devtool。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/18751462.jpg" alt=""></p>
+<p>这个工具和前端在Chrome里面调试的体验基本相同。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/2907303.jpg" alt=""></p>
+<hr>
+<h3 id="四-注意事项"><a href="#四-注意事项" class="headerlink" title="四.注意事项"></a>四.注意事项</h3><p><img src="http://og1yl0w9z.bkt.clouddn.com/17-7-15/42942562.jpg" alt=""></p>
+<h4 id="动态适配容器"><a href="#动态适配容器" class="headerlink" title="动态适配容器"></a>动态适配容器</h4><p>WeexSDK 在 WXSDKInstance 类中提供了方法 setFrame(CGRect) 来改变容器的大小。</p>
+<p>如：在导航栏从有到无过程，需要 weexView 的变化， 可以在此时 native 调用该方法设置</p>
+<h4 id="降级使用"><a href="#降级使用" class="headerlink" title="降级使用"></a>降级使用</h4><p>Weex 处于发展阶段会增加一些新的特性和功能，但是这些新的特性和功能都必须升级 SDK 才能实现，对于没有升级的应用应该怎么处理呢？可以使用降级功能。</p>
+<p>所谓降级功能就是 Weex 无法运行的版本或者手机，可以用 Weex h5 来代替。</p>
+<p>Native 端可以通过接口 WXSDKInstance 中的 onFailed 回调进行处理，如果是主动降级则返回的错误 domain 为 TemplateErrorType，Native 端可以跳转到对应的 H5 页面，或者用其他的方式提示用户当前环境不支持 Weex。</p>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>知天高，行渐远。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/07/10/RSCarouselView/">
+        极致高效简洁的轮播图实现 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
