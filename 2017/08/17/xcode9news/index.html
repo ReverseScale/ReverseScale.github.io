@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>红色调翻译应用界面设计 | Steven&#39;s Technology Blog</title>
+  <title>Xcode 9 几个你必须知道的新功能 | Steven&#39;s Technology Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -226,8 +226,8 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2017-02-16T10:50:54.000Z" itemprop="datePublished">
-          2017-02-16
+      <time datetime="2017-08-17T14:22:40.000Z" itemprop="datePublished">
+          2017-08-17
       </time>
     
     
@@ -236,25 +236,56 @@
     
     
 </span>
-                <h1>红色调翻译应用界面设计</h1>
+                <h1>Xcode 9 几个你必须知道的新功能</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#一套红色系的翻译软件设计套版，简洁大气。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>旅游翻译App界面设计&amp;设计规范iOS<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/74110541-file_1487242314491_636c.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/2361381-file_1487242356379_1d6f.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/62848450-file_1487242367211_c486.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/30453372-file_1487242377449_cc59.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/73136296-file_1487242388032_13511.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/93763435-file_1487242411448_15b10.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/57277668-file_1487242428338_17aa3.png" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/17-2-16/3305729-file_1487242457861_181d6.png" alt=""></p>
+      		<p>#Xcode 9 beta 版已经可以下载了，不知道大家伙对这个新版本开发工具看法如何，最近我费了一番周折终于体验了一把，升级系统，下载Xcode，验证安装扒拉扒拉什么的，几乎搞了我一天。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h3 id="1-wireless-development"><a href="#1-wireless-development" class="headerlink" title="1.wireless development"></a>1.wireless development</h3><p>在 iOS 11 之前，我们在调试项目的时候，ios 设备都要用数据线和 Mac 相连，这样我们的 Xcode 才能识别设备。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/37813349.jpg" alt=""></p>
+<p>但是 iOS 11 出现后，调试方式就有了新的突破，因为 iOS 11 带来了ARKit, 所以传意义上用实体数据线相连的调试方式就不能满足 AR 的需求了，若你拿着个 iPhone 或者 iPad 再捧着个大电脑在公司楼道里走来走去测试，岂不是太引人瞩目了；为此 Apple 就专门为开发者设计了一种可以用无线网连接调试的方法。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/11729122.jpg" alt=""></p>
+<blockquote>
+<p>还记得那残破的数据线吗？从此你再也不用看到它了…</p>
+</blockquote>
+<p>使用起来也很方便，首先第一次必须要先用数据线连接设备与电脑，打开 Xcode 9， 选择 window，然后在下拉列表中选择Devices and Simulators。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/26160278.jpg" alt=""></p>
+<p>在弹出的窗口里面，勾选第二个 checkbox ， Connect via network. 这样下次你的设备调试就用不着再找线啦！ 哇 ，Excellent ～</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/29794466.jpg" alt=""></p>
+<hr>
+<h3 id="2-add-GitHub"><a href="#2-add-GitHub" class="headerlink" title="2.add GitHub"></a>2.add GitHub</h3><p>在新的 Xcode 9 中，Apple 引入了 GitHub，新的源代码管理导航器、分支机构和标签。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/76206134.jpg" alt=""></p>
+<p>在 Xcode 9 以前，虽然 Xcode 是自带有代码版本控制的功能，但是此功能相对比较简单，容易出现commit failed 的情况。正常情况下我都是使用终端来管理版本的时候多一些。GitHub 本来就有 Mac 版本的客户端，但这次 Xcode 9 引入后，我觉得对于我们开发者来说就更加的方便了。</p>
+<p>因为比较简单，我就上几张图大家观赏一下吧！也可以下一个 Xcode 9 自己体验一下。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/14325903.jpg" alt=""></p>
+<p>其实在之前的版本中我就用过xcode来管理分支，只是这次更加美观彻底。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/13487200.jpg" alt=""></p>
+<hr>
+<h3 id="3-others"><a href="#3-others" class="headerlink" title="3.others"></a>3.others</h3><h4 id="代码样式"><a href="#代码样式" class="headerlink" title="代码样式:"></a>代码样式:</h4><p>在Preference中增加了对行间距和光标样式的修改。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/77175688.jpg" alt=""></p>
+<hr>
+<h4 id="Command-点击行为"><a href="#Command-点击行为" class="headerlink" title="Command + 点击行为:"></a>Command + 点击行为:</h4><p>按住Command点击方法，类，变量等，交互方式比之前更加清晰。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/38237979.jpg" alt=""></p>
+<hr>
+<h4 id="Issue提示框"><a href="#Issue提示框" class="headerlink" title="Issue提示框:"></a>Issue提示框:</h4><p>错误和警告的提示框在界面上做了重新设计，修复操作比之前方便很多。<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/4022001.jpg" alt=""></p>
+<hr>
+<h4 id="MarkDown支持"><a href="#MarkDown支持" class="headerlink" title="MarkDown支持:"></a>MarkDown支持:</h4><p>加入了对MarkDown格式的支持。<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/79252455.jpg" alt=""></p>
+<hr>
+<h4 id="重构和代码转换"><a href="#重构和代码转换" class="headerlink" title="重构和代码转换:"></a>重构和代码转换:</h4><p>新的Xcode提供了新的重构和代码转换引擎。当你Command + Click时，Xcode会根据上下文提供对应的重构方式和代码转换，转换引擎是开源的，以后应该会有更多来自其他开发者贡献的代码转换特性。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/85520865.jpg" alt=""></p>
+<hr>
+<h4 id="模拟器"><a href="#模拟器" class="headerlink" title="模拟器:"></a>模拟器:</h4><p>支持多个模拟器同时开启，方便自动化测试。<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/15569822.jpg" alt=""></p>
+<hr>
+<p>我觉得改变还是很棒的，总之，没后悔加入苹果大家庭。</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2017/02/16/Tesla-App/" style="float: left;">
-        ← 特斯拉应用设计版图
-    </a>
     
-    
-    <a class="pull-right" href="/2017/02/16/YellowDes/">
-        深色黄调社交应用界面设计 →
+    <a class="pull-right" href="/2017/08/17/moneyApple/">
+        金融类APP常见被拒绝原因分析及解决 →
     </a>
     
 </nav>
