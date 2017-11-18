@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>苹果 Face ID 开放《iPhone X ARKit Face Tracking》 | Steven&#39;s Technology Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Technology Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Technology Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Android/" class="animsition-link">Android<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(107)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://reversescale.github.io" class="animsition-link">Steven</a></li>
+                    
+                    <li><a href="https://blog.ibeats.top" class="animsition-link">CI_Knight</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Technology Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-11-18T09:29:22.000Z" itemprop="datePublished">
+          2017-11-18
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>苹果 Face ID 开放《iPhone X ARKit Face Tracking》</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#iPhone X前置深度摄像头带来了Animoji和face ID，同时也将3D Face Tracking的接口开放给了开发者。有幸去Cupertino苹果总部参加了iPhone X的封闭开发，本文主要分享一下iPhone X上使用ARKit进行人脸追踪及3D建模的相关内容。</p>
+<hr>
+<h3 id="新增接口"><a href="#新增接口" class="headerlink" title="新增接口"></a>新增接口</h3><h4 id="ARFaceTrackingConfiguration"><a href="#ARFaceTrackingConfiguration" class="headerlink" title="ARFaceTrackingConfiguration"></a>ARFaceTrackingConfiguration</h4><p>ARFaceTrackingConfiguration利用iPhone X前置深度摄像头识别用户的人脸。由于不同的AR体验对iOS设备有不同的硬件要求，所有ARKit配置要求iOS设备至少使用A9及以上处理器，而face tracking更是仅在带有前置深度摄像头的iPhone X上才会有。因此在进行AR配置之前，首先我们需要确认用户设备是否支持我们将要创建的AR体验</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ARFaceTrackingConfiguration.isSupported</div></pre></td></tr></table></figure>
+<p>对于不支持该ARKit配置的设备，提供其它的备选方案或是降级策略也是一种不错的解决方案。然而如果你的app确定ARKit是其核心功能，在info.plist里将ARKit添加到UIRequiredDeviceCapabilities里可以确保你的app只在支持ARKit的设备上可用。<br>当我们配置使用ARFaceTrackingConfiguration，session会自动添加ARFaceAnchor对象到其anchor list中。每一个face anchor提供了包含脸部位置，方向，拓扑结构，以及表情特征等信息。另外，当我们开启isLightEstimationEnabled设置，ARKit会将检测到的人脸作为灯光探测器以估算出的当前环境光的照射方向及亮度等信息（详见ARDirectionalLightEstimate对象），这样我们可以根据真实的环境光方向及强度去对3D模型进行照射以达到更为逼真的AR效果。</p>
+<h4 id="ARFrame"><a href="#ARFrame" class="headerlink" title="ARFrame"></a>ARFrame</h4><p>当我们设置为基于人脸的AR（ARFaceTrackingConfiguration），session刷新的frame里除了包含彩色摄像头采集的颜色信息以外（capturedImage），还包含了由深度摄像头采集的深度信息（capturedDepthData）。其结构和iPhone7P后置双摄采集的深度信息一样为AVDepthData。当设置其它AR模式时该属性为nil。在iPhone X上实测效果比7P后置的深度信息更为准确，已经可以很好的区分人像和背景区域。</p>
+<p>需注意的是，深度摄像头采样频率和颜色摄像头并不一致，因此ARFrame的capturedDepthData属性也可能是nil。实测下来在帧率60的情况下，每4帧里有1帧包含深度信息。</p>
+<h4 id="ARFaceAnchor"><a href="#ARFaceAnchor" class="headerlink" title="ARFaceAnchor"></a>ARFaceAnchor</h4><p>前面说过，当我们配置使用ARFaceTrackingConfiguration，session会自动添加ARFaceAnchor对象到其anchor list中。每一个face anchor提供了包含脸部位置，方向，拓扑结构，以及表情特征等信息。比较遗憾的是，当前版本只支持单人脸识别，未来如果ARKit提供多人脸识别后开发者应该也能较快的进行版本升级。</p>
+<ul>
+<li>人脸位置和方向</li>
+</ul>
+<p>父类ARAnchor的transform属性以一个4*4矩阵描述了当前人脸在世界坐标系的位置及方向。我们可以使用该矩阵来放置虚拟3D模型以实现贴合到脸部的效果（如果使用SceneKit，会有更便捷的方式来完成虚拟模型的佩戴过程，后面会详述）。该变换矩阵创建了一个“人脸坐标系”以将其它模型放置到人脸的相对位置，其原点在人头中心（鼻子后方几厘米处），且为右手坐标系—x轴正方向为观察者的右方（也就是检测到的人脸的左方），y轴正方向延人头向上，z轴正方向从人脸向外（指向观察者）</p>
+<ul>
+<li>人脸拓扑结构 ARFaceGeometry</li>
+</ul>
+<p>ARFaceAnchor的geometry属性封装了人脸具体的拓扑结构信息，包括顶点坐标、纹理坐标、以及三角形索引（实测下来单个人脸包含1220个3D顶点以及2304个三角面片信息，精准度已经相当高了）。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/11/17/15fc7cad314c437c?w=640&amp;h=656&amp;f=jpeg&amp;s=10487" alt=""></p>
+<p>有了这些数据，我们可以实现各种贴合人脸的3D面皮—比如虚拟妆容或者纹身等。我们也可以用其创建人脸的几何形状以完成对虚拟3D模型的遮挡。如果我们使用SceneKit + Metal做渲染，可以十分方便的通过ARSCNFaceGeometry完成人脸建模，后面会详细说明。</p>
+<p>面部表情追踪</p>
+<ul>
+<li>blendShapes属性提供了当前人脸面部表情的一个高阶模型，表示了一系列的面部特征相对于无表情时的偏移系数。听起来也许有些抽象，具体来说，可以看到blendShapes是一个NSDictionary，其key有多种具体的面部表情参数可选，比如’ARBlendShapeLocationMouthSmileLeft’代表左嘴角微笑程度，而’ARBlendShapeLocationMouthSmileRight表示右嘴角的微笑程度。每个key对应的value是一个取值范围为0.0 - 1.0的浮点数，0.0表示中立情况的取值（面无表情时），1.0表示最大程度（比如左嘴角微笑到最大值）。ARKit里提供了51种非常具体的面部表情形变参数，我们可以自行选择采用较多的或者只是采用某几个参数来达成我们的目标，比如，用“张嘴”、“眨左眼”、“眨右眼”来驱动一个卡通人物。</li>
+</ul>
+<hr>
+<h3 id="创建人脸AR体验"><a href="#创建人脸AR体验" class="headerlink" title="创建人脸AR体验"></a>创建人脸AR体验</h3><p>以上介绍了一下使用ARKit Face Tracking所需要了解的新增接口，下面来详细说明如何搭建一个app以完成人脸AR的真实体验。</p>
+<p>创建一个ARKit应用可以选择3种渲染框架，分别是SceneKit，SpriteKit和Metal。对于做一个自拍类的app，SceneKit无疑是一种很好的选择。其接口方便易用，底层使用Metal2渲染，且提供了多种材质以及光照模型，通常情况下无需自定义shader即可完成3D贴脸以及3D挂件的渲染。首先我们需要添加一个ARSCNView，设置好scene以及delegate，在viewWillAppear里添加下面两行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ARFaceTrackingConfiguration *configuration = [ARFaceTrackingConfiguration new];</div><div class="line">[self.sceneView.session runWithConfiguration:configuration];</div></pre></td></tr></table></figure>
+<p>这样就创建好了一个ARKit Face Tracking的场景，此时前置摄像头已经开启并实时检测/追踪人脸信息。当检测到人脸之后，我们可以通过delegate更新人脸anchor的函数来同步更新我们自定义的3D面皮或者3D模型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (void)renderer:(id &lt;SCNSceneRenderer&gt;)renderer willUpdateNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;</div><div class="line">- (void)renderer:(id &lt;SCNSceneRenderer&gt;)renderer didUpdateNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;</div></pre></td></tr></table></figure>
+<p>比如我们要放置一张京剧脸谱贴合到用户脸上，我们可以生成一个脸谱的SCNNode</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">- (SCNNode *)textureMaskNode</div><div class="line">&#123;    if (!_textureMaskNode) &#123;</div><div class="line">        _textureMaskNode = [self makeFaceGeometry:^(SCNMaterial *material) &#123;</div><div class="line">            material.fillMode = SCNFillModeFill;</div><div class="line">            material.diffuse.contents = [UIImage imageNamed:@&quot;maskImage.png&quot;];</div><div class="line">        &#125; fillMesh:NO];</div><div class="line">        _textureMaskNode.name = @&quot;textureMask&quot;;</div><div class="line">    &#125;    return _textureMaskNode;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (SCNNode*)makeFaceGeometry:(void (^)(SCNMaterial*))materialSetup fillMesh:(BOOL)fillMesh</div><div class="line">&#123;</div><div class="line">#if TARGET_OS_SIMULATOR </div><div class="line">   return [SCNNode new];</div><div class="line">#else</div><div class="line">    id&lt;MTLDevice&gt; device = self.sceneView.device;</div><div class="line"></div><div class="line">    ARSCNFaceGeometry *geometry = [ARSCNFaceGeometry faceGeometryWithDevice:device fillMesh:fillMesh];</div><div class="line">    SCNMaterial *material = geometry.firstMaterial; </div><div class="line">   if(material &amp;&amp; materialSetup)</div><div class="line">        materialSetup(material);  </div><div class="line">     return [SCNNode nodeWithGeometry:geometry];</div><div class="line">#endif</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意这个fillMesh参数，如果设置为NO，生成的“蒙皮”眼睛和嘴巴区域是镂空的，反之亦然。模型建好以后，我们需要在face anchor刷新的时候同步更新3D蒙皮的几何信息使其与人脸达到贴合的状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (void)renderer:(id&lt;SCNSceneRenderer&gt;)renderer willUpdateNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor</div><div class="line">&#123;</div><div class="line">    ARFaceAnchor *faceAnchor = (ARFaceAnchor *)anchor;</div><div class="line">    if (!faceAnchor || ![faceAnchor isKindOfClass:[ARFaceAnchor class]]) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (_needRenderNode) &#123;</div><div class="line">        [node addChildNode:self.textureMaskNode];</div><div class="line">        _needRenderNode = NO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ARSCNFaceGeometry *faceGeometry = (ARSCNFaceGeometry *)self.textureMaskNode.geometry;</div><div class="line">    if( faceGeometry &amp;&amp; [faceGeometry isKindOfClass:[ARSCNFaceGeometry class]] ) &#123;</div><div class="line">        [faceGeometry updateFromFaceGeometry:faceAnchor.geometry];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我们是直接将蒙皮node添加到face node作为其childNode，因而不需要对其位置信息做额外处理就能跟随人脸移动。如果是直接加到场景的rootNode上面，还需要同步更新其位置、方向等属性。打上方向光之后，蒙皮显得十分贴合立体。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">SCNLight *directional = [SCNLight light];</div><div class="line">directional.type  = SCNLightTypeDirectional;</div><div class="line">directional.color = [UIColor colorWithWhite:1 alpha:1.0];</div><div class="line">directional.castsShadow = YES;</div><div class="line"></div><div class="line">_directionalLightNode = [SCNNode node];</div><div class="line">_directionalLightNode.light = directional;</div></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2017/11/17/15fc7cd375e08a20?w=338&amp;h=731&amp;f=jpeg&amp;s=38710" alt=""></p>
+<p>demo里我们做了一个戏剧变脸效果，当用户遮挡人脸后将其脸谱换掉。实现的原理是当用户人脸检测不到时记一个标志，再次检测到用户人脸时将其3D蒙皮的贴图换掉。比较坑的是，ARKit 检测不到人脸时也并未将其node移除，因此delegate也没有回调</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)renderer:(id &lt;SCNSceneRenderer&gt;)renderer didRemoveNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;</div></pre></td></tr></table></figure>
+<p>那么如何知道face tracking失败呢？可以通过每一帧刷新的时候遍历查找到ARAnchor，检测其isTrackFace状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (void)session:(ARSession *)session didUpdateFrame:(ARFrame *)frame</div><div class="line">&#123;</div><div class="line">    for (ARAnchor *anchor in frame.anchors) &#123;</div><div class="line">        if ([anchor isKindOfClass:[ARFaceAnchor class]]) &#123;</div><div class="line">            ARFaceAnchor *faceAnchor = (ARFaceAnchor *)anchor;</div><div class="line">            self.isTrackFace = faceAnchor.isTracked;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同样的，我们可以在人脸node上添加其他3D模型（比如3D眼镜）的node使其跟随人脸移动，可以达到非常逼真的效果，SceneKit支持多种格式的模型加载，比如obj、dae等。如果使用的是dae且不是放在bundle里面，需要提前用scntool压缩，模型加载及动画播放所遇到的坑此处不赘述。需要注意的是，当我们给用户戴上3D眼镜或帽子的时候，我们当然是希望模型的后面部分能正确的被用户的脸给挡住以免露出马脚。因此我们需要渲染一个用来遮挡的node并实时更新其几何信息，使用户在头歪向一边的时候3D眼镜的镜架能被人脸正确遮挡。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (SCNNode *)occlusionMaskNode</div><div class="line">&#123;    if (!_occlusionMaskNode) &#123;</div><div class="line">        _occlusionMaskNode = [self makeFaceGeometry:^(SCNMaterial *material) &#123;</div><div class="line">            material.colorBufferWriteMask = SCNColorMaskNone;</div><div class="line">            material.lightingModelName = SCNLightingModelConstant;</div><div class="line">            material.writesToDepthBuffer = true;</div><div class="line">        &#125; fillMesh:YES];</div><div class="line">        _occlusionMaskNode.renderingOrder = -1;</div><div class="line">        _occlusionMaskNode.name = @&quot;occlusionMask&quot;;</div><div class="line">    &#125;    return _occlusionMaskNode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同样的我们需要在face anchor刷新的时候通过updateFromFaceGeometry:更新其几何信息。需要注意的是，由于ARKit只对人脸区域进行建模，在3D模型设计的时候还需去掉一些不必要的部件：比如眼镜的模型就不需要添加镜脚，因为耳朵部分并没有东西可以去做遮挡。</p>
+<p>如果要做类似上面视频中的镜片反射效果，使用SceneKit也十分方便，只需要将镜片的反射贴图（SCNMaterial的reflective属性）映射到cube map即可，支持以下4种设置方案</p>
+<p>1.A horizontal strip image where 6 * image.height == image.width</p>
+<p>2.A vertical strip image where image.height == 6 * image.width</p>
+<p>3.A spherical projection image (latitude/longitude) where 2 * image.height == image.width</p>
+<p>4.A NSArray of 6 images. This array must contain images of the exact same dimensions, in the following order, in a left-handed coordinate system: +X, -X, +Y, -Y, +Z, -Z (or Right, Left, Top, Bottom, Front, Back).</p>
+<p>除了人脸的空间位置信息和几何信息，ARKit还提供了十分精细的面部表情形变参数，用来做类似张嘴触发是完全没问题的，我们还可以用其实现一些有趣的效果。比如，根据脸部微笑的程度去替换3D蒙皮的diffuse贴图，使用户笑的时候会出现夸张的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (UIImage *)meshImageWithBlendShapes:(NSDictionary *)blendShapes</div><div class="line">&#123;  </div><div class="line">  if (self.diffuseArray.count == 0)    </div><div class="line">    return nil;</div><div class="line"></div><div class="line">    NSUInteger _count = self.diffuseArray.count;</div><div class="line">    NSNumber *smileLeft = blendShapes[ARBlendShapeLocationMouthSmileLeft];</div><div class="line">    NSNumber *smileRight = blendShapes[ARBlendShapeLocationMouthSmileRight];</div><div class="line"></div><div class="line">    CGFloat smileBlend = (smileLeft.floatValue + smileRight.floatValue) / 2;</div><div class="line">    smileBlend = smileBlend - 0.1; </div><div class="line">       if (smileBlend &lt; 0.0) smileBlend = 0.0;</div><div class="line">    NSUInteger index = (NSUInteger)(smileBlend * _count / 0.5);  </div><div class="line">         if (index &gt; _count - 1) &#123;</div><div class="line">        index = _count - 1;</div><div class="line">    &#125; </div><div class="line">          return self.diffuseArray[index];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将几个脸部表情系数的组合映射到一个具体的分值，可以实现face dance那样有趣的表情模仿。还可以将其映射到3D虚拟人物的形变上以实现animoji的效果，此处开发者们可自行脑洞大开：）</p>
+<hr>
+<h3 id="拍照-amp-录制"><a href="#拍照-amp-录制" class="headerlink" title="拍照 &amp; 录制"></a>拍照 &amp; 录制</h3><p>可能是由于SceneKit原本是设计用来做游戏渲染的框架，只提供了一个截屏的接口snapshot，拍照尚可调用，而录制并不是特别方便。如果你计划通过SCNRenderer 的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (instancetype)rendererWithContext:(nullable EAGLContext *)context options:(nullable NSDictionary *)options;</div></pre></td></tr></table></figure>
+<p>将其放在OpenGL context里渲染，可以避开视频录制的坑，但也许会遇到更新人脸geometry等其他问题。如果采用默认的Metal方案，设置一个定时器，将snapshot获取到的UIImage转成pixel buffer再进行视频编码，很难做到每秒30帧的同步输出。如果你的app在录制的时候UI非常干净，可以采用系统录屏框架replaykit来进行屏幕录制；如果你想完全掌控每一帧的输出以方便在录制过程中加上水印，可以用SCNRenderer的render函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)renderAtTime:(CFTimeInterval)time viewport:(CGRect)viewport commandBuffer:(id &lt;MTLCommandBuffer&gt;)commandBuffer passDescriptor:(MTLRenderPassDescriptor *)renderPassDescriptor</div></pre></td></tr></table></figure>
+<p>将场景渲染到一个id对象中，通过纹理绑定的方式将其转换为CVPixelBufferRef以完成视频编码。某位朋友提醒，可以通过method swizzling的方式直接获取CAMetalLayer的nextDrawable，甚至可以避免上诉方案录制时产生的额外GPU开销，有兴趣的朋友可以尝试一下。</p>
+<hr>
+<h3 id="写在末尾"><a href="#写在末尾" class="headerlink" title="写在末尾"></a>写在末尾</h3><p>这次能有机会参加Apple的封闭开发且是如此有趣的模块，在没有网络的情况下摸索着做出demo，接触到了最前沿的AR相关技术，对我来说是一份非常宝贵的经历。心怀感恩，踏步前行。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/11/06/AI-number/">
+        利用神经网络识别手写数字 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
