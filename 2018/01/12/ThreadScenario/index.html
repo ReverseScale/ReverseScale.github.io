@@ -132,7 +132,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(110)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(111)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -287,15 +287,17 @@
 <p>每一段子任务独立，所有子任务完成后回调主线程：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="type">Async</span>.main &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"This is run on the \(qos_class_self().description) (expected \(qos_class_main().description))"</span>)</div><div class="line">    <span class="comment">// Prints: "This is run on the Main (expected Main) count: 1 (expected 1)"</span></div><div class="line">    &#125;.userInteractive &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))"</span>)</div><div class="line">        <span class="comment">// Prints: "This is run on the Main (expected Main) count: 2 (expected 2)"</span></div><div class="line">    &#125;.userInitiated &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description)) "</span>)</div><div class="line">        <span class="comment">// Prints: "This is run on the User Initiated (expected User Initiated) count: 3 (expected 3)"</span></div><div class="line">    &#125;.utility &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description)) "</span>)</div><div class="line">        <span class="comment">// Prints: "This is run on the Utility (expected Utility) count: 4 (expected 4)"</span></div><div class="line">    &#125;.background &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description)) "</span>)</div><div class="line">        <span class="comment">// Prints: "This is run on the User Interactive (expected User Interactive) count: 5 (expected 5)"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>2.延时执行</p>
 <p>延时一段时间后执行代码，一般见于打开 App 一段时间后，弹出求好评对话框。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> seconds = <span class="number">3.0</span></div><div class="line"><span class="type">Async</span>.main(after: seconds) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Is called after 3 seconds"</span>)</div><div class="line">&#125;.background(after: <span class="number">6.0</span>) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"At least 3.0 seconds after previous block, and 6.0 after Async code is called"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="3-更多场景见-Demo"><a href="#3-更多场景见-Demo" class="headerlink" title="3.更多场景见 Demo"></a>3.更多场景见 Demo</h2><h3 id="😬-联系"><a href="#😬-联系" class="headerlink" title="😬 联系"></a>😬 联系</h3><p><a href="https://github.com/ReverseScale/ThreadScenarioDemo" target="_blank" rel="external">https://github.com/ReverseScale/ThreadScenarioDemo</a></p>
+<p>3.更多场景见 Demo</p>
+<hr>
+<h3 id="😬-联系"><a href="#😬-联系" class="headerlink" title="😬 联系"></a>😬 联系</h3><p><a href="https://github.com/ReverseScale/ThreadScenarioDemo" target="_blank" rel="external">https://github.com/ReverseScale/ThreadScenarioDemo</a></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2018/01/12/OCArchitecture/" style="float: left;">
-        ← Swift 网络框架设计
+    <a class="pull-left" href="/2018/01/12/OCTemplate/" style="float: left;">
+        ← OC iOS 架构设计调研
     </a>
     
     
