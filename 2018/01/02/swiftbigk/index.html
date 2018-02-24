@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>20大热门的Web前端/后端开发工具推荐 | Steven&#39;s Technology Blog</title>
+  <title>Swift 算法学院 - 查找数组中第 K 大值 | Steven&#39;s Technology Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -228,61 +228,48 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2016-11-16T15:23:29.000Z" itemprop="datePublished">
-          2016-11-16
+      <time datetime="2018-01-02T13:41:39.000Z" itemprop="datePublished">
+          2018-01-02
       </time>
     
     
     | 
-    <a href='/tags/博客，资料/'>博客，资料</a>
+    <a href='/tags/博客，文章/'>博客，文章</a>
     
     
 </span>
-                <h1>20大热门的Web前端/后端开发工具推荐</h1>
+                <h1>Swift 算法学院 - 查找数组中第 K 大值</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>#近年来风险投资和天使投资人似乎非常偏爱开发者工具，根据最新的报告，2012年投资者在开发工具上投入了6.46亿美元，这使得开发工具成立最热门的创业领域之一。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>在资本的趋势下大批公司投身开发开发者工具，很多新产品非常优秀也卖得不错，但是也有不少产品噱头大过功能，很快被用户束之高阁。随之而来的问题是，面对如雨后春笋般冒出来的新开发工具，除非你是技术专家并花费大把时间试用新产品，否则你很难区分这些开发工具的优劣。</p>
-<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-16/31770850.jpg" alt=""></p>
-<p>最近，帮助投资人筛选创业公司的投资研究机构Mattermark，分析了各开发工具的用户增长势头，给出了20个发展最快的前端和后端开发者工具的列表。其中一些开发工具已经拿到了风险投资，所有上榜开发工具的用户数最低不少于1万。</p>
-<p>Mattermark制作开发工具排行榜的数据来源很多，包括新闻报道、AngelList、App Store排名、Alexa排名等。</p>
-<h2 id="以下是Mattermark给出的顶级开发工具公司排名："><a href="#以下是Mattermark给出的顶级开发工具公司排名：" class="headerlink" title="以下是Mattermark给出的顶级开发工具公司排名："></a>以下是Mattermark给出的顶级开发工具公司排名：</h2><p><strong>10大前端软件开发工具</strong></p>
-<p>Ink Mobility -让智能手机应用之间通讯互动的工具</p>
-<p>Bootstraptor-为Web开发者准备的Twitter Bootstrap模板</p>
-<p>Macaw-支持语义HTML和简洁CSS的web开发工具</p>
-<p>XingCloud-“一键”本地化你的网站</p>
-<p>FlauntResponsive-自适应设计的转化工具</p>
-<p>Statuspage.io-简单的宕机沟通工具（刚刚在Y Combinator上发布）</p>
-<p>GrowthGiant-不间断的A/B测试工具（beta内测，尚未正式发布）</p>
-<p>Spinnakr-A/B测试内容工具，为不同用户显示不同信息</p>
-<p>Dakwak-能为访客显示本地化网站版本的工具</p>
-<p>Nitrous.IO-快速开发环境管理与代码协作</p>
-<hr>
-<p><strong>10大后端开发工具</strong></p>
-<p>Bitnami-在亚马逊、Azure和VMware上运行的服务器软件的应用商店</p>
-<p>Flywheel-为设计师准备的WordPress托管和管理服务</p>
-<p>Pivotal-企业PaaS云计算服务（来自EMC和VMware）</p>
-<p>Salt Stack-为DevOps组织提供的系统与配置管理</p>
-<p>KnackHQ-在云端管理数据库</p>
-<p>HortonWorks-Apache Hadoop商业版本发行商，用于大数据存储</p>
-<p>Digital Ocean-面向开发者的云托管服务</p>
-<p>Fastly-下一代内容分发网络（CDN）</p>
-<p>Honeybadger-Rails的错误管理服务</p>
-<p>Mean.io-MongoDB、Node.js、Express和AngularJS应用的样板</p>
+      		<p>#本篇是来自 Swift 算法学院的翻译的一篇文章，讲解思路非常清楚，有详细的例子解释。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h3 id="第K大元素"><a href="#第K大元素" class="headerlink" title="第K大元素"></a>第K大元素</h3><p>给定一个数组 a ，写一个算法找出第K大的元素。<br>比如在 第一大 的元素是最大元素。如果数组有 n 个元素，第 n 大 元素为最小值，中间最大为 第n/2 大值。</p>
+<h4 id="原始方案"><a href="#原始方案" class="headerlink" title="原始方案"></a>原始方案</h4><p>下面的算法是半原生的。它的时间复杂度是 O(n log n)，因为它需要先排序，因此需要额外的 O(n) 的空间。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">kthLargest</span><span class="params">(a: [Int], k: Int)</span></span> -&gt; <span class="type">Int</span>? &#123;</div><div class="line">  <span class="keyword">let</span> len = a.<span class="built_in">count</span></div><div class="line">  <span class="keyword">if</span> k &gt; <span class="number">0</span> &amp;&amp; k &lt;= len &#123;</div><div class="line">    <span class="keyword">let</span> sorted = a.sorted()</div><div class="line">    <span class="keyword">return</span> sorted[len - k]</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>kthLargest() 函数有两个参数，整数型数组 a 和 k 用来表示第 k 大的元素。<br>举例说明一下这个算法的原理，假定 k = 4 ， 数组如下：<br>[ 7, 92, 23, 9, -1, 0, 11, 6 ]<br>最开始无法直接找到第 k 大的元素，但是排序后就非常简单了，排序后如下：<br>[ -1, 0, 6, 7, 9, 11, 23, 92 ]<br>现在只需要取 a.count - k 对应的值：<br>a[a.count - k] = a[8 - 4] = a[4] = 9<br>当然如果需要找 第 k 小 的值时用 a[k-1] 即可。</p>
+<h4 id="更快的算法"><a href="#更快的算法" class="headerlink" title="更快的算法"></a>更快的算法</h4><p>这个算法借鉴了 二分查找 和 快排  的思想，时间复杂度为 O(n)<br>不断调用二分查找将数组分割成一半又一半，快速的缩小查询的值的范围。<br>快速排序也分割数组，把小于轴值的移至左边，所有大于轴值的移至右边。经过某个轴值分区后，轴值所在的位置就是排序后最终位置。可以利用这一点来提高算法。<br>下面介绍如何工作：随机选一个值作为轴值进行分区，像二分查找一样继续对左右分区进行处理，直到恰好一个轴值是在 k-th 位置。<br>举个例子说明一下，在下面的数组中找 第 4  大的元素：<br>[ 7, 92, 23, 9, -1, 0, 11, 6 ]<br>该算法对查找第k小值也是很简单的，来让我们试试查找k = 4 的最小值。<br>我们不用先对数组排序，随机选一个值比如 11 作为轴值进行分区，结果如下：<br>[ 7, 9, -1, 0, 6, 11, 92, 23 ]<br> &lt;—— smaller    larger –&gt;<br>根据结果，比 11 小的值在左边，大的值在右边。11 在它的最终位置上，索引值为 5 ， 因此第 4 小的值肯定是在左边的位置可以忽略其他的部分：<br>[ 7, 9, -1, 0, 6, x, x, x ]<br>再随机选一个轴值比如 6 将数组分区，结果如下：<br>[ -1, 0, 6, 9, 7, x, x, x ]<br>轴值 6 的索引值为 2，显然第 4 大的值在右边分区，可以忽略左边的分区了：<br>[ x, x, x, 9, 7, x, x, x ]<br>重复以上操作后如下：<br>[ x, x, x, 7, 9, x, x, x ]<br>轴值 9 的索引值为 4，而且这正是要查找的！可以看到我们不需要对数组排序，用很少的步数就能实现。<br>实现方法如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">randomizedSelect</span>&lt;T: Comparable&gt;<span class="params">(<span class="number">_</span> array: [T], order k: Int)</span></span> -&gt; <span class="type">T</span> &#123;</div><div class="line">  <span class="keyword">var</span> a = array</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">randomPivot</span>&lt;T: Comparable&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> [T], <span class="number">_</span> low: Int, <span class="number">_</span> high: Int)</span></span> -&gt; <span class="type">T</span> &#123;</div><div class="line">    <span class="keyword">let</span> pivotIndex = random(<span class="built_in">min</span>: low, <span class="built_in">max</span>: high)</div><div class="line">    a.swapAt(pivotIndex, high)</div><div class="line">    <span class="keyword">return</span> a[high]</div><div class="line">  &#125;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">randomizedPartition</span>&lt;T: Comparable&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> [T], <span class="number">_</span> low: Int, <span class="number">_</span> high: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">let</span> pivot = randomPivot(&amp;a, low, high)</div><div class="line">    <span class="keyword">var</span> i = low</div><div class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> low..&lt;high &#123;</div><div class="line">      <span class="keyword">if</span> a[j] &lt;= pivot &#123;</div><div class="line">        a.swapAt(i, j)</div><div class="line">        i += <span class="number">1</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    a.swapAt(i, high)</div><div class="line">    <span class="keyword">return</span> i</div><div class="line">  &#125;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">randomizedSelect</span>&lt;T: Comparable&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> [T], <span class="number">_</span> low: Int, <span class="number">_</span> high: Int, <span class="number">_</span> k: Int)</span></span> -&gt; <span class="type">T</span> &#123;</div><div class="line">    <span class="keyword">if</span> low &lt; high &#123;</div><div class="line">      <span class="keyword">let</span> p = randomizedPartition(&amp;a, low, high)</div><div class="line">      <span class="keyword">if</span> k == p &#123;</div><div class="line">        <span class="keyword">return</span> a[p]</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> k &lt; p &#123;</div><div class="line">        <span class="keyword">return</span> randomizedSelect(&amp;a, low, p - <span class="number">1</span>, k)</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> randomizedSelect(&amp;a, p + <span class="number">1</span>, high, k)</div><div class="line">      &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">return</span> a[low]</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">precondition</span>(a.<span class="built_in">count</span> &gt; <span class="number">0</span>)</div><div class="line">  <span class="keyword">return</span> randomizedSelect(&amp;a, <span class="number">0</span>, a.<span class="built_in">count</span> - <span class="number">1</span>, k)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了提高可读性，这个函数分成三个内部函数：</p>
+<ul>
+<li>randomPivot() 随机选取一个数字，然后放在当前分区的最后一个位置（这是Lomuto 分区方式所规定的，更多介绍请看快排）</li>
+<li>randomizedPartition() 是快排中 Lomuto 分区方法。当完成后，随机轴值在的位置就是排序后的最终位置。返回轴值所在的位置。</li>
+<li>randomizedSelect() 做所有的脏活累活。先调用分区函数，后决定再做什么。如果轴值索引值等于 k ,那么该值正是查找值，完成查找。如果 k 比该索引值小，那么查找值一定在左边分区，递归调用就可以了，否则就肯定是在右边分区中。<br>非常😎，是不是？ 快排的期望复杂度为 o(n log n)， 但是因为只把数组分成越来越小的分区，randomizedSelect() 的时间复杂度为 O(n)。</li>
+</ul>
+<blockquote>
+<p>注意：该函数式计算数组中 第k 小元素，k 是从 0 开始的。如果需要 第k 大元素，应调用 a.count - k。</p>
+</blockquote>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/11/17/Xcode-Auto-or-not/" style="float: left;">
-        ← Xcode手动/自动管理证书文件
+    <a class="pull-left" href="/2018/01/12/RSWebView/" style="float: left;">
+        ← RSWebView 封装设计
     </a>
     
     
-    <a class="pull-right" href="/2016/11/16/Search-Engine-Portal/">
-        各大网站收录、搜索引擎的提交入口 →
+    <a class="pull-right" href="/2017/11/18/faceID/">
+        苹果 Face ID 开放《iPhone X ARKit Face Tracking》 →
     </a>
     
 </nav>
