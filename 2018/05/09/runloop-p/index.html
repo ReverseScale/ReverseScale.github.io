@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Objective-C Principle - Runloop | Steven&#39;s Technology Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Technology Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Technology Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Android/" class="animsition-link">Android<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(122)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://www.qtumist.com" class="animsition-link">量客网</a></li>
+                    
+                    <li><a href="https://blog.ibeats.top" class="animsition-link">CI_Knight</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Technology Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2018-05-09T12:02:26.000Z" itemprop="datePublished">
+          2018-05-09
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Objective-C Principle - Runloop</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#OC 底层原理总结之 Runloop</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_Runloop" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_Runloop</a></p>
+<h3 id="一-RunLoop简介"><a href="#一-RunLoop简介" class="headerlink" title="一. RunLoop简介"></a>一. RunLoop简介</h3><p>运行循环，在程序运行过程中循环做一些事情，如果没有Runloop程序执行完毕就会立即退出，如果有Runloop程序会一直运行，并且时时刻刻在等待用户的输入操作。RunLoop可以在需要的时候自己跑起来运行，在没有操作的时候就停下来休息。充分节省CPU资源，提高程序性能。</p>
+<h3 id="二-RunLoop基本作用"><a href="#二-RunLoop基本作用" class="headerlink" title="二. RunLoop基本作用"></a>二. RunLoop基本作用</h3><ul>
+<li>1.保持程序持续运行，程序一启动就会开一个主线程，主线程一开起来就会跑一个主线程对应的RunLoop,RunLoop保证主线程不会被销毁，也就保证了程序的持续运行</li>
+<li>2.处理App中的各种事件（比如：触摸事件，定时器事件，Selector事件等）</li>
+<li>3.节省CPU资源，提高程序性能，程序运行起来时，当什么操作都没有做的时候，RunLoop就告诉CPU，现在没有事情做，我要去休息，这时CPU就会将其资源释放出来去做其他的事情，当有事情做的时候RunLoop就会立马起来去做事情</li>
+</ul>
+<p>我们先通过API内一张图片来简单看一下RunLoop内部运行原理</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/72800040.jpg" alt=""></p>
+<p>通过图片可以看出，RunLoop在跑圈过程中，当接收到Input sources 或者 Timer sources时就会交给对应的处理方去处理。当没有事件消息传入的时候，RunLoop就休息了。这里只是简单的理解一下这张图，接下来我们来了解RunLoop对象和其一些相关类，来更深入的理解RunLoop运行流程。</p>
+<h3 id="三-RunLoop在哪里开启"><a href="#三-RunLoop在哪里开启" class="headerlink" title="三. RunLoop在哪里开启"></a>三. RunLoop在哪里开启</h3><p>UIApplicationMain函数内启动了Runloop，程序不会马上退出，而是保持运行状态。因此每一个应用必须要有一个runloop，我们知道主线程一开起来，就会跑一个和主线程对应的RunLoop，那么RunLoop一定是在程序的入口main函数中开启。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>进入UIApplicationMain</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">UIKIT_EXTERN <span class="keyword">int</span> <span class="title">UIApplicationMain</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[], NSString * __nullable principalClassName, NSString * __nullable delegateClassName)</span></span>;</div></pre></td></tr></table></figure>
+<p>我们发现它返回的是一个int数，那么我们对main函数做一些修改</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"开始"</span>);</div><div class="line">        <span class="keyword">int</span> re = <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"结束"</span>);</div><div class="line">        <span class="keyword">return</span> re;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行程序，我们发现只会打印开始，并不会打印结束，这说明在UIApplicationMain函数中，开启了一个和主线程相关的RunLoop，导致UIApplicationMain不会返回，一直在运行中，也就保证了程序的持续运行。<br>我们来看到RunLoop的源码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 用DefaultMode启动</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">CFRunLoopRun</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;    <span class="comment">/* DOES CALLOUT */</span></div><div class="line">    <span class="keyword">int32_t</span> result;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        result = CFRunLoopRunSpecific(CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, <span class="number">1.0e10</span>, <span class="literal">false</span>);</div><div class="line">        CHECK_FOR_FORK();</div><div class="line">    &#125; <span class="keyword">while</span> (kCFRunLoopRunStopped != result &amp;&amp; kCFRunLoopRunFinished != result);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们发现RunLoop确实是do while通过判断result的值实现的。因此，我们可以把RunLoop看成一个死循环。如果没有RunLoop，UIApplicationMain函数执行完毕之后将直接返回，也就没有程序持续运行一说了。</p>
+<h3 id="四-RunLoop对象"><a href="#四-RunLoop对象" class="headerlink" title="四. RunLoop对象"></a>四. RunLoop对象</h3><ul>
+<li>Fundation框架（基于CFRunLoopRef的封装） NSRunLoop 对象</li>
+<li>CoreFoundation CFRunLoopRef 对象</li>
+</ul>
+<p>因为Fundation框架是基于CFRunLoopRef的一层OC封装，这里我们主要研究CFRunLoopRef源码</p>
+<h4 id="如何获得RunLoop对象"><a href="#如何获得RunLoop对象" class="headerlink" title="如何获得RunLoop对象"></a>如何获得RunLoop对象</h4><p>Foundation<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSRunLoop</span> currentRunLoop]; <span class="comment">// 获得当前线程的RunLoop对象</span></div><div class="line">[<span class="built_in">NSRunLoop</span> mainRunLoop]; <span class="comment">// 获得主线程的RunLoop对象</span></div></pre></td></tr></table></figure></p>
+<p>Core Foundation<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CFRunLoopGetCurrent</span>(); <span class="comment">// 获得当前线程的RunLoop对象</span></div><div class="line"><span class="built_in">CFRunLoopGetMain</span>(); <span class="comment">// 获得主线程的RunLoop对象</span></div></pre></td></tr></table></figure></p>
+<h3 id="五-RunLoop和线程间的关系"><a href="#五-RunLoop和线程间的关系" class="headerlink" title="五. RunLoop和线程间的关系"></a>五. RunLoop和线程间的关系</h3><ul>
+<li>1.每条线程都有唯一的一个与之对应的RunLoop对象</li>
+<li>2.RunLoop保存在一个全局的Dictionary里，线程作为key,RunLoop作为value</li>
+<li>3.主线程的RunLoop已经自动创建好了，子线程的RunLoop需要主动创建</li>
+<li>4.RunLoop在第一次获取时创建，在线程结束时销毁</li>
+</ul>
+<h4 id="通过源码查看上述对应"><a href="#通过源码查看上述对应" class="headerlink" title="通过源码查看上述对应"></a>通过源码查看上述对应</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 拿到当前Runloop 调用_CFRunLoopGet0</span></div><div class="line"><span class="function">CFRunLoopRef <span class="title">CFRunLoopGetCurrent</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</div><div class="line">    CHECK_FOR_FORK();</div><div class="line">    CFRunLoopRef rl = (CFRunLoopRef)_CFGetTSD(__CFTSDKeyRunLoop);</div><div class="line">    <span class="keyword">if</span> (rl) <span class="keyword">return</span> rl;</div><div class="line">    <span class="keyword">return</span> _CFRunLoopGet0(pthread_self());</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 查看_CFRunLoopGet0方法内部</span></div><div class="line">CF_EXPORT CFRunLoopRef _CFRunLoopGet0(<span class="keyword">pthread_t</span> t) &#123;</div><div class="line">    <span class="keyword">if</span> (pthread_equal(t, kNilPthreadT)) &#123;</div><div class="line">        t = pthread_main_thread_np();</div><div class="line">    &#125;</div><div class="line">    __CFLock(&amp;loopsLock);</div><div class="line">    <span class="keyword">if</span> (!__CFRunLoops) &#123;</div><div class="line">        __CFUnlock(&amp;loopsLock);</div><div class="line">        CFMutableDictionaryRef dict = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, <span class="number">0</span>, <span class="literal">NULL</span>, &amp;kCFTypeDictionaryValueCallBacks);</div><div class="line">        <span class="comment">// 根据传入的主线程获取主线程对应的RunLoop</span></div><div class="line">        CFRunLoopRef mainLoop = __CFRunLoopCreate(pthread_main_thread_np());</div><div class="line">        <span class="comment">// 保存主线程 将主线程-key和RunLoop-Value保存到字典中</span></div><div class="line">        CFDictionarySetValue(dict, pthreadPointer(pthread_main_thread_np()), mainLoop);</div><div class="line">        <span class="keyword">if</span> (!OSAtomicCompareAndSwapPtrBarrier(<span class="literal">NULL</span>, dict, (<span class="keyword">void</span> * <span class="keyword">volatile</span> *)&amp;__CFRunLoops)) &#123;</div><div class="line">            CFRelease(dict);</div><div class="line">        &#125;</div><div class="line">        CFRelease(mainLoop);</div><div class="line">        __CFLock(&amp;loopsLock);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 从字典里面拿，将线程作为key从字典里获取一个loop</span></div><div class="line">    CFRunLoopRef loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));</div><div class="line">    __CFUnlock(&amp;loopsLock);</div><div class="line"></div><div class="line">    <span class="comment">// 如果loop为空，则创建一个新的loop，所以runloop会在第一次获取的时候创建</span></div><div class="line">    <span class="keyword">if</span> (!loop) &#123;  </div><div class="line">        CFRunLoopRef newLoop = __CFRunLoopCreate(t);</div><div class="line">        __CFLock(&amp;loopsLock);</div><div class="line">        loop = (CFRunLoopRef)CFDictionaryGetValue(__CFRunLoops, pthreadPointer(t));</div><div class="line">        <span class="comment">// 创建好之后，以线程为key runloop为value，一对一存储在字典中，下次获取的时候，则直接返回字典内的runloop</span></div><div class="line">        <span class="keyword">if</span> (!loop) &#123; </div><div class="line">            CFDictionarySetValue(__CFRunLoops, pthreadPointer(t), newLoop);</div><div class="line">            loop = newLoop;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// don't release run loops inside the loopsLock, because CFRunLoopDeallocate may end up taking it</span></div><div class="line">        __CFUnlock(&amp;loopsLock);</div><div class="line">        CFRelease(newLoop);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (pthread_equal(t, pthread_self())) &#123;</div><div class="line">        _CFSetTSD(__CFTSDKeyRunLoop, (<span class="keyword">void</span> *)loop, <span class="literal">NULL</span>);</div><div class="line">        <span class="keyword">if</span> (<span class="number">0</span> == _CFGetTSD(__CFTSDKeyRunLoopCntr)) &#123;</div><div class="line">            _CFSetTSD(__CFTSDKeyRunLoopCntr, (<span class="keyword">void</span> *)(PTHREAD_DESTRUCTOR_ITERATIONS<span class="number">-1</span>), (<span class="keyword">void</span> (*)(<span class="keyword">void</span> *))__CFFinalizeRunLoop);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> loop;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从上面的代码可以看出，线程和 RunLoop 之间是一一对应的，其关系是保存在一个 Dictionary 里。所以我们创建子线程RunLoop时，只需在子线程中获取当前线程的RunLoop对象即可[NSRunLoop currentRunLoop];如果不获取，那子线程就不会创建与之相关联的RunLoop，并且只能在一个线程的内部获取其 RunLoop<br>[NSRunLoop currentRunLoop];方法调用时，会先看一下字典里有没有存子线程相对用的RunLoop，如果有则直接返回RunLoop，如果没有则会创建一个，并将与之对应的子线程存入字典中。当线程结束时，RunLoop会被销毁。</p>
+<h3 id="六-RunLoop结构体"><a href="#六-RunLoop结构体" class="headerlink" title="六. RunLoop结构体"></a>六. RunLoop结构体</h3><p>通过源码我们找到__CFRunLoop结构体<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __CFRunLoop &#123;</div><div class="line">    CFRuntimeBase _base;</div><div class="line">    <span class="keyword">pthread_mutex_t</span> _lock;            <span class="comment">/* locked for accessing mode list */</span></div><div class="line">    __CFPort _wakeUpPort;            <span class="comment">// used for CFRunLoopWakeUp </span></div><div class="line">    Boolean _unused;</div><div class="line">    <span class="keyword">volatile</span> _per_run_data *_perRunData;              <span class="comment">// reset for runs of the run loop</span></div><div class="line">    <span class="keyword">pthread_t</span> _pthread;</div><div class="line">    <span class="keyword">uint32_t</span> _winthread;</div><div class="line">    CFMutableSetRef _commonModes;</div><div class="line">    CFMutableSetRef _commonModeItems;</div><div class="line">    CFRunLoopModeRef _currentMode;</div><div class="line">    CFMutableSetRef _modes;</div><div class="line">    <span class="keyword">struct</span> _block_item *_blocks_head;</div><div class="line">    <span class="keyword">struct</span> _block_item *_blocks_tail;</div><div class="line">    CFAbsoluteTime _runTime;</div><div class="line">    CFAbsoluteTime _sleepTime;</div><div class="line">    CFTypeRef _counterpart;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>除一些记录性属性外，主要来看一下以下两个成员变量<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CFRunLoopModeRef _currentMode;</div><div class="line">CFMutableSetRef _modes;</div></pre></td></tr></table></figure></p>
+<p>CFRunLoopModeRef 其实是指向<strong>CFRunLoopMode结构体的指针，</strong>CFRunLoopMode结构体源码如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __CFRunLoopMode *CFRunLoopModeRef;</div><div class="line"><span class="keyword">struct</span> __CFRunLoopMode &#123;</div><div class="line">    CFRuntimeBase _base;</div><div class="line">    <span class="keyword">pthread_mutex_t</span> _lock;    <span class="comment">/* must have the run loop locked before locking this */</span></div><div class="line">    CFStringRef _name;</div><div class="line">    Boolean _stopped;</div><div class="line">    <span class="keyword">char</span> _padding[<span class="number">3</span>];</div><div class="line">    CFMutableSetRef _sources0;</div><div class="line">    CFMutableSetRef _sources1;</div><div class="line">    CFMutableArrayRef _observers;</div><div class="line">    CFMutableArrayRef _timers;</div><div class="line">    CFMutableDictionaryRef _portToV1SourceMap;</div><div class="line">    __CFPortSet _portSet;</div><div class="line">    CFIndex _observerMask;</div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_DISPATCH_SOURCE_FOR_TIMERS</span></div><div class="line">    <span class="keyword">dispatch_source_t</span> _timerSource;</div><div class="line">    <span class="keyword">dispatch_queue_t</span> _queue;</div><div class="line">    Boolean _timerFired; <span class="comment">// set to true by the source when a timer has fired</span></div><div class="line">    Boolean _dispatchTimerArmed;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> USE_MK_TIMER_TOO</span></div><div class="line">    <span class="keyword">mach_port_t</span> _timerPort;</div><div class="line">    Boolean _mkTimerArmed;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> DEPLOYMENT_TARGET_WINDOWS</span></div><div class="line">    DWORD _msgQMask;</div><div class="line">    <span class="keyword">void</span> (*_msgPump)(<span class="keyword">void</span>);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="keyword">uint64_t</span> _timerSoftDeadline; <span class="comment">/* TSR */</span></div><div class="line">    <span class="keyword">uint64_t</span> _timerHardDeadline; <span class="comment">/* TSR */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>主要查看以下成员变量<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CFMutableSetRef _sources0;</div><div class="line">CFMutableSetRef _sources1;</div><div class="line">CFMutableArrayRef _observers;</div><div class="line">CFMutableArrayRef _timers;</div></pre></td></tr></table></figure></p>
+<p>通过上面分析我们知道，CFRunLoopModeRef代表RunLoop的运行模式，一个RunLoop包含若干个Mode，每个Mode又包含若干个Source0/Source1/Timer/Observer，而RunLoop启动时只能选择其中一个Mode作为currentMode。</p>
+<h3 id="Source1-Source0-Timers-Observer分别代表什么"><a href="#Source1-Source0-Timers-Observer分别代表什么" class="headerlink" title="Source1/Source0/Timers/Observer分别代表什么"></a>Source1/Source0/Timers/Observer分别代表什么</h3><h4 id="1-Source1-基于Port的线程间通信"><a href="#1-Source1-基于Port的线程间通信" class="headerlink" title="1. Source1 : 基于Port的线程间通信"></a>1. Source1 : 基于Port的线程间通信</h4><h4 id="2-Source0-触摸事件，PerformSelectors"><a href="#2-Source0-触摸事件，PerformSelectors" class="headerlink" title="2. Source0 : 触摸事件，PerformSelectors"></a>2. Source0 : 触摸事件，PerformSelectors</h4><p>我们通过代码验证一下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"点击了屏幕"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打断点之后打印堆栈信息，当xcode工具区打印的堆栈信息不全时，可以在控制台通过“bt”指令打印完整的堆栈信息，由堆栈信息中可以发现，触摸事件确实是会触发Source0事件。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/31305502.jpg" alt=""></p>
+<p>同样的方式验证performSelector堆栈信息</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</div><div class="line">    [<span class="keyword">self</span> performSelectorOnMainThread:<span class="keyword">@selector</span>(test) withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">YES</span>];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>可以发现PerformSelectors同样是触发Source0事件</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/88088733.jpg" alt=""></p>
+<p>其实，当我们触发了事件（触摸/锁屏/摇晃等）后，由IOKit.framework生成一个 IOHIDEvent事件</p>
+<blockquote>
+<p>IOKit是苹果的硬件驱动框架，由它进行底层接口的抽象封装与系统进行交互传递硬件感应的事件，并专门处理用户交互设备，由IOHIDServices和IOHIDDisplays两部分组成，其中IOHIDServices是专门处理用户交互的，它会将事件封装成IOHIDEvents对象，</p>
+</blockquote>
+<p>接着用mach port转发给需要的App进程，随后 Source1就会接收IOHIDEvent，之后再回调<strong>IOHIDEventSystemClientQueueCallback()，</strong>IOHIDEventSystemClientQueueCallback()内触发Source0，Source0 再触发 _UIApplicationHandleEventQueue()。所以触摸事件看到是在 Source0 内的。</p>
+<h4 id="3-Timers-定时器，NSTimer"><a href="#3-Timers-定时器，NSTimer" class="headerlink" title="3. Timers : 定时器，NSTimer"></a>3. Timers : 定时器，NSTimer</h4><p>通过代码验证<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">3.0</span> repeats:<span class="literal">NO</span> block:^(<span class="built_in">NSTimer</span> * _Nonnull timer) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"NSTimer ---- timer调用了"</span>);</div><div class="line">&#125;];</div></pre></td></tr></table></figure></p>
+<p>打印完整堆栈信息</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/39044079.jpg" alt=""></p>
+<h4 id="4-Observer-监听器，用于监听RunLoop的状态"><a href="#4-Observer-监听器，用于监听RunLoop的状态" class="headerlink" title="4. Observer : 监听器，用于监听RunLoop的状态"></a>4. Observer : 监听器，用于监听RunLoop的状态</h4><h3 id="七-详解RunLoop相关类及作用"><a href="#七-详解RunLoop相关类及作用" class="headerlink" title="七. 详解RunLoop相关类及作用"></a>七. 详解RunLoop相关类及作用</h3><p>通过上面的分析，我们对RunLoop内部结构有了大致的了解，接下来来详细分析RunLoop的相关类。以下为Core Foundation中关于RunLoop的5个类</p>
+<ul>
+<li>CFRunLoopRef - 获得当前RunLoop和主RunLoop</li>
+<li>CFRunLoopModeRef - RunLoop 运行模式，只能选择一种，在不同模式中做不同的操作</li>
+<li>CFRunLoopSourceRef - 事件源，输入源</li>
+<li>CFRunLoopTimerRef - 定时器时间</li>
+<li>CFRunLoopObserverRef - 观察者</li>
+</ul>
+<h4 id="1-CFRunLoopModeRef"><a href="#1-CFRunLoopModeRef" class="headerlink" title="1. CFRunLoopModeRef"></a>1. CFRunLoopModeRef</h4><p>CFRunLoopModeRef代表RunLoop的运行模式<br>一个 RunLoop 包含若干个 Mode，每个Mode又包含若干个Source、Timer、Observer<br>每次RunLoop启动时，只能指定其中一个 Mode，这个Mode被称作 CurrentMode<br>如果需要切换Mode，只能退出RunLoop，再重新指定一个Mode进入，这样做主要是为了分隔开不同组的Source、Timer、Observer，让其互不影响。如果Mode里没有任何Source0/Source1/Timer/Observer，RunLoop会立马退出<br>如图所示：</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/14669345.jpg" alt=""></p>
+<p>注意：一种Mode中可以有多个Source(事件源，输入源，基于端口事件源例键盘触摸等) Observer(观察者，观察当前RunLoop运行状态) 和Timer(定时器事件源)。但是必须至少有一个Source或者Timer，因为如果Mode为空，RunLoop运行到空模式不会进行空转，就会立刻退出。</p>
+<h5 id="系统默认注册的5个Mode"><a href="#系统默认注册的5个Mode" class="headerlink" title="系统默认注册的5个Mode:"></a>系统默认注册的5个Mode:</h5><p>RunLoop 有五种运行模式，其中常见的有1.2两种</p>
+<ul>
+<li><ol>
+<li>kCFRunLoopDefaultMode：App的默认Mode，通常主线程是在这个Mode下运行</li>
+</ol>
+</li>
+<li><ol>
+<li>UITrackingRunLoopMode：界面跟踪 Mode，用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他 Mode 影响</li>
+</ol>
+</li>
+<li><ol>
+<li>UIInitializationRunLoopMode: 在刚启动 App 时第进入的第一个 Mode，启动完成后就不再使用，会切换到kCFRunLoopDefaultMode</li>
+</ol>
+</li>
+<li><ol>
+<li>GSEventReceiveRunLoopMode: 接受系统事件的内部 Mode，通常用不到</li>
+</ol>
+</li>
+<li><ol>
+<li>kCFRunLoopCommonModes: 这是一个占位用的Mode，作为标记kCFRunLoopDefaultMode和UITrackingRunLoopMode用，并不是一种真正的Mode </li>
+</ol>
+</li>
+</ul>
+<h5 id="Mode间的切换"><a href="#Mode间的切换" class="headerlink" title="Mode间的切换"></a>Mode间的切换</h5><p>我们平时在开发中一定遇到过，当我们使用NSTimer每一段时间执行一些事情时滑动UIScrollView，NSTimer就会暂停，当我们停止滑动以后，NSTimer又会重新恢复的情况，我们通过一段代码来看一下<br>代码中的注释也很重要，展示了我们探索的过程</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    <span class="comment">// [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(show) userInfo:nil repeats:YES];</span></div><div class="line">    <span class="built_in">NSTimer</span> *timer = [<span class="built_in">NSTimer</span> timerWithTimeInterval:<span class="number">2.0</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(show) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</div><div class="line">    <span class="comment">// 加入到RunLoop中才可以运行</span></div><div class="line">    <span class="comment">// 1. 把定时器添加到RunLoop中，并且选择默认运行模式NSDefaultRunLoopMode = kCFRunLoopDefaultMode</span></div><div class="line">    <span class="comment">// [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];</span></div><div class="line">    <span class="comment">// 当textFiled滑动的时候，timer失效，停止滑动时，timer恢复</span></div><div class="line">    <span class="comment">// 原因：当textFiled滑动的时候，RunLoop的Mode会自动切换成UITrackingRunLoopMode模式，因此timer失效，当停止滑动，RunLoop又会切换回NSDefaultRunLoopMode模式，因此timer又会重新启动了</span></div><div class="line">    <span class="comment">// 2. 当我们将timer添加到UITrackingRunLoopMode模式中，此时只有我们在滑动textField时timer才会运行</span></div><div class="line">    <span class="comment">// [[NSRunLoop mainRunLoop] addTimer:timer forMode:UITrackingRunLoopMode];</span></div><div class="line">    <span class="comment">// 3. 那个如何让timer在两个模式下都可以运行呢？</span></div><div class="line">    <span class="comment">// 3.1 在两个模式下都添加timer 是可以的，但是timer添加了两次，并不是同一个timer</span></div><div class="line">    <span class="comment">// 3.2 使用站位的运行模式 NSRunLoopCommonModes标记，凡是被打上NSRunLoopCommonModes标记的都可以运行，下面两种模式被打上标签</span></div><div class="line">    <span class="comment">//0 : &lt;CFString 0x10b7fe210 [0x10a8c7a40]&gt;&#123;contents = "UITrackingRunLoopMode"&#125;</span></div><div class="line">    <span class="comment">//2 : &lt;CFString 0x10a8e85e0 [0x10a8c7a40]&gt;&#123;contents = "kCFRunLoopDefaultMode"&#125;</span></div><div class="line">    <span class="comment">// 因此也就是说如果我们使用NSRunLoopCommonModes，timer可以在UITrackingRunLoopMode，kCFRunLoopDefaultMode两种模式下运行</span></div><div class="line">    [[<span class="built_in">NSRunLoop</span> mainRunLoop] addTimer:timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[<span class="built_in">NSRunLoop</span> mainRunLoop]);</div><div class="line">&#125;</div><div class="line">-(<span class="keyword">void</span>)show &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"-------"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由上述代码可以看出，NSTimer不管用是因为Mode的切换，因为如果我们在主线程使用定时器，此时RunLoop的Mode为kCFRunLoopDefaultMode，即定时器属于kCFRunLoopDefaultMode，那么此时我们滑动ScrollView时，RunLoop的Mode会切换到UITrackingRunLoopMode，因此在主线程的定时器就不在管用了，调用的方法也就不再执行了，当我们停止滑动时，RunLoop的Mode切换回kCFRunLoopDefaultMode，所以NSTimer就又管用了。<br>同样道理的还有ImageView的显示，我们直接来看代码，不再赘述了</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</div><div class="line">    <span class="comment">// performSelector默认是在default模式下运行，因此在滑动ScrollView时，图片不会加载</span></div><div class="line">    <span class="comment">// [self.imageView performSelector:@selector(setImage:) withObject:[UIImage imageNamed:@"abc"] afterDelay:2.0 ];</span></div><div class="line">    <span class="comment">// inModes: 传入Mode数组</span></div><div class="line">    [<span class="keyword">self</span>.imageView performSelector:<span class="keyword">@selector</span>(setImage:) withObject:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"abc"</span>] afterDelay:<span class="number">2.0</span> inModes:@[<span class="built_in">NSDefaultRunLoopMode</span>,<span class="built_in">UITrackingRunLoopMode</span>]];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用GCD也可是创建计时器，而且更为精确我们来看一下代码</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    <span class="comment">//创建队列</span></div><div class="line">    <span class="built_in">dispatch_queue_t</span> queue = dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>);</div><div class="line">    <span class="comment">//1.创建一个GCD定时器</span></div><div class="line">    <span class="comment">/*</span></div><div class="line">    第一个参数:表明创建的是一个定时器</div><div class="line">    第四个参数:队列</div><div class="line">    */</div><div class="line">    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, <span class="number">0</span>, <span class="number">0</span>, queue);</div><div class="line">    <span class="comment">// 需要对timer进行强引用，保证其不会被释放掉，才会按时调用block块</span></div><div class="line">    <span class="comment">// 局部变量，让指针强引用</span></div><div class="line">    <span class="keyword">self</span>.timer = timer;</div><div class="line">    <span class="comment">//2.设置定时器的开始时间,间隔时间,精准度</span></div><div class="line">    <span class="comment">/*</span></div><div class="line">    第1个参数:要给哪个定时器设置</div><div class="line">    第2个参数:开始时间</div><div class="line">    第3个参数:间隔时间</div><div class="line">    第4个参数:精准度 一般为0 在允许范围内增加误差可提高程序的性能</div><div class="line">    GCD的单位是纳秒 所以要*NSEC_PER_SEC</div><div class="line">    */</div><div class="line">    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, <span class="number">2.0</span> * <span class="built_in">NSEC_PER_SEC</span>, <span class="number">0</span> * <span class="built_in">NSEC_PER_SEC</span>);</div><div class="line">    <span class="comment">//3.设置定时器要执行的事情</span></div><div class="line">    dispatch_source_set_event_handler(timer, ^&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"---%@--"</span>,[<span class="built_in">NSThread</span> currentThread]);</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">// 启动</span></div><div class="line">    dispatch_resume(timer);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-CFRunLoopSourceRef事件源（输入源）"><a href="#2-CFRunLoopSourceRef事件源（输入源）" class="headerlink" title="2. CFRunLoopSourceRef事件源（输入源）"></a>2. CFRunLoopSourceRef事件源（输入源）</h4><p>Source分为两种</p>
+<ul>
+<li>Source0：非基于Port的 用于用户主动触发的事件（点击button 或点击屏幕）</li>
+<li>Source1：基于Port的  通过内核和其他线程相互发送消息（与内核相关）</li>
+</ul>
+<p>触摸事件及PerformSelectors会触发Source0事件源在前文已经验证过，这里不在赘述</p>
+<h4 id="3-CFRunLoopObserverRef"><a href="#3-CFRunLoopObserverRef" class="headerlink" title="3. CFRunLoopObserverRef"></a>3. CFRunLoopObserverRef</h4><p>CFRunLoopObserverRef是观察者，能够监听RunLoop的状态改变</p>
+<p>我们直接来看代码，给RunLoop添加监听者，监听其运行状态</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    <span class="comment">//创建监听者</span></div><div class="line">    <span class="comment">/*</span></div><div class="line">    第一个参数 CFAllocatorRef allocator：分配存储空间 CFAllocatorGetDefault()默认分配</div><div class="line">    第二个参数 CFOptionFlags activities：要监听的状态 kCFRunLoopAllActivities 监听所有状态</div><div class="line">    第三个参数 Boolean repeats：YES:持续监听 NO:不持续</div><div class="line">    第四个参数 CFIndex order：优先级，一般填0即可</div><div class="line">    第五个参数 ：回调 两个参数observer:监听者 activity:监听的事件</div><div class="line">    */</div><div class="line">    <span class="comment">/*</span></div><div class="line">    所有事件</div><div class="line">    typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) &#123;</div><div class="line">        kCFRunLoopEntry = (1UL &lt;&lt; 0),   //   即将进入RunLoop</div><div class="line">        kCFRunLoopBeforeTimers = (1UL &lt;&lt; 1), // 即将处理Timer</div><div class="line">        kCFRunLoopBeforeSources = (1UL &lt;&lt; 2), // 即将处理Source</div><div class="line">        kCFRunLoopBeforeWaiting = (1UL &lt;&lt; 5), //即将进入休眠</div><div class="line">        kCFRunLoopAfterWaiting = (1UL &lt;&lt; 6),// 刚从休眠中唤醒</div><div class="line">        kCFRunLoopExit = (1UL &lt;&lt; 7),// 即将退出RunLoop</div><div class="line">        kCFRunLoopAllActivities = 0x0FFFFFFFU</div><div class="line">    &#125;;</div><div class="line">    */</div><div class="line">    <span class="built_in">CFRunLoopObserverRef</span> observer = <span class="built_in">CFRunLoopObserverCreateWithHandler</span>(<span class="built_in">CFAllocatorGetDefault</span>(), kCFRunLoopAllActivities, <span class="literal">YES</span>, <span class="number">0</span>, ^(<span class="built_in">CFRunLoopObserverRef</span> observer, <span class="built_in">CFRunLoopActivity</span> activity) &#123;</div><div class="line">            <span class="keyword">switch</span> (activity) &#123;</div><div class="line">            <span class="keyword">case</span> kCFRunLoopEntry:</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"RunLoop进入"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kCFRunLoopBeforeTimers:</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"RunLoop要处理Timers了"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kCFRunLoopBeforeSources:</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"RunLoop要处理Sources了"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kCFRunLoopBeforeWaiting:</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"RunLoop要休息了"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kCFRunLoopAfterWaiting:</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"RunLoop醒来了"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kCFRunLoopExit:</div><div class="line">                <span class="built_in">NSLog</span>(<span class="string">@"RunLoop退出了"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">// 给RunLoop添加监听者</span></div><div class="line">    <span class="comment">/*</span></div><div class="line">    第一个参数 CFRunLoopRef rl：要监听哪个RunLoop,这里监听的是主线程的RunLoop</div><div class="line">    第二个参数 CFRunLoopObserverRef observer 监听者</div><div class="line">    第三个参数 CFStringRef mode 要监听RunLoop在哪种运行模式下的状态</div><div class="line">    */</div><div class="line">    <span class="built_in">CFRunLoopAddObserver</span>(<span class="built_in">CFRunLoopGetCurrent</span>(), observer, kCFRunLoopDefaultMode);</div><div class="line">    <span class="comment">/*</span></div><div class="line">    CF的内存管理（Core Foundation）</div><div class="line">    凡是带有Create、Copy、Retain等字眼的函数，创建出来的对象，都需要在最后做一次release</div><div class="line">    GCD本来在iOS6.0之前也是需要我们释放的，6.0之后GCD已经纳入到了ARC中，所以我们不需要管了</div><div class="line">    */</div><div class="line">    <span class="built_in">CFRelease</span>(observer);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们来看一下输出</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/49013132.jpg" alt=""></p>
+<p>以上可以看出，Observer确实用来监听RunLoop的状态，包括唤醒，休息，以及处理各种事件。</p>
+<h3 id="八-RunLoop处理逻辑"><a href="#八-RunLoop处理逻辑" class="headerlink" title="八. RunLoop处理逻辑"></a>八. RunLoop处理逻辑</h3><p>这时我们再来分析RunLoop的处理逻辑，就会简单明了很多，现在回头看官方文档RunLoop的处理逻辑，对RunLoop的处理逻辑有新的认识。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/44912201.jpg" alt=""></p>
+<h4 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h4><p>下面源码仅保留了主流程代码</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 共外部调用的公开的CFRunLoopRun方法，其内部会调用CFRunLoopRunSpecific</span></div><div class="line"><span class="keyword">void</span> <span class="built_in">CFRunLoopRun</span>(<span class="keyword">void</span>) &#123;    <span class="comment">/* DOES CALLOUT */</span></div><div class="line">    int32_t result;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        result = <span class="built_in">CFRunLoopRunSpecific</span>(<span class="built_in">CFRunLoopGetCurrent</span>(), kCFRunLoopDefaultMode, <span class="number">1.0e10</span>, <span class="literal">false</span>);</div><div class="line">        CHECK_FOR_FORK();</div><div class="line">    &#125; <span class="keyword">while</span> (kCFRunLoopRunStopped != result &amp;&amp; kCFRunLoopRunFinished != result);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 经过精简的 CFRunLoopRunSpecific 函数代码，其内部会调用__CFRunLoopRun函数</span></div><div class="line">SInt32 <span class="built_in">CFRunLoopRunSpecific</span>(<span class="built_in">CFRunLoopRef</span> rl, <span class="built_in">CFStringRef</span> modeName, <span class="built_in">CFTimeInterval</span> seconds, Boolean returnAfterSourceHandled) &#123;     </div><div class="line">    <span class="comment">// DOES CALLOUT </span></div><div class="line">    <span class="comment">// 通知Observers : 进入Loop</span></div><div class="line">    <span class="comment">// __CFRunLoopDoObservers内部会调用 __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__</span></div><div class="line">    函数</div><div class="line">    <span class="keyword">if</span> (currentMode-&gt;_observerMask &amp; kCFRunLoopEntry ) __CFRunLoopDoObservers(rl, currentMode, kCFRunLoopEntry);</div><div class="line">    <span class="comment">// 核心的Loop逻辑</span></div><div class="line">    result = __CFRunLoopRun(rl, currentMode, seconds, returnAfterSourceHandled, previousMode);</div><div class="line">    <span class="comment">// 通知Observers : 退出Loop</span></div><div class="line">    <span class="keyword">if</span> (currentMode-&gt;_observerMask &amp; kCFRunLoopExit ) __CFRunLoopDoObservers(rl, currentMode, kCFRunLoopExit);</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 精简后的 __CFRunLoopRun函数，保留了主要代码</span></div><div class="line"><span class="keyword">static</span> int32_t __CFRunLoopRun(<span class="built_in">CFRunLoopRef</span> rl, <span class="built_in">CFRunLoopModeRef</span> rlm, <span class="built_in">CFTimeInterval</span> seconds, Boolean stopAfterHandle, <span class="built_in">CFRunLoopModeRef</span> previousMode) &#123;</div><div class="line">    int32_t retVal = <span class="number">0</span>;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        <span class="comment">// 通知Observers：即将处理Timers</span></div><div class="line">        __CFRunLoopDoObservers(rl, rlm, kCFRunLoopBeforeTimers); </div><div class="line">        <span class="comment">// 通知Observers：即将处理Sources</span></div><div class="line">        __CFRunLoopDoObservers(rl, rlm, kCFRunLoopBeforeSources);</div><div class="line">        <span class="comment">// 处理Blocks</span></div><div class="line">        __CFRunLoopDoBlocks(rl, rlm);</div><div class="line">        <span class="comment">// 处理Sources0</span></div><div class="line">        <span class="keyword">if</span> (__CFRunLoopDoSources0(rl, rlm, stopAfterHandle)) &#123;</div><div class="line">            <span class="comment">// 处理Blocks</span></div><div class="line">            __CFRunLoopDoBlocks(rl, rlm);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 如果有Sources1，就跳转到handle_msg标记处</span></div><div class="line">        <span class="keyword">if</span> (__CFRunLoopServiceMachPort(dispatchPort, &amp;msg, <span class="keyword">sizeof</span>(msg_buffer), &amp;livePort, <span class="number">0</span>, &amp;voucherState, <span class="literal">NULL</span>)) &#123;</div><div class="line">            <span class="keyword">goto</span> handle_msg;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 通知Observers：即将休眠</span></div><div class="line">        __CFRunLoopDoObservers(rl, rlm, kCFRunLoopBeforeWaiting);</div><div class="line">        <span class="comment">// 进入休眠，等待其他消息唤醒</span></div><div class="line">        __CFRunLoopSetSleeping(rl);</div><div class="line">        __CFPortSetInsert(dispatchPort, waitSet);</div><div class="line">        <span class="keyword">do</span> &#123;</div><div class="line">            __CFRunLoopServiceMachPort(waitSet, &amp;msg, <span class="keyword">sizeof</span>(msg_buffer), &amp;livePort, poll ? <span class="number">0</span> : TIMEOUT_INFINITY, &amp;voucherState, &amp;voucherCopy);</div><div class="line">        &#125; <span class="keyword">while</span> (<span class="number">1</span>);</div><div class="line">        <span class="comment">// 醒来</span></div><div class="line">        __CFPortSetRemove(dispatchPort, waitSet);</div><div class="line">        __CFRunLoopUnsetSleeping(rl);</div><div class="line">        <span class="comment">// 通知Observers：已经唤醒</span></div><div class="line">        __CFRunLoopDoObservers(rl, rlm, kCFRunLoopAfterWaiting);</div><div class="line">        handle_msg: <span class="comment">// 看看是谁唤醒了RunLoop，进行相应的处理</span></div><div class="line">        <span class="keyword">if</span> (被Timer唤醒的) &#123;</div><div class="line">            <span class="comment">// 处理Timer</span></div><div class="line">            __CFRunLoopDoTimers(rl, rlm, mach_absolute_time());</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (被GCD唤醒的) &#123;</div><div class="line">            __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__(msg);</div><div class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 被Sources1唤醒的</span></div><div class="line">            __CFRunLoopDoSource1(rl, rlm, rls, msg, msg-&gt;msgh_size, &amp;reply);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 执行Blocks</span></div><div class="line">        __CFRunLoopDoBlocks(rl, rlm);</div><div class="line">        <span class="comment">// 根据之前的执行结果，来决定怎么做，为retVal赋相应的值</span></div><div class="line">        <span class="keyword">if</span> (sourceHandledThisLoop &amp;&amp; stopAfterHandle) &#123;</div><div class="line">            retVal = kCFRunLoopRunHandledSource;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (timeout_context-&gt;termTSR &lt; mach_absolute_time()) &#123;</div><div class="line">            retVal = kCFRunLoopRunTimedOut;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (__CFRunLoopIsStopped(rl)) &#123;</div><div class="line">            __CFRunLoopUnsetStopped(rl);</div><div class="line">            retVal = kCFRunLoopRunStopped;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rlm-&gt;_stopped) &#123;</div><div class="line">            rlm-&gt;_stopped = <span class="literal">false</span>;</div><div class="line">            retVal = kCFRunLoopRunStopped;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (__CFRunLoopModeIsEmpty(rl, rlm, previousMode)) &#123;</div><div class="line">            retVal = kCFRunLoopRunFinished;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">while</span> (<span class="number">0</span> == retVal);</div><div class="line">    <span class="keyword">return</span> retVal;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述源代码中，相应处理事件函数内部还会调用更底层的函数，内部调用才是真正处理事件的函数，通过上面bt打印全部堆栈信息也可以得到验证。</p>
+<p>1）<strong>CFRunLoopDoObservers 内部调用： </strong>CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__</p>
+<p>2）<strong>CFRunLoopDoBlocks 内部调用：
+</strong>CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__</p>
+<p>3）<strong>CFRunLoopDoSources0 内部调用：
+</strong>CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__</p>
+<p>4）<strong>CFRunLoopDoTimers 内部调用：
+</strong>CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__</p>
+<p>5）GCD 调用：<br><strong>CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE</strong></p>
+<p>6）<strong>CFRunLoopDoSource1 内部调用：
+</strong>CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__</p>
+<h4 id="RunLoop处理逻辑流程图"><a href="#RunLoop处理逻辑流程图" class="headerlink" title="RunLoop处理逻辑流程图"></a>RunLoop处理逻辑流程图</h4><p>此时我们按照源码重新整理一下RunLoop处理逻辑就会很清晰</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-8/89951878.jpg" alt=""></p>
+<h3 id="九-RunLoop退出"><a href="#九-RunLoop退出" class="headerlink" title="九. RunLoop退出"></a>九. RunLoop退出</h3><ul>
+<li>1.主线程销毁RunLoop退出</li>
+<li>2.Mode中有一些Timer 、Source、 Observer，这些保证Mode不为空时保证RunLoop没有空转并且是在运行的，当Mode中为空的时候，RunLoop会立刻退出</li>
+<li>3.我们在启动RunLoop的时候可以设置什么时候停止</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSRunLoop</span> currentRunLoop]runUntilDate:&lt;<span class="meta">#(nonnull NSDate *)#&gt;</span></div><div class="line">[<span class="built_in">NSRunLoop</span> currentRunLoop]runMode:&lt;<span class="meta">#(nonnull NSString *)#&gt; beforeDate:<span class="meta-string">&lt;#(nonnull NSDate *)#&gt;</span></span></div></pre></td></tr></table></figure>
+<h4 id="1-常驻线程"><a href="#1-常驻线程" class="headerlink" title="1. 常驻线程"></a>1. 常驻线程</h4><p>常驻线程的作用：我们知道，当子线程中的任务执行完毕之后就被销毁了，那么如果我们需要开启一个子线程，在程序运行过程中永远都存在，那么我们就会面临一个问题，如何让子线程永远活着，这时就要用到常驻线程：给子线程开启一个RunLoop </p>
+<blockquote>
+<p>注意：子线程执行完操作之后就会立即释放，即使我们使用强引用引用子线程使子线程不被释放，也不能给子线程再次添加操作，或者再次开启。 </p>
+</blockquote>
+<p>子线程开启RunLoop的代码，先点击屏幕开启子线程并开启子线程RunLoop，然后点击button。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</div><div class="line">    <span class="comment">// 创建子线程并开启</span></div><div class="line">    <span class="built_in">NSThread</span> *thread = [[<span class="built_in">NSThread</span> alloc]initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(show) object:<span class="literal">nil</span>];</div><div class="line">    <span class="keyword">self</span>.thread = thread;</div><div class="line">    [thread start];</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)show &#123;</div><div class="line">    <span class="comment">// 注意：打印方法一定要在RunLoop创建开始运行之前，如果在RunLoop跑起来之后打印，RunLoop先运行起来，已经在跑圈了就出不来了，进入死循环也就无法执行后面的操作了。</span></div><div class="line">    <span class="comment">// 但是此时点击Button还是有操作的，因为Button是在RunLoop跑起来之后加入到子线程的，当Button加入到子线程RunLoop就会跑起来</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</div><div class="line">    <span class="comment">// 1.创建子线程相关的RunLoop，在子线程中创建即可，并且RunLoop中要至少有一个Timer 或 一个Source 保证RunLoop不会因为空转而退出，因此在创建的时候直接加入</span></div><div class="line">    <span class="comment">// 添加Source [NSMachPort port] 添加一个端口</span></div><div class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] addPort:[<span class="built_in">NSMachPort</span> port] forMode:<span class="built_in">NSDefaultRunLoopMode</span>];</div><div class="line">    <span class="comment">// 添加一个Timer</span></div><div class="line">    <span class="built_in">NSTimer</span> *timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">2.0</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(test) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</div><div class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] addTimer:timer forMode:<span class="built_in">NSDefaultRunLoopMode</span>];</div><div class="line">    <span class="comment">//创建监听者</span></div><div class="line">    <span class="built_in">CFRunLoopObserverRef</span> observer = <span class="built_in">CFRunLoopObserverCreateWithHandler</span>(<span class="built_in">CFAllocatorGetDefault</span>(), kCFRunLoopAllActivities, <span class="literal">YES</span>, <span class="number">0</span>, ^(<span class="built_in">CFRunLoopObserverRef</span> observer, <span class="built_in">CFRunLoopActivity</span> activity) &#123;</div><div class="line">        <span class="keyword">switch</span> (activity) &#123;</div><div class="line">        <span class="keyword">case</span> kCFRunLoopEntry:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"RunLoop进入"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> kCFRunLoopBeforeTimers:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"RunLoop要处理Timers了"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> kCFRunLoopBeforeSources:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"RunLoop要处理Sources了"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> kCFRunLoopBeforeWaiting:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"RunLoop要休息了"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> kCFRunLoopAfterWaiting:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"RunLoop醒来了"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> kCFRunLoopExit:</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"RunLoop退出了"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">// 给RunLoop添加监听者</span></div><div class="line">    <span class="built_in">CFRunLoopAddObserver</span>(<span class="built_in">CFRunLoopGetCurrent</span>(), observer, kCFRunLoopDefaultMode);</div><div class="line">    <span class="comment">// 2.子线程需要开启RunLoop</span></div><div class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop]run];</div><div class="line">    <span class="built_in">CFRelease</span>(observer);</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">IBAction</span>)btnClick:(<span class="keyword">id</span>)sender &#123;</div><div class="line">    [<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(test) onThread:<span class="keyword">self</span>.thread withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">NO</span>];</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)test &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：创建子线程相关的RunLoop，在子线程中创建即可，并且RunLoop中要至少有一个Timer 或 一个Source 保证RunLoop不会因为空转而退出，因此在创建的时候直接加入，如果没有加入Timer或者Source，或者只加入一个监听者，运行程序会崩溃</p>
+<h4 id="2-自动释放池"><a href="#2-自动释放池" class="headerlink" title="2. 自动释放池"></a>2. 自动释放池</h4><p>Timer和Source也是一些变量，需要占用一部分存储空间，所以要释放掉，如果不释放掉，就会一直积累，占用的内存也就越来越大，这显然不是我们想要的。</p>
+<p><em>那么什么时候释放，怎么释放呢？</em></p>
+<p>RunLoop内部有一个自动释放池，当RunLoop开启时，就会自动创建一个自动释放池，当RunLoop在休息之前会释放掉自动释放池的东西，然后重新创建一个新的空的自动释放池，当RunLoop被唤醒重新开始跑圈时，Timer,Source等新的事件就会放到新的自动释放池中，当RunLoop退出的时候也会被释放。</p>
+<blockquote>
+<p>注意：只有主线程的RunLoop会默认启动。也就意味着会自动创建自动释放池，子线程需要在线程调度方法中手动添加自动释放池。</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@autorelease&#123;  </div><div class="line">    <span class="comment">// 执行代码 </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>NSTimer、ImageView显示、PerformSelector等在上面已经有过例子，这里不再赘述。</p>
+<blockquote>
+<p>以上原理解析文章来源：<a href="https://juejin.im/post/5add46606fb9a07abf721d1d" target="_blank" rel="external">https://juejin.im/post/5add46606fb9a07abf721d1d</a></p>
+</blockquote>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2018/05/09/runtime-p/" style="float: left;">
+        ← Objective-C Principle - Runtime
+    </a>
+    
+    
+    <a class="pull-right" href="/2018/05/09/block-p/">
+        Objective-C Principle - Block →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
