@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Objective-C Principle - ReactNative | Steven&#39;s Technology Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Technology Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Technology Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Android/" class="animsition-link">Android<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(123)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://www.qtumist.com" class="animsition-link">量客网</a></li>
+                    
+                    <li><a href="https://blog.ibeats.top" class="animsition-link">CI_Knight</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Technology Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2018-05-13T11:20:31.000Z" itemprop="datePublished">
+          2018-05-13
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Objective-C Principle - ReactNative</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#OC 底层原理总结之 ReactNative 通信</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_ReactNative" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_ReactNative</a></p>
+<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>首先，我们来看一下在iOS中Native如何调用JS。从iOS7开始，系统进一步开放了WebCore SDK，提供JavaScript引擎库，使得我们能够直接与引擎交互拥有更多的控制权。其中，有两个最基础的概念：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">JSContext <span class="comment">// JS代码的环境，一个JSContext是一个全局环境的实例</span></div><div class="line">JSValue <span class="comment">// 包装了每一个可能的JS值：字符串、数字、数组、对象、方法等</span></div></pre></td></tr></table></figure>
+<p>通过这两个类，我们能够非常方便的实现Javascript与Native代码之间的交互，首先我们通过一个简单示例来观察Native如何调用Javascript代码：</p>
+<p>🌰：Native -&gt; JavaScript</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 头文件</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;JavaScriptCore/JSContext.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;JavaScriptCore/JSValue.h&gt;</span></span></div><div class="line">- (<span class="keyword">void</span>)createJSContext &#123;</div><div class="line">    JSContext *context = [[JSContext alloc] init];</div><div class="line">    [context evaluateScript:<span class="string">@"var num = 5 + 5"</span>];</div><div class="line">    [context evaluateScript:<span class="string">@"var names = ['Grace', 'Ada', 'Margaret']"</span>];</div><div class="line">    [context evaluateScript:<span class="string">@"var triple = function(value) &#123; return value * 3 &#125;"</span>];</div><div class="line">    JSValue *tripleNum = [context evaluateScript:<span class="string">@"triple(num)"</span>];</div><div class="line">    JSValue *tripleFunction = context[<span class="string">@"triple"</span>];</div><div class="line">    JSValue *result = [tripleFunction callWithArguments:@[@<span class="number">5</span>]];</div><div class="line">    <span class="comment">// 打印结果</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"JSContext function \ntripleNum:%@ \nresult:%@"</span>, tripleNum, result);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么，JSContext如何访问我们本地客户端OC代码呢？答案是通过Blocks和JSExports协议两种方式。<br>我们来看一个通过Blocks来实现JS访问本地代码的示例：</p>
+<p>🌰：JavaScript -&gt; Native</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">context[<span class="string">@"testSay"</span>] = ^(<span class="built_in">NSString</span> *input) &#123;</div><div class="line">    <span class="built_in">NSMutableString</span> *mutableString = [input mutableCopy];</div><div class="line">    <span class="built_in">CFStringTransform</span>((__bridge <span class="built_in">CFMutableStringRef</span>)mutableString, <span class="literal">NULL</span>, kCFStringTransformToLatin, <span class="literal">NO</span>);</div><div class="line">    <span class="built_in">CFStringTransform</span>((__bridge <span class="built_in">CFMutableStringRef</span>)mutableString, <span class="literal">NULL</span>, kCFStringTransformStripCombiningMarks, <span class="literal">NO</span>);</div><div class="line">    <span class="keyword">return</span> mutableString;</div><div class="line">&#125;;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, [context evaluateScript:<span class="string">@"testSay('hello world')"</span>]);</div></pre></td></tr></table></figure>
+<p>关于JSCore库的更多学习介绍，请看JavaScriptCore。</p>
+<blockquote>
+<p>Java​Script​Core 相关介绍 <a href="http://nshipster.cn/javascriptcore/" target="_blank" rel="external">http://nshipster.cn/javascriptcore/</a></p>
+</blockquote>
+<h3 id="React-Native-初始化过程解析"><a href="#React-Native-初始化过程解析" class="headerlink" title="React Native 初始化过程解析"></a>React Native 初始化过程解析</h3><p>在了解React-Native中JS-&gt;Native的具体调用之前，我们先做一些准备工作，看看框架中Native app的启动过程。打开FB提供的AwesomeProject定位到appDelegate的didFinishLaunchingWithOptions方法中：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 指定JS页面文件位置</span></div><div class="line">jsCodeLocation = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=false"</span>];</div><div class="line"><span class="comment">// 创建React Native视图对象</span></div><div class="line">RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</div><div class="line">moduleName:<span class="string">@"ReactExperiment"</span></div><div class="line">initialProperties:<span class="literal">nil</span></div><div class="line">launchOptions:launchOptions];</div><div class="line"><span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[<span class="built_in">UIScreen</span> mainScreen].bounds];</div><div class="line"><span class="comment">// 创建VC，并且把React Native Root View赋值给VC</span></div><div class="line"><span class="built_in">UIViewController</span> *rootViewController = [<span class="built_in">UIViewController</span> new];</div><div class="line">rootViewController.view = rootView;</div><div class="line"><span class="keyword">self</span>.window.rootViewController = rootViewController;</div><div class="line">[<span class="keyword">self</span>.window makeKeyAndVisible];</div></pre></td></tr></table></figure>
+<p>可以看到使用集成非常简单，那么RCTRootView到底做了哪些事情最后渲染将视图呈现在用户面前呢？<br>我们继续跟着代码往下分析就会看到我们今天的主角RCTBridge。</p>
+<p>🥟：RCTBridge</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)initWithBundleURL:(<span class="built_in">NSURL</span> *)bundleURL</div><div class="line">moduleName:(<span class="built_in">NSString</span> *)moduleName</div><div class="line">initialProperties:(<span class="built_in">NSDictionary</span> *)initialProperties</div><div class="line">launchOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</div><div class="line">    RCTBridge *bridge = [[RCTBridge alloc] initWithBundleURL:bundleURL</div><div class="line">    moduleProvider:<span class="literal">nil</span></div><div class="line">    launchOptions:launchOptions];</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithBridge:bridge moduleName:moduleName initialProperties:initialProperties];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>RCTBridge是Naitive端的bridge，起着桥接两端的作用 。事实上具体的实现放置在RCTBatchedBridge中，在它的start方法中执行了一系列重要的初始化工作。这部分也是ReactNative SDK的精髓所在，基于GCD实现一套异步初始化组件框架。大致的工作流程如下图所示：</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-11/60547481.jpg" alt=""></p>
+<h4 id="1-Load-JS-Source-Code（并行）"><a href="#1-Load-JS-Source-Code（并行）" class="headerlink" title="1.Load JS Source Code（并行）"></a>1.Load JS Source Code（并行）</h4><p>加载页面源码阶段。该阶段主要负责从指定的位置（网络或者本地）加载React Native页面代码。与initModules各模块初始化过程并行执行，通过GCD分组队列保证两个阶段完成后才会加载解析页面源码。</p>
+<h4 id="2-Init-Module（同步）"><a href="#2-Init-Module（同步）" class="headerlink" title="2.Init Module（同步）"></a>2.Init Module（同步）</h4><p>初始化加载React Native模块。该阶段会将所有注册的Native模块类整理保存到一个以Module Id为下标的数组对象中（同时还会保存一个以Module Name为Key的Dictionary，用于做索引方便后续的模块查找）。</p>
+<p>整个模块的基础初始化和注册过程在系统Load Class阶段就会完成。React Native对模块注册的实现还是比较巧妙、方便，只需要对目标类添加相应的宏即可。</p>
+<ul>
+<li>1.注册模块。实现RCTBridgeModule协议，并且在响应的Implemention文件中添加RCT_EXPORT_MODULE宏，该宏会为所在类自动添加一个+load方法，调用RCTBridge的RCTRegisterModule实现在Load Class阶段就完成模块注册工作。</li>
+<li>2.注册函数。待注册函数所在的类必须是已注册模块，在需要注册的函数前添加RCT_EXPORT_MODULE宏即可。</li>
+</ul>
+<p>当然这里需要注意的问题是模块初始化是一个同步任务，它必须被同步加载，所以当模块较多时势必会带来高延迟的问题，也是在新的版本中SDK将Module Method改为Lazy Load的原因之一。</p>
+<h4 id="3-Setup-JS-Executor（并行）"><a href="#3-Setup-JS-Executor（并行）" class="headerlink" title="3.Setup JS Executor（并行）"></a>3.Setup JS Executor（并行）</h4><p>初始化JS引擎。React Native在0.18中已经很好的抽象了原来了JSExecutor，目前实现了RCTWebSocketExecutor和RCTJSCExecutor两个脚本引擎的封装，前者用于通过WebSocket链接到Chrome调试，后者则是内置默认引擎直接通过IOS SDK JSContext来实现相关的逻辑。</p>
+<p>另外，在本阶段还会通过block hook的方式注册部分核心API</p>
+<ul>
+<li>1.nativeRequireModuleConfig：用于在JS端获取对应的Native Module，在0.14后的版本React Native已经对初始化模块做了部分优化，把关于Native Module Method部分的加载工作放置在requireModuleConfig时才做</li>
+<li>2.nativeLoggingHook：调用Native写入日志</li>
+<li>3.nativeFlushQueueImmediate：手动触发执行当前Native Call队列中所有的Native处理请求</li>
+<li>4.nativePerformanceNow：用于性能统计，获取当前Native的绝对时间（毫秒）</li>
+</ul>
+<p>对于模块类中想要声明的方法，需要添加RCT_EXPORT_METHOD宏。它会给方法名添加” rct_export “前缀。</p>
+<p>🌰：React 调用 Native 的 SVProgressHUD 提示窗</p>
+<p>在 Native 中声明方法<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">RCT_EXPORT_METHOD(calliOSActionWithOneParams:(<span class="built_in">NSString</span> *)name) &#123;</div><div class="line">    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];</div><div class="line">    [SVProgressHUD showSuccessWithStatus:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"参数：%@"</span>,name]];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在 React 中调用 calliOSActionWithOneParams 方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;TouchableOpacity style=&#123;styles.calltonative&#125;</div><div class="line">    onPress=&#123;()=&gt;&#123;</div><div class="line">        RNCalliOSAction.calliOSActionWithOneParams(<span class="string">'hello'</span>);</div><div class="line">    &#125;&#125;&gt;</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">Text</span>&gt;</span>点击调用 Native 方法, 并传递一个参数<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></div><div class="line">&lt;<span class="regexp">/TouchableOpacity&gt;</span></div></pre></td></tr></table></figure></p>
+<h4 id="4-Module-Config（并行）"><a href="#4-Module-Config（并行）" class="headerlink" title="4.Module Config（并行）"></a>4.Module Config（并行）</h4><p>这步将第2步中的Native模块类转换成Json，保存为remoteModuleConfig。注意在这里获取到的列表并非含有完整模块信息，而仅仅是一个Module List而已。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"><span class="string">"remoteModuleConfig"</span>:[</div><div class="line">[</div><div class="line"><span class="string">"HTSimpleAPI"</span>, <span class="comment">// module</span></div><div class="line">],</div><div class="line">[</div><div class="line"><span class="string">"RCTViewManager"</span>,</div><div class="line">],</div><div class="line">[</div><div class="line"><span class="string">"HTTestView"</span>,</div><div class="line">],</div><div class="line">[</div><div class="line"><span class="string">"RCTAccessibilityManager"</span>,</div><div class="line">],</div><div class="line">...</div><div class="line">],</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="JS-Source-Code代码分析"><a href="#JS-Source-Code代码分析" class="headerlink" title="JS Source Code代码分析"></a>JS Source Code代码分析</h4><p>JS的主入口index.ios.js在我们看来只有短短数十行，然而这不是最终执行的代码。React-Native页面源码需要通过Transform Server转换处理，并把转化后的模块一起合并为一个bundle.js，这个过程称为buildBundle。转换后的index.ios.bundle才是最终可被Javascript引擎直接解释运行的代码。下面我们按照主程序的逻辑来分析源码几个核心模块实现原理。</p>
+<p>在React Server中需要查看Bundle的模块映射关系可以直接访问：<a href="http://localhost:8081/index.ios.bundle.map，查看相关依赖和Bundle的缓存则可以访问：" target="_blank" rel="external">http://localhost:8081/index.ios.bundle.map，查看相关依赖和Bundle的缓存则可以访问：</a> <a href="http://localhost:8081/debug" target="_blank" rel="external">http://localhost:8081/debug</a></p>
+<p>1.BatchedBridge</p>
+<p>在上一部分我们知道，Native完成模块初始化后会通过Inject Json Config将配置信息同步至JS里中的全局变量__fbBatchedBridgeConfig，打开BatchedBridge.js我们可以看到如下代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">__d(<span class="string">'BatchedBridge'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">global, require, module, exports</span>) </span>&#123; <span class="string">'use strict'</span>;</div><div class="line"><span class="keyword">var</span> MessageQueue=<span class="built_in">require</span>(<span class="string">'MessageQueue'</span>);</div><div class="line"><span class="keyword">var</span> BatchedBridge=<span class="keyword">new</span> MessageQueue(</div><div class="line">__fbBatchedBridgeConfig.remoteModuleConfig,</div><div class="line">__fbBatchedBridgeConfig.localModulesConfig);</div><div class="line"><span class="comment">//......</span></div><div class="line"><span class="built_in">Object</span>.defineProperty(global,<span class="string">'__fbBatchedBridge'</span>,&#123;<span class="attr">value</span>:BatchedBridge&#125;);</div><div class="line"><span class="built_in">module</span>.exports = BatchedBridge;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>对于这段代码，我们可以得出以下几个结论：</p>
+<ul>
+<li>1.在JS端也存在一个bridge模块BatchedBridge，也是与Native建立双向通信的关键所在</li>
+<li>2.BatchedBridge是一个MessageQueue实例，它在创建时传入了__fbBatchedBridgeConfig值保存Native端支持的模块列表配置</li>
+</ul>
+<p>BatchedBridge在创建时将自己写入全局变量<strong>fbBatchedBridge上，这样Native可以通过JSContext[@”</strong>fbBatchedBridge”]访问到JS bridge对象。</p>
+<p>2.MessageQueue</p>
+<p>接着我们继续看MessageQueue，它在整个通讯链路的机制上面有着重要作用，首先我们来观察一下它的构造函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">constructor</span>(remoteModules, localModules) &#123;</div><div class="line"><span class="keyword">this</span>.RemoteModules = &#123;&#125;;</div><div class="line"><span class="keyword">this</span>._callableModules = &#123;&#125;;</div><div class="line"><span class="keyword">this</span>._queue = [[], [], [], <span class="number">0</span>];</div><div class="line"><span class="keyword">this</span>._moduleTable = &#123;&#125;;</div><div class="line"><span class="keyword">this</span>._methodTable = &#123;&#125;;</div><div class="line"><span class="keyword">this</span>._callbacks = [];</div><div class="line"><span class="keyword">this</span>._callbackID = <span class="number">0</span>;</div><div class="line"><span class="keyword">this</span>._callID = <span class="number">0</span>;</div><div class="line"><span class="comment">//......</span></div><div class="line"><span class="keyword">let</span> modulesConfig = <span class="keyword">this</span>._genModulesConfig(remoteModules);</div><div class="line"><span class="keyword">this</span>._genModules(modulesConfig);</div><div class="line"><span class="comment">//......</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从构造函数，我们大致能了解MessageQueue的几个信息：</p>
+<ul>
+<li>1.RemoteModules属性，用于保存Native端模块配置</li>
+<li>2.Callbacks属性缓存js的回调方法</li>
+<li>3.Queue事件队列用于处理各类事件等</li>
+</ul>
+<p>在构造函数中，解析Native传入的remoteModules JSON，转换成JS对象</p>
+<p>3.Config Modules</p>
+<p>根据上一步MessageQueue的逻辑，继续往下跟踪_genModules函数，可以看到在MessageQueue已经对Native注入的Module Config做了一次预处理，如果debug模式可以看到大致的数据结构会转换成如下表中所示结构（其中HTSimepleAPI是一个自定义模块）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config = [<span class="string">"HTSimpleAPI"</span>, <span class="built_in">Array</span>[<span class="number">1</span>]], moduleID = <span class="number">0</span></div><div class="line">config = <span class="literal">null</span>, moduleID = <span class="number">1</span></div><div class="line">config = <span class="literal">null</span>, moduleID = <span class="number">2</span></div><div class="line">config = [<span class="string">"RCTAccessibilityManager"</span>, <span class="built_in">Array</span>[<span class="number">3</span>]], moduleID = <span class="number">3</span></div></pre></td></tr></table></figure>
+<p>至于这样的预处理有什么作用，我们继续往下分析，后面再来总结。</p>
+<p>4.Lazily Config Methods</p>
+<p>对于NativeModule，它们在上一步之后只有一个包含Module Name等简单信息的Module List的对象，只有在实际调用了该模块之后才会加载该模块的具体信息（比如暴露的API等）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> NativeModules = &#123;&#125;;</div><div class="line"><span class="built_in">Object</span>.keys(RemoteModules).forEach(<span class="function">(<span class="params">moduleName</span>) =&gt;</span> &#123;</div><div class="line"><span class="built_in">Object</span>.defineProperty(NativeModules, moduleName, &#123;</div><div class="line"><span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line"><span class="attr">get</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line"><span class="keyword">let</span> <span class="built_in">module</span> = RemoteModules[moduleName];</div><div class="line"><span class="keyword">if</span> (<span class="built_in">module</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span>.moduleID === <span class="string">'number'</span> &amp;&amp; global.nativeRequireModuleConfig) &#123;</div><div class="line"><span class="keyword">const</span> json = global.nativeRequireModuleConfig(moduleName);</div><div class="line"><span class="keyword">const</span> config = json &amp;&amp; <span class="built_in">JSON</span>.parse(json);</div><div class="line"><span class="built_in">module</span> = config &amp;&amp; BatchedBridge.processModuleConfig(config, <span class="built_in">module</span>.moduleID);</div><div class="line">RemoteModules[moduleName] = <span class="built_in">module</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> <span class="built_in">module</span>;</div><div class="line">&#125;,</div><div class="line">&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这段代码定义了一个全局模块NativeModules，遍历之前取到的remoteModules，将每一个module在NativeModules对象上扩展了一个getter方法，该方法中通过nativeRequireModuleConfig进一步加载模块的详细信息，通过processModuleConfig对模块信息进行预处理。进一步分析代码就可以发现这个方法其实是Native中定义的全局JS Block（nativeRequireModuleConfig）。</p>
+<p>接下来我们继续看processModuleConfig中具体的代码逻辑，如下表所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">processModuleConfig(config, moduleID) &#123;</div><div class="line">    <span class="keyword">const</span> <span class="built_in">module</span> = <span class="keyword">this</span>._genModule(config, moduleID);</div><div class="line">    <span class="keyword">return</span> <span class="built_in">module</span>;</div><div class="line">&#125;</div><div class="line">_genMethod(<span class="built_in">module</span>, method, type) &#123;</div><div class="line"><span class="comment">//......</span></div><div class="line">    fn = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> self.__nativeCall(<span class="built_in">module</span>, method, args, onFail, onSucc);</div><div class="line">&#125;;</div><div class="line"><span class="comment">//......</span></div><div class="line"><span class="keyword">return</span> fn;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>processModuleConfig方法的主要工作是生成methods配置，并对每一个method封装了一个闭包fn，当调用method时，会转换成成调用self.__nativeCall(moduleID, methodID, args, onFail, onSucc)方法</p>
+<p>预处理完成后，在JavaScript环境中的Moudle Config信息才算完整，包含Module Name、Native Method等信息，具体信息如下所示。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">config = [<span class="string">"HTSimpleAPI"</span>, <span class="built_in">Array</span>[<span class="number">1</span>]], moduleID = <span class="number">0</span></div><div class="line">methodName = <span class="string">"test"</span>, methodID = <span class="number">0</span></div><div class="line">config = <span class="literal">null</span>, moduleID = <span class="number">1</span></div><div class="line">config = <span class="literal">null</span>, moduleID = <span class="number">2</span></div><div class="line">config = [<span class="string">"RCTAccessibilityManager"</span>, <span class="built_in">Array</span>[<span class="number">3</span>]], moduleID = <span class="number">3</span></div><div class="line">methodName = <span class="string">"setAccessibilityContentSizeMultipliers"</span>, methodID = <span class="number">0</span></div><div class="line">methodName = <span class="string">"getMultiplier"</span>, methodID = <span class="number">1</span></div><div class="line">methodName = <span class="string">"getCurrentVoiceOverState"</span>, methodID = <span class="number">2</span></div></pre></td></tr></table></figure>
+<p>还记得第二部分第5步中Native端生成的模块配置表吗？结合它的结构，我们可以得知：对于Module&amp;Method，在Native和JS端都以数组的形式存放，数组下标即为它们的ModuleID和MethodID。</p>
+<p>5.__nativeCall</p>
+<p>分析完Bridge部分的映射关系以及模块加载，那么我们再来看看最终调用Native代码是如何实现的。当JS调用module.method时，其实调用了self.<strong>nativeCall(module, method, args, onFail, onSucc)，对于</strong>nativeCall方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">__nativeCall(<span class="built_in">module</span>, method, params, onFail, onSucc) &#123;</div><div class="line">    <span class="keyword">if</span> (onFail || onSucc) &#123;</div><div class="line">    ......</div><div class="line">    onFail &amp;&amp; params.push(<span class="keyword">this</span>._callbackID);</div><div class="line">    <span class="keyword">this</span>._callbacks[<span class="keyword">this</span>._callbackID++] = onFail;</div><div class="line">    onSucc &amp;&amp; params.push(<span class="keyword">this</span>._callbackID);</div><div class="line">    <span class="keyword">this</span>._callbacks[<span class="keyword">this</span>._callbackID++] = onSucc;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">this</span>._queue[MODULE_IDS].push(<span class="built_in">module</span>);</div><div class="line"><span class="keyword">this</span>._queue[METHOD_IDS].push(method);</div><div class="line"><span class="keyword">this</span>._queue[PARAMS].push(params);</div><div class="line">global.nativeFlushQueueImmediate(<span class="keyword">this</span>._queue);</div><div class="line">......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码为每个method创建了一个闭包fn，在__nativeCall方法中，并且在这里做了两件重要的工作：</p>
+<ul>
+<li>1.把onFail和onSucc缓存到_callbacks中，同时把callbackID添加到params</li>
+<li>2.把moduleID, methodID, params放入队列中，回调Native代码.</li>
+</ul>
+<p>__nativeCall如何做到回调Native代码呢？看第二部分第3步，在初始化JS引擎JSExecutor Setup时，Native端注册一个全局block回调nativeFlushedQueueImmediate，nativeCall在处理完毕后，通过该回调把队列作为返回值传给Native。nativeFlushedQueueImmediate的实现如下所示。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[self addSynchronousHookWithName:@<span class="string">"nativeFlushQueueImmediate"</span> usingBlock:^(NSArray *calls)&#123;</div><div class="line">RCTJSCExecutor *strongSelf = weakSelf;</div><div class="line">    <span class="keyword">if</span> (!strongSelf.valid || !calls) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">[strongSelf-&gt;_bridge handleBuffer:calls batchEnded:NO];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>这里的handleBuffer就是Native端解析JS的模块调用最后通过NSInvocation机制调用Native代码对应的逻辑。有兴趣的朋友继续跟踪handleBuffer代码会发现，他的实现和React在JS端定义的MessageQueue有惊人的相似之处。</p>
+<p>6.Call JS function &amp; Callbacks</p>
+<p>最后，我们回过头来看看Native端是如何调用JS端的相关逻辑的，这部分我们需要回到MessageQueue.js代码中来，可以看到MessageQueue暴露了3个核心方法：’invokeCallbackAndReturnFlushedQueue’、’callFunctionReturnFlushedQueue’、’flushedQueue’。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 将API暴露到全局作用域中</span></div><div class="line">[</div><div class="line"><span class="string">'invokeCallbackAndReturnFlushedQueue'</span>,</div><div class="line"><span class="string">'callFunctionReturnFlushedQueue'</span>,</div><div class="line"><span class="string">'flushedQueue'</span>,</div><div class="line">].forEach(<span class="function">(<span class="params">fn</span>) =&gt;</span> <span class="keyword">this</span>[fn] = <span class="keyword">this</span>[fn].bind(<span class="keyword">this</span>));</div><div class="line">…</div><div class="line"><span class="comment">// 声明带有返回值的函数</span></div><div class="line">callFunctionReturnFlushedQueue(<span class="built_in">module</span>, method, args) &#123;</div><div class="line">guard(<span class="function"><span class="params">()</span> =&gt;</span> &#123;C</div><div class="line"><span class="keyword">this</span>.__callFunction(<span class="built_in">module</span>, method, args);</div><div class="line"><span class="keyword">this</span>.__callImmediates();</div><div class="line">&#125;);</div><div class="line"><span class="keyword">return</span> <span class="keyword">this</span>.flushedQueue();</div><div class="line">&#125;</div><div class="line"><span class="comment">// 声明带有Callback的函数</span></div><div class="line">invokeCallbackAndReturnFlushedQueue(cbID, args) &#123;</div><div class="line">guard(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line"><span class="keyword">this</span>.__invokeCallback(cbID, args);</div><div class="line"><span class="keyword">this</span>.__callImmediates();</div><div class="line">&#125;);</div><div class="line"><span class="keyword">return</span> <span class="keyword">this</span>.flushedQueue();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>callFunctionReturnFlushedQueue用于实现Native调用带有返回值的JS端函数（这里的返回值也是通过Queue来模拟）；<br>invokeCallbackAndReturnFlushedQueue用于实现Native调用带有Call的JS端函数（可以将Native的Callback作为JS端函数的入参，JS端执行完后调用Native的Callback）。</p>
+<p>对于callFunctionReturnFlushedQueue方法，它最终调用的是__callFunction：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__callFunction(<span class="built_in">module</span>, method, args) &#123;</div><div class="line">......</div><div class="line">var moduleMethods = <span class="keyword">this</span>._callableModules[<span class="built_in">module</span>];</div><div class="line">......</div><div class="line">moduleMethods[method].apply(moduleMethods, args);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到，此处会根据Native传入的module, method，调用JS端相应的模块并传入参数列表args.<br>同时我们又可以获得对于MessageQueue的另一条推测，_callableModules用来存放JS端暴露给Native的模块，进一步分析我们可以发现SDK中正是通过registerCallableModules方法注册JS端暴露API模块。</p>
+<p>对于JS bridge提供的调用回调方法invokeCallbackAndReturnFlushedQueue，原理上和callFunction差不多，不再细说。</p>
+<h4 id="JS-lt-gt-Native-通信原理"><a href="#JS-lt-gt-Native-通信原理" class="headerlink" title="JS &lt;-&gt; Native 通信原理"></a>JS &lt;-&gt; Native 通信原理</h4><p>1.Native-&gt;JS</p>
+<p>综上所述，在JS端提供callFunctionReturnFlushedQueue，Native bridge调用JS端方法时，应该使用这个方法。查看Native代码实现可知，RCTBridge封装了enqueueJSCall方法调用JS，梳理Native-&gt;JS的整体交互流程如下图所示。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-11/44610127.jpg" alt=""></p>
+<p>之前已经论述过，如果在NATIVE端需要自定义模块提供给JS端使用那么该类需要实现RCTBridgeModule协议 。</p>
+<p>此外，React-Native提供了另一种基于通知的方式，通过RCTEventDispatcher发送消息通知 。eventDispatcher作为Native Bridge的属性，封装了sendEventWithName:body:方法。使用时，Native中类同样需要实现RCTBridgeModule协议，通过self.bridge发送通知，JS端对应事件的EventEmitter添加监听处理调用。</p>
+<blockquote>
+<p>查看sendEvent方法的代码可以发现，这种方式本质上还是调用enqueueJSCall方法。官方推荐我们使用通知的方式来实现 Native-&gt;JS，这样可以减少模块初始化加载解析的时间。</p>
+</blockquote>
+<p>2.JS-&gt;Native</p>
+<p>最后，我们来看一下JS如何调用Native。答案是JS不会主动传递数据给Native，也不能直接调用Native（一种情况除外，在入口直接通过NativeModules调用API），只有在Native调用JS时才会通过返回值触发调用。因为Native是基于事件响应机制的，比如触摸事件、启动事件、定时器事件、回调事件等。</p>
+<p>当事件发生时，Native会调用JS相应模块处理，完毕后再通过返回值把队列传递给Native执行对应的代码。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-11/39019479.jpg" alt=""></p>
+<p>如上图所示，整个调用过程可以归纳为：</p>
+<ul>
+<li>1.JS把需要Module, Method, args(CallbackID)保存在队列中， 作为返回值通过blocks回调Native</li>
+<li>2.Native调用相应模块方法，完成</li>
+<li>3.Native通过CallbackID调用JS回调</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>React Native的通讯基础建立在传统的JS Bridge之上，不过对于Bridge处理的MessageQueue机制、模块定义、加载机制上的巧妙处理指的借鉴。对于上述的整个原理解析可以概括为以下四个部分：</p>
+<ul>
+<li>1.在启动阶段，初始化JS引擎，生成Native端模块配置表存于两端，其中模块配置是同步取得，而各模块的方法配置在该方法被真正调用时懒加载。</li>
+<li>2.Native和JS端分别有一个bridge，发生调用时，调用端bridge查找模块配置表将调用转换成{moduleID, methodID, args(callbackID)}，处理端通过同一份模块配置表转换为实际的方法实现。</li>
+<li>3.Native-&gt;JS，原理上使用JSCore从Native执行JS代码，React-Native在此基础上给我们提供了通知发送的执行方式。</li>
+<li>4.JS-&gt;Native，原理上JS并不主动调用Native，而是把方法和参数(回调)缓存到队列中，在Native事件触发并访问JS后，通过blocks回调Native。</li>
+</ul>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2018/05/09/thread-p/">
+        Objective-C Principle - Thread →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
