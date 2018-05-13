@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Objective-C Principle - Class &amp; Objective | Steven&#39;s Technology Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Technology Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Technology Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Android/" class="animsition-link">Android<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(124)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://www.qtumist.com" class="animsition-link">量客网</a></li>
+                    
+                    <li><a href="https://blog.ibeats.top" class="animsition-link">CI_Knight</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Technology Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2018-05-04T12:09:05.000Z" itemprop="datePublished">
+          2018-05-04
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Objective-C Principle - Class & Objective</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#OC 底层原理总结之 Class 和 Objective</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_ClassAndObjective" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_ClassAndObjective</a></p>
+<h3 id="关于OC对象的底层实现"><a href="#关于OC对象的底层实现" class="headerlink" title="关于OC对象的底层实现"></a>关于OC对象的底层实现</h3><p>寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/93140946.jpg" alt=""></p>
+<p>OC的对象结构都是通过基础C\C++的结构体实现的。 我们通过创建OC文件及对象，并将OC文件转化为C++文件来探寻OC对象的本质</p>
+<p>OC如下代码</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="built_in">NSObject</span> *objc = [[<span class="built_in">NSObject</span> alloc] init];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Hello, World!"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们通过命令行将OC的mian.m文件转化为c++文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clang -rewrite-objc main.m -o main.cpp // 这种方式没有指定架构例如arm64架构</div></pre></td></tr></table></figure>
+<p>我们可以指定架构模式的命令行，使用xcode工具 xcrun</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc main.m -o main-arm64.cpp // 生成 main-arm64.cpp</div></pre></td></tr></table></figure>
+<p>main-arm64.cpp 文件中搜索NSObjcet，可以找到 NSObjcet_IMPL（IMPL代表 implementation 实现）</p>
+<p>我们看一下NSObject_IMPL内部</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> NSObject_IMPL &#123;</div><div class="line">    Class isa;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 查看Class本质</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</div><div class="line"><span class="comment">// 我们发现Class其实就是一个指针，对象底层实现其实就是这个样子。</span></div></pre></td></tr></table></figure>
+<p>思考： 一个OC对象在内存中是如何布局的?</p>
+<p>NSObjcet的底层实现，点击NSObjcet进入发现NSObject的内部实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@interface NSObject &lt;NSObject&gt; &#123;</div><div class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> clang diagnostic push</span></div><div class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> clang diagnostic ignored <span class="meta-string">"-Wobjc-interface-ivars"</span></span></div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> clang diagnostic pop</span></div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>转化为c语言其实就是一个结构体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> NSObject_IMPL &#123;</div><div class="line">    Class isa;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>那么这个结构体占多大的内存空间呢，我们发现这个结构体只有一个成员，isa指针，而指针在64位架构中占8个字节。也就是说一个NSObjec对象所占用的内存是8个字节。</p>
+</blockquote>
+<p>为了探寻OC对象在内存中如何体现，我们来看下面一段代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NSObject *objc = [[NSObject alloc] init];</div></pre></td></tr></table></figure>
+<p>上面一段代码在内存中如何体现的呢？上述一段代码中系统为NSObject对象分配8个字节的内存空间，用来存放一个成员isa指针。那么isa指针这个变量的地址就是结构体的地址，也就是NSObjcet对象的地址。</p>
+<p>假设isa的地址为0x100400110，那么上述代码分配存储空间给NSObject对象，然后将存储空间的地址赋值给objc指针。objc存储的就是isa的地址。objc指向内存中NSObject对象地址，即指向内存中的结构体，也就是isa的位置。</p>
+<h4 id="自定义类的内部实现"><a href="#自定义类的内部实现" class="headerlink" title="自定义类的内部实现"></a>自定义类的内部实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">NSObject</span></span>&#123;</div><div class="line">    <span class="keyword">@public</span></div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        Student *stu = [[Student alloc] init];</div><div class="line">        stu -&gt; _no = <span class="number">4</span>;</div><div class="line">        stu -&gt; _age = <span class="number">5</span>;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,stu);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>按照上述步骤同样生成c++文件。并查找Student，我们发现Student_IMPL</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Student_IMPL &#123;</div><div class="line">    <span class="keyword">struct</span> <span class="built_in">NSObject_IMPL</span> <span class="built_in">NSObject_IVARS</span>;</div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>发现第一个是 NSObject_IMPL的实现。而通过上面的实验我们知道NSObject_IMPL内部其实就是Class isa 那么我们假设 struct NSObject_IMPL NSObject_IVARS;</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Student_IMPL &#123;</div><div class="line">    Class *isa;</div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>因此此结构体占用多少存储空间，对象就占用多少存储空间。因此结构体占用的存储空间为，isa指针8个字节空间+int类型_no4个字节空间+int类型_age4个字节空间共16个字节空间</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Student *stu = [[Student alloc] init];</div><div class="line">stu -&gt; _no = <span class="number">4</span>;</div><div class="line">stu -&gt; _age = <span class="number">5</span>;</div></pre></td></tr></table></figure>
+<p>那么上述代码实际上在内存中的体现为，创建Student对象首先会分配16个字节，存储3个东西，isa指针8个字节，4个字节的_no ,4个字节的_age</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/41208264.jpg" alt=""></p>
+<p>sutdent对象的3个变量分别有自己的地址。而stu指向isa指针的地址。因此stu的地址为0x100400110，stu对象在内存中占用16个字节的空间。并且经过赋值，_no里面存储着4 ，_age里面存储着5</p>
+<p>验证Student在内存中模样</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> Student_IMPL &#123;</div><div class="line">    Class isa;</div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;;</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="keyword">@public</span></div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="comment">// 强制转化</span></div><div class="line">        <span class="keyword">struct</span> Student_IMPL *stuImpl = (__bridge <span class="keyword">struct</span> Student_IMPL *)stu;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"_no = %d, _age = %d"</span>, stuImpl-&gt;_no, stuImpl-&gt;_age); <span class="comment">// 打印出 _no = 4, _age = 5</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码将oc对象强转成Student_IMPL的结构体。也就是说把一个指向oc对象的指针，指向这种结构体。由于我们之前猜想，对象在内存中的布局与结构体在内存中的布局相同，那么如果可以转化成功，说明我们的猜想正确。由此说明stu这个对象指向的内存确实是一个结构体。</p>
+<p>实际上想要获取对象占用内存的大小，可以通过更便捷的运行时方法来获取。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class_getInstanceSize([Student <span class="keyword">class</span>])</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%zd,%zd"</span>, class_getInstanceSize([<span class="built_in">NSObject</span> <span class="keyword">class</span>]) ,class_getInstanceSize([Student <span class="keyword">class</span>]));</div><div class="line"><span class="comment">// 打印信息 8和16</span></div></pre></td></tr></table></figure>
+<h4 id="窥探内存结构"><a href="#窥探内存结构" class="headerlink" title="窥探内存结构"></a>窥探内存结构</h4><p>实时查看内存数据</p>
+<p>方式一：通过打断点。 Debug Workflow -&gt; viewMemory address中输入stu的地址</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/69018395.jpg" alt=""></p>
+<p>从上图中，我们可以发现读取数据从高位数据开始读，查看前16位字节，每四个字节读出的数据为<br>16进制 0x0000004(4字节) 0x0000005(4字节)  isa的地址为 00D1081000001119(8字节)</p>
+<p>方式二：通过lldb指令xcode自带的调试器</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">memory read <span class="number">0x10074c450</span></div><div class="line"><span class="comment">// 简写  x 0x10074c450</span></div><div class="line"></div><div class="line"><span class="comment">// 增加读取条件</span></div><div class="line"><span class="comment">// memory read/数量格式字节数  内存地址</span></div><div class="line"><span class="comment">// 简写 x/数量格式字节数  内存地址</span></div><div class="line"><span class="comment">// 格式 x是16进制，f是浮点，d是10进制</span></div><div class="line"><span class="comment">// 字节大小   b：byte 1字节，h：half word 2字节，w：word 4字节，g：giant word 8字节</span></div><div class="line"></div><div class="line">示例：x/<span class="number">4</span>xw    <span class="comment">//   /后面表示如何读取数据 w表示4个字节4个字节读取，x表示以16进制的方式读取数据，4则表示读取4次</span></div></pre></td></tr></table></figure>
+<p>同时也可以通过lldb修改内存中的值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">memory write <span class="number">0x100400c68</span> <span class="number">6</span></div><div class="line">将_no的值改为了<span class="number">6</span></div></pre></td></tr></table></figure>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/78128252.jpg" alt=""></p>
+<blockquote>
+<p>那么一个NSObject对象占用多少内存？ NSObjcet实际上是只有一个名为isa的指针的结构体，因此占用一个指针变量所占用的内存空间大小，如果64bit占用8个字节，如果32bit占用4个字节。</p>
+</blockquote>
+<h3 id="更复杂的继承关系"><a href="#更复杂的继承关系" class="headerlink" title="更复杂的继承关系"></a>更复杂的继承关系</h3><h4 id="在64bit环境下，-下面代码的输出内容？"><a href="#在64bit环境下，-下面代码的输出内容？" class="headerlink" title="在64bit环境下， 下面代码的输出内容？"></a>在64bit环境下， 下面代码的输出内容？</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Person */</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="comment">/* Student */</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span>: <span class="title">Person</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%zd  %zd"</span>,</div><div class="line">        class_getInstanceSize([Person <span class="keyword">class</span>]),</div><div class="line">        class_getInstanceSize([Student <span class="keyword">class</span>])</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们依据上面的分析与发现，类对象实质上是以结构体的形式存储在内存中，画出真正的内存图例</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/90974378.jpg" alt=""></p>
+<p>我们发现只要是继承自NSObject的对象，那么底层结构体内一定有一个isa指针。</p>
+<p>那么他们所占的内存空间是多少呢？单纯的将指针和成员变量所占的内存相加即可吗？上述代码实际打印的内容是16 16，也就是说，person对象和student对象所占用的内存空间都为16个字节。</p>
+<p>其实实际上person对象确实只使用了12个字节。但是因为内存对齐的原因。使person对象也占用16个字节。</p>
+<p>我们可以总结内存对齐为两个原则： </p>
+<ul>
+<li>原则 1. 前面的地址必须是后面的地址正数倍,不是就补齐。 </li>
+<li>原则 2. 整个Struct的地址必须是最大字节的整数倍。</li>
+</ul>
+<p>通过上述内存对齐的原则我们来看，person对象的第一个地址要存放isa指针需要8个字节，第二个地址要存放_age成员变量需要4个字节，根据原则一，8是4的整数倍，符合原则一，不需要补齐。然后检查原则2，目前person对象共占据12个字节的内存，不是最大字节数8个字节的整数倍，所以需要补齐4个字节，因此person对象就占用16个字节空间。</p>
+<p>而对于student对象，我们知道student对象中，包含person对象的结构体实现，和一个int类型的_no成员变量，同样isa指针8个字节，_age成员变量4个字节，_no成员变量4个字节，刚好满足原则1和原则2，所以student对象占据的内存空间也是16个字节。</p>
+<h3 id="OC对象的分类"><a href="#OC对象的分类" class="headerlink" title="OC对象的分类"></a>OC对象的分类</h3><p>OC的类信息存放在哪里，对象的isa指针指向哪里?</p>
+<p>示例代码<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"><span class="comment">/* Person */</span> </div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>&gt; </span>&#123;</div><div class="line">    <span class="keyword">@public</span></div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="keyword">int</span> height;</div><div class="line">- (<span class="keyword">void</span>)personMethod;</div><div class="line">+ (<span class="keyword">void</span>)personClassMethod;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></div><div class="line">- (<span class="keyword">void</span>)personMethod &#123;&#125;</div><div class="line">+ (<span class="keyword">void</span>)personClassMethod &#123;&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="comment">/* Student */</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">Person</span> &lt;<span class="title">NSCoding</span>&gt; </span>&#123;</div><div class="line">    <span class="keyword">@public</span></div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="keyword">int</span> score;</div><div class="line">- (<span class="keyword">void</span>)studentMethod;</div><div class="line">+ (<span class="keyword">void</span>)studentClassMethod;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></div><div class="line">- (<span class="keyword">void</span>)studentMethod &#123;&#125;</div><div class="line">+ (<span class="keyword">void</span>)studentClassMethod &#123;&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;      </div><div class="line">        <span class="built_in">NSObject</span> *object1 = [[<span class="built_in">NSObject</span> alloc] init];</div><div class="line">        <span class="built_in">NSObject</span> *object2 = [[<span class="built_in">NSObject</span> alloc] init];</div><div class="line">        Student *stu = [[Student alloc] init];</div><div class="line">        [Student load];</div><div class="line">        Person *p1 = [[Person alloc] init];</div><div class="line">        p1-&gt;_age = <span class="number">10</span>;</div><div class="line">        [p1 personMethod];</div><div class="line">        [Person personClassMethod];</div><div class="line">        Person *p2 = [[Person alloc] init];</div><div class="line">        p2-&gt;_age = <span class="number">20</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="OC的类信息存放在哪里"><a href="#OC的类信息存放在哪里" class="headerlink" title="OC的类信息存放在哪里"></a>OC的类信息存放在哪里</h4><p>OC对象主要可以分为三种</p>
+<ul>
+<li>instance对象（实例对象）</li>
+<li>class对象（类对象）</li>
+<li>meta-class对象（元类对象）</li>
+</ul>
+<p>instance对象就是通过类alloc出来的对象，每次调用alloc都会产生新的instance对象<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSObjcet</span> *object1 = [[<span class="built_in">NSObjcet</span> alloc] init];</div><div class="line"><span class="built_in">NSObjcet</span> *object2 = [[<span class="built_in">NSObjcet</span> alloc] init];</div></pre></td></tr></table></figure></p>
+<p>object1和object2都是NSObject的instace对象（实例对象），但他们是不同的两个对象，并且分别占据着两块不同的内存。<br>instance对象在内存中存储的信息包括</p>
+<ul>
+<li>isa指针</li>
+<li>其他成员变量</li>
+</ul>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/47918469.jpg" alt=""></p>
+<blockquote>
+<p>衍生问题：在上图实例对象中根本没有看到方法，那么实例对象的方法的代码放在什么地方呢？那么类的方法的信息，协议的信息，属性的信息都存放在什么地方呢？</p>
+</blockquote>
+<p><em>class对象</em></p>
+<p>我们通过class方法或runtime方法得到一个class对象。class对象也就是类对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Class objectClass1 = [object1 <span class="keyword">class</span>];</div><div class="line">Class objectClass2 = [object2 <span class="keyword">class</span>];</div><div class="line">Class objectClass3 = [<span class="built_in">NSObject</span> <span class="keyword">class</span>];</div><div class="line"><span class="comment">// runtime</span></div><div class="line">Class objectClass4 = object_getClass(object1);</div><div class="line">Class objectClass5 = object_getClass(object2);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%p %p %p %p %p"</span>, objectClass1, objectClass2, objectClass3, objectClass4, objectClass5);</div></pre></td></tr></table></figure>
+<p>每一个类在内存中有且只有一个class对象</p>
+<p>可以通过打印内存地址证明，class对象在内存中存储的信息主要包括</p>
+<ul>
+<li>1.isa指针</li>
+<li>2.superclass指针</li>
+<li>3.类的属性信息（@property），类的成员变量信息（ivar）</li>
+<li>4.类的对象方法信息（instance method），类的协议信息（protocol）</li>
+</ul>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/47692243.jpg" alt=""></p>
+<p>成员变量的值时存储在实例对象中的，因为只有当我们创建实例对象的时候才为成员变赋值。但是成员变量叫什么名字，是什么类型，只需要有一份就可以了。</p>
+<p>类方法放在那里？ 元类对象 meta-class</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//runtime中传入类对象此时得到的就是元类对象</span></div><div class="line">Class objectMetaClass = object_getClass([NSObject <span class="keyword">class</span>]);</div><div class="line"><span class="comment">// 而调用类对象的class方法时得到还是类对象，无论调用多少次都是类对象</span></div><div class="line">Class cls = [[NSObject <span class="keyword">class</span>] <span class="keyword">class</span>];</div><div class="line">Class objectClass3 = [NSObject <span class="keyword">class</span>];</div><div class="line">class_isMetaClass(objectMetaClass) <span class="comment">// 判断该对象是否为元类对象</span></div><div class="line">NSLog(@<span class="string">"%p %p %p"</span>, objectMetaClass, objectClass3, cls); <span class="comment">// 后面两个地址相同，说明多次调用class得到的还是类对象</span></div></pre></td></tr></table></figure>
+<p>每个类在内存中有且只有一个meta-class对象。 meta-class对象和class对象的内存结构是一样的，但是用途不一样，在内存中存储的信息主要包括</p>
+<ul>
+<li>1.isa指针</li>
+<li>2.superclass指针</li>
+<li>3.类的类方法的信息（class method）</li>
+</ul>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/26774430.jpg" alt=""></p>
+<p>meta-class对象和class对象的内存结构是一样的，所以meta-class中也有类的属性信息，类的对象方法信息等成员变量，但是其中的值可能是空的。</p>
+<p>对象的isa指针指向哪里?</p>
+<p>1.当对象调用实例方法的时候，我们上面讲到，实例方法信息是存储在class类对象中的，那么要想找到实例方法，就必须找到class类对象，那么此时isa的作用就来了。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[stu studentMethod];</div></pre></td></tr></table></figure>
+<p>instance的isa指向class，当调用对象方法时，通过instance的isa找到class，最后找到对象方法的实现进行调用。</p>
+<p>2.当类对象调用类方法的时候，同上，类方法是存储在meta-class元类对象中的。那么要找到类方法，就需要找到meta-class元类对象，而class类对象的isa指针就指向元类对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[Student studentClassMethod];</div></pre></td></tr></table></figure>
+<p>class 的 isa 指向 meta-class 当调用类方法时，通过 class 的 isa 找到 meta-class，最后找到类方法的实现进行调用</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/25988580.jpg" alt=""></p>
+<p>3.当对象调用其父类对象方法的时候，又是怎么找到父类对象方法的呢？，此时就需要使用到class类对象superclass指针。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[stu personMethod];</div><div class="line">[stu init];</div></pre></td></tr></table></figure>
+<p>当Student的instance对象要调用Person的对象方法时，会先通过isa找到Student的class，然后通过superclass找到Person的class，最后找到对象方法的实现进行调用，同样如果Person发现自己没有响应的对象方法，又会通过Person的superclass指针找到NSObject的class对象，去寻找响应的方法</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/63234730.jpg" alt=""></p>
+<p>当类对象调用父类的类方法时，就需要先通过isa指针找到meta-class，然后通过superclass去寻找响应的方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[Student personClassMethod];</div><div class="line">[Student load];</div></pre></td></tr></table></figure>
+<p>当Student的class要调用Person的类方法时，会先通过isa找到Student的meta-class，然后通过superclass找到Person的meta-class，最后找到类方法的实现进行调用</p>
+<p>最后又是这张静定的isa指向图，经过上面的分析我们在来看这张图，就显得清晰明了很多。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/9713633.jpg" alt=""></p>
+<p>对isa、superclass总结</p>
+<ul>
+<li>1.instance的isa指向class</li>
+<li>2.class的isa指向meta-class</li>
+<li>3.meta-class的isa指向基类的meta-class，基类的isa指向自己</li>
+<li>4.class的superclass指向父类的class，如果没有父类，superclass指针为nil</li>
+<li>5.meta-class的superclass指向父类的meta-class，基类的meta-class的superclass指向基类的class</li>
+<li>6.instance调用对象方法的轨迹，isa找到class，方法不存在，就通过superclass找父类</li>
+<li>7.class调用类方法的轨迹，isa找meta-class，方法不存在，就通过superclass找父类</li>
+</ul>
+<h4 id="如何证明isa指针的指向真的如上面所说？"><a href="#如何证明isa指针的指向真的如上面所说？" class="headerlink" title="如何证明isa指针的指向真的如上面所说？"></a>如何证明isa指针的指向真的如上面所说？</h4><p>我们通过如下代码证明：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSObject</span> *object = [[<span class="built_in">NSObject</span> alloc] init];</div><div class="line">Class objectClass = [<span class="built_in">NSObject</span> <span class="keyword">class</span>];</div><div class="line">Class objectMetaClass = object_getClass([<span class="built_in">NSObject</span> <span class="keyword">class</span>]);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%p %p %p"</span>, object, objectClass, objectMetaClass);</div></pre></td></tr></table></figure></p>
+<p>打断点并通过控制台打印相应对象的isa指针</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/18249004.jpg" alt=""></p>
+<p>我们发现object-&gt;isa与objectClass的地址不同，这是因为从64bit开始，isa需要进行一次位运算，才能计算出真实地址。而位运算的值我们可以通过下载objc源代码找到。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/66362209.jpg" alt=""></p>
+<p>我们通过位运算进行验证。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/76279573.jpg" alt=""></p>
+<p>我们发现，object-isa指针地址0x001dffff96537141经过同0x00007ffffffffff8位运算，得出objectClass的地址0x00007fff96537140</p>
+<p>接着我们来验证class对象的isa指针是否同样需要位运算计算出meta-class对象的地址。<br>当我们以同样的方式打印objectClass-&gt;isa指针时，发现无法打印</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/97861552.jpg" alt=""></p>
+<p>同时也发现左边objectClass对象中并没有isa指针。我们来到Class内部看一下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</div><div class="line"><span class="keyword">struct</span> objc_class &#123;</div><div class="line">    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;</div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> !__OBJC2__</span></div><div class="line">    Class _Nullable super_class                              OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> * _Nonnull name                               OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> version                                             OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> info                                                OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> instance_size                                       OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125; OBJC2_UNAVAILABLE;</div><div class="line"><span class="comment">/* Use `Class` instead of `struct objc_class *` */</span></div></pre></td></tr></table></figure>
+<p>相信了解过isa指针的同学对objc_class结构体内的内容很熟悉了，今天这里不深入研究，我们只看第一个对象是一个isa指针，为了拿到isa指针的地址，我们自己创建一个同样的结构体并通过强制转化拿到isa指针。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> xx_cc_objc_class&#123;</div><div class="line">Class isa;</div><div class="line">&#125;;</div><div class="line">Class objectClass = [NSObject <span class="keyword">class</span>];</div><div class="line"><span class="keyword">struct</span> xx_cc_objc_class *objectClass2 = (__bridge <span class="keyword">struct</span> xx_cc_objc_class *)(objectClass);</div></pre></td></tr></table></figure>
+<p>此时我们重新验证一下</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/67609570.jpg" alt=""></p>
+<p>确实，objectClass2的isa指针经过位运算之后的地址是meta-class的地址。</p>
+<h3 id="关于OC-Class-的底层实现"><a href="#关于OC-Class-的底层实现" class="headerlink" title="关于OC Class 的底层实现"></a>关于OC Class 的底层实现</h3><h4 id="Class的本质"><a href="#Class的本质" class="headerlink" title="Class的本质"></a>Class的本质</h4><p>我们知道不管是类对象还是元类对象，类型都是Class，class和mete-class的底层都是objc_class结构体的指针，内存中就是结构体，本章来探寻Class的本质。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Class objectClass = [<span class="built_in">NSObject</span> <span class="keyword">class</span>];        </div><div class="line">Class objectMetaClass = object_getClass([<span class="built_in">NSObject</span> <span class="keyword">class</span>]);</div></pre></td></tr></table></figure>
+<p>点击Class来到内部，我们可以发现</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</div></pre></td></tr></table></figure>
+<p>Class对象其实是一个指向objc_class结构体的指针。因此我们可以说类对象或元类对象在内存中其实就是objc_class结构体。</p>
+<p>我们来到objc_class内部，可以看到这段在底层原理中经常出现的代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_class &#123;</div><div class="line">    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;</div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> !__OBJC2__</span></div><div class="line">    Class _Nullable super_class                              OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> * _Nonnull name                               OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> version                                             OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> info                                                OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> instance_size                                       OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125; OBJC2_UNAVAILABLE;</div><div class="line"><span class="comment">/* Use `Class` instead of `struct objc_class *` */</span></div></pre></td></tr></table></figure>
+<p>这部分代码相信在文章中很常见，但是OBJC2_UNAVAILABLE;说明这些代码已经不在使用了。那么目前objc_class的结构是什么样的呢？我们通过objc源码中去查找objc_class结构体的内容</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/70121792.jpg" alt=""></p>
+<p>我们发现这个结构体继承 objc_object 并且结构体内有一些函数，因为这是c++结构体，在c上做了扩展，因此结构体中可以包含函数。我们来到objc_object内，截取部分代码</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/26481697.jpg" alt=""></p>
+<p>我们发现objc_object中有一个isa指针，那么objc_class继承objc_object，也就同样拥有一个isa指针</p>
+<p>那么我们之前了解到的，类中存储的类的成员变量信息，实例方法，属性名等这些信息在哪里呢。我们来到class_rw_t中，截取部分代码，我们发现class_rw_t中存储着方法列表，属性列表，协议列表等内容。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/39793185.jpg" alt=""></p>
+<p>而class_rw_t是通过bits调用data方法得来的，我们来到data方法内部实现。我们可以看到，data函数内部仅仅对bits进行&amp;FAST_DATA_MASK操作</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/94897176.jpg" alt=""></p>
+<p>而成员变量信息则是存储在class_ro_t内部中的，我们来到class_ro_t内查看</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/95030801.jpg" alt=""></p>
+<p>最后总结通过一张图进行总结</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/76965890.jpg" alt=""></p>
+<p>我们可以自定义一个结构体，如果我们自己写的结构和objc_class真实结构是一样的，那么当我们强制转化的时候，就会一一对应的赋值。此时我们就可以拿到结构体内部的信息。</p>
+<p>下列代码是我们仿照objc_class结构体，提取其中需要使用到的信息，自定义的一个结构体。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> XXClassInfo_h</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> XXClassInfo_h</span></div><div class="line"><span class="meta"># <span class="meta-keyword">if</span> __arm64__</span></div><div class="line"><span class="meta">#   <span class="meta-keyword">define</span> ISA_MASK        0x0000000ffffffff8ULL</span></div><div class="line"><span class="meta"># <span class="meta-keyword">elif</span> __x86_64__</span></div><div class="line"><span class="meta">#   <span class="meta-keyword">define</span> ISA_MASK        0x00007ffffffffff8ULL</span></div><div class="line"><span class="meta"># <span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> __LP64__</span></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">uint32_t</span> <span class="keyword">mask_t</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">uint16_t</span> <span class="keyword">mask_t</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">uintptr_t</span> <span class="keyword">cache_key_t</span>;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">bucket_t</span> &#123;</div><div class="line">    <span class="keyword">cache_key_t</span> _key;</div><div class="line">    IMP _imp;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">cache_t</span> &#123;</div><div class="line">    <span class="keyword">bucket_t</span> *_buckets;</div><div class="line">    <span class="keyword">mask_t</span> _mask;</div><div class="line">    <span class="keyword">mask_t</span> _occupied;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> entsize_list_tt &#123;</div><div class="line">    <span class="keyword">uint32_t</span> entsizeAndFlags;</div><div class="line">    <span class="keyword">uint32_t</span> count;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">method_t</span> &#123;</div><div class="line">    SEL name;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *types;</div><div class="line">    IMP imp;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">method_list_t</span> : entsize_list_tt &#123;</div><div class="line">    <span class="keyword">method_t</span> first;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">ivar_t</span> &#123;</div><div class="line">    <span class="keyword">int32_t</span> *offset;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *type;</div><div class="line">    <span class="keyword">uint32_t</span> alignment_raw;</div><div class="line">    <span class="keyword">uint32_t</span> size;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">ivar_list_t</span> : entsize_list_tt &#123;</div><div class="line">    <span class="keyword">ivar_t</span> first;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">property_t</span> &#123;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *attributes;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">property_list_t</span> : entsize_list_tt &#123;</div><div class="line">    <span class="keyword">property_t</span> first;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> chained_property_list &#123;</div><div class="line">    chained_property_list *next;</div><div class="line">    <span class="keyword">uint32_t</span> count;</div><div class="line">    <span class="keyword">property_t</span> <span class="built_in">list</span>[<span class="number">0</span>];</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">uintptr_t</span> <span class="keyword">protocol_ref_t</span>;</div><div class="line">    <span class="keyword">struct</span> <span class="keyword">protocol_list_t</span> &#123;</div><div class="line">    <span class="keyword">uintptr_t</span> count;</div><div class="line">    <span class="keyword">protocol_ref_t</span> <span class="built_in">list</span>[<span class="number">0</span>];</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">class_ro_t</span> &#123;</div><div class="line">    <span class="keyword">uint32_t</span> flags;</div><div class="line">    <span class="keyword">uint32_t</span> instanceStart;</div><div class="line">    <span class="keyword">uint32_t</span> instanceSize;  <span class="comment">// instance对象占用的内存空间</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __LP64__</span></div><div class="line">    <span class="keyword">uint32_t</span> reserved;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="keyword">const</span> <span class="keyword">uint8_t</span> * ivarLayout;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> * name;  <span class="comment">// 类名</span></div><div class="line">    <span class="keyword">method_list_t</span> * baseMethodList;</div><div class="line">    <span class="keyword">protocol_list_t</span> * baseProtocols;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">ivar_list_t</span> * ivars;  <span class="comment">// 成员变量列表</span></div><div class="line">    <span class="keyword">const</span> <span class="keyword">uint8_t</span> * weakIvarLayout;</div><div class="line">    <span class="keyword">property_list_t</span> *baseProperties;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">class_rw_t</span> &#123;</div><div class="line">    <span class="keyword">uint32_t</span> flags;</div><div class="line">    <span class="keyword">uint32_t</span> version;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">class_ro_t</span> *ro;</div><div class="line">    <span class="keyword">method_list_t</span> * methods;    <span class="comment">// 方法列表</span></div><div class="line">    <span class="keyword">property_list_t</span> *properties;    <span class="comment">// 属性列表</span></div><div class="line">    <span class="keyword">const</span> <span class="keyword">protocol_list_t</span> * protocols;  <span class="comment">// 协议列表</span></div><div class="line">    Class firstSubclass;</div><div class="line">    Class nextSiblingClass;</div><div class="line">    <span class="keyword">char</span> *demangledName;</div><div class="line">&#125;;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_DATA_MASK          0x00007ffffffffff8UL</span></div><div class="line"><span class="keyword">struct</span> <span class="keyword">class_data_bits_t</span> &#123;</div><div class="line">    <span class="keyword">uintptr_t</span> bits;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">    <span class="keyword">class_rw_t</span>* data() &#123; <span class="comment">// 提供data()方法进行 &amp; FAST_DATA_MASK 操作</span></div><div class="line">        <span class="keyword">return</span> (<span class="keyword">class_rw_t</span> *)(bits &amp; FAST_DATA_MASK);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">/* OC对象 */</span></div><div class="line"><span class="keyword">struct</span> xx_objc_object &#123;</div><div class="line">    <span class="keyword">void</span> *isa;</div><div class="line">&#125;;</div><div class="line"><span class="comment">/* 类对象 */</span></div><div class="line"><span class="keyword">struct</span> xx_objc_class : xx_objc_object &#123;</div><div class="line">    Class superclass;</div><div class="line">    <span class="keyword">cache_t</span> cache;</div><div class="line">    <span class="keyword">class_data_bits_t</span> bits;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">    <span class="keyword">class_rw_t</span>* data() &#123;</div><div class="line">        <span class="keyword">return</span> bits.data();</div><div class="line">    &#125;</div><div class="line">    <span class="function">xx_objc_class* <span class="title">metaClass</span><span class="params">()</span> </span>&#123; <span class="comment">// 提供metaClass函数，获取元类对象</span></div><div class="line">    <span class="comment">// 上一篇我们讲解过，isa指针需要经过一次 &amp; ISA_MASK操作之后才得到真正的地址</span></div><div class="line">        <span class="keyword">return</span> (xx_objc_class *)((<span class="keyword">long</span> <span class="keyword">long</span>)isa &amp; ISA_MASK);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* XXClassInfo_h */</span></span></div></pre></td></tr></table></figure>
+<p>接下来我们将自己定义的类强制转化为我们自定义的精简的class结构体类型。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"XXClassInfo.h"</span></span></div><div class="line"><span class="comment">/* Person */</span></div><div class="line">@interface Person : NSObject &lt;NSCopying&gt; &#123;</div><div class="line">    @<span class="keyword">public</span></div><div class="line">    <span class="keyword">int</span> _age;</div><div class="line">&#125;</div><div class="line">@property (nonatomic, assign) <span class="keyword">int</span> height;</div><div class="line">- (<span class="keyword">void</span>)personMethod;</div><div class="line">+ (<span class="keyword">void</span>)personClassMethod;</div><div class="line">@end</div><div class="line">@implementation Person</div><div class="line">- (<span class="keyword">void</span>)personMethod &#123;&#125;</div><div class="line">+ (<span class="keyword">void</span>)personClassMethod &#123;&#125;</div><div class="line">@end</div><div class="line"><span class="comment">/* Student */</span></div><div class="line">@interface Student : Person &lt;NSCoding&gt; &#123;</div><div class="line">    @<span class="keyword">public</span></div><div class="line">    <span class="keyword">int</span> _no;</div><div class="line">&#125;</div><div class="line">@property (nonatomic, assign) <span class="keyword">int</span> score;</div><div class="line">- (<span class="keyword">void</span>)studentMethod;</div><div class="line">+ (<span class="keyword">void</span>)studentClassMethod;</div><div class="line">@end</div><div class="line">@implementation Student</div><div class="line">- (<span class="keyword">void</span>)studentMethod &#123;&#125;</div><div class="line">+ (<span class="keyword">void</span>)studentClassMethod &#123;&#125;</div><div class="line">@<span class="function">end</span></div><div class="line"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">    NSObject *object = [[NSObject alloc] init];</div><div class="line">    Person *person = [[Person alloc] init];</div><div class="line">    Student *student = [[Student alloc] init];</div><div class="line">    xx_objc_class *objectClass = (__bridge xx_objc_class *)[object <span class="keyword">class</span>];</div><div class="line">    xx_objc_class *personClass = (__bridge xx_objc_class *)[person <span class="keyword">class</span>];</div><div class="line">    xx_objc_class *studentClass = (__bridge xx_objc_class *)[student <span class="keyword">class</span>];</div><div class="line">    xx_objc_class *objectMetaClass = objectClass-&gt;metaClass();</div><div class="line">    xx_objc_class *personMetaClass = personClass-&gt;metaClass();</div><div class="line">    xx_objc_class *studentMetaClass = studentClass-&gt;metaClass();</div><div class="line">    <span class="keyword">class_rw_t</span> *objectClassData = objectClass-&gt;data();</div><div class="line">    <span class="keyword">class_rw_t</span> *personClassData = personClass-&gt;data();</div><div class="line">    <span class="keyword">class_rw_t</span> *studentClassData = studentClass-&gt;data();</div><div class="line">    <span class="keyword">class_rw_t</span> *objectMetaClassData = objectMetaClass-&gt;data();</div><div class="line">    <span class="keyword">class_rw_t</span> *personMetaClassData = personMetaClass-&gt;data();</div><div class="line">    <span class="keyword">class_rw_t</span> *studentMetaClassData = studentMetaClass-&gt;data();</div><div class="line">    <span class="comment">// 0x00007ffffffffff8</span></div><div class="line">    NSLog(@<span class="string">"%p %p %p %p %p %p"</span>,  objectClassData, personClassData, studentClassData,</div><div class="line">    objectMetaClassData, personMetaClassData, studentMetaClassData);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过打断点，我们可以看到class内部信息。</p>
+<p>至此，我们再次拿出那张经典的图，挨个分析图中isa指针和superclass指针的指向</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/80816071.jpg" alt=""></p>
+<h4 id="instance对象"><a href="#instance对象" class="headerlink" title="instance对象"></a>instance对象</h4><p>首先我们来看instance对象，我们通过上一篇文章知道，instance对象中存储着isa指针和其他成员变量，并且instance对象的isa指针是指向其类对象地址的。我们首先分析上述代码中我们创建的object，person，student三个instance对象与其相对应的类对象objectClass，personClass，studentClass。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/65276603.jpg" alt=""></p>
+<p>从上图中我们可以发现instance对象中确实存储了isa指针和其成员变量，同时将instance对象的isa指针经过&amp;运算之后计算出的地址确实是其相应类对象的内存地址。由此我们证明isa，superclass指向图中的1，2，3号线。</p>
+<h4 id="class对象"><a href="#class对象" class="headerlink" title="class对象"></a>class对象</h4><p>接着我们来看class对象，同样通过上一篇文章，我们明确class对象中存储着isa指针，superclass指针，以及类的属性信息，类的成员变量信息，类的对象方法，和类的协议信息，而通过上面对object源码的分析，我们知道这些信息存储在class对象的class_rw_t中，我们通过强制转化来窥探其中的内容。如下图</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/55956695.jpg" alt=""></p>
+<p>上图中我们通过模拟对person类对象调用.data函数，即对bits进行&amp;FAST_DATA_MASK(0x00007ffffffffff8UL)运算，并转化为class_rw_t。即上图中的personClassData。其中我们发现成员变量信息，对象方法，属性等信息只显示first第一个，如果想要拿到更多的需要通过代码将指针后移获取。</p>
+<p>而上图中的instaceSize = 16也同person对象中isa指针8个字节+_age4个字节+_height4个字节相对应起来。这里不在展开对objectClassData及studentClassData进行分析，基本内容同personClassData相同。</p>
+<p>那么类对象中的isa指针和superclass指针的指向是否如那张经典的图示呢？我们来验证一下。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/44194746.jpg" alt=""></p>
+<p>通过上图中的内存地址的分析，由此我们证明isa，superclass指向图中，isa指针的4，5，6号线，以及superclass指针的10，11，12号线。</p>
+<h4 id="meta-class对象"><a href="#meta-class对象" class="headerlink" title="meta-class对象"></a>meta-class对象</h4><p>最后我们来看meta-class元类对象，上文提到meta-class中存储着isa指针，superclass指针，以及类的类方法信息。同时我们知道meta-class元类对象与class类对象，具有相同的结构，只不过存储的信息不同，并且元类对象的isa指针指向基类的元类对象，基类的元类对象的isa指针指向自己。元类对象的superclass指针指向其父类的元类对象，基类的元类对象的superclass指针指向其类对象。</p>
+<p>与class对象相同，我们同样通过模拟对person元类对象调用.data函数，即对bits进行&amp;FAST_DATA_MASK(0x00007ffffffffff8UL)运算，并转化为class_rw_t。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/76930502.jpg" alt=""></p>
+<p>首先我们可以看到结构同personClassData相同，并且成员变量及属性列表等信息为空，而methods中存储着类方法personClassMethod。</p>
+<p>接着来验证isa及superclass指针的指向是否同上图序号标注一样。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/60621174.jpg" alt=""></p>
+<p>上图中通过地址证明meta-class的isa指向基类的meta-class，基类的isa指针也指向自己。</p>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/40027312.jpg" alt=""></p>
+<p>上图中通过地址证明meta-class的superclass指向父类的meta-class，基类的meta-class的superclass指向基类的class类。</p>
+<p>以上原理解析文章来源：<a href="https://juejin.im/post/5ac81c75518825556534c0af、https://juejin.im/post/5ad210636fb9a028da7cf90c" target="_blank" rel="external">https://juejin.im/post/5ac81c75518825556534c0af、https://juejin.im/post/5ad210636fb9a028da7cf90c</a></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2018/05/09/kvo-p/" style="float: left;">
+        ← Objective-C Principle - KVO
+    </a>
+    
+    
+    <a class="pull-right" href="/2018/03/27/swift4Dic/">
+        Swift 4.0 中对 Dictionary 的改进（转载） →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
