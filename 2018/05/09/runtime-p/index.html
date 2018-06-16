@@ -132,7 +132,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(127)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(128)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -244,6 +244,27 @@
         <div class="col-md-8 col-md-offset-2">
       		<p>#OC 底层原理总结之 Runtime</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_Runtime" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_Runtime</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>实质作用：从OC到C语言的过渡</li>
+<li>消息传递方法：objec_msgSend 方法</li>
+<li>objc_method 结构体内容：SEL method_name 方法名、char *method_types 方法类型、IMP method_imp 方法实现（方法指针）</li>
+<li>消息转发：unrecognized selector 三次机会<ul>
+<li>动态方法解析：对象在接收到未知的消息时，首先会调用所属类的类方法+resolveInstanceMethod:(实例方法)或者+resolveClassMethod:(类方法)。</li>
+<li>备用接收者：- (id)forwardingTargetForSelector:(SEL)aSelector;这是一个实例方法，因为是询问该实例对象是否有其他实例对象可以接收这个未知的selector，如果没有就返回nil</li>
+<li>完整转发：- (void)forwardInvocation: (NSInvocation*)invocation;调用这个方法如果不能处理就会调用父类的相关方法，一直到NSObject的这个方法，如果NSObject都无法处理就会调用doesNotRecognizeSelector:方法抛出异常。</li>
+<li>用途：做异常处理收集，避免crash，增强用户体验</li>
+</ul>
+</li>
+<li>常见的应用场景：<ul>
+<li>关联对象(Objective-C Associated Objects)：给分类增加属性</li>
+<li>方法魔法(Method Swizzling)：方法添加和替换和KVO实现</li>
+<li>消息转发(热更新)：解决Bug(JSPatch)</li>
+<li>实现NSCoding的自动归档和自动解档</li>
+<li>实现字典和模型的自动转换(MJExtension)</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h3 id="Runtime-相关介绍"><a href="#Runtime-相关介绍" class="headerlink" title="Runtime 相关介绍"></a>Runtime 相关介绍</h3><p>Objective-C 扩展了 C 语言，并加入了面向对象特性和 Smalltalk 式的消息传递机制。而这个扩展的核心是一个用 C 和 编译语言 写的 Runtime 库。它是 Objective-C 面向对象和动态机制的基石。</p>
 <p>Objective-C 是一个动态语言，这意味着它不仅需要一个编译器，也需要一个运行时系统来动态得创建类和对象、进行消息传递和转发。理解 Objective-C 的 Runtime 机制可以帮我们更好的了解这个语言，适当的时候还能对语言进行扩展，从系统层面解决项目中的一些设计或技术问题。</p>
 <p><em>1.Runtime 版本演化</em></p>

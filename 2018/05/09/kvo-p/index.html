@@ -132,7 +132,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(127)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(128)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -243,7 +243,18 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#OC 底层原理总结之 KVO</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_KVO" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_KVO</a><br>KVO的全称 Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_KVO" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_KVO</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>作用：“键值监听”，可以用于监听某个对象属性值的改变</li>
+<li>实现原理：<ul>
+<li>将监听对象的isa指针指向NSKVONotifyin_类（runtime动态创建的子类）</li>
+<li>先实现NSKVONotifyin_类的set方法，先willChangeValueForKey赋值</li>
+<li>再didChangeValueForKey调用监听器，到observeValueForKeyPath的方法</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>KVO的全称 Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变。</p>
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-7/52237651.jpg" alt=""></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="keyword">int</span> age;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <p>对 Person 的 age 进行监听的使用方法：</p>

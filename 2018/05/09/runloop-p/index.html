@@ -132,7 +132,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(127)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(128)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -244,6 +244,44 @@
         <div class="col-md-8 col-md-offset-2">
       		<p>#OC 底层原理总结之 Runloop</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_Runloop" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_Runloop</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>实质作用：保证在需要的时候自己跑起来运行，在没有操作的时候就停下来休息</li>
+<li>运行机制：启动主线程保证持续运行，处理触摸、定时器、Selector事件，空闲通知CPU释放资源</li>
+<li>Runloop和线程关系：每个线程有对应runloop，线程结束时销毁</li>
+<li>Mode：代表RunLoop的运行模式，启动是选择一种mode（currentMode），mode为空立即退出<ul>
+<li>Source1：基于Port通过内核和其他线程相互发送消息</li>
+<li>Source0：触摸事件，PerformSelectors</li>
+<li>Timers：定时器，NSTimer</li>
+<li>Observer：监听器，用于监听RunLoop的状态</li>
+</ul>
+</li>
+<li>RunLoop 运行模式<ul>
+<li>kCFRunLoopDefaultMode：App的默认Mode，通常主线程是在这个Mode下运行</li>
+<li>UITrackingRunLoopMode：界面跟踪 Mode，用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他 Mode 影响</li>
+<li>UIInitializationRunLoopMode: 在刚启动 App 时第进入的第一个 Mode，启动完成后就不再使用，会切换到kCFRunLoopDefaultMode</li>
+<li>GSEventReceiveRunLoopMode: 接受系统事件的内部 Mode，通常用不到</li>
+<li>kCFRunLoopCommonModes: 这是一个占位用的Mode，作为标记kCFRunLoopDefaultMode和UITrackingRunLoopMode用，并不是一种真正的Mode</li>
+</ul>
+</li>
+<li>CFRunLoopObserverRef 监听RunLoop的状态改变<ul>
+<li>kCFRunLoopEntry:RunLoop进入</li>
+<li>kCFRunLoopBeforeTimers:RunLoop要处理Timers了</li>
+<li>kCFRunLoopBeforeSources:RunLoop要处理Sources了</li>
+<li>kCFRunLoopBeforeWaiting:RunLoop要休息了</li>
+<li>kCFRunLoopAfterWaiting:RunLoop醒来了</li>
+<li>kCFRunLoopExit:RunLoop退出了</li>
+</ul>
+</li>
+<li>常见的应用场景：<ul>
+<li>常驻线程</li>
+<li>自动释放池</li>
+<li>AFNetworking的connection连接处理</li>
+<li>TableView平滑滚动延迟加载图片</li>
+<li>程序崩溃时自主处理例，如：弹出提示等</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h3 id="一-RunLoop简介"><a href="#一-RunLoop简介" class="headerlink" title="一. RunLoop简介"></a>一. RunLoop简介</h3><p>运行循环，在程序运行过程中循环做一些事情，如果没有Runloop程序执行完毕就会立即退出，如果有Runloop程序会一直运行，并且时时刻刻在等待用户的输入操作。RunLoop可以在需要的时候自己跑起来运行，在没有操作的时候就停下来休息。充分节省CPU资源，提高程序性能。</p>
 <h3 id="二-RunLoop基本作用"><a href="#二-RunLoop基本作用" class="headerlink" title="二. RunLoop基本作用"></a>二. RunLoop基本作用</h3><ul>
 <li>1.保持程序持续运行，程序一启动就会开一个主线程，主线程一开起来就会跑一个主线程对应的RunLoop,RunLoop保证主线程不会被销毁，也就保证了程序的持续运行</li>

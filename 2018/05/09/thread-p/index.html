@@ -132,7 +132,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(127)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(128)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -244,6 +244,20 @@
         <div class="col-md-8 col-md-offset-2">
       		<p>#OC 底层原理总结之 Thread</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_Thread" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_Thread</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>进程和线程：进程是饭馆、线程是工作人员</li>
+<li>线程的执行：1个线程中任务的执行是串行的</li>
+<li>多线程并发执行：CPU快速地在多条线程之间调度</li>
+<li>iOS 多线程<ul>
+<li>pthread：c语言的通用api，跨平台、难度大、非自动管理生命周期</li>
+<li>NSThread：面向对象的非自动管理生命周期</li>
+<li>GCD：利用设备的多核自动管理生命周期</li>
+<li>NSOperation、NSOperationQueue：封装GCD，加强依赖关系、监控状态、并发管理</li>
+</ul>
+</li>
+<li>常用安全锁：@synchronized{}、[self.lock lock]</li>
+</ul>
+<hr>
 <h3 id="一-相关概念"><a href="#一-相关概念" class="headerlink" title="一.相关概念"></a>一.相关概念</h3><h4 id="1-1-进程"><a href="#1-1-进程" class="headerlink" title="1.1 进程"></a>1.1 进程</h4><p>进程是指在系统中正在运行的一个应用程序。每个进程之间是独立的，每个进程均运行在其专用且受保护的内存空间内。</p>
 <h4 id="1-2-线程"><a href="#1-2-线程" class="headerlink" title="1.2 线程"></a>1.2 线程</h4><p><em>线程和进程的关系</em></p>
 <p>1个进程要想执行任务，必须得有线程（每1个进程至少要有1条线程），线程是进程的基本执行单元，一个进程（程序）的所有任务都在线程中执行。</p>

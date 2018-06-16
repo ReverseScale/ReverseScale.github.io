@@ -132,7 +132,7 @@
 				    
 				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
 				    
-				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(127)</small></a></li>
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(128)</small></a></li>
 				    
 				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
 				    
@@ -244,6 +244,16 @@
         <div class="col-md-8 col-md-offset-2">
       		<p>#OC 底层原理总结之 Class 和 Objective</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_ClassAndObjective" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_ClassAndObjective</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>OC 三种对象：instance实例对象、class类对象、meta-class元类对象<ul>
+<li>instance实例对象：NSObject转化为c语言其实就是一个结构体，系统分配内存空间，存放一个成员isa指针表示对象的地址（结构体的地址）64bit占用8个字节，32bit占用4个字节</li>
+<li>class类对象：类对象内存存储的信息：isa和superclass指针、类的属性信息和成员变量、对象方法和协议信息</li>
+<li>meta-class元类对象：元类对象和class对象的内存结构一样，isa指针指向基类对象，基类的元类对象的isa指针指向自己</li>
+</ul>
+</li>
+<li>OC 三种对象原理：objc_class结构体的指针</li>
+</ul>
+<hr>
 <h3 id="关于OC对象的底层实现"><a href="#关于OC对象的底层实现" class="headerlink" title="关于OC对象的底层实现"></a>关于OC对象的底层实现</h3><p>寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。</p>
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/18-5-10/93140946.jpg" alt=""></p>
 <p>OC的对象结构都是通过基础C\C++的结构体实现的。 我们通过创建OC文件及对象，并将OC文件转化为C++文件来探寻OC对象的本质</p>
