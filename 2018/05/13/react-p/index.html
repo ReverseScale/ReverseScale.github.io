@@ -244,6 +244,51 @@
         <div class="col-md-8 col-md-offset-2">
       		<p>#OC 底层原理总结之 ReactNative 通信</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img width="22" height="24" src="http://og1yl0w9z.bkt.clouddn.com/18-5-9/42814631.jpg">：<a href="https://github.com/ReverseScale/iOSPrinciple_ReactNative" target="_blank" rel="external">https://github.com/ReverseScale/iOSPrinciple_ReactNative</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>React原理：一套可以用简洁的语法高效绘制 DOM 的框架</li>
+<li>React特点：<ul>
+<li>简洁：不单单指它的 HTML 和 CSS 语法，更因为可以单用 JavaScript 构造页面</li>
+<li>高效：因为 React 独创了 Virtual DOM 机制，两大特征<ul>
+<li>它存在于内存中的 JavaScript 对象，并且与 DOM 是对应关系</li>
+<li>使用高效的 DOM Diff 算法不需要对 DOM 进行重新绘制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>React Native原理：通过 JS 对 OC 的 JavaScript Core 框架的交互来实现对原生的调用<ul>
+<li>rn 在 OC 和 JS 两端都保存了一份配置表，里面标记了所有 OC 暴露给 JS 的模块和方法 ，js对oc的调用通过block方式实现回调</li>
+<li>AppDelegate初始化过程中创建bridge，内部通过setUp创建BatchedBridge来批量读取 JS 对 OC 的方法调用并通过JavaScriptExecutor执行 JS 代码</li>
+</ul>
+</li>
+<li>创建 BatchedBridge 步骤<ul>
+<li>读取 JS 源码：把 JSX 代码转成 JS 加载进内存中</li>
+<li>初始化模块信息：找到所有需要暴露给 JS 的类</li>
+<li>初始化 JS 代码的执行器：即 RCTJSCExecutor 对象</li>
+<li>生成模块列表并写入 JS 端：接受 ModuleName 并且生成模块信息</li>
+<li>执行 JavaScript 源码：通过RCTJSCExecutor执行代码，写入信息</li>
+</ul>
+</li>
+<li>相互调用方法：<ul>
+<li>OC调用JS：OC会通过executeBlockOnJavaScriptQueue方法在单独的线程上运行 JS 代码<ul>
+<li>处理参数：_executeJSCall:(NSString *)method方法</li>
+<li>实际调用：sendAppEventWithName和body方法</li>
+</ul>
+</li>
+<li>JS调用OC：JS 会解析出方法的类、方法和方法参数并放入到 MessageQueue 中，等待 OC 调用或超时发送<ul>
+<li>使用RCT_EXPORT_METHOD 宏，用来注册模块表</li>
+<li>JS中使用NativeModules.CryptoExport.注册方法调用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>rn 的更新机制：React 状态机，不停地检查确认更新<ul>
+<li>文本元素：ReactDOMTextComponent 比较替换文本元素</li>
+<li>基本元素：updateComponent方法分属性、节点替换基本元素</li>
+<li>自定义元素：_performComponentUpdate判断-先卸载再安装子节点</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>首先，我们来看一下在iOS中Native如何调用JS。从iOS7开始，系统进一步开放了WebCore SDK，提供JavaScript引擎库，使得我们能够直接与引擎交互拥有更多的控制权。其中，有两个最基础的概念：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">JSContext <span class="comment">// JS代码的环境，一个JSContext是一个全局环境的实例</span></div><div class="line">JSValue <span class="comment">// 包装了每一个可能的JS值：字符串、数字、数组、对象、方法等</span></div></pre></td></tr></table></figure>
 <p>通过这两个类，我们能够非常方便的实现Javascript与Native代码之间的交互，首先我们通过一个简单示例来观察Native如何调用Javascript代码：</p>
@@ -370,8 +415,8 @@
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2018/06/16/NamedTypes/" style="float: left;">
-        ← Swift Principle - NamedTypes
+    <a class="pull-left" href="/2018/06/16/Singleton/" style="float: left;">
+        ← Objective-C Principle - Singleton
     </a>
     
     
