@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Swift Principle - Category | Steven&#39;s Technology Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Steven's Technology Blog">
+    <meta name="author" content="Steven">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s Technology Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/tags/博客，文章" target="_BLANK" class="animsition-link">文章</a></li>
+                    
+                        <li><a href="/tags/博客，资料" target="_BLANK" class="animsition-link">资料</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/API/" class="animsition-link">API<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Android/" class="animsition-link">Android<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Git/" class="animsition-link">Git<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/HTML5/" class="animsition-link">HTML5<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/Markdown/" class="animsition-link">Markdown<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/PHP/" class="animsition-link">PHP<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Tools/" class="animsition-link">Tools<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/Unity-3D/" class="animsition-link">Unity 3D<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/iOS/" class="animsition-link">iOS<small>(127)</small></a></li>
+				    
+				    <li><a href="/categories/前沿技术/" class="animsition-link">前沿技术<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/文章/" class="animsition-link">文章<small>(5)</small></a></li>
+				    
+				    <li><a href="/categories/设计/" class="animsition-link">设计<small>(4)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="https://www.qtumist.com" class="animsition-link">量子计算</a></li>
+                    
+                    <li><a href="https://blog.ibeats.top" class="animsition-link">CI_Knight</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Steven's Technology Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2018-06-16T11:38:20.000Z" itemprop="datePublished">
+          2018-06-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/博客，文章/'>博客，文章</a>
+    
+    
+</span>
+                <h1>Swift Principle - Category</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>#Swift 底层原理总结之 Category</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_Category" target="_blank" rel="external">Github Demo</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>调用顺序：先调用类的load方法，再调用分类的load方法</li>
+<li>为分类添加属性：<ul>
+<li>实现：RunTime 为 Category 动态关联对象，objc_setAssociatedObject方法，内部调用_object_set_associative_reference函数</li>
+<li>原理：关联对象并不是放在了原来的对象里面，而是自己维护了一个全局的map用来存放每一个对象及其对应关联属性表格</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271018ebeb0?w=233&amp;h=122&amp;f=png&amp;s=15513" alt=""></p>
+<p>我们之前讲到过实例对象的isa指针指向类对象，类对象的isa指针指向元类对象，当p调用run方法时，类对象的isa指针找到类对象的isa指针，然后在类对象中查找对象方法，如果没有找到，就通过类对象的superclass指针找到父类对象，接着去寻找run方法。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b027141542dcc?w=454&amp;h=475&amp;f=png&amp;s=74810" alt=""></p>
+<h3 id="Category-的底层实现"><a href="#Category-的底层实现" class="headerlink" title="Category 的底层实现"></a>Category 的底层实现</h3><p>将Preson+Test.m文件转化为c++文件，查看其中的编译过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc Person+Test.m</div></pre></td></tr></table></figure>
+<p>在分类转化为c++文件中可以看出_category_t结构体中，存放着类名，对象方法列表，类方法列表，协议列表，以及属性列表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> <span class="keyword">_category_t</span> &#123;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name;</div><div class="line">    <span class="keyword">struct</span> <span class="keyword">_class_t</span> *cls;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> <span class="keyword">_method_list_t</span> *instance_methods;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> <span class="keyword">_method_list_t</span> *class_methods;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> <span class="keyword">_protocol_list_t</span> *protocols;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> <span class="keyword">_prop_list_t</span> *properties;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>紧接着，我们可以看到_method_list_t类型的结构体</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> <span class="comment">/*_method_list_t*/</span> &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> entsize;  <span class="comment">// sizeof(struct _objc_method)</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> method_count;</div><div class="line">    <span class="keyword">struct</span> _objc_method method_list[<span class="number">3</span>];</div><div class="line">&#125; _OBJC_$_CATEGORY_INSTANCE_METHODS_Person_$_Test __attribute__ ((used, section (<span class="string">"__DATA,__objc_const"</span>))) = &#123;</div><div class="line">    <span class="keyword">sizeof</span>(_objc_method),</div><div class="line">    <span class="number">3</span>,</div><div class="line">    &#123;&#123;(<span class="keyword">struct</span> objc_selector *)<span class="string">"test"</span>, <span class="string">"v16@0:8"</span>, (<span class="keyword">void</span> *)_I_Person_Test_test&#125;,</div><div class="line">    &#123;(<span class="keyword">struct</span> objc_selector *)<span class="string">"setAge:"</span>, <span class="string">"v20@0:8i16"</span>, (<span class="keyword">void</span> *)_I_Person_Test_setAge_&#125;,</div><div class="line">    &#123;(<span class="keyword">struct</span> objc_selector *)<span class="string">"age"</span>, <span class="string">"i16@0:8"</span>, (<span class="keyword">void</span> *)_I_Person_Test_age&#125;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>从中我们发现这个结构体_OBJC_CATEGORY_INSTANCE_METHODS_Preson_Test从名称可以看出是INSTANCE_METHODS对象方法，并且一一对应为上面结构体内赋值。我们可以看到结构体中存储了方法占用的内存，方法数量，以及方法列表。并且找到分类中我们实现对应的对象方法，test , setAge, age三个方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> <span class="comment">/*_method_list_t*/</span> &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> entsize;  <span class="comment">// sizeof(struct _objc_method)</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> method_count;</div><div class="line">    <span class="keyword">struct</span> _objc_method method_list[<span class="number">1</span>];</div><div class="line">&#125; _OBJC_$_CATEGORY_CLASS_METHODS_Person_$_Test __attribute__ ((used, section (<span class="string">"__DATA,__objc_const"</span>))) = &#123;</div><div class="line">    <span class="keyword">sizeof</span>(_objc_method),</div><div class="line">    <span class="number">1</span>,</div><div class="line">    &#123;&#123;(<span class="keyword">struct</span> objc_selector *)<span class="string">"abc"</span>, <span class="string">"v16@0:8"</span>, (<span class="keyword">void</span> *)_C_Person_Test_abc&#125;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>同上面对象方法列表一样，这个我们可以看出是类方法列表结构体 _OBJC_CATEGORY_CLASS_METHODS_Preson_Test，同对象方法结构体相同，同样可以看到我们实现的类方法，abc</p>
+<p>接下来是协议方法列表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> <span class="comment">/*_method_list_t*/</span> &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> entsize;  <span class="comment">// sizeof(struct _objc_method)</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> method_count;</div><div class="line">    <span class="keyword">struct</span> _objc_method method_list[<span class="number">1</span>];</div><div class="line">&#125; _OBJC_PROTOCOL_INSTANCE_METHODS_NSCopying __attribute__ ((used, section (<span class="string">"__DATA,__objc_const"</span>))) = &#123;</div><div class="line">    <span class="keyword">sizeof</span>(_objc_method),</div><div class="line">    <span class="number">1</span>,</div><div class="line">    &#123;&#123;(<span class="keyword">struct</span> objc_selector *)<span class="string">"copyWithZone:"</span>, <span class="string">"@24@0:8^&#123;_NSZone=&#125;16"</span>, <span class="number">0</span>&#125;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> <span class="keyword">_protocol_t</span> _OBJC_PROTOCOL_NSCopying __attribute__ ((used)) = &#123;</div><div class="line">    <span class="number">0</span>,</div><div class="line">    <span class="string">"NSCopying"</span>,</div><div class="line">    <span class="number">0</span>,</div><div class="line">    (<span class="keyword">const</span> <span class="keyword">struct</span> <span class="keyword">method_list_t</span> *)&amp;_OBJC_PROTOCOL_INSTANCE_METHODS_NSCopying,</div><div class="line">    <span class="number">0</span>,</div><div class="line">    <span class="number">0</span>,</div><div class="line">    <span class="number">0</span>,</div><div class="line">    <span class="number">0</span>,</div><div class="line">    <span class="keyword">sizeof</span>(<span class="keyword">_protocol_t</span>),</div><div class="line">    <span class="number">0</span>,</div><div class="line">    (<span class="keyword">const</span> <span class="keyword">char</span> **)&amp;_OBJC_PROTOCOL_METHOD_TYPES_NSCopying</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> <span class="keyword">_protocol_t</span> *_OBJC_LABEL_PROTOCOL_$_NSCopying = &amp;_OBJC_PROTOCOL_NSCopying;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> <span class="comment">/*_protocol_list_t*/</span> &#123;</div><div class="line">    <span class="keyword">long</span> protocol_count;  <span class="comment">// Note, this is 32/64 bit</span></div><div class="line">    <span class="keyword">struct</span> <span class="keyword">_protocol_t</span> *super_protocols[<span class="number">1</span>];</div><div class="line">&#125; _OBJC_CATEGORY_PROTOCOLS_$_Person_$_Test __attribute__ ((used, section (<span class="string">"__DATA,__objc_const"</span>))) = &#123;</div><div class="line">    <span class="number">1</span>,</div><div class="line">    &amp;_OBJC_PROTOCOL_NSCopying</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>通过上述源码可以看到先将协议方法通过_method_list_t结构体存储，之后通过_protocol_t结构体存储在_OBJC_CATEGORY_PROTOCOLS_Preson_Test中同_protocol_list_t结构体一一对应，分别为protocol_count 协议数量以及存储了协议方法的_protocol_t结构体</p>
+<p>最后我们可以看到属性列表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> <span class="comment">/*_prop_list_t*/</span> &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> entsize;  <span class="comment">// sizeof(struct _prop_t)</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count_of_properties;</div><div class="line">    <span class="keyword">struct</span> <span class="keyword">_prop_t</span> prop_list[<span class="number">1</span>];</div><div class="line">&#125; _OBJC_$_PROP_LIST_Person_$_Test __attribute__ ((used, section (<span class="string">"__DATA,__objc_const"</span>))) = &#123;</div><div class="line">    <span class="keyword">sizeof</span>(<span class="keyword">_prop_t</span>),</div><div class="line">    <span class="number">1</span>,</div><div class="line">    &#123;&#123;<span class="string">"age"</span>,<span class="string">"Ti,N"</span>&#125;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>属性列表结构体_OBJC_PROP_LIST_Preson_Test同_prop_list_t结构体对应，存储属性的占用空间，属性属性数量，以及属性列表，可以看到我们自己写的age属性。</p>
+<p>最后我们可以看到定义了_OBJC_CATEGORY_Preson_Test结构体，并且将我们上面着重分析的结构体一一赋值，我们通过两张图片对照一下。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271e542a619?w=689&amp;h=186&amp;f=png&amp;s=39496" alt=""></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271ac5f40c6?w=1194&amp;h=311&amp;f=png&amp;s=106186" alt=""></p>
+<p>上下两张图一一对应，并且我们看到定义_class_t类型的OBJC_CLASS_Preson结构体，最后将_OBJC_CATEGORY_Preson_Test的cls指针指向OBJC_CLASS_Preson结构体地址。我们这里可以看出，cls指针指向的应该是分类的主类类对象的地址。</p>
+<p>通过以上分析我们发现。分类源码中确实是将我们定义的对象方法，类方法，属性等都存放在catagory_t结构体中。通过 runtime 源码查看catagory_t存储的方法，属性，协议等我们得知，分类的实现原理是将category中的方法，属性，协议数据放在category_t结构体中，然后将结构体内的方法列表拷贝到类对象的方法列表中。</p>
+<p>Category可以添加属性，但是并不会自动生成成员变量及set/get方法。因为category_t结构体中并不存在成员变量。通过之前对对象的分析我们知道成员变量是存放在实例对象中的，并且编译的那一刻就已经决定好了。而分类是在运行时才去加载的。那么我们就无法再程序运行时将分类的成员变量中添加到实例对象的结构体中。因此分类中不可以添加成员变量。</p>
+<h3 id="load-和-initialize"><a href="#load-和-initialize" class="headerlink" title="load 和 initialize"></a>load 和 initialize</h3><p>load方法会在程序启动就会调用，当装载类信息的时候就会调用。 调用顺序看一下源代码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b027197f8e9f7?w=819&amp;h=652&amp;f=png&amp;s=125623" alt=""></p>
+<p>通过源码我们发现是优先调用类的load方法，之后调用分类的load方法</p>
+<p>我们通过代码验证一下： 我们添加Student继承Presen类，并添加Student+Test分类，分别重写只+load方法，其他什么都不做通过打印发现</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271c22a8480?w=794&amp;h=127&amp;f=png&amp;s=34340" alt=""></p>
+<p>确实是优先调用类的load方法之后调用分类的load方法，不过调用类的load方法之前会保证其父类已经调用过load方法。<br>之后我们为Preson、Student 、Student+Test 添加initialize方法。</p>
+<p>我们知道当类第一次接收到消息时，就会调用initialize，相当于第一次使用类的时候就会调用initialize方法。调用子类的initialize之前，会先保证调用父类的initialize方法。如果之前已经调用过initialize，就不会再调用initialize方法了。当分类重写initialize方法时会先调用分类的方法。但是load方法并不会被覆盖，首先我们来看一下initialize的源码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b02710017ea4c?w=669&amp;h=137&amp;f=png&amp;s=18874" alt=""></p>
+<p>上图中我们发现，initialize是通过消息发送机制调用的，消息发送机制通过isa指针找到对应的方法与实现，因此先找到分类方法中的实现，会优先调用分类方法中的实现</p>
+<p>我们再来看一下load方法的调用源码</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271d138b646?w=768&amp;h=585&amp;f=png&amp;s=97761" alt=""></p>
+<p>我们看到load方法中直接拿到load方法的内存地址直接调用方法，不在是通过消息发送机制调用</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b02712e3850a4?w=711&amp;h=412&amp;f=png&amp;s=71504" alt=""></p>
+<p>我们可以看到分类中也是通过直接拿到load方法的地址进行调用。因此正如我们之前试验的一样，分类中重写load方法，并不会优先调用分类的load方法，而不调用本类中的load方法了。</p>
+<h4 id="RunTime-为-Category-动态关联对象"><a href="#RunTime-为-Category-动态关联对象" class="headerlink" title="RunTime 为 Category 动态关联对象"></a>RunTime 为 Category 动态关联对象</h4><p>使用RunTime给系统的类添加属性，首先需要了解对象与属性的关系。我们通过之前的学习知道，对象一开始初始化的时候其属性为nil，给属性赋值其实就是让属性指向一块存储内容的内存，使这个对象的属性跟这块内存产生一种关联。</p>
+<p>那么如果想动态的添加属性，其实就是动态的产生某种关联就好了。而想要给系统的类添加属性，只能通过分类。</p>
+<p>这里给NSObject添加name属性，创建NSObject的分类</p>
+<p>我们可以使用@property给分类添加属性</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>)<span class="built_in">NSString</span> *name;</div></pre></td></tr></table></figure>
+<p>通过探寻Category的本质我们知道，虽然在分类中可以写@property<br>添加属性，但是不会自动生成私有属性，也不会生成set,get方法的实现，只会生成set,get的声明，需要我们自己去实现。</p>
+<p>方法一：我们可以通过使用静态全局变量给分类添加属性</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *_name;</div><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    _name = name;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    <span class="keyword">return</span> _name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是这样_name静态全局变量与类并没有关联，无论对象创建与销毁，只要程序在运行_name变量就存在，并不是真正意义上的属性。</p>
+<p>方法二：使用RunTime动态添加属性<br>RunTime提供了动态添加属性和获得属性的方法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, <span class="string">@"name"</span>,name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">&#125;</div><div class="line">-(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, <span class="string">@"name"</span>);    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>1.动态添加属性</li>
+</ul>
+<p>objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy);</p>
+<p>参数一：id object : 给哪个对象添加属性，这里要给自己添加属性，用self。</p>
+<p>参数二：void <em> == id key : 属性名，根据key获取关联对象的属性的值，在*</em>objc_getAssociatedObject中通过次key获得属性的值并返回。</p>
+<p>参数三：id value** : 关联的值，也就是set方法传入的值给属性去保存。</p>
+<p>参数四：objc_AssociationPolicy policy : 策略，属性以什么形式保存。</p>
+<p>有以下几种<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">OBJC_ENUM</span><span class="params">(<span class="keyword">uintptr_t</span>, objc_AssociationPolicy)</span> </span>&#123;</div><div class="line">    OBJC_ASSOCIATION_ASSIGN = <span class="number">0</span>,  <span class="comment">// 指定一个弱引用相关联的对象</span></div><div class="line">    OBJC_ASSOCIATION_RETAIN_NONATOMIC = <span class="number">1</span>, <span class="comment">// 指定相关对象的强引用，非原子性</span></div><div class="line">    OBJC_ASSOCIATION_COPY_NONATOMIC = <span class="number">3</span>,  <span class="comment">// 指定相关的对象被复制，非原子性</span></div><div class="line">    OBJC_ASSOCIATION_RETAIN = <span class="number">01401</span>,  <span class="comment">// 指定相关对象的强引用，原子性</span></div><div class="line">    OBJC_ASSOCIATION_COPY = <span class="number">01403</span>     <span class="comment">// 指定相关的对象被复制，原子性   </span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>key值只要是一个指针即可，我们可以传入@selector(name)</p>
+<ul>
+<li>2.获得属性<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_getAssociatedObject(id object, <span class="keyword">const</span> <span class="keyword">void</span> *key);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参数一：id object : 获取哪个对象里面的关联的属性。</p>
+<p>参数二：void <em> == id key : 什么属性，与<em>*objc_setAssociatedObject</em></em>中的key相对应，即通过key值取出value。</p>
+<ul>
+<li>3.移除所有关联对象</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)removeAssociatedObjects &#123;</div><div class="line">    <span class="comment">// 移除所有关联对象</span></div><div class="line">    objc_removeAssociatedObjects(<span class="keyword">self</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时已经成功给NSObject添加name属性，并且NSObject对象可以通过点语法为属性赋值。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSObject</span> *objc = [[<span class="built_in">NSObject</span> alloc]init];</div><div class="line">objc.name = <span class="string">@"xx_cc"</span>;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,objc.name);</div></pre></td></tr></table></figure>
+<p>可以看出关联对象的使用非常简单，接下来我们来探寻关联对象的底层原理</p>
+<p><em>objc_setAssociatedObject函数</em></p>
+<p>来到runtime源码，首先找到objc_setAssociatedObject函数，看一下其实现</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271bfaff32c?w=1030&amp;h=132&amp;f=png&amp;s=28294" alt=""></p>
+<p>我们看到其实内部调用的是_object_set_associative_reference函数，我们来到_object_set_associative_reference函数中</p>
+<p><em>_object_set_associative_reference函数</em></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271011fa4b2?w=949&amp;h=983&amp;f=png&amp;s=249605" alt=""></p>
+<p>_object_set_associative_reference函数内部我们可以全部找到我们上面说过的实现关联对象技术的核心对象。接下来我们来一个一个看其内部实现原理探寻他们之间的关系。</p>
+<p><em>AssociationsManager</em></p>
+<p>通过AssociationsManager内部源码发现，AssociationsManager内部有一个AssociationsHashMap对象。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271647c8b15?w=850&amp;h=293&amp;f=png&amp;s=68604" alt=""></p>
+<p><em>AssociationsHashMap</em></p>
+<p>我们来看一下AssociationsHashMap内部的源码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b027100cc5661?w=1042&amp;h=469&amp;f=png&amp;s=182251" alt=""></p>
+<p>通过AssociationsHashMap内部源码我们发现AssociationsHashMap继承自unordered_map首先来看一下unordered_map内的源码</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b02713af27171?w=962&amp;h=425&amp;f=png&amp;s=129415" alt=""></p>
+<p>从unordered_map源码中我们可以看出_Key和_Tp也就是前两个参数对应着map中的Key和Value，那么对照上面AssociationsHashMap内源码发现_Key中传入的是disguised_ptr_t，_Tp中传入的值则为ObjectAssociationMap*。</p>
+<p>紧接着我们来到ObjectAssociationMap中，上图中ObjectAssociationMap已经标记出，我们发现ObjectAssociationMap中同样以key、Value的方式存储着ObjcAssociation。</p>
+<p>接着我们来到ObjcAssociation中</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b02713750dec6?w=898&amp;h=283&amp;f=png&amp;s=60731" alt=""></p>
+<p>我们发现ObjcAssociation存储着_policy、_value，而这两个值我们可以发现正是我们调用objc_setAssociatedObject函数传入的值，也就是说我们在调用objc_setAssociatedObject函数中传入的value和policy这两个值最终是存储在ObjcAssociation中的。</p>
+<p>现在我们已经对AssociationsManager、 AssociationsHashMap、 ObjectAssociationMap、ObjcAssociation四个对象之间的关系有了简单的认识，那么接下来我们来细读源码，看一下objc_setAssociatedObject函数中传入的四个参数分别放在哪个对象中充当什么作用。</p>
+<p>重新回到_object_set_associative_reference函数实现中</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b027186e67b97?w=949&amp;h=983&amp;f=png&amp;s=249605" alt=""></p>
+<p>细读上述源码我们可以发现，首先根据我们传入的value经过acquireValue函数处理获取new_value。acquireValue函数内部其实是通过对策略的判断返回不同的值</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271777e843d?w=648&amp;h=207&amp;f=png&amp;s=45734" alt=""></p>
+<p>之后创建 AssociationsManager manager 以及拿到manager内部的AssociationsHashMap即associations。<br>之后我们看到了我们传入的第一个参数object，object经过DISGUISE函数被转化为了disguised_ptr_t类型的disguised_object。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b02718374b51e?w=786&amp;h=84&amp;f=png&amp;s=30558" alt=""></p>
+<p>DISGUISE函数其实仅仅对object做了位运算</p>
+<p>之后我们看到被处理成new_value的value，同policy被存入了ObjcAssociation中。</p>
+<p>而ObjcAssociation对应我们传入的key被存入了ObjectAssociationMap中。</p>
+<p>disguised_object和ObjectAssociationMap则以key-value的形式对应存储在associations中也就是AssociationsHashMap中。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b027100d8e5b5?w=699&amp;h=114&amp;f=png&amp;s=37575" alt=""></p>
+<p>如果我们value设置为nil的话那么会执行下面的代码</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271a59c0f7e?w=830&amp;h=219&amp;f=png&amp;s=51262" alt=""></p>
+<p>从上述代码中可以看出，如果我们设置value为nil时，就会将关联对象从ObjectAssociationMap中移除。</p>
+<p>最后我们通过一张图可以很清晰的理清楚其中的关系</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0270ff216783?w=1016&amp;h=644&amp;f=png&amp;s=169323" alt=""></p>
+<p>通过上图我们可以总结为：一个实例对象就对应一个ObjectAssociationMap，而ObjectAssociationMap中存储着多个此实例对象的关联对象的key以及ObjcAssociation，为ObjcAssociation中存储着关联对象的value和policy策略。</p>
+<p>由此我们可以知道关联对象并不是放在了原来的对象里面，而是自己维护了一个全局的map用来存放每一个对象及其对应关联属性表格。</p>
+<p><em>objc_getAssociatedObject函数</em></p>
+<p>objc_getAssociatedObject内部调用的是_object_get_associative_reference</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271ae37e617?w=732&amp;h=98&amp;f=png&amp;s=21314" alt=""></p>
+<p><em>_object_get_associative_reference函数</em></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b02713e4432f8?w=997&amp;h=590&amp;f=png&amp;s=191847" alt=""></p>
+<p>从_object_get_associative_reference函数内部可以看出，向set方法中那样，反向将value一层一层取出最后return出去。</p>
+<p><em>objc_removeAssociatedObjects函数</em></p>
+<p>objc_removeAssociatedObjects用来删除所有的关联对象，objc_removeAssociatedObjects函数内部调用的是_object_remove_assocations函数</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b0271963fb5bc?w=566&amp;h=146&amp;f=png&amp;s=24944" alt=""></p>
+<p><em>_object_remove_assocations函数</em></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/30/163b027171706923?w=1125&amp;h=508&amp;f=png&amp;s=144958" alt=""></p>
+<p>上述源码可以看出_object_remove_assocations函数将object对象向对应的所有关联对象全部删除。</p>
+<p>关联对象并不是存储在被关联对象本身内存中，而是存储在全局的统一的一个AssociationsManager中，如果设置关联对象为nil，就相当于是移除关联对象。</p>
+<p>此时我们我们在回过头来看objc_AssociationPolicy policy 参数: 属性以什么形式保存的策略。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">OBJC_ENUM</span><span class="params">(<span class="keyword">uintptr_t</span>, objc_AssociationPolicy)</span> </span>&#123;</div><div class="line">    OBJC_ASSOCIATION_ASSIGN = <span class="number">0</span>,  <span class="comment">// 指定一个弱引用相关联的对象</span></div><div class="line">    OBJC_ASSOCIATION_RETAIN_NONATOMIC = <span class="number">1</span>, <span class="comment">// 指定相关对象的强引用，非原子性</span></div><div class="line">    OBJC_ASSOCIATION_COPY_NONATOMIC = <span class="number">3</span>,  <span class="comment">// 指定相关的对象被复制，非原子性</span></div><div class="line">    OBJC_ASSOCIATION_RETAIN = <span class="number">01401</span>,  <span class="comment">// 指定相关对象的强引用，原子性</span></div><div class="line">    OBJC_ASSOCIATION_COPY = <span class="number">01403</span>     <span class="comment">// 指定相关的对象被复制，原子性   </span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>我们会发现其中只有RETAIN和COPY而为什么没有weak呢？<br>总过上面对源码的分析我们知道，object经过DISGUISE函数被转化为了disguised_ptr_t类型的disguised_object。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">disguised_ptr_t</span> disguised_object = DISGUISE(object);</div></pre></td></tr></table></figure>
+<p>而同时我们知道，weak修饰的属性，当没有拥有对象之后就会被销毁，并且指针置位nil，那么在对象销毁之后，虽然在map中既然存在值object对应的AssociationsHashMap，但是因为object地址已经被置位nil，会造成坏地址访问而无法根据object对象的地址转化为disguised_object了。</p>
+<h4 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h4><p>问：Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？</p>
+<p>答：Category中有load方法，load方法在程序启动装载类信息的时候就会调用。load方法可以继承。调用子类的load方法之前，会先调用父类的load方法</p>
+<p>问：load、initialize的区别，以及它们在category重写的时候的调用的次序。</p>
+<p>答：区别在于调用方式和调用时刻</p>
+<ul>
+<li>调用方式：load是根据函数地址直接调用，initialize是通过objc_msgSend调用</li>
+<li>调用时刻：load是runtime加载类、分类的时候调用（只会调用1次），initialize是类第一次接收到消息的时候调用，每一个类只会initialize一次（父类的initialize方法可能会被调用多次）</li>
+<li>调用顺序：先调用类的load方法，先编译那个类，就先调用load。在调用load之前会先调用父类的load方法。分类中load方法不会覆盖本类的load方法，先编译的分类优先调用load方法。initialize先初始化父类，之后再初始化子类。如果子类没有实现+initialize，会调用父类的+initialize（所以父类的+initialize可能会被调用多次），如果分类实现了+initialize，就覆盖类本身的+initialize调用。</li>
+</ul>
+<blockquote>
+<p>以上文章整理自：<a href="https://juejin.im/post/5aef0a3b518825670f7bc0f3、https://juejin.im/post/5af86b276fb9a07aa34a59e6" target="_blank" rel="external">https://juejin.im/post/5aef0a3b518825670f7bc0f3、https://juejin.im/post/5af86b276fb9a07aa34a59e6</a></p>
+</blockquote>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2018/06/16/NamedTypes/">
+        Swift Principle - NamedTypes →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Steven. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/ReverseScale" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://www.weibo.com/5844576818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
