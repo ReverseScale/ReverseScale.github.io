@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>自动打包脚本 | Steven&#39;s</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="打包脚本">
+  
+  
+  
+  
+  <meta name="description" content="三步配置，杜绝污染，一行命令自动上传。">
+<meta name="keywords" content="打包脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动打包脚本">
+<meta property="og:url" content="https://reversescale.github.io/2018/11/14/AutoBuildScript/index.html">
+<meta property="og:site_name" content="Steven&#39;s">
+<meta property="og:description" content="三步配置，杜绝污染，一行命令自动上传。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg">
+<meta property="og:updated_time" content="2018-11-14T14:00:19.989Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自动打包脚本">
+<meta name="twitter:description" content="三步配置，杜绝污染，一行命令自动上传。">
+<meta name="twitter:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Steven&#39;s" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-AutoBuildScript" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img fancybox" href="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" rel="gallery_cjoh8lppi0006knvpgya68p2t">
+        <img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      自动打包脚本
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-11-14T13:55:38.000Z" itemprop="datePublished">2018-11-14</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Script/">Script</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>三步配置，杜绝污染，一行命令自动上传。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="📺-故事背景"><a href="#📺-故事背景" class="headerlink" title="📺 故事背景"></a>📺 故事背景</h2><p>记得大约两年前，当时在创业公司，开发任务重，提测前常常加班到晚上 12 点，就算 bug 修完，也要看着 Xcode 不慌不忙的花半个多小时打包完成，再上传测试平台，发了邮件才能安心回家。鉴于这种惨痛经历，利用闲暇时间就搞一搞自动打包脚本，后期有配上 Jenkins，从此过上了没羞没臊的生活。（已适配 Xcode 8.2 之后版本）</p>
+<h2 id="🚀-框架的优势"><a href="#🚀-框架的优势" class="headerlink" title="🚀 框架的优势"></a>🚀 框架的优势</h2><ul>
+<li>1.市面上文件最少，使用最便捷的自动化打包脚本</li>
+<li>2.冗余方法少，结构清晰，注释齐全</li>
+<li>3.同时支持多平台上传，如：Dir、Fir、蒲公英、App Store等</li>
+<li>4.具备较高自定义性</li>
+<li>5.[自编脚本的时代] -&gt; [Fastlane 的时代]</li>
+</ul>
+<p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
+<h2 id="🚂-自编脚本的时代"><a href="#🚂-自编脚本的时代" class="headerlink" title="🚂 自编脚本的时代"></a>🚂 自编脚本的时代</h2><blockquote>
+<p>[🚂 自编脚本的时代] 了解一下即可，有些准备工作提供参考，如环境已经配置好，请直接阅读 [🚄 Fastlane 的时代]</p>
+</blockquote>
+<h3 id="第一步-安装fir-cil"><a href="#第一步-安装fir-cil" class="headerlink" title="第一步 安装fir-cil"></a>第一步 安装fir-cil</h3><p>fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ruby -v # &gt; 1.9.3</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure>
+<h4 id="常见的安装问题"><a href="#常见的安装问题" class="headerlink" title="常见的安装问题"></a>常见的安装问题</h4><p>(1)使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ xcode-select --install        # OS X 系统</span><br><span class="line">$ sudo apt-get install ruby-dev # Linux 系统</span><br></pre></td></tr></table></figure>
+<p>(2)现 Permission denied 相关错误:</p>
+<p>解决：在命令前加上 sudo</p>
+<p>(3)出现 Gem::RemoteFetcher::FetchError 相关错误:</p>
+<p>解决：更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources --remove https://rubygems.org/</span><br><span class="line">$ gem sources -a https://ruby.taobao.org/</span><br><span class="line">$ gem sources -l</span><br><span class="line">*** CURRENT SOURCES ***</span><br><span class="line">https://ruby.taobao.org</span><br><span class="line"># 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉</span><br><span class="line">gem update --system</span><br><span class="line">gem install fir-cli</span><br></pre></td></tr></table></figure></p>
+<p>(4)Mac OS X 10.11 以后的版本, 由于10.11引入了 rootless, 无法直接安装 fir-cli, 有以下三种解决办法:</p>
+<p>方法一： 使用 Homebrew 及 RVM 安装 Ruby, 再安装 fir-cli(推荐)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Install Homebrew:</span><br><span class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br><span class="line"># Install RVM:</span><br><span class="line">$ \curl -sSL https://get.rvm.io | bash -s stable --ruby</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure></p>
+<p>方法二： 指定 fir-cli 中 bin 文件的 PATH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ export PATH=/usr/local/bin:$PATH;gem install -n /usr/local/bin fir-cli</span><br></pre></td></tr></table></figure></p>
+<p>方法三： 重写 Ruby Gem 的 bindir<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;gem: --bindir /usr/local/bin&apos; &gt;&gt; ~/.gemrc</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure></p>
+<h3 id="第二步-登录fir-im"><a href="#第二步-登录fir-im" class="headerlink" title="第二步 登录fir.im"></a>第二步 登录fir.im</h3><p>先到 <a href="https://fir.im" target="_blank" rel="noopener">https://fir.im</a> 创建项目，得到 API Token 并复制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fir login</span><br></pre></td></tr></table></figure>
+<p>命令用于使用 API token 登录 fir.im, 并使用发布应用等相关命令.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fir me</span><br></pre></td></tr></table></figure>
+<p>命令用于查看当前登录用户信息.</p>
+<p>显示信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ fir login XXX_YOUR_API_TOKEN_XXX</span><br><span class="line">I, [2016-03-08T12:48:56.499435 #13043]  INFO -- : Login succeed, previous user&apos;s email: xxx@fir.im</span><br><span class="line">I, [2016-03-08T12:48:56.507044 #13043]  INFO -- : Login succeed, current  user&apos;s email: xxx@fir.im</span><br><span class="line">I, [2016-03-08T12:48:56.507147 #13043]  INFO -- :</span><br><span class="line">$ fir me</span><br><span class="line">I, [2016-03-08T12:48:14.175488 #12986]  INFO -- : Login succeed, current user&apos;s email: xxx@fir.im</span><br><span class="line">I, [2016-03-08T12:48:14.175687 #12986]  INFO -- : Login succeed, current user&apos;s name:  xxx</span><br><span class="line">I, [2016-03-08T12:48:14.175765 #12986]  INFO -- :</span><br></pre></td></tr></table></figure></p>
+<h3 id="第三步-下载并配置-shell-脚本"><a href="#第三步-下载并配置-shell-脚本" class="headerlink" title="第三步 下载并配置 shell 脚本"></a>第三步 下载并配置 shell 脚本</h3><p>1.把文件夹导入工程目录根目录下</p>
+<p>2.配置 shell 脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 需要改动的地方 (根据项目具体信息改动)</span><br><span class="line">PROJECT_NAME = &quot;***&quot; 			    	#项目名称</span><br><span class="line">VERSION = &quot;1.0.0&quot;  						#打包版本号 会根据不同的版本创建文件夹（与项目本身的版本号无关）</span><br><span class="line">TAGREAT_NAME = &quot;***&quot;  	#项目对应target的名称如 &quot;Meifabao_User&quot; &quot;Miefabao_stylist&quot;</span><br><span class="line"></span><br><span class="line">CONFIGURATION = &quot;Release&quot; 				#打包的环境设置 Release 环境  Debug 环境</span><br><span class="line">PROFILE = &quot;AdHoc&quot; 						#配置文件分为四种 AdHoc  Dev  AppStore Ent 分别对应四种配置文件</span><br><span class="line">OUTPUT = &quot;./Packge/%s&quot; %(CONFIGURATION) #打包导出ipa文件路径（请确保 “%s” 之前的文件夹正确并存在）</span><br></pre></td></tr></table></figure>
+<p>根据具体项目填写</p>
+<p>3.控制台到项目所在目录下，启动脚本(必要时加管理员权限)</p>
+<p>可以将 autobuild.py 拖拽到控制台，执行脚本</p>
+<p>注：其他的功能脚本由于实用性不高（其实我懒得搞），暂时没有适配，有兴趣的朋友可以自行配置试用，包括：邮件发送、打包 App Store 等等。</p>
+<p>当看到</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/57912059.jpg" alt=""></p>
+<p>时，打包好的项目已经躺在你的 Fir 测试平台中了。</p>
+<p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
+<h2 id="🚄-Fastlane-的时代"><a href="#🚄-Fastlane-的时代" class="headerlink" title="🚄 Fastlane 的时代"></a>🚄 Fastlane 的时代</h2><h3 id="2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英"><a href="#2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英" class="headerlink" title="2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)"></a>2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)</h3><h3 id="第一步-安装-Fastlane"><a href="#第一步-安装-Fastlane" class="headerlink" title="第一步 安装 Fastlane"></a>第一步 安装 Fastlane</h3><p>Fastlane 是一套使用Ruby写的自动化工具集，用于iOS和Android的自动化打包、发布等工作，可以节省大量的时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install fastlane --verbose</span><br></pre></td></tr></table></figure>
+<h3 id="第二步-移动脚本至项目目录下"><a href="#第二步-移动脚本至项目目录下" class="headerlink" title="第二步 移动脚本至项目目录下"></a>第二步 移动脚本至项目目录下</h3><p>根据注释完善脚本配置信息</p>
+<p>脚本说明：</p>
+<ul>
+<li>支持版本号自增长</li>
+<li>支持传入自定的宏，用于在代码里使用此预编译的宏来区分开发环境和发布环境</li>
+<li>支持自动上传到 fir 和 testflight</li>
+<li>上传成功后弹窗提示</li>
+</ul>
+<h3 id="第三步-上传"><a href="#第三步-上传" class="headerlink" title="第三步 上传"></a>第三步 上传</h3><h4 id="上传到-fir-的用法："><a href="#上传到-fir-的用法：" class="headerlink" title="上传到 fir 的用法："></a>上传到 fir 的用法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.sh -m &quot;xxxx_app_test&quot; -t test</span><br></pre></td></tr></table></figure>
+<h4 id="上传到-testflight-的用法："><a href="#上传到-testflight-的用法：" class="headerlink" title="上传到 testflight 的用法："></a>上传到 testflight 的用法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.sh -m &quot;xxxx_app_pro&quot; -t pro</span><br></pre></td></tr></table></figure>
+<h3 id="第四步-配置-Jenkins"><a href="#第四步-配置-Jenkins" class="headerlink" title="第四步 配置 Jenkins"></a>第四步 配置 Jenkins</h3><p>Jenkins 是一个开源项目，提供了一种易于使用的持续集成系统，使开发者从繁杂的集成中解脱出来，专注于更为重要的业务逻辑实现上。同时 Jenkins 能实施监控集成中存在的错误，提供详细的日志文件和提醒功能，还能用图表的形式形象地展示项目构建的趋势和稳定性。</p>
+<h4 id="下载-Jenkins："><a href="#下载-Jenkins：" class="headerlink" title="下载 Jenkins："></a>下载 Jenkins：</h4><p>点击 <a href="http://mirrors.jenkins.io/war-stable/latest/jenkins.war" target="_blank" rel="noopener">http://mirrors.jenkins.io/war-stable/latest/jenkins.war</a> 下载最新的Jenkins.war</p>
+<h4 id="运行服务器："><a href="#运行服务器：" class="headerlink" title="运行服务器："></a>运行服务器：</h4><p>需要先安装 java sdk （<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure>
+<h4 id="运行-Jenkins"><a href="#运行-Jenkins" class="headerlink" title="运行 Jenkins"></a>运行 Jenkins</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenkins</span><br></pre></td></tr></table></figure>
+<h4 id="配置-Jenkins："><a href="#配置-Jenkins：" class="headerlink" title="配置 Jenkins："></a>配置 Jenkins：</h4><p>浏览器打开 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 输入安全密码，安全密码命令行输出的一个文件里面。</p>
+<p>然后自动安装推荐的插件，并新建管理员账号密码。</p>
+<h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><p>登录<a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> ，选择系统管理 - 管理插件。<br>在可选插件中选择GitLab Plugin，Gitlab Hook Plugin，和 Cocoapod plugin 进行安装。</p>
+<h4 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h4><ul>
+<li><ol>
+<li>点击新建，输入名称，构建一个自由风格的软件项目。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>配置 Git 仓库地址，并添加 git 账号。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>配置构建脚本 </li>
+</ol>
+</li>
+</ul>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/14722271.jpg" alt=""></p>
+<h3 id="附录-执行脚本过程中遇到的问题和解决方案"><a href="#附录-执行脚本过程中遇到的问题和解决方案" class="headerlink" title="附录 执行脚本过程中遇到的问题和解决方案"></a>附录 执行脚本过程中遇到的问题和解决方案</h3><h4 id="fir-command-not-found"><a href="#fir-command-not-found" class="headerlink" title="fir: command not found"></a>fir: command not found</h4><p>这个是因为没有安装fir-cil，导致找不到相应的命令行，只需要安装一下就行了，详情见上文写的如何安装fir-cil。</p>
+<h4 id="README-No-such-file-or-directory"><a href="#README-No-such-file-or-directory" class="headerlink" title="README: No such file or directory"></a>README: No such file or directory</h4><p>那是因为你的脚本目录下没有README的文件，只需要建一个README的文件就行了，打开终端，cd到当前位置，然后执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch README</span><br></pre></td></tr></table></figure>
+<h4 id="ERROR-–-Token-can-not-be-blank"><a href="#ERROR-–-Token-can-not-be-blank" class="headerlink" title="ERROR – : Token can not be blank"></a>ERROR – : Token can not be blank</h4><p>这个原因是因为你没有登录fir导致的，你执行这个脚本之前应该先登录一下fir，详情请看上文写的登录fir.im。</p>
+<h4 id="ERROR-–-Code-14-没有试用的设备-Domain-IDEDistributionErrorDomain-Code-14-“No-applicable-devices"><a href="#ERROR-–-Code-14-没有试用的设备-Domain-IDEDistributionErrorDomain-Code-14-“No-applicable-devices" class="headerlink" title="ERROR – : Code=14 (没有试用的设备 Domain=IDEDistributionErrorDomain Code=14 “No applicable devices"></a>ERROR – : Code=14 (没有试用的设备 Domain=IDEDistributionErrorDomain Code=14 “No applicable devices</h4><p>原因：rvm ruby 配置错误</p>
+<p>解决：控制台 rvm system</p>
+<p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
+<h3 id="2018-08-20-更新：Jenkins-相关设置方法"><a href="#2018-08-20-更新：Jenkins-相关设置方法" class="headerlink" title="2018.08.20 更新：Jenkins 相关设置方法"></a>2018.08.20 更新：Jenkins 相关设置方法</h3><h4 id="查看端口占用"><a href="#查看端口占用" class="headerlink" title="查看端口占用"></a>查看端口占用</h4><p>端口占用</p>
+<p>使用 lsof 会列举所有占用的端口列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof</span><br></pre></td></tr></table></figure>
+<p>使用less可以用于分页展示，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof | less</span><br></pre></td></tr></table></figure>
+<p>也可以使用 -i 查看某个端口是否被占用，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i:3000</span><br></pre></td></tr></table></figure>
+<p>杀死进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill PID（进程的PID，如2044）</span><br></pre></td></tr></table></figure>
+<h4 id="Jenkins-改时区"><a href="#Jenkins-改时区" class="headerlink" title="Jenkins 改时区"></a>Jenkins 改时区</h4><p><a href="http://your-jenkins/systemInfo，查看user.timezone变量的值" target="_blank" rel="noopener">http://your-jenkins/systemInfo，查看user.timezone变量的值</a></p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/85610878.jpg" alt=""></p>
+<p>在jenkins的【系统管理】-【脚本命令行】里运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.setProperty(&apos;org.apache.commons.jelly.tags.fmt.timeZone&apos;, &apos;Asia/Shanghai&apos;)</span><br></pre></td></tr></table></figure>
+<h4 id="Jenkins-构建超时"><a href="#Jenkins-构建超时" class="headerlink" title="Jenkins 构建超时"></a>Jenkins 构建超时</h4><p>jenkins的”build timeout plugin”插件可以帮我们完成该任务。我使用的是jenkins-2.7.1, 默认就已经安装了该插件，如果默认没有安装可在插件管理中搜索进行安装。</p>
+<h4 id="Jenkins-定时构建和Poll-SCM的区别"><a href="#Jenkins-定时构建和Poll-SCM的区别" class="headerlink" title="Jenkins 定时构建和Poll SCM的区别"></a>Jenkins 定时构建和Poll SCM的区别</h4><ul>
+<li>Build periodically：周期进行项目构建（源码是否发生变化没有关系）</li>
+<li>Poll SCM：定时检查源码变更，如果有更新就checkout最新code下来，然后执行构建动作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">每15分钟构建一次：H/15 * * * *  或 */5 * * * *</span><br><span class="line"></span><br><span class="line">每天8点构建一次：0 8 * * *</span><br><span class="line"></span><br><span class="line">每天8点~17点，两小时构建一次：0 8-17/2 * * *</span><br><span class="line"></span><br><span class="line">周一到周五，8点~17点，两小时构建一次：0 8-17/2 * * 1-5</span><br><span class="line"></span><br><span class="line">每月1号、15号各构建一次，除12月：H H 1,15 1-11 *</span><br><span class="line"></span><br><span class="line">*/5 * * * * （每5分钟检查一次源码变化）</span><br><span class="line"></span><br><span class="line">0 2 * * * （每天2:00 必须build一次源码）</span><br></pre></td></tr></table></figure>
+<p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
+<h2 id="🕹-agvtool-命令行"><a href="#🕹-agvtool-命令行" class="headerlink" title="🕹 agvtool 命令行"></a>🕹 agvtool 命令行</h2><h3 id="2018-08-20-更新：agvtool-命令行-管理版本号"><a href="#2018-08-20-更新：agvtool-命令行-管理版本号" class="headerlink" title="2018.08.20 更新：agvtool 命令行 管理版本号"></a>2018.08.20 更新：agvtool 命令行 管理版本号</h3><h4 id="常用命令行："><a href="#常用命令行：" class="headerlink" title="常用命令行："></a>常用命令行：</h4><p>设置 版本号 为 <code>1.1.0</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool new-marketing-version 1.1.0</span><br></pre></td></tr></table></figure></p>
+<p>设置 build 号 <code>自动加1</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool next-version -all</span><br></pre></td></tr></table></figure></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>agvtool 是一个命令行工具，允许你自动递增到下一个最高的数量或具体的数字这些数字。</p>
+<h4 id="修改Xcode的默认设置"><a href="#修改Xcode的默认设置" class="headerlink" title="修改Xcode的默认设置"></a>修改Xcode的默认设置</h4><p>默认情况下，在不使用任何版本控制系统。设置版本系统苹果通用确保 Xcode 将包括在你的项目中生成的所有agvtool版本信息。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/25883858.jpg" alt=""></p>
+<p>上图：设置当前项目的版本和版本控制系统的构建设置</p>
+<h4 id="设置你的版本号和-bulid-版本号"><a href="#设置你的版本号和-bulid-版本号" class="headerlink" title="设置你的版本号和 bulid 版本号"></a>设置你的版本号和 bulid 版本号</h4><p>agvtool 查询应用程序的 Info.plist 得到你的版本和 bulid 版本号。</p>
+<p>所以确保 CFBundleVersion (Bundle version) 和 CFBundleShortVersionString (Bundle versions string, short）的 key 在你的 Info.plist 中。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/84553297.jpg" alt=""></p>
+<p>上图：info.plist</p>
+<h4 id="命令行操作更新版本号"><a href="#命令行操作更新版本号" class="headerlink" title="命令行操作更新版本号"></a>命令行操作更新版本号</h4><p>退出Xcode，然后导航到包含项目的目录，运行下列命令在终端应用 agvtool 属性工作。</p>
+<p>设置 版本号 为 <code>1.1.0</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool new-marketing-version 1.1.0</span><br></pre></td></tr></table></figure></p>
+<p>设置 build 号 <code>自动加1</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool next-version -all</span><br></pre></td></tr></table></figure></p>
+<p>设置 build 号为 <code>31</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool new-version -all 31</span><br></pre></td></tr></table></figure></p>
+<p>查看 Version Numbers<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool what-marketing-version</span><br></pre></td></tr></table></figure></p>
+<p>查看 Build Numbers<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool what-version</span><br></pre></td></tr></table></figure></p>
+<h2 id="😬-联系"><a href="#😬-联系" class="headerlink" title="😬  联系"></a>😬  联系</h2><ul>
+<li>微信 : WhatsXie</li>
+<li>邮件 : <a href="mailto:ReverseScale@iCloud.com" target="_blank" rel="noopener">ReverseScale@iCloud.com</a></li>
+<li>博客 : <a href="https://reversescale.github.io">https://reversescale.github.io</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>Technology Blog
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2018/11/14/AutoBuildScript/" target="_blank" title="自动打包脚本">https://reversescale.github.io/2018/11/14/AutoBuildScript/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+</div></div>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#📺-故事背景"><span class="nav-number">1.</span> <span class="nav-text">📺 故事背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚀-框架的优势"><span class="nav-number">2.</span> <span class="nav-text">🚀 框架的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚂-自编脚本的时代"><span class="nav-number">3.</span> <span class="nav-text">🚂 自编脚本的时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-安装fir-cil"><span class="nav-number">3.1.</span> <span class="nav-text">第一步 安装fir-cil</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的安装问题"><span class="nav-number">3.1.1.</span> <span class="nav-text">常见的安装问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-登录fir-im"><span class="nav-number">3.2.</span> <span class="nav-text">第二步 登录fir.im</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步-下载并配置-shell-脚本"><span class="nav-number">3.3.</span> <span class="nav-text">第三步 下载并配置 shell 脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚄-Fastlane-的时代"><span class="nav-number">4.</span> <span class="nav-text">🚄 Fastlane 的时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英"><span class="nav-number">4.1.</span> <span class="nav-text">2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-安装-Fastlane"><span class="nav-number">4.2.</span> <span class="nav-text">第一步 安装 Fastlane</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-移动脚本至项目目录下"><span class="nav-number">4.3.</span> <span class="nav-text">第二步 移动脚本至项目目录下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步-上传"><span class="nav-number">4.4.</span> <span class="nav-text">第三步 上传</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上传到-fir-的用法："><span class="nav-number">4.4.1.</span> <span class="nav-text">上传到 fir 的用法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传到-testflight-的用法："><span class="nav-number">4.4.2.</span> <span class="nav-text">上传到 testflight 的用法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步-配置-Jenkins"><span class="nav-number">4.5.</span> <span class="nav-text">第四步 配置 Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载-Jenkins："><span class="nav-number">4.5.1.</span> <span class="nav-text">下载 Jenkins：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行服务器："><span class="nav-number">4.5.2.</span> <span class="nav-text">运行服务器：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行-Jenkins"><span class="nav-number">4.5.3.</span> <span class="nav-text">运行 Jenkins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-Jenkins："><span class="nav-number">4.5.4.</span> <span class="nav-text">配置 Jenkins：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装插件"><span class="nav-number">4.5.5.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建任务"><span class="nav-number">4.5.6.</span> <span class="nav-text">构建任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录-执行脚本过程中遇到的问题和解决方案"><span class="nav-number">4.6.</span> <span class="nav-text">附录 执行脚本过程中遇到的问题和解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fir-command-not-found"><span class="nav-number">4.6.1.</span> <span class="nav-text">fir: command not found</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#README-No-such-file-or-directory"><span class="nav-number">4.6.2.</span> <span class="nav-text">README: No such file or directory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ERROR-–-Token-can-not-be-blank"><span class="nav-number">4.6.3.</span> <span class="nav-text">ERROR – : Token can not be blank</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ERROR-–-Code-14-没有试用的设备-Domain-IDEDistributionErrorDomain-Code-14-“No-applicable-devices"><span class="nav-number">4.6.4.</span> <span class="nav-text">ERROR – : Code=14 (没有试用的设备 Domain=IDEDistributionErrorDomain Code=14 “No applicable devices</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：Jenkins-相关设置方法"><span class="nav-number">4.7.</span> <span class="nav-text">2018.08.20 更新：Jenkins 相关设置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看端口占用"><span class="nav-number">4.7.1.</span> <span class="nav-text">查看端口占用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jenkins-改时区"><span class="nav-number">4.7.2.</span> <span class="nav-text">Jenkins 改时区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jenkins-构建超时"><span class="nav-number">4.7.3.</span> <span class="nav-text">Jenkins 构建超时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jenkins-定时构建和Poll-SCM的区别"><span class="nav-number">4.7.4.</span> <span class="nav-text">Jenkins 定时构建和Poll SCM的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🕹-agvtool-命令行"><span class="nav-number">5.</span> <span class="nav-text">🕹 agvtool 命令行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：agvtool-命令行-管理版本号"><span class="nav-number">5.1.</span> <span class="nav-text">2018.08.20 更新：agvtool 命令行 管理版本号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用命令行："><span class="nav-number">5.1.1.</span> <span class="nav-text">常用命令行：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">5.2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改Xcode的默认设置"><span class="nav-number">5.2.1.</span> <span class="nav-text">修改Xcode的默认设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置你的版本号和-bulid-版本号"><span class="nav-number">5.2.2.</span> <span class="nav-text">设置你的版本号和 bulid 版本号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行操作更新版本号"><span class="nav-number">5.2.3.</span> <span class="nav-text">命令行操作更新版本号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#😬-联系"><span class="nav-number">6.</span> <span class="nav-text">😬  联系</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Steven&#39;s All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Steven&#39;s
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Technology Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
