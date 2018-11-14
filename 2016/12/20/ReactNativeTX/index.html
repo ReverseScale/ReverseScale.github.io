@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,22 +243,24 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#React Native是facebook刚开源的框架，可以用javascript直接开发原生APP，先不说这个框架后续是否能得到大众认可，单从源码来说，这个框架源码里有非常多的设计思想和实现方式值得学习，本篇先来看看它最基础的JavaScript-ObjectC通信机制(以下简称JS/OC)。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p>React Native用iOS自带的JavaScriptCore作为JS的解析引擎，但并没有用到JavaScriptCore提供的一些可以让JS与OC互调的特性，而是自己实现了一套机制，这套机制可以通用于所有JS引擎上，在没有JavaScriptCore的情况下也可以用webview代替，实际上项目里就已经有了用webview作为解析引擎的实现，应该是用于兼容iOS7以下没有JavascriptCore的版本。</p>
+<a id="more"></a><!--more-->
+<hr>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p>React Native用iOS自带的JavaScriptCore作为JS的解析引擎，但并没有用到JavaScriptCore提供的一些可以让JS与OC互调的特性，而是自己实现了一套机制，这套机制可以通用于所有JS引擎上，在没有JavaScriptCore的情况下也可以用webview代替，实际上项目里就已经有了用webview作为解析引擎的实现，应该是用于兼容iOS7以下没有JavascriptCore的版本。</p>
 <p>普通的JS-OC通信实际上很简单，OC向JS传信息有现成的接口，像webview提供的-stringByEvaluatingJavaScriptFromString方法可以直接在当前context上执行一段JS脚本，并且可以获取执行后的返回值，这个返回值就相当于JS向OC传递信息。React Native也是以此为基础，通过各种手段，实现了在OC定义一个模块方法，JS可以直接调用这个模块方法并还可以无缝衔接回调。</p>
 <p>举个例子，OC定义了一个模块RCTSQLManager，里面有个方法-query:successCallback:，JS可以直接调用RCTSQLManager.query并通过回调获取执行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//OC:</div><div class="line">@implement RCTSQLManager</div><div class="line">- (void)query:(NSString *)queryData successCallback:(RCTResponseSenderBlOCk)responseSender</div><div class="line">&#123;</div><div class="line">     RCT_EXPORT();</div><div class="line">     NSString *ret = @&quot;ret&quot;</div><div class="line">     responseSender(ret);</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//JS:</div><div class="line">RCTSQLManager.query(&quot;SELECT * FROM table&quot;, function(result) &#123;</div><div class="line">     //result == &quot;ret&quot;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//OC:</span><br><span class="line">@implement RCTSQLManager</span><br><span class="line">- (void)query:(NSString *)queryData successCallback:(RCTResponseSenderBlOCk)responseSender</span><br><span class="line">&#123;</span><br><span class="line">     RCT_EXPORT();</span><br><span class="line">     NSString *ret = @&quot;ret&quot;</span><br><span class="line">     responseSender(ret);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//JS:</span><br><span class="line">RCTSQLManager.query(&quot;SELECT * FROM table&quot;, function(result) &#123;</span><br><span class="line">     //result == &quot;ret&quot;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>接下来看看它是怎样实现的。</p>
 <hr>
-<h4 id="模块配置表"><a href="#模块配置表" class="headerlink" title="模块配置表"></a>模块配置表</h4><p>首先OC要告诉JS它有什么模块，模块里有什么方法，JS才知道有这些方法后才有可能去调用这些方法。这里的实现是OC生成一份模块配置表传给JS，配置表里包括了所有模块和模块里方法的信息。例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;remoteModuleConfig&quot;: &#123;</div><div class="line">        &quot;RCTSQLManager&quot;: &#123;</div><div class="line">            &quot;methods&quot;: &#123;</div><div class="line">                &quot;query&quot;: &#123;</div><div class="line">                    &quot;type&quot;: &quot;remote&quot;,</div><div class="line">                    &quot;methodID&quot;: 0</div><div class="line">                &#125;</div><div class="line">            &#125;,</div><div class="line">            &quot;moduleID&quot;: 4</div><div class="line">        &#125;,</div><div class="line">        ...</div><div class="line">     &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="模块配置表"><a href="#模块配置表" class="headerlink" title="模块配置表"></a>模块配置表</h4><p>首先OC要告诉JS它有什么模块，模块里有什么方法，JS才知道有这些方法后才有可能去调用这些方法。这里的实现是OC生成一份模块配置表传给JS，配置表里包括了所有模块和模块里方法的信息。例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;remoteModuleConfig&quot;: &#123;</span><br><span class="line">        &quot;RCTSQLManager&quot;: &#123;</span><br><span class="line">            &quot;methods&quot;: &#123;</span><br><span class="line">                &quot;query&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;remote&quot;,</span><br><span class="line">                    &quot;methodID&quot;: 0</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;moduleID&quot;: 4</span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br><span class="line">     &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>OC端和JS端分别各有一个bridge，两个bridge都保存了同样一份模块配置表，JS调用OC模块方法时，通过bridge里的配置表把模块方法转为模块ID和方法ID传给OC，OC通过bridge的模块配置表找到对应的方法执行之，以上述代码为例，流程大概是这样（先不考虑callback）：<br><img src="http://og1yl0w9z.bkt.clouddn.com/16-12-20/38915658-file_1482232516269_b946.png" alt=""><br>在了解这个调用流程之前，我们先来看看OC的模块配置表式怎么来的。我们在新建一个OC模块时，JS和OC都不需要为新的模块手动去某个地方添加一些配置，模块配置表是自动生成的，只要项目里有一个模块，就会把这个模块加到配置表上，那这个模块配置表是怎样自动生成的呢？分两个步骤：</p>
 <p><strong>1.取所有模块类</strong></p>
 <p>每个模块类都实现了RCTBridgeModule接口，可以通过runtime接口objc_getClassList或objc_copyClassList取出项目里所有类，然后逐个判断是否实现了RCTBridgeModule接口，就可以找到所有模块类，实现在RCTBridgeModuleClassesByModuleID()方法里。</p>
 <p><strong>2.取模块里暴露给JS的方法</strong></p>
-<p>一个模块里可以有很多方法，一些是可以暴露给JS直接调用的，一些是私有的不想暴露给JS，怎样做到提取这些暴露的方法呢？我能想到的方法是对要暴露的方法名制定一些规则，比如用RCTExport_作为前缀，然后用runtime方法class<em>getInstanceMethod取出所有方法名字，提取以RCTExport</em>为前缀的方法，但这样做恶心的地方是每个方法必须加前缀。React Native用了另一种黑魔法似的方法解决这个问题：编译属性<strong>attribute</strong>。</p>
-<p>在上述例子中我们看到模块方法里有句代码：RCT_EXPORT()，模块里的方法加上这个宏就可以实现暴露给JS，无需其他规则，那这个宏做了什么呢？来看看它的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define RCT_EXPORT(JS_name) __attribute__((used, section(&quot;__DATA,RCTExport&quot; \</div><div class="line">))) static const char *__rct_export_entry__[] = &#123; __func__, #JS_name &#125;</div></pre></td></tr></table></figure></p>
+<p>一个模块里可以有很多方法，一些是可以暴露给JS直接调用的，一些是私有的不想暴露给JS，怎样做到提取这些暴露的方法呢？我能想到的方法是对要暴露的方法名制定一些规则，比如用RCTExport_作为前缀，然后用runtime方法class_getInstanceMethod取出所有方法名字，提取以RCTExport_为前缀的方法，但这样做恶心的地方是每个方法必须加前缀。React Native用了另一种黑魔法似的方法解决这个问题：编译属性<strong>attribute</strong>。</p>
+<p>在上述例子中我们看到模块方法里有句代码：RCT_EXPORT()，模块里的方法加上这个宏就可以实现暴露给JS，无需其他规则，那这个宏做了什么呢？来看看它的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define RCT_EXPORT(JS_name) __attribute__((used, section(&quot;__DATA,RCTExport&quot; \</span><br><span class="line">))) static const char *__rct_export_entry__[] = &#123; __func__, #JS_name &#125;</span><br></pre></td></tr></table></figure></p>
 <p>这个宏的作用是用编译属性<strong>attribute</strong>给二进制文件新建一个section，属于<strong>DATA数据段，名字为RCTExport，并在这个段里加入当前方法名。编译器在编译时会找到</strong>attribute__进行处理，为生成的可执行文件加入相应的内容。效果可以从linkmap看出来：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># Sections:</div><div class="line"># Address Size Segment Section</div><div class="line">0x100001670 0x000C0180 __TEXT __text</div><div class="line">...</div><div class="line">0x10011EFA0 0x00000330 __DATA RCTExport</div><div class="line">0x10011F2D0 0x00000010 __DATA __common</div><div class="line">0x10011F2E0 0x000003B8 __DATA __bss</div><div class="line">...</div><div class="line">0x10011EFA0 0x00000010 [ 4] -[RCTStatusBarManager setStyle:animated:].__rct_export_entry__</div><div class="line">0x10011EFB0 0x00000010 [ 4] -[RCTStatusBarManager setHidden:withAnimation:].__rct_export_entry__</div><div class="line">0x10011EFC0 0x00000010 [ 5] -[RCTSourceCode getScriptText:failureCallback:].__rct_export_entry__</div><div class="line">0x10011EFD0 0x00000010 [ 7] -[RCTAlertManager alertWithArgs:callback:].__rct_export_entry__</div><div class="line">...</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Sections:</span><br><span class="line"># Address Size Segment Section</span><br><span class="line">0x100001670 0x000C0180 __TEXT __text</span><br><span class="line">...</span><br><span class="line">0x10011EFA0 0x00000330 __DATA RCTExport</span><br><span class="line">0x10011F2D0 0x00000010 __DATA __common</span><br><span class="line">0x10011F2E0 0x000003B8 __DATA __bss</span><br><span class="line">...</span><br><span class="line">0x10011EFA0 0x00000010 [ 4] -[RCTStatusBarManager setStyle:animated:].__rct_export_entry__</span><br><span class="line">0x10011EFB0 0x00000010 [ 4] -[RCTStatusBarManager setHidden:withAnimation:].__rct_export_entry__</span><br><span class="line">0x10011EFC0 0x00000010 [ 5] -[RCTSourceCode getScriptText:failureCallback:].__rct_export_entry__</span><br><span class="line">0x10011EFD0 0x00000010 [ 7] -[RCTAlertManager alertWithArgs:callback:].__rct_export_entry__</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>可以看到可执行文件数据段多了个RCTExport段，内容就是各个要暴露给JS的方法。这些内容是可以在运行时获取到的，在RCTBridge.m的RCTExportedMethodsByModuleID()方法里获取这些内容，提取每个方法的类名和方法名，就完成了提取模块里暴露给JS方法的工作。</p>
 <p>整体的模块类/方法提取实现在RCTRemoteModulesConfig()方法里。</p>
 <hr>

@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,9 +243,11 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#dispatch_queue_create用于创建用户线程队列。可以创建Serial/Concurrent Dispatch Queue 两种队列，即串行与并行队列。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h3 id="1-创建Serial-Dispatch-Queue。"><a href="#1-创建Serial-Dispatch-Queue。" class="headerlink" title="1. 创建Serial Dispatch Queue。"></a>1. 创建Serial Dispatch Queue。</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> serialQueue =</div><div class="line">  dispatch_queue_create(“com.SerialQueue”, <span class="literal">NULL</span>);</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
+<hr>
+<h3 id="1-创建Serial-Dispatch-Queue。"><a href="#1-创建Serial-Dispatch-Queue。" class="headerlink" title="1. 创建Serial Dispatch Queue。"></a>1. 创建Serial Dispatch Queue。</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> serialQueue =</span><br><span class="line">  dispatch_queue_create(“com.SerialQueue”, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
 <p>可以创建多个串行队列，串行队列也可以并行执行。决不能随意的大量生产Serial Dispatch Queue。</p>
-<h3 id="2-创建Concurrent-Dispatch-Queue"><a href="#2-创建Concurrent-Dispatch-Queue" class="headerlink" title="2. 创建Concurrent Dispatch Queue"></a>2. 创建Concurrent Dispatch Queue</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue =</div><div class="line">  dispatch_queue_create(“com.ConcurrentQueue”,</div><div class="line">    DISPATCH_QUEUE_CONCURRENT);</div></pre></td></tr></table></figure>
+<h3 id="2-创建Concurrent-Dispatch-Queue"><a href="#2-创建Concurrent-Dispatch-Queue" class="headerlink" title="2. 创建Concurrent Dispatch Queue"></a>2. 创建Concurrent Dispatch Queue</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue =</span><br><span class="line">  dispatch_queue_create(“com.ConcurrentQueue”,</span><br><span class="line">    DISPATCH_QUEUE_CONCURRENT);</span><br></pre></td></tr></table></figure>
 <p>Concurrent Dispatch Queue不过创建多少都没有问题，因为Concurrent Dispatch Queue所使用的线程由系统的XNU内核高效管理，不会影响系统性能。</p>
 <h3 id="3-内存管理"><a href="#3-内存管理" class="headerlink" title="3. 内存管理"></a>3. 内存管理</h3><p>由dispatch_queue_create方法生成的Dispatch Queue并不能由ARC来自动管理内存。可以使用dispatch_release、dispatch_retain来手动管理（引用计数式）。<br>但在目前看来，所用的OSX-10.8 开启的ARC已经不需要再用dispatch_release()来做管理。</p>
 <h3 id="4-对于串行队列"><a href="#4-对于串行队列" class="headerlink" title="4:对于串行队列"></a>4:对于串行队列</h3><p>对于串行队列，每创建一个串行队列，系统就会对应创建一个线程，同时这些线程都是并行执行的，只是在串行队列中的任务是串行执行的。大量的创建串行队列会导致大量消耗内存，这是不可取的做法。串行队列的优势在于他是一个线程，所以在操作一个全局数据时候是线程安全的。当想并行执行而不发生数据竞争时候可以用并行队列操作。</p>

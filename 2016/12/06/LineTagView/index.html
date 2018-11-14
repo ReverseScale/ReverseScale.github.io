@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,17 +243,19 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#给大家推荐一个十分常用的封装控件，类似输入法中选词的组件封装，纯手工制作，不足之处，欢迎指点。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>一个类似输入法中选词的组件封装，十分常用。</p>
-<p>viewController 调用方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">myView = <span class="type">LineTagView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>,<span class="number">100</span>, <span class="keyword">self</span>.view.frame.size.width, <span class="number">39</span>))</div><div class="line">myView?.delegate = <span class="keyword">self</span></div><div class="line">myView?.borderColor = <span class="type">UIColor</span>.brownColor()</div><div class="line">myView?.textColor = <span class="type">UIColor</span>.brownColor()</div><div class="line">myView?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">13</span>)</div><div class="line">myView?.itemsArray = [<span class="string">"龟苓膏"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"人参"</span>,<span class="string">"鳖"</span>,<span class="string">"白吃丸吃丸"</span>]</div><div class="line"><span class="keyword">self</span>.view.addSubview(myView!)</div><div class="line">myView?.reloadData()</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
 <hr>
-<p>Delegate &amp;&amp; 更新方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ImagesBrowseViewController</span>:<span class="title">LineTagViewDelegate</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">BtnClickIndex</span><span class="params">(index: Int)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Index-----:\(index)"</span>)</div><div class="line">        myView?.frame = <span class="type">CGRectMake</span>(<span class="number">0</span>,<span class="number">100</span>, <span class="keyword">self</span>.view.frame.size.width / <span class="number">2</span>, <span class="number">42</span>)</div><div class="line">        myView?.itemsArray = [<span class="string">"人参"</span>,<span class="string">"鳖"</span>,<span class="string">"白吃丸吃丸"</span>,<span class="string">"欧赔"</span>,<span class="string">"龟苓膏"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"人参"</span>,<span class="string">"鳖"</span>]</div><div class="line">        myView?.reloadData()</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>一个类似输入法中选词的组件封装，十分常用。</p>
+<p>viewController 调用方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">myView = <span class="type">LineTagView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>,<span class="number">100</span>, <span class="keyword">self</span>.view.frame.size.width, <span class="number">39</span>))</span><br><span class="line">myView?.delegate = <span class="keyword">self</span></span><br><span class="line">myView?.borderColor = <span class="type">UIColor</span>.brownColor()</span><br><span class="line">myView?.textColor = <span class="type">UIColor</span>.brownColor()</span><br><span class="line">myView?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">13</span>)</span><br><span class="line">myView?.itemsArray = [<span class="string">"龟苓膏"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"人参"</span>,<span class="string">"鳖"</span>,<span class="string">"白吃丸吃丸"</span>]</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(myView!)</span><br><span class="line">myView?.reloadData()</span><br></pre></td></tr></table></figure>
+<hr>
+<p>Delegate &amp;&amp; 更新方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ImagesBrowseViewController</span>:<span class="title">LineTagViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">BtnClickIndex</span><span class="params">(index: Int)</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Index-----:\(index)"</span>)</span><br><span class="line">        myView?.frame = <span class="type">CGRectMake</span>(<span class="number">0</span>,<span class="number">100</span>, <span class="keyword">self</span>.view.frame.size.width / <span class="number">2</span>, <span class="number">42</span>)</span><br><span class="line">        myView?.itemsArray = [<span class="string">"人参"</span>,<span class="string">"鳖"</span>,<span class="string">"白吃丸吃丸"</span>,<span class="string">"欧赔"</span>,<span class="string">"龟苓膏"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"华佗金散"</span>,<span class="string">"鹤顶红"</span>,<span class="string">"人参"</span>,<span class="string">"鳖"</span>]</span><br><span class="line">        myView?.reloadData()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <p>效果截图：（自适应）</p>
 <div align="left"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/60535316.jpg" width="50%" height="50%"></div>
 
 <hr>
-<div align="center">LineTagView滚动标签:<br><a href="https://github.com/ReverseScale/LineTagView/tree/master" target="_blank" rel="external"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%"></a></div>
+<div align="center">LineTagView滚动标签:<br><a href="https://github.com/ReverseScale/LineTagView/tree/master" target="_blank" rel="noopener"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%"></a></div>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

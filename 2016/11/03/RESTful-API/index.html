@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，指南/'>博客，指南</a>
+    <a href="/tags/博客，指南/">博客，指南</a>
     
     
 </span>
@@ -243,27 +243,29 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备……）。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>为了方便不同的前端设备与后端进行通信，必须有一种统一的机制。这导致API构架的流行，甚至出现”API First”的设计思想。RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇《理解RESTful架构》，探讨如何理解这个概念。<br>今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>为了方便不同的前端设备与后端进行通信，必须有一种统一的机制。这导致API构架的流行，甚至出现”API First”的设计思想。RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇《理解RESTful架构》，探讨如何理解这个概念。<br>今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。</p>
 <h3 id="一、协议"><a href="#一、协议" class="headerlink" title="一、协议"></a>一、协议</h3><p>API与用户的通信协议，总是使用HTTPs协议。</p>
 <h3 id="二、域名"><a href="#二、域名" class="headerlink" title="二、域名"></a>二、域名</h3><p>应该尽量将API部署在专用域名之下。</p>
 <blockquote>
-<p><a href="https://api.example.com" target="_blank" rel="external">https://api.example.com</a></p>
+<p><a href="https://api.example.com" target="_blank" rel="noopener">https://api.example.com</a></p>
 </blockquote>
 <p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。</p>
 <blockquote>
-<p><a href="https://example.org/api/" target="_blank" rel="external">https://example.org/api/</a></p>
+<p><a href="https://example.org/api/" target="_blank" rel="noopener">https://example.org/api/</a></p>
 </blockquote>
 <h3 id="三、版本（Versioning）"><a href="#三、版本（Versioning）" class="headerlink" title="三、版本（Versioning）"></a>三、版本（Versioning）</h3><p>应该将API的版本号放入URL。</p>
 <blockquote>
-<p><a href="https://api.example.com/v1/" target="_blank" rel="external">https://api.example.com/v1/</a></p>
+<p><a href="https://api.example.com/v1/" target="_blank" rel="noopener">https://api.example.com/v1/</a></p>
 </blockquote>
 <p>另一种做法是，将版本号放在HTTP头信息中，但不如放入URL方便和直观。Github采用这种做法。</p>
 <h3 id="四、路径（Endpoint）"><a href="#四、路径（Endpoint）" class="headerlink" title="四、路径（Endpoint）"></a>四、路径（Endpoint）</h3><p>路径又称”终点”（endpoint），表示API的具体网址。<br>在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的”集合”（collection），所以API中的名词也应该使用复数。<br>举例来说，有一个API提供动物园（zoo）的信息，还包括各种动物和雇员的信息，则它的路径应该设计成下面这样。</p>
 <blockquote>
 <ul>
-<li><a href="https://api.example.com/v1/zoos" target="_blank" rel="external">https://api.example.com/v1/zoos</a></li>
-<li><a href="https://api.example.com/v1/animals" target="_blank" rel="external">https://api.example.com/v1/animals</a></li>
-<li><a href="https://api.example.com/v1/employees" target="_blank" rel="external">https://api.example.com/v1/employees</a></li>
+<li><a href="https://api.example.com/v1/zoos" target="_blank" rel="noopener">https://api.example.com/v1/zoos</a></li>
+<li><a href="https://api.example.com/v1/animals" target="_blank" rel="noopener">https://api.example.com/v1/animals</a></li>
+<li><a href="https://api.example.com/v1/employees" target="_blank" rel="noopener">https://api.example.com/v1/employees</a></li>
 </ul>
 </blockquote>
 <h3 id="五、HTTP动词"><a href="#五、HTTP动词" class="headerlink" title="五、HTTP动词"></a>五、HTTP动词</h3><p>对于资源的具体操作类型，由HTTP动词表示。<br>常用的HTTP动词有下面五个（括号里是对应的SQL命令）。</p>
@@ -343,16 +345,16 @@
 <h3 id="十、Hypermedia-API"><a href="#十、Hypermedia-API" class="headerlink" title="十、Hypermedia API"></a>十、Hypermedia API</h3><p>RESTful API最好做到Hypermedia，即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么。</p>
 <p>比如，当用户向api.example.com的根目录发出请求，会得到这样一个文档。</p>
 <blockquote>
-<p>{“link”: {<br>  “rel”:   “collection <a href="https://www.example.com/zoos" target="_blank" rel="external">https://www.example.com/zoos</a>“,<br>  “href”:  “<a href="https://api.example.com/zoos" target="_blank" rel="external">https://api.example.com/zoos</a>“,<br>  “title”: “List of zoos”,<br>  “type”:  “application/vnd.yourformat+json”<br>}}</p>
+<p>{“link”: {<br>  “rel”:   “collection <a href="https://www.example.com/zoos&quot;" target="_blank" rel="noopener">https://www.example.com/zoos&quot;</a>,<br>  “href”:  “<a href="https://api.example.com/zoos&quot;" target="_blank" rel="noopener">https://api.example.com/zoos&quot;</a>,<br>  “title”: “List of zoos”,<br>  “type”:  “application/vnd.yourformat+json”<br>}}</p>
 </blockquote>
 <p>上面代码表示，文档中有一个link属性，用户读取这个属性就知道下一步该调用什么API了。rel表示这个API与当前网址的关系（collection关系，并给出该collection的网址），href表示API的路径，title表示API的标题，type表示返回类型。</p>
 <p>Hypermedia API的设计被称为HATEOAS。Github的API就是这种设计，访问api.github.com会得到一个所有可用API的网址列表。</p>
 <blockquote>
-<p>{ “current_user_url”: “<a href="https://api.github.com/user" target="_blank" rel="external">https://api.github.com/user</a>“, “authorizations_url”: “<a href="https://api.github.com/authorizations" target="_blank" rel="external">https://api.github.com/authorizations</a>“, // … }</p>
+<p>{ “current_user_url”: “<a href="https://api.github.com/user&quot;" target="_blank" rel="noopener">https://api.github.com/user&quot;</a>, “authorizations_url”: “<a href="https://api.github.com/authorizations&quot;" target="_blank" rel="noopener">https://api.github.com/authorizations&quot;</a>, // … }</p>
 </blockquote>
 <p>从上面可以看到，如果想获取当前用户的信息，应该去访问api.github.com/user，然后就得到了下面结果。</p>
 <blockquote>
-<p>{ “message”: “Requires authentication”, “documentation_url”: “<a href="https://developer.github.com/v3" target="_blank" rel="external">https://developer.github.com/v3</a>“ }</p>
+<p>{ “message”: “Requires authentication”, “documentation_url”: “<a href="https://developer.github.com/v3&quot;" target="_blank" rel="noopener">https://developer.github.com/v3&quot;</a> }</p>
 </blockquote>
 <p>上面代码表示，服务器给出了提示信息，以及文档的网址。</p>
 <h3 id="十一、其他"><a href="#十一、其他" class="headerlink" title="十一、其他"></a>十一、其他</h3><p>（1）API的身份认证应该使用OAuth 2.0框架。</p>

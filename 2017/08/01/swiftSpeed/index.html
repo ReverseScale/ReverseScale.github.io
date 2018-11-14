@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#这两天 Uber 的开发团队在一个大会上分享了用 Swift 3 重写客户端的过程, 视频里介绍了一个很黑科技的技巧, 可以极大地加快编译速度, 我自己试了一下之后发现确实有效.</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>Uber 的开发团队视频：<a href="https://www.skilled.io/u/swiftsummit/swift-with-a-hundred-engineers" target="_blank" rel="external">https://www.skilled.io/u/swiftsummit/swift-with-a-hundred-engineers</a></p>
+<a id="more"></a><!--more-->
+<hr>
+<p>Uber 的开发团队视频：<a href="https://www.skilled.io/u/swiftsummit/swift-with-a-hundred-engineers" target="_blank" rel="noopener">https://www.skilled.io/u/swiftsummit/swift-with-a-hundred-engineers</a></p>
 <p>Uber 的开发团队偶然发现如果把所有 Model 文件全部合并到一个文件去编译, 那编译时间会从 1min 35s 减少到 17s, 那么我们如果把所有代码文件都合并到一起, 那就可以极大地优化编译速度了.</p>
 <p>WHO(Whole-Module-Optimization) 也会把文件合并起来再进行编译, 实际使用时我们发现编译虽然快了, 但对于编译时间的减少还是远没有直接把文件合并到一起那么有效. 主要原因是因为 WHO 除了合并文件之外, 还会在预编译阶段做这些事情:</p>
 <blockquote>

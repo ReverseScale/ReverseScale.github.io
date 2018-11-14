@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,10 +243,12 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#dispatch_sync(),同步添加操作。他是等待添加进队列里面的操作完成之后再继续执行。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue = dispatch_queue_create(<span class="string">"my.concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"1"</span>);</div><div class="line">    <span class="built_in">dispatch_sync</span>(concurrentQueue, ^()&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"2"</span>);</div><div class="line">        [<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">10</span>];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>);</div><div class="line">    &#125;);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>);</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
+<hr>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue = dispatch_queue_create(<span class="string">"my.concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"1"</span>);</span><br><span class="line">    <span class="built_in">dispatch_sync</span>(concurrentQueue, ^()&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"2"</span>);</span><br><span class="line">        [<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">10</span>];</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>);</span><br></pre></td></tr></table></figure>
 <p>输出 ：<br>11:36:25.313 GCDSeTest[544:303] 1<br>11:36:25.313 GCDSeTest[544:303] 2<br>11:36:30.313 GCDSeTest[544:303] 3//模拟长时间操作<br>11:36:30.314 GCDSeTest[544:303] 4</p>
 <hr>
-<p>dispatch_async ,异步添加进任务队列，它不会做任何等待<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue = dispatch_queue_create(<span class="string">"my.concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"1"</span>);</div><div class="line">    <span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"2"</span>);</div><div class="line">        [<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">5</span>];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>);</div><div class="line">    &#125;);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>);</div></pre></td></tr></table></figure></p>
+<p>dispatch_async ,异步添加进任务队列，它不会做任何等待<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue = dispatch_queue_create(<span class="string">"my.concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"1"</span>);</span><br><span class="line">    <span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"2"</span>);</span><br><span class="line">        [<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">5</span>];</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>);</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br>11:42:43.820 GCDSeTest[568:303] 1<br>11:42:43.820 GCDSeTest[568:303] 4<br>11:42:43.820 GCDSeTest[568:1003] 2<br>11:42:48.821 GCDSeTest[568:1003] 3//模拟长时间操作时间</p>
 
             <div class="clearfix"></div>

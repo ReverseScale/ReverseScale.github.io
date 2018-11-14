@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#当iPhone 5s发布时我已经开始开发Runtime这个程序，并且从Apple那儿学到M7“motion co-processor”的相关知识。我想写写作为一个开发者都喜欢怎么用它，而不是介绍M7是什么或者如何工作。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>目前已经有一些好文章谈论M7可以干什么，以及我们相信它的工作，但从一个开发者角度来讲，M7提供了一个非常好的追踪用户移动时的脚步以及活动类型的方式。<br>M7的API是Core Motion框架的一部分。使用Core Motion追踪用户的脚步和活动变为可能，但是有很多困难，并且需要更多电量。我们和两个直接给我们数据的新类交互，而不是自己计算从加速计和陀螺仪中获得的数据。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>目前已经有一些好文章谈论M7可以干什么，以及我们相信它的工作，但从一个开发者角度来讲，M7提供了一个非常好的追踪用户移动时的脚步以及活动类型的方式。<br>M7的API是Core Motion框架的一部分。使用Core Motion追踪用户的脚步和活动变为可能，但是有很多困难，并且需要更多电量。我们和两个直接给我们数据的新类交互，而不是自己计算从加速计和陀螺仪中获得的数据。</p>
 <hr>
 <h1 id="记载步数"><a href="#记载步数" class="headerlink" title="记载步数"></a>记载步数</h1><p>记得我做第一款运动检测软件时，根据产品需求把大多数的经历放在精准的测量和人性的设计上，经过一系列的艰苦尝试后终于完成了把GPS和iPhone传感器的协调封装，当我天真的以为这样就结束了的时候，长时间的计算带来的庞大能耗成为了新的痛苦源泉，当然也有好的一面，我在当时尝试了使用限制线程，为以后的线程开发提供了基础。<br>不过现在好了，苹果提出了M7协处理器的概念，CMStepCounter提供给我们当用户带着设备时所走的步数。这个类里面只有几个方法。有一个类方法告诉你设备是否支持记步功能，亦称M7是否已经安装。还有两个方法用来开始、结束更新步数。还有一个方法用来根据起始日期查询已走步数的历史记录。</p>
 <p>我们首先讨论一下获取步数更新。当你的程序正在运行时，每当达到一定的步数，你可以让iOS执行一个block。当用户跑动时，Runtime就使用这个方法更新屏幕码表。根据我的经验，这个更新会根据你的意愿分发。</p>

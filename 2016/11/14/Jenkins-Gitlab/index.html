@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#我们选择Jenkins作为持续集成工具，其优点是提供web GUI配置界面，方便配置，还可以安装很多第三方插件（plugin）进行定制与扩展，功能强大。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>选择Gitlab作为git server。Gitlab的功能和Github差不多，但是是开源的，可以用来搭建私有git server，也提供非常强大的web GUI，比如开发者互相review源代码的时候就会很方便。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>选择Gitlab作为git server。Gitlab的功能和Github差不多，但是是开源的，可以用来搭建私有git server，也提供非常强大的web GUI，比如开发者互相review源代码的时候就会很方便。</p>
 <p>本文首先介绍整个系统的结构，然后再一一叙述各个组件的安装及使用方法。</p>
 <h3 id="1-系统概览"><a href="#1-系统概览" class="headerlink" title="1.系统概览"></a>1.系统概览</h3><p>系统结构如下图所示:<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-14/25165161.jpg" alt=""><br>系统的工作流程大概分为以下几步:</p>
 <ol>
@@ -266,7 +268,7 @@
 <pre><code>$ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -$ sudo sh -c &apos;echo deb http://pkg.jenkins-ci.org/debian binary/ &gt; /etc/apt/sources.list.d/jenkins.list&apos;$ sudo apt-get update$ sudo apt-get install jenkins
 </code></pre><p>即可以得到最新版的jenkins。</p>
 <p>Jenkins安装完毕后，可以通过浏览器访问其Dashboard，例如192.168.16.183：8080，IP地址即为Jenkins所在机器的IP地址。</p>
-<ol>
+<ol start="2">
 <li>Jenkins插件安装</li>
 </ol>
 <p>Jenkins其实没有什么需要特别配置的，由于这次任务中需要利用Jenkins与git，gitlab协作，所以需要安装一些插件。在主面板上点击Manage Jenkins -&gt; Manage Plugins。</p>
@@ -275,12 +277,12 @@
 <p>要让Jenkins可以自动build git repo中的代码，需要安装GIT Client Plugin和GIT Plugin。</p>
 <p>要想Jenkins可以收到Gitlab发来的hook从而自动build，需要安装 Gitlab Hook Plugin。</p>
 <p>要让Jenkins可以在build完成之后根据TAP（test anything protocol）文件生成graph，需要安装 TAP Plugin。</p>
-<ol>
+<ol start="3">
 <li>Jenkins Job</li>
 </ol>
 <p>我们尝试新建一个Jenkins Job，必须填的内容不是很多，而且每一项后面都有意一个问号，点击后会有关于这项的一些提示。</p>
 <p>（1）首先是Project name；</p>
-<p>（2）然后在Source Code Management 中选择Git，我们只需要提供Repository URL即可，这个URL可以是Jenkins机器上的一个本地repo，例如/home/woody/repo；也可以是一个远程机器上的repo，例如Gitlab上通过ssh连接的repo： git@192.168.16.194:user/test_gitlab_repo.git</p>
+<p>（2）然后在Source Code Management 中选择Git，我们只需要提供Repository URL即可，这个URL可以是Jenkins机器上的一个本地repo，例如/home/woody/repo；也可以是一个远程机器上的repo，例如Gitlab上通过ssh连接的repo： <a href="mailto:git@192.168.16.194" target="_blank" rel="noopener">git@192.168.16.194</a>:user/test_gitlab_repo.git</p>
 <p>注意，我们需要在Jenkins机器上设置Git username 和 email，不然后面会build不成功。</p>
 <p>（3）下面需要在Build中选择Add build step，这里以最熟悉的shell为例，选择Execute shell。Jenkins的工作原理很简单，就是从刚才的Repository URL里clone到当前的一个workspace中并切换到最新的branch然后执行Execute shell中的command，如果每条command都返回0则build成功，否则则算失败。 所以我们的shell command可以是简单的编译指令例如：</p>
 <pre><code>#!/bin/shmake
@@ -298,7 +300,7 @@
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-14/42618697.jpg" alt=""></p>
 <p>这幅图显示了每次build中成功与失败次数的走势。</p>
 <p>想要得到这张图的话，需要在Configure的Post-build Action中选择Add post-build action -&gt; Publish TAP result。 然后在test result 中输入你的TAP result文件的路径，例如tap.tap指的就是当前文件下的tap.tap文件。也就是说在你的Execute Shell中，你需要在编译完成后根据结果自己生成一个TAP文件，TAP的语法可以参考Jenkins TAP Plugin的说明。</p>
-<ol>
+<ol start="4">
 <li>搭建Jenkins Master - Slaves 架构</li>
 </ol>
 <p>我们在配置Jenkins时，有一个# of executors 选项，这项代表了Jenkins可以同时处理的Job的数量。</p>
@@ -319,7 +321,7 @@
 <p>Gitlab是开源的，我们可以利用Gitlab搭建自己私有的git server。</p>
 <p>我们可以在bitnami上下载 Gitlab 。</p>
 <p>公司有现成的Gitlab，所以我没有尝试Gitlab的安装，看上去成功安装并不容易。</p>
-<p>为了测试，还是在虚拟机环境下配置了Gitlab，直接下载了Virtual Machine镜像，由于镜像是Vmware的，还需要将其转为Virtual Box镜像，方法参见<a href="http://wiki.bitnami.com/Virtual_Appliances_Quick_Start_Guide。" target="_blank" rel="external">http://wiki.bitnami.com/Virtual_Appliances_Quick_Start_Guide。</a></p>
+<p>为了测试，还是在虚拟机环境下配置了Gitlab，直接下载了Virtual Machine镜像，由于镜像是Vmware的，还需要将其转为Virtual Box镜像，方法参见<a href="http://wiki.bitnami.com/Virtual_Appliances_Quick_Start_Guide。" target="_blank" rel="noopener">http://wiki.bitnami.com/Virtual_Appliances_Quick_Start_Guide。</a></p>
 <p>在虚拟机上跑起来后，发现是一个没有GUI的ubuntu。。。系统用户名和密码都是bitnami。</p>
 <p>我们还可以通过访问其IP地址登入Gitlab，初始用户名为user，密码为bitnami，看上去和github很象。</p>
 <p>由于在这次任务中Jenkins需要从Gitlab中获取文件并build，所以我们需要在Gitlab的工程中设置一些东西。</p>
@@ -327,7 +329,7 @@
 <p>如果Jenkins中使用slave，还需要将slave的公钥加入deloy keys中。 因为slave的工作原理是收到master的指示直接clone repository。</p>
 <p>然后是一个叫Web Hooks的东东。还记得我们在Jenkins中安装过Gitlab Hook Plugin么，如果设置了Web Hooks，Gitlab就会在每次push上来后发送一条消息到指定的地址（即hook的地址），Jenkins Gitlab Hook Plugin收到消息后立即build。</p>
 <p>不过我按照Gitlab Hook Plugin的说明设置里hooks后并没有什么作用，可能是那个插件的bug吧。。</p>
-<p>后来大哥告诉我一个巧妙的办法，就是将Jenkins Job里的build now连接作为hook地址，例如<a href="http://192.168.16.183:8080/job/test_gitlab/build?delay=0sec" target="_blank" rel="external">http://192.168.16.183:8080/job/test_gitlab/build?delay=0sec</a></p>
+<p>后来大哥告诉我一个巧妙的办法，就是将Jenkins Job里的build now连接作为hook地址，例如<a href="http://192.168.16.183:8080/job/test_gitlab/build?delay=0sec" target="_blank" rel="noopener">http://192.168.16.183:8080/job/test_gitlab/build?delay=0sec</a></p>
 <p>这样每次Gitlab收到push后就会促使Jenkins立即build。</p>
 <p>4.distcc的安装与配置</p>
 <p>distcc是一个分布式的编译器，他可以将编译任务分配给多个其他机器上的destccd-daemon，从而加速编译过程。</p>
@@ -336,7 +338,7 @@
 </ol>
 <p>ubuntu下distcc很容易安装</p>
 <pre><code>$ sudo aptitude install distcc
-</code></pre><ol>
+</code></pre><ol start="2">
 <li>配置</li>
 </ol>
 <p>distcc分为前端和守护进程，前端的用法和gcc差不多，用来编译源代码文件。</p>

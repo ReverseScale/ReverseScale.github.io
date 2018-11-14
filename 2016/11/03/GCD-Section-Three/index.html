@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,11 +243,13 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#Main Dispatch Queue是在主线程中执行任务的Dispatch Queue。因为主线程只有1个，所以Main Dispatch Queue是Serial Dispatch Queue。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>追加到Main Dispatch Queue中的任务将在主线程的RunLoop中执行。<br>因为是在主线程中执行，所以应该只将用户界面更新等一些必须在主线程中执行的任务追加到Main Dispatch Queue中。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> dispatch_main_queue = dispatch_get_main_queue();</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
+<hr>
+<p>追加到Main Dispatch Queue中的任务将在主线程的RunLoop中执行。<br>因为是在主线程中执行，所以应该只将用户界面更新等一些必须在主线程中执行的任务追加到Main Dispatch Queue中。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> dispatch_main_queue = dispatch_get_main_queue();</span><br></pre></td></tr></table></figure>
 <hr>
 <p>Global Dispatch Queue是所有应用程序都能使用的Concurrent Dispatch Queue。<br>大多数情况下，可以不必通过dispatch_queue_create函数生成Concurrent Dispatch Queue，而是只要获取Global Dispatch Queue使用即可。<br>Global Dispatch Queue有4个优先级，分别是：High、Default、Low、Background。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> dispatch_global_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> dispatch_global_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,11 +243,13 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#基于iOS的异步处理进行的封装功能，使用简单，逻辑清晰，欢迎收藏。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>异步处理封装</p>
-<p>使用方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> async = <span class="type">Async</span>()</div><div class="line">        async.task().execute &#123; (task) <span class="keyword">in</span></div><div class="line">            task.ud[<span class="string">"key01"</span>] = <span class="string">"async01"</span></div><div class="line">            task.complete(<span class="literal">true</span>)</div><div class="line">        &#125;</div><div class="line">        async.task().execute&#123; task <span class="keyword">in</span></div><div class="line">            task.ud[<span class="string">"key02"</span>] = <span class="string">"async02"</span></div><div class="line">            task.complete(<span class="literal">true</span>)</div><div class="line">        &#125;</div><div class="line">        async.task(<span class="string">"home"</span>).execute(&#123; (task) <span class="keyword">in</span></div><div class="line">            task.ud[<span class="string">"key03"</span>] = <span class="string">"async03"</span></div><div class="line">            task.complete(<span class="literal">true</span>)</div><div class="line">        &#125;).cancel(&#123; task <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(<span class="string">"Cancel Async"</span>)</div><div class="line">        &#125;)</div><div class="line">        async.run &#123; async <span class="keyword">in</span></div><div class="line">            async.tasks.forEach&#123; task <span class="keyword">in</span></div><div class="line">                <span class="keyword">if</span> <span class="keyword">let</span> dic = task.ud[<span class="string">"key01"</span>]&#123;</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">let</span> sessions = task.ud[<span class="string">"key02"</span>]&#123;</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">let</span> homeSearchs = task.ud[<span class="string">"key03"</span>]&#123;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
 <hr>
-<div align="center">Async 异步处理封装:<br><a href="https://github.com/ReverseScale/Swift-Async" target="_blank" rel="external"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
+<p>异步处理封装</p>
+<p>使用方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> async = <span class="type">Async</span>()</span><br><span class="line">        async.task().execute &#123; (task) <span class="keyword">in</span></span><br><span class="line">            task.ud[<span class="string">"key01"</span>] = <span class="string">"async01"</span></span><br><span class="line">            task.complete(<span class="literal">true</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        async.task().execute&#123; task <span class="keyword">in</span></span><br><span class="line">            task.ud[<span class="string">"key02"</span>] = <span class="string">"async02"</span></span><br><span class="line">            task.complete(<span class="literal">true</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        async.task(<span class="string">"home"</span>).execute(&#123; (task) <span class="keyword">in</span></span><br><span class="line">            task.ud[<span class="string">"key03"</span>] = <span class="string">"async03"</span></span><br><span class="line">            task.complete(<span class="literal">true</span>)</span><br><span class="line">        &#125;).cancel(&#123; task <span class="keyword">in</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"Cancel Async"</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">        async.run &#123; async <span class="keyword">in</span></span><br><span class="line">            async.tasks.forEach&#123; task <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> dic = task.ud[<span class="string">"key01"</span>]&#123;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">let</span> sessions = task.ud[<span class="string">"key02"</span>]&#123;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">let</span> homeSearchs = task.ud[<span class="string">"key03"</span>]&#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<div align="center">Async 异步处理封装:<br><a href="https://github.com/ReverseScale/Swift-Async" target="_blank" rel="noopener"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
@@ -259,8 +261,8 @@
     </a>
     
     
-    <a class="pull-right" href="/2016/12/06/WXAppZhiHuDo/">
-        零基础学习开发小程序 实战篇 →
+    <a class="pull-right" href="/2016/12/06/MosaicImage/">
+        Swift 图片打码功能实现 →
     </a>
     
 </nav>

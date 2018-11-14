@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,14 +243,16 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#本文为大家整理了iOS开发CGRectInset、CGRectOffset等等的对比。frame指的是：该view在父view坐标系统中的位置和大小（参照点是父亲的坐标系统）。bounds指的是：该view在本身坐标系统中 的位置和大小（参照点是本身坐标系统）。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="1、CGRectInset"><a href="#1、CGRectInset" class="headerlink" title="1、CGRectInset"></a>1、CGRectInset</h4><p>CGRect CGRectInset ( CGRect rect, CGFloat dx, CGFloat dy );<br>该结构体的应用是以原rect为中心，再参考dx，dy，进行缩放或者放大。</p>
+<a id="more"></a><!--more-->
+<hr>
+<h4 id="1、CGRectInset"><a href="#1、CGRectInset" class="headerlink" title="1、CGRectInset"></a>1、CGRectInset</h4><p>CGRect CGRectInset ( CGRect rect, CGFloat dx, CGFloat dy );<br>该结构体的应用是以原rect为中心，再参考dx，dy，进行缩放或者放大。</p>
 <p>图中的每一个矩形都是以上一个矩形作为参考矩形。所以下一矩形（比如黄色矩形对绿色矩形来说是下一个矩形）都比上一个矩形要小。具体小多少都是要参照dx和dy来判定的。</p>
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-5/69387521.jpg" alt=""></p>
 <hr>
 <h4 id="2、CGRectOffset"><a href="#2、CGRectOffset" class="headerlink" title="2、CGRectOffset"></a>2、CGRectOffset</h4><p>CGRect CGRectOffset( CGRect rect, CGFloat dx, CGFloat dy );<br>相对于源矩形原点rect（左上角的点）沿x轴和y轴偏移, 再rect基础上沿x轴和y轴偏移</p>
 <p>float offset = 125.0; CGRect r1 = CGRectMake(100, 100, 5, 5); CGRect r2 = CGRectOffset(r1, offset, offset);</p>
 <hr>
-<h4 id="3、frame和dounds"><a href="#3、frame和dounds" class="headerlink" title="3、frame和dounds"></a>3、frame和dounds</h4><p>frame和bounds是UIView中的两个属性(property)。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">-(<span class="built_in">CGRect</span>)frame&#123;</div><div class="line"><span class="keyword">return</span> <span class="built_in">CGRectMake</span>(<span class="keyword">self</span>.frame.origin.x,<span class="keyword">self</span>.frame.origin.y,<span class="keyword">self</span>.frame.size.width,<span class="keyword">self</span>.frame.size.height);</div><div class="line">&#125;</div><div class="line">-(<span class="built_in">CGRect</span>)bounds&#123;</div><div class="line"><span class="keyword">return</span> <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.frame.size.width,<span class="keyword">self</span>.frame.size.height);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="3、frame和dounds"><a href="#3、frame和dounds" class="headerlink" title="3、frame和dounds"></a>3、frame和dounds</h4><p>frame和bounds是UIView中的两个属性(property)。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">CGRect</span>)frame&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">CGRectMake</span>(<span class="keyword">self</span>.frame.origin.x,<span class="keyword">self</span>.frame.origin.y,<span class="keyword">self</span>.frame.size.width,<span class="keyword">self</span>.frame.size.height);</span><br><span class="line">&#125;</span><br><span class="line">-(<span class="built_in">CGRect</span>)bounds&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.frame.size.width,<span class="keyword">self</span>.frame.size.height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>frame指的是：该view在父view坐标系统中的位置和大小。（参照点是父亲的坐标系统）</p>
 <p>bounds指的是：该view在本身坐标系统中 的位置和大小。（参照点是本身坐标系统）</p>
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-5/48888175.jpg" alt=""></p>

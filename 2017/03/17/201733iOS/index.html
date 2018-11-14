@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#两年前我发布了27个iOS开源库，让你的开发坐上火箭吧。今年再送出33个。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img src="http://p1.bqimg.com/567571/e9491c0ad8327f92.jpg" alt=""><br>如果有 15.5 万人 很担心能否跨越网络上连山排海般的文字找到最棒的 iOS 开源库，那我来传递。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p><img src="http://p1.bqimg.com/567571/e9491c0ad8327f92.jpg" alt=""><br>如果有 15.5 万人 很担心能否跨越网络上连山排海般的文字找到最棒的 iOS 开源库，那我来传递。</p>
 <hr>
 <h4 id="现在让我们来看看吧"><a href="#现在让我们来看看吧" class="headerlink" title="现在让我们来看看吧"></a>现在让我们来看看吧</h4><p><img src="http://i1.piimg.com/567571/6d11102ff1aed059.png" alt=""></p>
 <p>从这33款作品中不难看出，国内外大神们对Swift的使用日益热衷，我想这与苹果自身的努力是分不开的，我也很庆幸能够尽早的掌握这门优雅的语言。</p>
@@ -263,8 +265,8 @@
 <p>Moya/Moya - 用 Swift 写的网络抽象层(当年Swift没有这个三方，我开始自己写的，总觉得不是很好，现在有Moya了)</p>
 </blockquote>
 <hr>
-<p>4.SwiftyJSON，作者是 Pinglin Tang<br>Swift 界 JSON 解析之王。<br>把这段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if let statusesArray = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]],</div><div class="line">    let user = statusesArray[0][&quot;user&quot;] as? [String: Any],</div><div class="line">    let username = user[&quot;name&quot;] as? String &#123;</div><div class="line">    // Finally we got the username</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>变成了这段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let json = JSON(data: dataFromNetworking)</div><div class="line">if let userName = json[0][&quot;user&quot;][&quot;name&quot;].string &#123;</div><div class="line">  // Now you got your value</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.SwiftyJSON，作者是 Pinglin Tang<br>Swift 界 JSON 解析之王。<br>把这段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if let statusesArray = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]],</span><br><span class="line">    let user = statusesArray[0][&quot;user&quot;] as? [String: Any],</span><br><span class="line">    let username = user[&quot;name&quot;] as? String &#123;</span><br><span class="line">    // Finally we got the username</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>变成了这段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let json = JSON(data: dataFromNetworking)</span><br><span class="line">if let userName = json[0][&quot;user&quot;][&quot;name&quot;].string &#123;</span><br><span class="line">  // Now you got your value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>自动替你完成了可选值的拆包。</p>
 <blockquote>
 <p>SwiftyJSON/SwiftyJSON - 在 Swift 里处理 JSON 更好的方式</p>
@@ -457,7 +459,7 @@
 <p>6.Firebase Analytics [分析] -&gt; pod ‘Firebase/Core’</p>
 <p>7.AsyncDisplayKit [异步 UI SDK] -&gt; pod ‘AsyncDisplayKit’</p>
 <p>8.DZNEmptyDataSet [空状态模式] -&gt; pod ‘DZNEmptyDataSet’</p>
-<p>9.Chameleon [扁平化颜色框架] -&gt; pod ‘ChameleonFramework/Swift’, :Git =&gt; ‘<a href="https://github.com/ViccAlexander/Chameleon.git" target="_blank" rel="external">https://github.com/ViccAlexander/Chameleon.git</a>‘</p>
+<p>9.Chameleon [扁平化颜色框架] -&gt; pod ‘ChameleonFramework/Swift’, :Git =&gt; ‘<a href="https://github.com/ViccAlexander/Chameleon.git&#39;" target="_blank" rel="noopener">https://github.com/ViccAlexander/Chameleon.git&#39;</a></p>
 <p>10.PermissionScope [iOS 权限框架] -&gt; pod ‘PermissionScope’</p>
 <p>11.FileKit [文件管理] -&gt; pod ‘FileKit’, ‘~&gt; 4.0.0’</p>
 <p>12.SwiftyUserDefaults [user defaults 帮手] -&gt; pod ‘SwiftyUserDefaults’</p>

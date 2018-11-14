@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#当我们开发iOS应用时，好的性能对我们的App来说是很重要的。你的用户也希望如此，但是如果你的app表现的反应迟钝或者很慢就会让你得到不好的评论。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>这篇文章来自iOS Tutorial Team 成员 Marcelo Fabri, 他是 Movile 的一个iOS开发者. Check out his personal website or follow him on Twitter.(原文地址:<a href="https://www.raywenderlich.com/31166/25-ios-app-performance-tips-tricks" target="_blank" rel="external">https://www.raywenderlich.com/31166/25-ios-app-performance-tips-tricks</a>)</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>这篇文章来自iOS Tutorial Team 成员 Marcelo Fabri, 他是 Movile 的一个iOS开发者. Check out his personal website or follow him on Twitter.(原文地址:<a href="https://www.raywenderlich.com/31166/25-ios-app-performance-tips-tricks" target="_blank" rel="noopener">https://www.raywenderlich.com/31166/25-ios-app-performance-tips-tricks</a>)</p>
 <hr>
 <p>当我们开发iOS应用时，好的性能对我们的App来说是很重要的。你的用户也希望如此，但是如果你的app表现的反应迟钝或者很慢就会让你得到不好的评论。</p>
 <p>然而，由于IOS设备的限制有时很难工作得很正确。我们开发时有很多需要我们记住这些容易忘记的决定对性能的影响。</p>
@@ -286,7 +288,7 @@
 <h4 id="基础的性能提升"><a href="#基础的性能提升" class="headerlink" title="基础的性能提升"></a>基础的性能提升</h4><p>1）用ARC去管理内存</p>
 <p>ARC是伴随IOS5 一起发布的，它用来消除常见的的内存泄漏。</p>
 <p>ARC是”Automatic Reference Counting”的缩写。它自动管理你代码中的retain/release循环，这样你就不必手动做这事儿了。</p>
-<p>下面这段代码展示了创建一个view的常用代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">UIView *view =[[UIView alloc] init];</div><div class="line">//...</div><div class="line">[self.view addSubview:view];</div><div class="line">[view release];</div></pre></td></tr></table></figure></p>
+<p>下面这段代码展示了创建一个view的常用代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIView *view =[[UIView alloc] init];</span><br><span class="line">//...</span><br><span class="line">[self.view addSubview:view];</span><br><span class="line">[view release];</span><br></pre></td></tr></table></figure></p>
 <p>这里极其容易忘记在代码结束的地方调用release，ARC将会自动的，底层的为你做这些工作。</p>
 <p>除了帮助你你避免内存泄漏，ARC还能保证对象不再使用时立马被回收来提高你的性能。你应该在你的工程里多用ARC。</p>
 <blockquote>
@@ -305,7 +307,7 @@
 <p>如果你不用reuseIdentifier 会怎么样呢？<br>如果你用，你的tableview每显示一行将会配置一个全新的cell。这是非常费事的操作而且绝对会影响你app滚动的性能。</p>
 <p>自从引进了iOS6，你应该为header and footer 视图设置reuseIdentifiers，就像在 UICollectionView’s cells 和 supplementary views（补充视图）一样。</p>
 <p>使用reuseIdentifiers，当你的数据源要求提供一个新的cell给tableview的时候调用这个方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *CellIdentifier = @&quot;Cell&quot;;</div><div class="line">UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *CellIdentifier = @&quot;Cell&quot;;</span><br><span class="line">UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];</span><br></pre></td></tr></table></figure>
 <p>3）可能的时候设置视图为不透明</p>
 <p>如果你有不透明视图（opaque views）–也就是说，没有透明度定义的视图，你应该设置他们的opaque属性为YES。</p>
 <p>为什么？ 这会允许系统以最优的方式绘制你的views。这是一个简单的属性可以在Interface Builder 和代码中设置。</p>
@@ -326,10 +328,10 @@
 <p>你永远不应该在主线程中做任何繁重的工作。这是因为UIKIt的所有工作都在主线程中进行，比如绘画，管理触摸，和响应输出。</p>
 <p>你的app的所有工作都在主线程上进行就会有阻塞主线程的风险，你的app会表现的反应迟钝。这是在App Store里获一星评论的快速途径!（作者卖萌..）</p>
 <p>阻塞主线程最多的情况就是发生在你的app进行I/O操作,包括牵扯到任何需要读写外部资源的任务，比如读取磁盘或者网络</p>
-<p>你可以异步的执行网络任务使用NSURLConnection中的这个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (void)sendAsynchronousRequest:(NSURLRequest *)request queue:(NSOperationQueue *)queue completionHandler:(void (^)(NSURLResponse*, NSData*, NSError*))handler</div></pre></td></tr></table></figure></p>
+<p>你可以异步的执行网络任务使用NSURLConnection中的这个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)sendAsynchronousRequest:(NSURLRequest *)request queue:(NSOperationQueue *)queue completionHandler:(void (^)(NSURLResponse*, NSData*, NSError*))handler</span><br></pre></td></tr></table></figure></p>
 <p>或者使用第三方框架比如 AFNetworking.</p>
 <p>如果你在做任何大开销的操作(比如执行一个耗时的计算，或者读写磁盘)使用Grand Central Dispatch（GCD）或者 NSOperations 和 NSOperationQueues.</p>
-<p>使用GCD的模板如下代码所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line">    // switch to a background thread and perform your expensive operation</div><div class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line">        // switch back to the main thread to update your UI</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>使用GCD的模板如下代码所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">    // switch to a background thread and perform your expensive operation</span><br><span class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        // switch back to the main thread to update your UI</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>这里为什么dispatch_async 嵌套在第一个的里面？这是因为任何UIKit相关的代码都必须在主线程上执行。</p>
 <p>对NSOperation和GCD的详情感兴趣?看看Ray Wenderlich’s Multithreading and Grand Central Dispatch on iOS for Beginners 教程,和 Soheil Azarpour’s How To Use NSOperations and NSOperationQueues 教程。</p>
 <p>6）调整图像视图中的图像尺寸</p>
@@ -367,7 +369,7 @@
 <p>你能缓存些什么呢？缓存的候选项有远程服务器的响应，图片，已计算过的值（比如UITableView的行高）。</p>
 <p>NSURLConnection 根据处理的Http头缓存资源到磁盘或者内存中，你甚至可以手动创建一个NSURLRequest值加载缓存过的值。</p>
 <p>这里有一段很棒的代码，用在任何时候你需要针对一个不大会改变的图片创建一个NSURLRequest。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (NSMutableURLRequest *)imageRequestWithURL:(NSURL *)url &#123;</div><div class="line">   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];</div><div class="line">   request.cachePolicy = NSURLRequestReturnCacheDataElseLoad; // this will make sure the request always returns the cached image</div><div class="line">    request.HTTPShouldHandleCookies = NO;</div><div class="line">    request.HTTPShouldUsePipelining = YES;</div><div class="line">    [request addValue:@&quot;image/*&quot; forHTTPHeaderField:@&quot;Accept&quot;];</div><div class="line">    return request;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+ (NSMutableURLRequest *)imageRequestWithURL:(NSURL *)url &#123;</span><br><span class="line">   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];</span><br><span class="line">   request.cachePolicy = NSURLRequestReturnCacheDataElseLoad; // this will make sure the request always returns the cached image</span><br><span class="line">    request.HTTPShouldHandleCookies = NO;</span><br><span class="line">    request.HTTPShouldUsePipelining = YES;</span><br><span class="line">    [request addValue:@&quot;image/*&quot; forHTTPHeaderField:@&quot;Accept&quot;];</span><br><span class="line">    return request;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果想知道更多关于Http caching，NSURLCache，NSURLConnection等内容，请阅读the NSURLCache entry</p>
 <p>注意，你可以通过NSURLConnection获取取一个URL请求，AFNetworking也可以。有了这个技巧这样你不用改变任何你的网络代码。</p>
 <p>如果要缓存不牵扯到HTTP请求的其他东西，NSCache是很好的选择。</p>
@@ -391,7 +393,7 @@
 <p>有的对象的初始化非常慢–NSDateFormatter 和 NSCalendar是两个例子，但是你不能避免使用它们，当你从 JSON/XML响应中解析日期时。</p>
 <p>避免使用这些对象时的性能瓶颈，试着尽可能的重用这些对象。你可以加入你的类中成为一个属性，也可以创建为静态变量。</p>
 <p>注意如果你选择了第二种方式，这个对象在app运行的时候会一直保持在内存里，像单例一样。</p>
-<p>下面这段代码演示了NSDateFomatter作为一个属性的lazy加载，第一次被调用然后创建它，之后就使用已创建在的实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// in your .h or inside a class extension</div><div class="line">@property (nonatomic, strong) NSDateFormatter *formatter;</div><div class="line">// inside the implementation (.m)</div><div class="line">// When you need, just use self.formatter</div><div class="line">- (NSDateFormatter *)formatter &#123;</div><div class="line">    if (! _formatter) &#123;</div><div class="line">        _formatter = [[NSDateFormatter alloc] init];</div><div class="line">        _formatter.dateFormat = @&quot;EEE MMM dd HH:mm:ss Z yyyy&quot;; // twitter date format</div><div class="line">    &#125;</div><div class="line">    return _formatter;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面这段代码演示了NSDateFomatter作为一个属性的lazy加载，第一次被调用然后创建它，之后就使用已创建在的实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// in your .h or inside a class extension</span><br><span class="line">@property (nonatomic, strong) NSDateFormatter *formatter;</span><br><span class="line">// inside the implementation (.m)</span><br><span class="line">// When you need, just use self.formatter</span><br><span class="line">- (NSDateFormatter *)formatter &#123;</span><br><span class="line">    if (! _formatter) &#123;</span><br><span class="line">        _formatter = [[NSDateFormatter alloc] init];</span><br><span class="line">        _formatter.dateFormat = @&quot;EEE MMM dd HH:mm:ss Z yyyy&quot;; // twitter date format</span><br><span class="line">    &#125;</span><br><span class="line">    return _formatter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>同样要记住设置一个NSDateFormatter的日期格式几乎跟创建一个新的一样慢。因此，如果在你的应用中你频繁需要处理多个日期格式，你的代码应该获利于初始化创建，重用，多个NSDateFormatter对象。</p>
 <p>14） 使用精灵表</p>
 <p>你是一个游戏开发者吗？精灵表是你的好朋友之一.精灵表让绘制比标准屏幕绘制方法更快速，消耗更少的内存。</p>
@@ -413,8 +415,8 @@
 <p>17）适当的设置背景图片</p>
 <p>像iOS编码的其他工作一样，至少有两种不同方式去替换你视图的背景图片。</p>
 <p>你可以设置你的视图的背景颜色为UIColor的colorWithPatternImage创建的颜色。<br>你可以添加一个UIImageView子试图给View<br>如果你有全尺寸的背景图片，你绝对要用UIImageView，因为UIColor的colorWithPatternImage是重复的创建小的模式图片，在这种情况下用UIImageView方式会节约很多内存。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// You could also achieve the same result in Interface Builder</div><div class="line">UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@&quot;background&quot;]];</div><div class="line">[self.view addSubview:backgroundView];</div></pre></td></tr></table></figure>
-<p>尽管如此，如果你计划用模式图片背景，你应该是用UIColor的colorWithPatternImage。它更快一些，而且这种情况不会使用很多内存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@&quot;background&quot;]];</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// You could also achieve the same result in Interface Builder</span><br><span class="line">UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@&quot;background&quot;]];</span><br><span class="line">[self.view addSubview:backgroundView];</span><br></pre></td></tr></table></figure>
+<p>尽管如此，如果你计划用模式图片背景，你应该是用UIColor的colorWithPatternImage。它更快一些，而且这种情况不会使用很多内存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@&quot;background&quot;]];</span><br></pre></td></tr></table></figure></p>
 <p>18）减少你的网络占用</p>
 <p>UIWebView 是非常游泳的.它非常容易用来显示web内容，甚至创建你app的视窗。这些都是标准UIKit 空间很难做到的。</p>
 <p>尽管如此，你可能注意你可以用在你的app中的UIWebView组件并没有Apple的Safari app快。这是Webkit’s的Nitro引擎的限制使用。JIT compilation.</p>
@@ -424,11 +426,11 @@
 <p>想要获取更多的信息，看看WWDC 2012 session #601 – Optimizing Web Content in UIWebViews and Websites on iOS.</p>
 <p>19） 设置阴影路径</p>
 <p>你需要给视图或者layer添加一个阴影,你应该怎么做?</p>
-<p>大多数开发者是添加 QuartzCore框架到工程中,然后写如下代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#import &lt;QuartzCore/QuartzCore.h&gt;</div><div class="line"> // Somewhere later ...</div><div class="line">UIView *view = [[UIView alloc] init];</div><div class="line"> // Setup the shadow ...</div><div class="line">view.layer.shadowOffset = CGSizeMake(-1.0f, 1.0f);</div><div class="line">view.layer.shadowRadius = 5.0f;</div><div class="line">view.layer.shadowOpacity = 0.6;</div></pre></td></tr></table></figure></p>
+<p>大多数开发者是添加 QuartzCore框架到工程中,然后写如下代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;QuartzCore/QuartzCore.h&gt;</span><br><span class="line"> // Somewhere later ...</span><br><span class="line">UIView *view = [[UIView alloc] init];</span><br><span class="line"> // Setup the shadow ...</span><br><span class="line">view.layer.shadowOffset = CGSizeMake(-1.0f, 1.0f);</span><br><span class="line">view.layer.shadowRadius = 5.0f;</span><br><span class="line">view.layer.shadowOpacity = 0.6;</span><br></pre></td></tr></table></figure></p>
 <p>看起来非常简单,是吧?</p>
 <p>不好的是这个方法有一个问题。核心动画必须要先做一幕动画确定视图具体形状之后才渲染阴影，这是非常费事的操作。</p>
 <p>这里有个替代方法让系统更好的渲染，设置阴影路径:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:view.bounds] CGPath];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:view.bounds] CGPath];</span><br></pre></td></tr></table></figure>
 <p>如果你想知道这个内容的更多技巧，Mark Pospesel 写过一篇post about shadowPath.      </p>
 <p>设置阴影路径，iOS不需要总是计算如何绘制阴影。而是用已经计算好的的路径。坏消息是它依赖与你的视图格式，你是视图可能很难计算这个路径。另一个问题是你需要在每次视图的框架改变时更新阴影路径。</p>
 <p>20） 优化你的表格视图</p>
@@ -475,7 +477,7 @@
 <p>NSAutoreleasePool负责释放在代码块中的自动释放对象。通常，它是被UIKit自动调用的。但是也有一些场景我们需要手动创建NSAutoreleasePools。</p>
 <p>举个例子，如果你创建太多的临时对象在你的代码中，你会注意到你的内存用量会增加直到对象被释放掉。问题是内存只有在UIKit排空(drains)自动释放池的时候才能被释放，这意味着内存被占用的时间超过了需要。               </p>
 <p>好消息是你可以在你的@autoreleasepool段中创建临时对象来避免上述情况。代码如下所示。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">NSArray *urls = &lt;# An array of file URLs #&gt;;</div><div class="line">for (NSURL *url in urls) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        NSError *error;</div><div class="line">        NSString *fileContents = [NSString stringWithContentsOfURL:url</div><div class="line">                                         encoding:NSUTF8StringEncoding error:&amp;error];</div><div class="line">        /* Process the string, creating and autoreleasing more objects. */</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NSArray *urls = &lt;# An array of file URLs #&gt;;</span><br><span class="line">for (NSURL *url in urls) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        NSError *error;</span><br><span class="line">        NSString *fileContents = [NSString stringWithContentsOfURL:url</span><br><span class="line">                                         encoding:NSUTF8StringEncoding error:&amp;error];</span><br><span class="line">        /* Process the string, creating and autoreleasing more objects. */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在每次迭代之后会自动释放所有的对象。</p>
 <p>你可以阅读更多关于NSAutoreleasePool的内容Apple’s official documentation.</p>
 <p>24）缓存图像</p>
@@ -485,7 +487,7 @@
 <p>这个方法看起来在系统缓存一个图像对象并指定名字，如果存在则返回对象，如果匹配图像的对象不在缓存中，这个方法会从指定的文件中加载数据，并缓存它，然后返回结果对象。</p>
 <p>作为替代,imageWithContendsOfFile 简单的载入图像并不会缓存。</p>
 <p>这两个方法的的演示片段如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIImage *img = [UIImage imageNamed:@&quot;myImage&quot;]; // caching</div><div class="line">// or</div><div class="line">UIImage *img = [UIImage imageWithContentsOfFile:@&quot;myImage&quot;]; // no caching</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UIImage *img = [UIImage imageNamed:@&quot;myImage&quot;]; // caching</span><br><span class="line">// or</span><br><span class="line">UIImage *img = [UIImage imageWithContentsOfFile:@&quot;myImage&quot;]; // no caching</span><br></pre></td></tr></table></figure>
 <p>如果你加载只使用一次大图片，那就不需要缓存。这种情况imageWithContendsOfFile会非常好,这种方式不会浪费内存来缓存图片。什么时候使用哪一种呢?</p>
 <p>然而，imageNamed 对于要重用的图片来说是更好的选择，这种方法节约了经常的从磁盘加载图片的时间。</p>
 <p>25) 尽可能避免日期格式化器</p>
@@ -493,7 +495,7 @@
 <p>然而，如果你需要更快的速度，你可以使用C代替NSDateFormatter来解析日期。 Sam Soffes写了一篇 blog post about this topic来说明如何用代码来解析 ISO-8601日期串。尽管如此，你可以很容易的修改他的代码例子来适应你的特殊需求。</p>
 <p>噢，听起来很棒，但是你相信有更好的办法吗？</p>
 <p>如果你能控制你所处理日期的格式，尽可能的选择使用 Unix timestamps。Unix时间戳是简单的整数代表从某个起始时间点开始到现在的秒数。这个起始点通常是1970年1月1日 UTC 00:00:00。</p>
-<p>你可以容易的把时间戳转换为NSDate，如下面所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(NSDate*)dateFromUnixTimestamp:(NSTimeInterval)timestamp &#123;</div><div class="line">  return [NSDate dateWithTimeIntervalSince1970:timestamp];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>你可以容易的把时间戳转换为NSDate，如下面所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-(NSDate*)dateFromUnixTimestamp:(NSTimeInterval)timestamp &#123;</span><br><span class="line">  return [NSDate dateWithTimeIntervalSince1970:timestamp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这甚至比C函数更快</p>
 <p>注意，很多WEB APIs返回时间戳是毫秒，因为这对于javascript最终来使用和处理数据是非常常见的。只要记住将这个时间戳除以1000再传递给dateFromUnixTimestamp方法即可。</p>
 

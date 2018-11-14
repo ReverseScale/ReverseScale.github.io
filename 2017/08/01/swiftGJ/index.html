@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -255,8 +255,8 @@
 <h3 id="11-内存管理-ARC"><a href="#11-内存管理-ARC" class="headerlink" title="11.内存管理(ARC)"></a>11.内存管理(ARC)</h3><p>　　11.1 可选类型或者普通类型属性只要对一个对象有一个引用,它的这个对象的引用计数就要加1,如果两个对象相互引用就会产生引用循环,所以需要跟其中的一个属性用关键字weak声明为弱引用,就是可以设置为nil<br>　　11.2 一般用weak声明的用可选类型,因为它引用的可能为nil,如果你在调用的时候能确定它是有值的,你可以声明为unowned的普通类型,它的效果是如果你能保证调用这个属性时不为nil时,swift建议用unowned,其它都和weak一样的</p>
 <h3 id="12-可选链-Optional-Chaining"><a href="#12-可选链-Optional-Chaining" class="headerlink" title="12.可选链(Optional Chaining)"></a>12.可选链(Optional Chaining)</h3><p>　　12.1 对于一个可选类型的属性可以用?.和!.来访问,如果确定有值可以用a!.b!.c!.d,如果不确定有值可以用a?.b?.c?.d</p>
 <h3 id="13-类型转化"><a href="#13-类型转化" class="headerlink" title="13.类型转化"></a>13.类型转化</h3><p>　　13.1 可以用 a is b 来判断对象a是否是b类型,返回值是一个boolean类型的值<br>　　13.2 as 可以把普通类型转化,比如double,int,CGfloat之类都可以用它转化<br>　　13.3 可以用 as? 把之类转化成父类,它的结果可以是nil或者转型成功,所以结果是一个可选类型,转化成功后用?.来访问方法或属性,也可以做可选绑定.<br>　　13.4 如果一个对象一定可以转化成功,则可以用as!转化,如果转化不成功会报运行时错误,比如在一个数组中全是animal,但是声明时是anyobject就可以这样用.</p>
-<h3 id="14-扩展-协议-categories-extension-protocol"><a href="#14-扩展-协议-categories-extension-protocol" class="headerlink" title="14.扩展/协议(categories,extension,protocol)"></a>14.扩展/协议(categories,extension,protocol)</h3><p>　　14.1 swift的extension没有名称,它是扩展到所有的实体类的,它不可以增加成员属性,但是可以增加计算属性<br>　　14.2 可以在protocol中声明属性和方法,可以定义属性时候是只读的或者是可读可写的<br>　　14.3 可以让一个extension继承一个protocol,在里面实现对应的方法<br>　　14.4 协议的类型是protocol<protcl1,protcl2></protcl1,protcl2></p>
-<h3 id="15-泛型"><a href="#15-泛型" class="headerlink" title="15.泛型"></a>15.泛型</h3><p>　　15.1 可以在func或struct后面跟上<t1,t2>,在参数中就可以声明参数类型为这个类型,完全可以把它看做是一个类型</t1,t2></p>
+<h3 id="14-扩展-协议-categories-extension-protocol"><a href="#14-扩展-协议-categories-extension-protocol" class="headerlink" title="14.扩展/协议(categories,extension,protocol)"></a>14.扩展/协议(categories,extension,protocol)</h3><p>　　14.1 swift的extension没有名称,它是扩展到所有的实体类的,它不可以增加成员属性,但是可以增加计算属性<br>　　14.2 可以在protocol中声明属性和方法,可以定义属性时候是只读的或者是可读可写的<br>　　14.3 可以让一个extension继承一个protocol,在里面实现对应的方法<br>　　14.4 协议的类型是protocol&lt;protcl1,protcl2&gt;</p>
+<h3 id="15-泛型"><a href="#15-泛型" class="headerlink" title="15.泛型"></a>15.泛型</h3><p>　　15.1 可以在func或struct后面跟上&lt;T1,T2&gt;,在参数中就可以声明参数类型为这个类型,完全可以把它看做是一个类型</p>
 <h3 id="16-运算符重载"><a href="#16-运算符重载" class="headerlink" title="16.运算符重载"></a>16.运算符重载</h3><p>　　16.1 在swift中运算符可以重载,方法名就是运算符号,参数的个数和类型是根据它是几目运算符和运算符两边对应的参数类型决定的.</p>
 
             <div class="clearfix"></div>

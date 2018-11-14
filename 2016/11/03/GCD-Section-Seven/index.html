@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#dispathc_apply 是dispatch_sync和dispatch_group的关联API。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>它以指定的次数将指定的Block加入到指定的队列中。并等待队列中操作全部完成。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithObjects:</div><div class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/gelato.ds"</span>,</div><div class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/jason.ds"</span>,</div><div class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/jikejunyi.ds"</span>,</div><div class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/molly.ds"</span>,</div><div class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/zhangdachuan.ds"</span>,<span class="literal">nil</span>];</div><div class="line"><span class="built_in">NSString</span> *copyDes = <span class="string">@"/Users/chentao/Desktop/copy_des"</span>;</div><div class="line"><span class="built_in">NSFileManager</span> *fileManager = [<span class="built_in">NSFileManager</span> defaultManager];</div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^()&#123;</div><div class="line">dispatch_apply([array count], dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^(size_t index)&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"copy-%ld"</span>, index);</div><div class="line">    <span class="built_in">NSString</span> *sourcePath = [array objectAtIndex:index];</div><div class="line">    <span class="built_in">NSString</span> *desPath = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@/%@"</span>, copyDes, [sourcePath lastPathComponent]];</div><div class="line">    [fileManager copyItemAtPath:sourcePath toPath:desPath error:<span class="literal">nil</span>];</div><div class="line">    &#125;);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"done"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<a id="more"></a><!--more-->
+<hr>
+<p>它以指定的次数将指定的Block加入到指定的队列中。并等待队列中操作全部完成。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithObjects:</span><br><span class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/gelato.ds"</span>,</span><br><span class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/jason.ds"</span>,</span><br><span class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/jikejunyi.ds"</span>,</span><br><span class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/molly.ds"</span>,</span><br><span class="line"><span class="string">@"/Users/chentao/Desktop/copy_res/zhangdachuan.ds"</span>,<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSString</span> *copyDes = <span class="string">@"/Users/chentao/Desktop/copy_des"</span>;</span><br><span class="line"><span class="built_in">NSFileManager</span> *fileManager = [<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^()&#123;</span><br><span class="line">dispatch_apply([array count], dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^(size_t index)&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"copy-%ld"</span>, index);</span><br><span class="line">    <span class="built_in">NSString</span> *sourcePath = [array objectAtIndex:index];</span><br><span class="line">    <span class="built_in">NSString</span> *desPath = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@/%@"</span>, copyDes, [sourcePath lastPathComponent]];</span><br><span class="line">    [fileManager copyItemAtPath:sourcePath toPath:desPath error:<span class="literal">nil</span>];</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"done"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>输出 copy-index 顺序不确定，因为它是并行执行的（dispatch_get_global_queue是并行队列），但是done是在以上拷贝操作完成后才会执行，因此，它一般都是放在dispatch_async里面（异步）。实际上，这里 dispatch_apply如果换成串行队列上，则会依次输出index，但这样违背了我们想并行提高执行效率的初衷。</p>
 
             <div class="clearfix"></div>

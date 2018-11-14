@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#在手机客户端尤其是Android应用的开发过程中，我们经常会接触到“硬件加速”这个词。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>由于操作系统对底层软硬件封装非常完善，上层软件开发者往往对硬件加速的底层原理了解很少，也不清楚了解底层原理的意义，因此常会有一些误解，如硬件加速是不是通过特殊算法实现页面渲染加速，或是通过硬件提高CPU/GPU运算速率实现渲染加速。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>由于操作系统对底层软硬件封装非常完善，上层软件开发者往往对硬件加速的底层原理了解很少，也不清楚了解底层原理的意义，因此常会有一些误解，如硬件加速是不是通过特殊算法实现页面渲染加速，或是通过硬件提高CPU/GPU运算速率实现渲染加速。</p>
 <p>本文尝试从底层硬件原理，一直到上层代码实现，对硬件加速技术进行简单介绍，其中上层实现基于Android 6.0。</p>
 <h3 id="了解硬件加速对App开发的意义"><a href="#了解硬件加速对App开发的意义" class="headerlink" title="了解硬件加速对App开发的意义"></a>了解硬件加速对App开发的意义</h3><p>对于App开发者，简单了解硬件加速原理及上层API实现，开发时就可以充分利用硬件加速提高页面的性能。以Android举例，实现一个圆角矩形按钮通常有两种方案：使用PNG图片；使用代码（XML/Java）实现。简单对比两种方案如下。</p>
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/17-8-17/22115209.jpg" alt=""></p>
@@ -334,7 +336,7 @@
 <li><p>场景4中，两者的性能差距更明显。简单修改透明度，软件绘制仍然要做很多工作；硬件加速后一般直接更新RenderNode的属性，不需要触发invalidate，也不会遍历View树（除了少数View可能要对Alpha做特殊响应并在onSetAlpha()返回true，代码如下）。</p>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">View</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAlpha</span><span class="params">(@FloatRange(from=<span class="number">0.0</span>, to=<span class="number">1.0</span>)</span> <span class="keyword">float</span> alpha) </span>&#123;</div><div class="line">        ensureTransformationInfo();</div><div class="line">        <span class="keyword">if</span> (mTransformationInfo.mAlpha != alpha) &#123;</div><div class="line">            mTransformationInfo.mAlpha = alpha;</div><div class="line">            <span class="keyword">if</span> (onSetAlpha((<span class="keyword">int</span>) (alpha * <span class="number">255</span>))) &#123;</div><div class="line">                <span class="comment">// ...</span></div><div class="line">                invalidate(<span class="keyword">true</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// ...</span></div><div class="line">                mRenderNode.setAlpha(getFinalAlpha());</div><div class="line">                <span class="comment">// ...</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">onSetAlpha</span><span class="params">(<span class="keyword">int</span> alpha)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAlpha</span><span class="params">(@FloatRange(from=<span class="number">0.0</span>, to=<span class="number">1.0</span>)</span> <span class="keyword">float</span> alpha) </span>&#123;</span><br><span class="line">        ensureTransformationInfo();</span><br><span class="line">        <span class="keyword">if</span> (mTransformationInfo.mAlpha != alpha) &#123;</span><br><span class="line">            mTransformationInfo.mAlpha = alpha;</span><br><span class="line">            <span class="keyword">if</span> (onSetAlpha((<span class="keyword">int</span>) (alpha * <span class="number">255</span>))) &#123;</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                invalidate(<span class="keyword">true</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                mRenderNode.setAlpha(getFinalAlpha());</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">onSetAlpha</span><span class="params">(<span class="keyword">int</span> alpha)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="软件绘制刷新逻辑简介"><a href="#软件绘制刷新逻辑简介" class="headerlink" title="软件绘制刷新逻辑简介"></a>软件绘制刷新逻辑简介</h3><p>实际阅读源码并实验，得出通常情况下的软件绘制刷新逻辑：</p>
 <ul>
 <li><p>默认情况下，View的clipChildren属性为true，即每个View绘制区域不能超出其父View的范围。如果设置一个页面根布局的clipChildren属性为false，则子View可以超出父View的绘制区域。</p>

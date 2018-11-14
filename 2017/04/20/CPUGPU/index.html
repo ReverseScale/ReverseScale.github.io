@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#最近看了一些GCD的深度剖析知识，就感觉CPU的相关知识是贯穿软件编程始终的理论基础，而谈到CPU就会联想到它的好兄弟——GPU，顺带的整理一下GPU的原理应用和iOS的渲染入门。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="CPU-GPU概览"><a href="#CPU-GPU概览" class="headerlink" title="CPU GPU概览"></a>CPU GPU概览</h4><p><strong>1.1CPU和GPU的设计区别</strong><br>CPU和GPU之所以大不相同，是由于其设计目标的不同，它们分别针对了两种不同的应用场景。CPU需要很强的通用性来处理各种不同的数据类型，同时又要逻辑判断又会引入大量的分支跳转和中断的处理。这些都使得CPU的内部结构异常复杂。而GPU面对的则是类型高度统一的、相互无依赖的大规模数据和不需要被打断的纯净的计算环境。</p>
+<a id="more"></a><!--more-->
+<hr>
+<h4 id="CPU-GPU概览"><a href="#CPU-GPU概览" class="headerlink" title="CPU GPU概览"></a>CPU GPU概览</h4><p><strong>1.1CPU和GPU的设计区别</strong><br>CPU和GPU之所以大不相同，是由于其设计目标的不同，它们分别针对了两种不同的应用场景。CPU需要很强的通用性来处理各种不同的数据类型，同时又要逻辑判断又会引入大量的分支跳转和中断的处理。这些都使得CPU的内部结构异常复杂。而GPU面对的则是类型高度统一的、相互无依赖的大规模数据和不需要被打断的纯净的计算环境。</p>
 <p>于是CPU和GPU就呈现出非常不同的架构（示意图）：<br><img src="http://i4.buimg.com/567571/806fac73d031d7f5.jpg" alt=""><br>图片来自nVidia CUDA文档。其中绿色的是计算单元，橙红色的是存储单元，橙黄色的是控制单元。</p>
 <p>GPU采用了数量众多的计算单元和超长的流水线，但只有非常简单的控制逻辑并省去了Cache。而CPU不仅被Cache占据了大量空间，而且还有有复杂的控制逻辑和诸多优化电路，相比之下计算能力只是CPU很小的一部分。</p>
 <p><img src="http://i4.buimg.com/567571/c55084748b192a2a.png" alt=""><br>从上图可以看出：</p>
@@ -277,7 +279,7 @@
 <p><strong>2.2渲染时机</strong></p>
 <p>上面已经提到过：Core Animation 在 RunLoop 中注册了一个 Observer 监听 BeforeWaiting(即将进入休眠) 和 Exit (即将退出Loop) 事件 。当在操作 UI 时，比如改变了 Frame、更新了 UIView/CALayer 的层次时，或者手动调用了 UIView/CALayer 的 setNeedsLayout/setNeedsDisplay方法后，这个 UIView/CALayer 就被标记为待处理，并被提交到一个全局的容器去。当Oberver监听的事件到来时，回调执行函数中会遍历所有待处理的UIView/CAlayer 以执行实际的绘制和调整，并更新 UI 界面。</p>
 <p>这个函数内部的调用栈大概是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">_ZN2CA11Transaction17observer_callbackEP19__CFRunLoopObservermPv()</div><div class="line">    QuartzCore:CA::Transaction::observer_callback:</div><div class="line">        CA::Transaction::commit();</div><div class="line">            CA::Context::commit_transaction();</div><div class="line">                CA::Layer::layout_and_display_if_needed();</div><div class="line">                    CA::Layer::layout_if_needed();</div><div class="line">                          [CALayer layoutSublayers];</div><div class="line">                          [UIView layoutSubviews];</div><div class="line">                    CA::Layer::display_if_needed();</div><div class="line">                          [CALayer display];</div><div class="line">                          [UIView drawRect];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_ZN2CA11Transaction17observer_callbackEP19__CFRunLoopObservermPv()</span><br><span class="line">    QuartzCore:CA::Transaction::observer_callback:</span><br><span class="line">        CA::Transaction::commit();</span><br><span class="line">            CA::Context::commit_transaction();</span><br><span class="line">                CA::Layer::layout_and_display_if_needed();</span><br><span class="line">                    CA::Layer::layout_if_needed();</span><br><span class="line">                          [CALayer layoutSublayers];</span><br><span class="line">                          [UIView layoutSubviews];</span><br><span class="line">                    CA::Layer::display_if_needed();</span><br><span class="line">                          [CALayer display];</span><br><span class="line">                          [UIView drawRect];</span><br></pre></td></tr></table></figure>
 <p>CPU 和 GPU渲染<br>OpenGL中，GPU屏幕渲染有以下两种方式：<br>1.On-Screen Rendering</p>
 <p>意为当前屏幕渲染，指的是GPU的渲染操作是在当前用于显示的屏幕缓冲区中进行。</p>
 <p>2.Off-Screen Rendering</p>

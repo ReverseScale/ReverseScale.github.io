@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#上周听了Bob Jiang老师的Agile1001公开课，一直想写个总结，这篇关于敏捷开发、自动化构建与持续集成的思考就作为开题篇吧。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h1 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h1><h3 id="敏捷是什么？"><a href="#敏捷是什么？" class="headerlink" title="敏捷是什么？"></a>敏捷是什么？</h3><p>敏捷是一把伞，这把伞下边有XP、Scrum、FDD。。。，当然也包括自动化构建、持续集成，其实符合敏捷思想的开发方法、工具，如Jenkins都可以属于敏捷开发的范畴。</p>
+<a id="more"></a><!--more-->
+<hr>
+<h1 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h1><h3 id="敏捷是什么？"><a href="#敏捷是什么？" class="headerlink" title="敏捷是什么？"></a>敏捷是什么？</h3><p>敏捷是一把伞，这把伞下边有XP、Scrum、FDD。。。，当然也包括自动化构建、持续集成，其实符合敏捷思想的开发方法、工具，如Jenkins都可以属于敏捷开发的范畴。</p>
 <h3 id="敏捷到底是什么？"><a href="#敏捷到底是什么？" class="headerlink" title="敏捷到底是什么？"></a>敏捷到底是什么？</h3><p>其实关于敏捷的定义有很多，Bob Jiang的解释是：尽早地交付商业价值。</p>
 <h3 id="为什么需要敏捷开发？"><a href="#为什么需要敏捷开发？" class="headerlink" title="为什么需要敏捷开发？"></a>为什么需要敏捷开发？</h3><p>敏捷之所以流行，是因为传统的瀑布式开发方式导致大项目的失败率很高（与小项目对比），而敏捷的解决思路是将大项目分解为小项目（也可以理解为阶段里程碑）来提高项目的成功率，尽早地、频繁地、持续的交付。</p>
 <h3 id="传统和敏捷的差异？"><a href="#传统和敏捷的差异？" class="headerlink" title="传统和敏捷的差异？"></a>传统和敏捷的差异？</h3><p>传统开发模式的流程：<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-14/47033065.jpg" alt=""></p>
@@ -264,12 +266,12 @@
 <p><strong>环境</strong></p>
 <p>因为要编译ios，所以选择Mac OSX 10.11.1。无论是哪个操作系统，jenkins的配置是一样的。</p>
 <p><strong>安装Jenkins</strong></p>
-<p>官网地址： <a href="http://jenkins-ci.org/" target="_blank" rel="external">http://jenkins-ci.org/</a></p>
+<p>官网地址： <a href="http://jenkins-ci.org/" target="_blank" rel="noopener">http://jenkins-ci.org/</a></p>
 <pre><code>// 使用brew安装
 brew install jenkins
 // 启动，直接运行jenkins即可启动服务
 jenkins
-</code></pre><p>默认访问 <a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a> , 可进入jenkins配置页面。</p>
+</code></pre><p>默认访问 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> , 可进入jenkins配置页面。</p>
 <p><strong>安装Jenkins相关插件</strong></p>
 <p>点击系统管理&gt;管理插件&gt;可选插件，可搜索以下插件安装</p>
 <ul>
@@ -282,7 +284,7 @@ jenkins
 <p>主页面，新建 -&gt; 构建一个自由风格的软件项目即可。对于类似的项目，可以选择 -&gt; 复制已有的Item，要复制的任务名称里输入其他job的首字符会有智能提示。</p>
 <p><strong>配置git仓库</strong></p>
 <p>如果安装了git插件，在源码管理会出现Git，选中之后：</p>
-<p>Repositories -&gt; <a href="https://github.com/openproject/ganchai" target="_blank" rel="external">https://github.com/openproject/ganchai</a> , 如果是ssh还要配置Credentials。</p>
+<p>Repositories -&gt; <a href="https://github.com/openproject/ganchai" target="_blank" rel="noopener">https://github.com/openproject/ganchai</a> , 如果是ssh还要配置Credentials。</p>
 <p>Branch -&gt; */master，选定一个要编译的分支代码。</p>
 <p>如下：<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-14/61697801.jpg" alt=""></p>
 <p>如果是私有的仓库（比如git://xxxxx.git）,点击Credentials - Add，弹出对话框，配置sshkey最简单了：<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-14/95481902.jpg" alt=""></p>

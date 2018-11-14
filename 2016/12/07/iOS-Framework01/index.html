@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#iOS客户端应用架构看似简单，但实际上要考虑的事情不少。本文作者将以系列文章的形式来回答iOS应用架构中的种种问题，本文是其中的第一篇，主要讲架构设计的通识和方法论等，同时还讨论了大家关心的架构分层、是否要有common文件夹等问题。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h4><p>之前安居客iOS app的第二版架构大部分内容是我做的，期间有总结了一些经验。在将近一年之后，前同事zzz在微信朋友圈上发了一个问题：假如问你一个iOS or Android app的架构，你会从哪些方面来说呢？</p>
+<a id="more"></a><!--more-->
+<hr>
+<h4 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h4><p>之前安居客iOS app的第二版架构大部分内容是我做的，期间有总结了一些经验。在将近一年之后，前同事zzz在微信朋友圈上发了一个问题：假如问你一个iOS or Android app的架构，你会从哪些方面来说呢？</p>
 <p>当时看到这个问题正好在乘公车回家的路上，闲来无聊就答了一把。在zzz在微信朋友圈上追问了几个问题之后，我觉得有必要以文章形式专门来讲一些个人见解。</p>
 <p>其实对于iOS客户端应用的架构来说，复杂度不亚于服务端，但侧重点和入手点却跟服务端不太一样。比如客户端应用就不需要考虑类似C10K的问题，正常的app就根本不需要考虑。</p>
 <p>这系列文章我会主要专注在iOS应用架构方面，很多方案也是基于iOS技术栈的特点而建立的。因为我个人不是很喜欢写Java，所以Android这边的我就不太了解了。如果你是Android开发者，你可以侧重看我提出的一些架构思想，毕竟不管做什么，思路是相通的，实现手段不同罢了。</p>
@@ -342,8 +344,8 @@
 <p><strong>不用文档，或很少文档，就能让业务方上手</strong></p>
 <p>谁特么会去看文档啊，业务方他们已经被产品经理逼得很忙了。所以你要尽可能让你的API名字可读性强，对于iOS来说，objc这门语言的特性把这个做到了极致，函数名长就长一点，不要紧。</p>
 <p>好的函数名：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSDictionary</span> *)exifDataOfImage:(<span class="built_in">UIImage</span> *)image atIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</div></pre></td></tr></table></figure>
-<p>坏的函数名：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)exifData:(<span class="built_in">UIImage</span> *)image position:(<span class="keyword">id</span>)indexPath callback:(<span class="keyword">id</span>&lt;ErrorDelegate&gt;)delegate;</div></pre></td></tr></table></figure></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSDictionary</span> *)exifDataOfImage:(<span class="built_in">UIImage</span> *)image atIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br></pre></td></tr></table></figure>
+<p>坏的函数名：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)exifData:(<span class="built_in">UIImage</span> *)image position:(<span class="keyword">id</span>)indexPath callback:(<span class="keyword">id</span>&lt;ErrorDelegate&gt;)delegate;</span><br></pre></td></tr></table></figure></p>
 <p>为什么坏？</p>
 <ol>
 <li>不要直接返回id或者传入id，实在不行，用id也比id好。如果连这个都做不到，你要好好考虑你的架构是不是有问题。</li>

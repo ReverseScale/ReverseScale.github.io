@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,13 +243,15 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#iOS10字体随着手机系统的字体改变，当我们手机系统字体改变以后，我们的app的lable也会跟着一起变化。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>新系统更新之后，会发生一些改变，我们需要适配不同的机型，并且适配不同的系统，今天讲的一个小问题：</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>新系统更新之后，会发生一些改变，我们需要适配不同的机型，并且适配不同的系统，今天讲的一个小问题：</p>
 <p>Label 字体在iOS9之前显示正常，但是在iOS10 显示不全问题。</p>
 <p>同样的6sp，在iOS9上面运行字体显示是没问题的，当我的手机更新了iOS10以后，有的界面，出现字体显示不全。</p>
 <p>1、UIButton显示不全，加上sizeToFit 就可以解决</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[myBtn sizeToFit];</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[myBtn sizeToFit];</span><br></pre></td></tr></table></figure>
 <p>2、UILable 显示不全，iOS10提供一个属性来设置</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myLable.adjustsFontForContentSizeCategory = YES</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myLable.adjustsFontForContentSizeCategory = YES</span><br></pre></td></tr></table></figure>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

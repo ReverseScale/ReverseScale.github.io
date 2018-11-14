@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,9 +243,11 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#Unirest 是一个轻量级的 HTTP 请求库，涵盖 Node、Ruby、Java、PHP、Python、Objective-C、.NET 等多种语言。可发起 GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS 请求。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-5/62157023.jpg" alt=""></p>
+<a id="more"></a><!--more-->
+<hr>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-5/62157023.jpg" alt=""></p>
 <p>Java 版本的示例代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">HttpResponse&lt;JsonNode&gt; jsonResponse = Unirest.post(<span class="string">"http://httpbin.org/post"</span>)</div><div class="line">  .header(<span class="string">"accept"</span>, <span class="string">"application/json"</span>)</div><div class="line">  .field(<span class="string">"parameter"</span>, <span class="string">"value"</span>)</div><div class="line">  .field(<span class="string">"foo"</span>, <span class="string">"bar"</span>)</div><div class="line">  .asJson();</div><div class="line"><span class="comment">//参数处理</span></div><div class="line">Unirest.get(<span class="string">"http://httpbin.org/&#123;method&#125;"</span>)</div><div class="line">  .routeParam(<span class="string">"method"</span>, <span class="string">"get"</span>)</div><div class="line">  .field(<span class="string">"name"</span>, <span class="string">"Mark"</span>)</div><div class="line">  .asJson();</div><div class="line"><span class="comment">//异步请求</span></div><div class="line">Future&lt;HttpResponse&lt;JsonNode&gt;&gt; future = Unirest.post(<span class="string">"http://httpbin.org/post"</span>)</div><div class="line">  .header(<span class="string">"accept"</span>, <span class="string">"application/json"</span>)</div><div class="line">  .field(<span class="string">"param1"</span>, <span class="string">"value1"</span>)</div><div class="line">  .field(<span class="string">"param2"</span>, <span class="string">"value2"</span>)</div><div class="line">  .asJsonAsync(<span class="keyword">new</span> Callback&lt;JsonNode&gt;() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">failed</span><span class="params">(UnirestException e)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"The request has failed"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completed</span><span class="params">(HttpResponse&lt;JsonNode&gt; response)</span> </span>&#123;</div><div class="line">         <span class="keyword">int</span> code = response.getCode();</div><div class="line">         Map&lt;String, String&gt; headers = response.getHeaders();</div><div class="line">         JsonNode body = response.getBody();</div><div class="line">         InputStream rawBody = response.getRawBody();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancelled</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"The request has been cancelled"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">HttpResponse&lt;JsonNode&gt; jsonResponse = Unirest.post(<span class="string">"http://httpbin.org/post"</span>)</span><br><span class="line">  .header(<span class="string">"accept"</span>, <span class="string">"application/json"</span>)</span><br><span class="line">  .field(<span class="string">"parameter"</span>, <span class="string">"value"</span>)</span><br><span class="line">  .field(<span class="string">"foo"</span>, <span class="string">"bar"</span>)</span><br><span class="line">  .asJson();</span><br><span class="line"><span class="comment">//参数处理</span></span><br><span class="line">Unirest.get(<span class="string">"http://httpbin.org/&#123;method&#125;"</span>)</span><br><span class="line">  .routeParam(<span class="string">"method"</span>, <span class="string">"get"</span>)</span><br><span class="line">  .field(<span class="string">"name"</span>, <span class="string">"Mark"</span>)</span><br><span class="line">  .asJson();</span><br><span class="line"><span class="comment">//异步请求</span></span><br><span class="line">Future&lt;HttpResponse&lt;JsonNode&gt;&gt; future = Unirest.post(<span class="string">"http://httpbin.org/post"</span>)</span><br><span class="line">  .header(<span class="string">"accept"</span>, <span class="string">"application/json"</span>)</span><br><span class="line">  .field(<span class="string">"param1"</span>, <span class="string">"value1"</span>)</span><br><span class="line">  .field(<span class="string">"param2"</span>, <span class="string">"value2"</span>)</span><br><span class="line">  .asJsonAsync(<span class="keyword">new</span> Callback&lt;JsonNode&gt;() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">failed</span><span class="params">(UnirestException e)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"The request has failed"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completed</span><span class="params">(HttpResponse&lt;JsonNode&gt; response)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">int</span> code = response.getCode();</span><br><span class="line">         Map&lt;String, String&gt; headers = response.getHeaders();</span><br><span class="line">         JsonNode body = response.getBody();</span><br><span class="line">         InputStream rawBody = response.getRawBody();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancelled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"The request has been cancelled"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

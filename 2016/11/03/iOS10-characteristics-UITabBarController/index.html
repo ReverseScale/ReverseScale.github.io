@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,8 +243,10 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#在iOS 10之前，tabBarItem上的文字颜色，默认是 蓝色，上面的新消息提醒数字badge 默认是红色的，未选中的TabBarItem的文字颜色默认是黑色的，我们修改的话，也只能修改它的默认颜色 ，其它的就不能进行个性化定制，使用起来非常的不方便，iOS10之后我们可以轻松个性化定制了。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>UITabBarController 中的改进如上</p>
-<p>核心代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">//<span class="number">1.</span>创建出三个UIViewcontroller 对象</div><div class="line">OneViewController *oneVc =[[OneViewController alloc] init]; //<span class="number">2.</span>设置每一个控制器上的tabbar</div><div class="line">oneVc.view.backgroundColor =[UIColor redColor];</div><div class="line">//设置标题</div><div class="line">oneVc.tabBarItem.title = @<span class="string">"首页"</span>; TwoViewController *twovC =[[TwoViewController alloc] init]; twovC.view.backgroundColor =[UIColor purpleColor]; //设置标题</div><div class="line">twovC.tabBarItem.title = @<span class="string">"圈子"</span>; ThreeViewController *threVC =[[ThreeViewController alloc] init];</div><div class="line">threVC.view.backgroundColor =[UIColor blueColor];</div><div class="line">//设置标题</div><div class="line">threVC.tabBarItem.title = @<span class="string">"社交"</span>;</div><div class="line"></div><div class="line">//<span class="number">2.</span>将创建好的三个普通控制器加入到tabbarController 控制器中</div><div class="line">[self addChildViewController:oneVc];</div><div class="line">[self addChildViewController:twovC];</div><div class="line">[self addChildViewController:threVC];</div><div class="line">//改变tabbar 上面的文字默认颜色</div><div class="line">oneVc.tabBarController.tabBar.tintColor =[UIColor yellowColor];</div><div class="line">twovC.tabBarController.tabBar.tintColor =[UIColor yellowColor];</div><div class="line">threVC.tabBarController.tabBar.tintColor =[UIColor yellowColor];</div><div class="line">//使用iOS <span class="number">10</span>新推出的 修改 tabbar 未选中的tintColor 颜色</div><div class="line">//这一句代码将 tabbar 未选中的时候的默认色- 黑色改为红色</div><div class="line">oneVc.tabBarController.tabBar.unselectedItemTintColor =[UIColor redColor];</div><div class="line">//tabbarItem 中属性</div><div class="line">//数字提醒的颜色 在iOS <span class="number">10</span>之前的版本默认都是数字提醒都是红色</div><div class="line">oneVc.tabBarItem.badgeColor = [UIColor orangeColor];</div><div class="line">oneVc.tabBarItem.badgeValue = @<span class="string">"90"</span>;</div><div class="line">//将tabBarItem 中数字提醒默认的白色改掉 使用富文本修改</div><div class="line">[oneVc.tabBarItem setBadgeTextAttributes:@&#123; NSForegroundColorAttributeName:[UIColor blackColor] &#125; forState:UIControlStateNormal];</div></pre></td></tr></table></figure></p>
+<a id="more"></a><!--more-->
+<hr>
+<p>UITabBarController 中的改进如上</p>
+<p>核心代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//<span class="number">1.</span>创建出三个UIViewcontroller 对象</span><br><span class="line">OneViewController *oneVc =[[OneViewController alloc] init]; //<span class="number">2.</span>设置每一个控制器上的tabbar</span><br><span class="line">oneVc.view.backgroundColor =[UIColor redColor];</span><br><span class="line">//设置标题</span><br><span class="line">oneVc.tabBarItem.title = @<span class="string">"首页"</span>; TwoViewController *twovC =[[TwoViewController alloc] init]; twovC.view.backgroundColor =[UIColor purpleColor]; //设置标题</span><br><span class="line">twovC.tabBarItem.title = @<span class="string">"圈子"</span>; ThreeViewController *threVC =[[ThreeViewController alloc] init];</span><br><span class="line">threVC.view.backgroundColor =[UIColor blueColor];</span><br><span class="line">//设置标题</span><br><span class="line">threVC.tabBarItem.title = @<span class="string">"社交"</span>;</span><br><span class="line"></span><br><span class="line">//<span class="number">2.</span>将创建好的三个普通控制器加入到tabbarController 控制器中</span><br><span class="line">[self addChildViewController:oneVc];</span><br><span class="line">[self addChildViewController:twovC];</span><br><span class="line">[self addChildViewController:threVC];</span><br><span class="line">//改变tabbar 上面的文字默认颜色</span><br><span class="line">oneVc.tabBarController.tabBar.tintColor =[UIColor yellowColor];</span><br><span class="line">twovC.tabBarController.tabBar.tintColor =[UIColor yellowColor];</span><br><span class="line">threVC.tabBarController.tabBar.tintColor =[UIColor yellowColor];</span><br><span class="line">//使用iOS <span class="number">10</span>新推出的 修改 tabbar 未选中的tintColor 颜色</span><br><span class="line">//这一句代码将 tabbar 未选中的时候的默认色- 黑色改为红色</span><br><span class="line">oneVc.tabBarController.tabBar.unselectedItemTintColor =[UIColor redColor];</span><br><span class="line">//tabbarItem 中属性</span><br><span class="line">//数字提醒的颜色 在iOS <span class="number">10</span>之前的版本默认都是数字提醒都是红色</span><br><span class="line">oneVc.tabBarItem.badgeColor = [UIColor orangeColor];</span><br><span class="line">oneVc.tabBarItem.badgeValue = @<span class="string">"90"</span>;</span><br><span class="line">//将tabBarItem 中数字提醒默认的白色改掉 使用富文本修改</span><br><span class="line">[oneVc.tabBarItem setBadgeTextAttributes:@&#123; NSForegroundColorAttributeName:[UIColor blackColor] &#125; forState:UIControlStateNormal];</span><br></pre></td></tr></table></figure></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

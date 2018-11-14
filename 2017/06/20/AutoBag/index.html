@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,20 +243,22 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#记得之前在创业公司，开发任务重，提测前常常加班到晚上12点，就算bug修完，也要等半个小时看着Xcode不慌不忙的打包完成上传测试平台发邮件才能安心回家。鉴于这种惨痛经历，利用闲暇时间就搞一搞自动打包脚本，整理方法并适配Xcode 8.2之后版本。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="第一步-安装fir-cil"><a href="#第一步-安装fir-cil" class="headerlink" title="第一步 安装fir-cil"></a>第一步 安装fir-cil</h4><p>fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ruby -v # &gt; 1.9.3</div><div class="line">$ gem install fir-cli</div></pre></td></tr></table></figure>
-<p><strong>常见的安装问题</strong><br>(1)使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ xcode-select --install        # OS X 系统</div><div class="line">$ sudo apt-get install ruby-dev # Linux 系统</div></pre></td></tr></table></figure></p>
-<p>(2)现 Permission denied 相关错误:<br>解决：在命令前加上 sudo<br>(3)出现 Gem::RemoteFetcher::FetchError 相关错误:<br>解决：更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ gem sources --remove https://rubygems.org/</div><div class="line">$ gem sources -a https://ruby.taobao.org/</div><div class="line">$ gem sources -l</div><div class="line">*** CURRENT SOURCES ***</div><div class="line">https://ruby.taobao.org</div><div class="line"># 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉</div><div class="line">gem update --system</div><div class="line">gem install fir-cli</div></pre></td></tr></table></figure></p>
-<p>(4)Mac OS X 10.11 以后的版本, 由于10.11引入了 rootless, 无法直接安装 fir-cli, 有以下三种解决办法:<br>方法一： 使用 Homebrew 及 RVM 安装 Ruby, 再安装 fir-cli(推荐)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Install Homebrew:</div><div class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div><div class="line"># Install RVM:</div><div class="line">$ \curl -sSL https://get.rvm.io | bash -s stable --ruby</div><div class="line">$ gem install fir-cli</div></pre></td></tr></table></figure></p>
-<p>方法二： 指定 fir-cli 中 bin 文件的 PATH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ export PATH=/usr/local/bin:$PATH;gem install -n /usr/local/bin fir-cli</div></pre></td></tr></table></figure></p>
-<p>方法三： 重写 Ruby Gem 的 bindir<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ echo &apos;gem: --bindir /usr/local/bin&apos; &gt;&gt; ~/.gemrc</div><div class="line">$ gem install fir-cli</div></pre></td></tr></table></figure></p>
+<a id="more"></a><!--more-->
 <hr>
-<h4 id="第二步-登录fir-im"><a href="#第二步-登录fir-im" class="headerlink" title="第二步 登录fir.im"></a>第二步 登录fir.im</h4><p>先到 <a href="https://fir.im" target="_blank" rel="external">https://fir.im</a> 创建项目，得到 API Token 并复制。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fir login</div></pre></td></tr></table></figure>
+<h4 id="第一步-安装fir-cil"><a href="#第一步-安装fir-cil" class="headerlink" title="第一步 安装fir-cil"></a>第一步 安装fir-cil</h4><p>fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ruby -v # &gt; 1.9.3</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure>
+<p><strong>常见的安装问题</strong><br>(1)使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ xcode-select --install        # OS X 系统</span><br><span class="line">$ sudo apt-get install ruby-dev # Linux 系统</span><br></pre></td></tr></table></figure></p>
+<p>(2)现 Permission denied 相关错误:<br>解决：在命令前加上 sudo<br>(3)出现 Gem::RemoteFetcher::FetchError 相关错误:<br>解决：更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources --remove https://rubygems.org/</span><br><span class="line">$ gem sources -a https://ruby.taobao.org/</span><br><span class="line">$ gem sources -l</span><br><span class="line">*** CURRENT SOURCES ***</span><br><span class="line">https://ruby.taobao.org</span><br><span class="line"># 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉</span><br><span class="line">gem update --system</span><br><span class="line">gem install fir-cli</span><br></pre></td></tr></table></figure></p>
+<p>(4)Mac OS X 10.11 以后的版本, 由于10.11引入了 rootless, 无法直接安装 fir-cli, 有以下三种解决办法:<br>方法一： 使用 Homebrew 及 RVM 安装 Ruby, 再安装 fir-cli(推荐)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Install Homebrew:</span><br><span class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br><span class="line"># Install RVM:</span><br><span class="line">$ \curl -sSL https://get.rvm.io | bash -s stable --ruby</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure></p>
+<p>方法二： 指定 fir-cli 中 bin 文件的 PATH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ export PATH=/usr/local/bin:$PATH;gem install -n /usr/local/bin fir-cli</span><br></pre></td></tr></table></figure></p>
+<p>方法三： 重写 Ruby Gem 的 bindir<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;gem: --bindir /usr/local/bin&apos; &gt;&gt; ~/.gemrc</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="第二步-登录fir-im"><a href="#第二步-登录fir-im" class="headerlink" title="第二步 登录fir.im"></a>第二步 登录fir.im</h4><p>先到 <a href="https://fir.im" target="_blank" rel="noopener">https://fir.im</a> 创建项目，得到 API Token 并复制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fir login</span><br></pre></td></tr></table></figure>
 <p>命令用于使用 API token 登录 fir.im, 并使用发布应用等相关命令.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fir me</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fir me</span><br></pre></td></tr></table></figure>
 <p>命令用于查看当前登录用户信息.</p>
-<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ fir login XXX_YOUR_API_TOKEN_XXX</div><div class="line">I, [2016-03-08T12:48:56.499435 #13043]  INFO -- : Login succeed, previous user&apos;s email: xxx@fir.im</div><div class="line">I, [2016-03-08T12:48:56.507044 #13043]  INFO -- : Login succeed, current  user&apos;s email: xxx@fir.im</div><div class="line">I, [2016-03-08T12:48:56.507147 #13043]  INFO -- :</div><div class="line"></div><div class="line">$ fir me</div><div class="line">I, [2016-03-08T12:48:14.175488 #12986]  INFO -- : Login succeed, current user&apos;s email: xxx@fir.im</div><div class="line">I, [2016-03-08T12:48:14.175687 #12986]  INFO -- : Login succeed, current user&apos;s name:  xxx</div><div class="line">I, [2016-03-08T12:48:14.175765 #12986]  INFO -- :</div></pre></td></tr></table></figure></p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ fir login XXX_YOUR_API_TOKEN_XXX</span><br><span class="line">I, [2016-03-08T12:48:56.499435 #13043]  INFO -- : Login succeed, previous user&apos;s email: xxx@fir.im</span><br><span class="line">I, [2016-03-08T12:48:56.507044 #13043]  INFO -- : Login succeed, current  user&apos;s email: xxx@fir.im</span><br><span class="line">I, [2016-03-08T12:48:56.507147 #13043]  INFO -- :</span><br><span class="line"></span><br><span class="line">$ fir me</span><br><span class="line">I, [2016-03-08T12:48:14.175488 #12986]  INFO -- : Login succeed, current user&apos;s email: xxx@fir.im</span><br><span class="line">I, [2016-03-08T12:48:14.175687 #12986]  INFO -- : Login succeed, current user&apos;s name:  xxx</span><br><span class="line">I, [2016-03-08T12:48:14.175765 #12986]  INFO -- :</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h4 id="第三步-下载并配置-shell-脚本"><a href="#第三步-下载并配置-shell-脚本" class="headerlink" title="第三步 下载并配置 shell 脚本"></a>第三步 下载并配置 shell 脚本</h4><p>1.把文件夹导入工程目录根目录下</p>
 <blockquote>
@@ -266,10 +268,10 @@
 <blockquote>
 <p>ps:第一次自己搞脚本，里面的代码很乱很乱乱，待整理</p>
 </blockquote>
-<p>新方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xcodebuild  </div><div class="line">-exportArchive \</div><div class="line">-archivePath $&#123;export_archive_path&#125; \</div><div class="line">-exportPath $&#123;export_ipa_path&#125; \</div><div class="line">-exportOptionsPlist $&#123;ExportOptionsPlistPath&#125;</div></pre></td></tr></table></figure></p>
+<p>新方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild  </span><br><span class="line">-exportArchive \</span><br><span class="line">-archivePath $&#123;export_archive_path&#125; \</span><br><span class="line">-exportPath $&#123;export_ipa_path&#125; \</span><br><span class="line">-exportOptionsPlist $&#123;ExportOptionsPlistPath&#125;</span><br></pre></td></tr></table></figure></p>
 <p>下载地址在底部</p>
 <p>2.配置 shell 脚本<br>（1）一键打包 配置（此脚本不需要fir相关）<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/4333417.jpg" alt=""><br>根据具体项目填写</p>
-<p>控制台到脚本所在目录下，启动脚本(必要时加管理员权限)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh build_install.sh</div></pre></td></tr></table></figure></p>
+<p>控制台到脚本所在目录下，启动脚本(必要时加管理员权限)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh build_install.sh</span><br></pre></td></tr></table></figure></p>
 <p>正常情况会出现如下选项，对应Xcode打包时的几种模式。<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/12300381.jpg" alt=""><br>（2）一键打包同时上传fir测试平台 配置（需要登录fir设置Token）<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/42192725.jpg" alt=""><br>由于是上传测试平台，一些选项就默认了，所以需要配置的参数较少。<br>成功上传 提示文字 （小飞机 …）<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-19/29580740.jpg" alt=""><br>（3）其他的功能脚本由于实用性不高（其实我懒得搞），暂时没有适配调制，有兴趣的朋友可以自行配置试用，包括：邮件发送、打包App Store等等。</p>
 <hr>
 <h4 id="第四步-执行shell脚本，打包上传"><a href="#第四步-执行shell脚本，打包上传" class="headerlink" title="第四步 执行shell脚本，打包上传"></a>第四步 执行shell脚本，打包上传</h4><ul>
@@ -281,11 +283,11 @@
 <h4 id="附录-执行脚本过程中遇到的问题和解决方案"><a href="#附录-执行脚本过程中遇到的问题和解决方案" class="headerlink" title="附录 执行脚本过程中遇到的问题和解决方案"></a>附录 执行脚本过程中遇到的问题和解决方案</h4><p>1.fir: command not found</p>
 <p>这个是因为没有安装fir-cil，导致找不到相应的命令行，只需要安装一下就行了，详情见上文写的如何安装fir-cil。</p>
 <p>2.README: No such file or directory</p>
-<p>那是因为你的脚本目录下没有README的文件，只需要建一个README的文件就行了，打开终端，cd到当前位置，然后执行下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch README</div></pre></td></tr></table></figure></p>
+<p>那是因为你的脚本目录下没有README的文件，只需要建一个README的文件就行了，打开终端，cd到当前位置，然后执行下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch README</span><br></pre></td></tr></table></figure></p>
 <p>3.ERROR – : Token can not be blank</p>
 <p>这个原因是因为你没有登录fir导致的，你执行这个脚本之前应该先登录一下fir，详情请看上文写的登录fir.im。</p>
 <hr>
-<div align="center">百度云盘：自动打包脚本 验证码: twnc<br><a href="https://pan.baidu.com/share/init?shareid=1312829421&uk=1399092270" target="_blank" rel="external"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
+<div align="center">百度云盘：自动打包脚本 验证码: twnc<br><a href="https://pan.baidu.com/share/init?shareid=1312829421&uk=1399092270" target="_blank" rel="noopener"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

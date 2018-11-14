@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,15 +243,17 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#一种可以把自定义视图扩展到表格等控件上的工具。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>控件扩展工具，常用且简单。</p>
-<p>使用方法:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">awakeFromNib</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.awakeFromNib()</div><div class="line">        <span class="comment">// gridsView 需要的view</span></div><div class="line">        <span class="keyword">self</span>.<span class="type">PatientsReportsView</span>.addSubview(<span class="keyword">self</span>.gridsView)</div><div class="line">        <span class="keyword">self</span>.gridsView.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></div><div class="line">            make.top.<span class="keyword">right</span>.<span class="keyword">left</span>.equalTo(<span class="number">0</span>)</div><div class="line">        &#125;)</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a><!--more-->
+<hr>
+<p>控件扩展工具，常用且简单。</p>
+<p>使用方法:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">awakeFromNib</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.awakeFromNib()</span><br><span class="line">        <span class="comment">// gridsView 需要的view</span></span><br><span class="line">        <span class="keyword">self</span>.<span class="type">PatientsReportsView</span>.addSubview(<span class="keyword">self</span>.gridsView)</span><br><span class="line">        <span class="keyword">self</span>.gridsView.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></span><br><span class="line">            make.top.<span class="keyword">right</span>.<span class="keyword">left</span>.equalTo(<span class="number">0</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>代理方法:</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PatientsReportsHeaderView</span>:<span class="title">StackTableHeaderProtocol</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">preferHeaderHeight</span><span class="params">()</span></span> -&gt; <span class="type">CGFloat</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">96</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PatientsReportsHeaderView</span>:<span class="title">StackTableHeaderProtocol</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">preferHeaderHeight</span><span class="params">()</span></span> -&gt; <span class="type">CGFloat</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">96</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>效果截图：</p>
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/60319281.jpg" width="45%" height="45%" align="center"></p>
 <hr>
-<div align="center">Swift 表格扩展工具:<br><a href="https://github.com/ReverseScale/StackTableHeaderView" target="_blank" rel="external"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
+<div align="center">Swift 表格扩展工具:<br><a href="https://github.com/ReverseScale/StackTableHeaderView" target="_blank" rel="noopener"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%" align="center"></a></div>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

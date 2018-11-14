@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#OC 底层原理总结之 LLVMAndClang</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_LLVMAndClang" target="_blank" rel="external">Github Demo</a></p>
+<a id="more"></a><!--more-->
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_LLVMAndClang" target="_blank" rel="noopener">Github Demo</a></p>
 <h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
 <li>编译语言：OC 和 Swift 基于 Clang 和 LLVM 来编译（Clang 前端、LLVM 后端）</li>
 <li>特点：Clang 更快、内存占用小、兼容GCC、设计简单、模块化库（GCC 支持JAVA等和更多平台）</li>
@@ -266,9 +268,9 @@
 <p>iOS 开发中 Objective-C 是 Clang / LLVM 来编译的。</p>
 <p>Swift 是 Swift / LLVM，其中 Swift 前端会多出 SIL optimizer，它会把 .swift 生成为中间代码 .sil 属于 High-Level IR， 因为 Swift 在编译时就完成了方法绑定，直接通过地址调用属于强类型语言，方法调用不再是像OC那样的消息发送，这样编译就可以获得更多的信息用在后面的后端优化上。</p>
 <p>LLVM是一个模块化和可重用的编译器和工具链技术的集合，Clang 是 LLVM 的子项目，是 C，C++ 和 Objective-C 编译器，目的是提供惊人的快速编译，比 GCC 快3倍，其中的 clang static analyzer 主要是进行语法分析，语义分析和生成中间代码，当然这个过程会对代码进行检查，出错的和需要警告的会标注出来。LLVM 核心库提供一个优化器，对流行的 CPU 做代码生成支持。lld 是 Clang / LLVM 的内置链接器，clang 必须调用链接器来产生可执行文件。</p>
-<p>这里是 Clang 官方详细文档： <a href="http://clang.llvm.org/docs/" target="_blank" rel="external">Welcome to Clang’s documentation! — Clang 4.0 documentation </a></p>
-<p>这篇是对 LLVM 架构的一个概述： <a href="http://www.aosabook.org/en/llvm.html" target="_blank" rel="external">The Architecture of Open Source Applications</a></p>
-<p>将编译器之前对于编译的前世今生也是需要了解的，比如回答下这个问题，编译器程序是用什么编译的？看看 <a href="https://book.douban.com/subject/1436811/" target="_blank" rel="external">《linkers and loaders》</a>这本书就知道了。</p>
+<p>这里是 Clang 官方详细文档： <a href="http://clang.llvm.org/docs/" target="_blank" rel="noopener">Welcome to Clang’s documentation! — Clang 4.0 documentation </a></p>
+<p>这篇是对 LLVM 架构的一个概述： <a href="http://www.aosabook.org/en/llvm.html" target="_blank" rel="noopener">The Architecture of Open Source Applications</a></p>
+<p>将编译器之前对于编译的前世今生也是需要了解的，比如回答下这个问题，编译器程序是用什么编译的？看看 <a href="https://book.douban.com/subject/1436811/" target="_blank" rel="noopener">《linkers and loaders》</a>这本书就知道了。</p>
 <hr>
 <h3 id="LLVM-与-Clang-介绍"><a href="#LLVM-与-Clang-介绍" class="headerlink" title="LLVM 与 Clang 介绍"></a>LLVM 与 Clang 介绍</h3><p>LLVM 是 Low Level Virtual Machine 的简称，这个库提供了与编译器相关的支持，能够进行程序语言的编译期优化、链接优化、在线编译优化、代码生成。简而言之，可以作为多种语言编译器的后台来使用。如果这样还比较抽象的话，介绍下 Clang 就知道了：Clang 是一个 C++ 编写、基于 LLVM、发布于 LLVM BSD 许可证下的 C/C++/Objective C/Objective C++ 编译器，其目标（之一）就是超越 GCC。</p>
 <p>Clang 开发事出有因，Wiki 介绍如下：</p>
@@ -323,12 +325,12 @@
 <li>编译信息写入辅助文件，创建编译后的文件架构(name.app)</li>
 <li>处理文件打包信息，例如在debug环境下</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Entitlements:</div><div class="line">&#123;</div><div class="line">   &quot;application-identifier&quot; = &quot;app的bundleid&quot;;</div><div class="line">   &quot;aps-environment&quot; = development;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Entitlements:</span><br><span class="line">&#123;</span><br><span class="line">   &quot;application-identifier&quot; = &quot;app的bundleid&quot;;</span><br><span class="line">   &quot;aps-environment&quot; = development;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>执行CocoaPod编译前脚本(例如对于使用CocoaPod的工程会执行CheckPods Manifest.lock)</li>
 <li>编译各个.m文件，使用CompileC和clang命令。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CompileC ClassName.o ClassName.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler</div><div class="line">export LANG=en_US.US-ASCII</div><div class="line">export PATH=&quot;...&quot;</div><div class="line">clang -x objective-c -arch x86_64 -fmessage-length=0 -fobjc-arc... -Wno-missing-field-initializers ... -DDEBUG=1 ... -isysroot iPhoneSimulator10.1.sdk -fasm-blocks ... -I 上文提到的文件 -F 所需要的Framework  -iquote 所需要的Framework  ... -c ClassName.c -o ClassName.o</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CompileC ClassName.o ClassName.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler</span><br><span class="line">export LANG=en_US.US-ASCII</span><br><span class="line">export PATH=&quot;...&quot;</span><br><span class="line">clang -x objective-c -arch x86_64 -fmessage-length=0 -fobjc-arc... -Wno-missing-field-initializers ... -DDEBUG=1 ... -isysroot iPhoneSimulator10.1.sdk -fasm-blocks ... -I 上文提到的文件 -F 所需要的Framework  -iquote 所需要的Framework  ... -c ClassName.c -o ClassName.o</span><br></pre></td></tr></table></figure>
 <p>通过这个编译的命令，我们可以看到</p>
 <ul>
 <li>clang是实际的编译命令</li>
@@ -360,12 +362,12 @@
 <p>XCode中，选择Window -&gt; Organizer可以看到我们生成的archier文件</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa75a3a49f3?w=640&amp;h=264&amp;f=jpeg&amp;s=12910" alt=""></p>
 <blockquote>
-<p>iOS 如何调试第三方统计到的崩溃报告 (<a href="http://blog.csdn.net/hello_hwc/article/details/50036323" target="_blank" rel="external">http://blog.csdn.net/hello_hwc/article/details/50036323</a>)</p>
+<p>iOS 如何调试第三方统计到的崩溃报告 (<a href="http://blog.csdn.net/hello_hwc/article/details/50036323" target="_blank" rel="noopener">http://blog.csdn.net/hello_hwc/article/details/50036323</a>)</p>
 </blockquote>
 <hr>
 <h3 id="attribute"><a href="#attribute" class="headerlink" title="attribute"></a><strong>attribute</strong></h3><p>或多或少，你都会在第三方库或者iOS的头文件中，见到过attribute。</p>
 <p>比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__attribute__ ((warn_unused_result)) //如果没有使用返回值，编译的时候给出警告</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__attribute__ ((warn_unused_result)) //如果没有使用返回值，编译的时候给出警告</span><br></pre></td></tr></table></figure>
 <p><strong>attribtue</strong> 是一个高级的的编译器指令，它允许开发者指定更更多的编译检查和一些高级的编译期优化。</p>
 <p>分为三种：</p>
 <ul>
@@ -377,13 +379,13 @@
 <p><strong>attribute</strong> 语法格式为：<strong>attribute</strong> ((attribute-list))</p>
 <p>放在声明分号“;”前面。</p>
 <p>比如，在三方库中最常见的，声明一个属性或者方法在当前版本弃用了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (strong,nonatomic)CLASSNAME * property __deprecated;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong,nonatomic)CLASSNAME * property __deprecated;</span><br></pre></td></tr></table></figure>
 <p>这样的好处是：给开发者一个过渡的版本，让开发者知道这个属性被弃用了，应当使用最新的API，但是被__deprecated的属性仍然可以正常使用。如果直接弃用，会导致开发者在更新Pod的时候，代码无法运行了。</p>
 <p><strong>attribtue</strong>的使用场景很多，本文只列举iOS开发中常用的几个：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">//弃用API，用作API更新</div><div class="line">#define __deprecated    __attribute__((deprecated))</div><div class="line"></div><div class="line">//带描述信息的弃用</div><div class="line">#define __deprecated_msg(_msg) __attribute__((deprecated(_msg)))</div><div class="line"></div><div class="line">//遇到__unavailable的变量/方法，编译器直接抛出Error</div><div class="line">#define __unavailable   __attribute__((unavailable))</div><div class="line"></div><div class="line">//告诉编译器，即使这个变量/方法 没被使用，也不要抛出警告</div><div class="line">#define __unused    __attribute__((unused))</div><div class="line"></div><div class="line">//和__unused相反</div><div class="line">#define __used      __attribute__((used))</div><div class="line"></div><div class="line">//如果不使用方法的返回值，进行警告</div><div class="line">#define __result_use_check __attribute__((__warn_unused_result__))</div><div class="line"></div><div class="line">//OC方法在Swift中不可用</div><div class="line">#define __swift_unavailable(_msg)   __attribute__((__availability__(swift, unavailable, message=_msg)))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//弃用API，用作API更新</span><br><span class="line">#define __deprecated    __attribute__((deprecated))</span><br><span class="line"></span><br><span class="line">//带描述信息的弃用</span><br><span class="line">#define __deprecated_msg(_msg) __attribute__((deprecated(_msg)))</span><br><span class="line"></span><br><span class="line">//遇到__unavailable的变量/方法，编译器直接抛出Error</span><br><span class="line">#define __unavailable   __attribute__((unavailable))</span><br><span class="line"></span><br><span class="line">//告诉编译器，即使这个变量/方法 没被使用，也不要抛出警告</span><br><span class="line">#define __unused    __attribute__((unused))</span><br><span class="line"></span><br><span class="line">//和__unused相反</span><br><span class="line">#define __used      __attribute__((used))</span><br><span class="line"></span><br><span class="line">//如果不使用方法的返回值，进行警告</span><br><span class="line">#define __result_use_check __attribute__((__warn_unused_result__))</span><br><span class="line"></span><br><span class="line">//OC方法在Swift中不可用</span><br><span class="line">#define __swift_unavailable(_msg)   __attribute__((__availability__(swift, unavailable, message=_msg)))</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="Clang警告处理"><a href="#Clang警告处理" class="headerlink" title="Clang警告处理"></a>Clang警告处理</h3><p>你一定还见过如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#pragma clang diagnostic push</div><div class="line">#pragma clang diagnostic ignored &quot;-Wundeclared-selector&quot;</div><div class="line">///代码</div><div class="line">#pragma clang diagnostic pop</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored &quot;-Wundeclared-selector&quot;</span><br><span class="line">///代码</span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
 <p>这段代码的作用是</p>
 <ul>
 <li>对当前编译环境进行压栈</li>
@@ -394,18 +396,18 @@
 <p>通过clang diagnostic push/pop,你可以灵活的控制代码块的编译选项。</p>
 <blockquote>
 <ul>
-<li>iOS 合理利用Clang警告来提高代码质量 (<a href="http://blog.csdn.net/Hello_Hwc/article/details/46425503" target="_blank" rel="external">http://blog.csdn.net/Hello_Hwc/article/details/46425503</a>)</li>
+<li>iOS 合理利用Clang警告来提高代码质量 (<a href="http://blog.csdn.net/Hello_Hwc/article/details/46425503" target="_blank" rel="noopener">http://blog.csdn.net/Hello_Hwc/article/details/46425503</a>)</li>
 </ul>
 </blockquote>
 <hr>
 <h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>所谓预处理，就是在编译之前的处理。预处理能够让你定义编译器变量，实现条件编译。</p>
 <p>比如，这样的代码很常见</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef DEBUG</div><div class="line">//...</div><div class="line">#else</div><div class="line">//...</div><div class="line">#endif</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef DEBUG</span><br><span class="line">//...</span><br><span class="line">#else</span><br><span class="line">//...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
 <p>同样，我们同样也可以定义其他预处理变量,在XCode-选中Target-build settings中，搜索proprecess。然后点击图中蓝色的加号，可以分别为debug和release两种模式设置预处理宏。</p>
 <p>比如我们加上：TestServer，表示在这个宏中的代码运行在测试服务器</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e98ed1a3?w=640&amp;h=367&amp;f=jpeg&amp;s=24206" alt=""></p>
 <p>然后，配合多个Target(右键Target，选择Duplicate)，单独一个Target负责测试服务器。这样我们就不用每次切换测试服务器都要修改代码了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef TESTMODE</div><div class="line">//测试服务器相关的代码</div><div class="line">#else</div><div class="line">//生产服务器相关代码</div><div class="line">#endif</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef TESTMODE</span><br><span class="line">//测试服务器相关的代码</span><br><span class="line">#else</span><br><span class="line">//生产服务器相关代码</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="插入脚本"><a href="#插入脚本" class="headerlink" title="插入脚本"></a>插入脚本</h3><p>通常，如果你使用CocoaPod来管理三方库，那么你的Build Phase是这样子的：</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6ea6e757b?w=640&amp;h=226&amp;f=jpeg&amp;s=10972" alt=""></p>
@@ -419,7 +421,7 @@
 <p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e98b2419?w=418&amp;h=542&amp;f=jpeg&amp;s=31719" alt=""></p>
 <p>到这里，CocoaPod的原理也就大致搞清楚了，通过修改xcodeproject，然后配置编译期脚本，来保证三方库能够正确的编译连接。</p>
 <p>同样，我们也可以插入自己的脚本，来做一些额外的事情。比如，每次进行archive的时候，我们都必须手动调整target的build版本，如果一不小心，就会忘记。这个过程，我们可以通过插入脚本自动化。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">buildNumber=$(/usr/libexec/PlistBuddy -c &quot;Print CFBundleVersion&quot; &quot;$&#123;PROJECT_DIR&#125;/$&#123;INFOPLIST_FILE&#125;&quot;)</div><div class="line">buildNumber=$(($buildNumber + 1))</div><div class="line">/usr/libexec/PlistBuddy -c &quot;Set :CFBundleVersion $buildNumber&quot; &quot;$&#123;PROJECT_DIR&#125;/$&#123;INFOPLIST_FILE&#125;&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buildNumber=$(/usr/libexec/PlistBuddy -c &quot;Print CFBundleVersion&quot; &quot;$&#123;PROJECT_DIR&#125;/$&#123;INFOPLIST_FILE&#125;&quot;)</span><br><span class="line">buildNumber=$(($buildNumber + 1))</span><br><span class="line">/usr/libexec/PlistBuddy -c &quot;Set :CFBundleVersion $buildNumber&quot; &quot;$&#123;PROJECT_DIR&#125;/$&#123;INFOPLIST_FILE&#125;&quot;</span><br></pre></td></tr></table></figure>
 <p>这段脚本其实很简单，读取当前pist的build版本号,然后对其加一，重新写入。</p>
 <p>使用起来也很简单：</p>
 <ul>
@@ -433,15 +435,15 @@
 <p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6eb298a6c?w=640&amp;h=360&amp;f=jpeg&amp;s=20959" alt=""></p>
 <hr>
 <h3 id="脚本编译打包"><a href="#脚本编译打包" class="headerlink" title="脚本编译打包"></a>脚本编译打包</h3><p>脚本化编译打包对于CI(持续集成)来说，十分有用。iOS开发中，编译打包必备的两个命令是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//编译成.app</div><div class="line">xcodebuild  -workspace $projectName.xcworkspace -scheme $projectName  -configuration $buildConfig clean build SYMROOT=$buildAppToDir</div><div class="line">//打包</div><div class="line">xcrun -sdk iphoneos PackageApplication -v $appDir/$projectName.app -o $appDir/$ipaName.ipa</div><div class="line"></div><div class="line">通过info命令，可以查看到详细的文档</div><div class="line">info xcodebuild</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//编译成.app</span><br><span class="line">xcodebuild  -workspace $projectName.xcworkspace -scheme $projectName  -configuration $buildConfig clean build SYMROOT=$buildAppToDir</span><br><span class="line">//打包</span><br><span class="line">xcrun -sdk iphoneos PackageApplication -v $appDir/$projectName.app -o $appDir/$ipaName.ipa</span><br><span class="line"></span><br><span class="line">通过info命令，可以查看到详细的文档</span><br><span class="line">info xcodebuild</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>之前写的一套基于 Python 的编译打包脚本 (<a href="https://github.com/ReverseScale/AutoBuildScript/blob/master/autobuild.py" target="_blank" rel="external">https://github.com/ReverseScale/AutoBuildScript/blob/master/autobuild.py</a>)</p>
+<p>之前写的一套基于 Python 的编译打包脚本 (<a href="https://github.com/ReverseScale/AutoBuildScript/blob/master/autobuild.py" target="_blank" rel="noopener">https://github.com/ReverseScale/AutoBuildScript/blob/master/autobuild.py</a>)</p>
 </blockquote>
 <hr>
 <h3 id="提高项目编译速度"><a href="#提高项目编译速度" class="headerlink" title="提高项目编译速度"></a>提高项目编译速度</h3><p>通常，当项目很大，源代码和三方库引入很多的时候，我们会发现编译的速度很慢。在了解了XCode的编译过程后，我们可以从以下角度来优化编译速度：</p>
 <h4 id="1-查看编译时间"><a href="#1-查看编译时间" class="headerlink" title="1)查看编译时间"></a>1)查看编译时间</h4><p>我们需要一个途径，能够看到编译的时间，这样才能有个对比，知道我们的优化究竟有没有效果。</p>
 <p>对于XCode 8，关闭XCode，终端输入以下指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults write com.apple.dt.Xcode ShowBuildOperationDuration YES</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dt.Xcode ShowBuildOperationDuration YES</span><br></pre></td></tr></table></figure>
 <p>然后，重启XCode，然后编译，你会在这里看到编译时间。</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa758ba06d4?w=640&amp;h=97&amp;f=png&amp;s=23724" alt=""></p>
 <h4 id="2-代码层面的优化"><a href="#2-代码层面的优化" class="headerlink" title="2)代码层面的优化"></a>2)代码层面的优化</h4><p>2.1)forward declaration</p>
@@ -458,11 +460,11 @@
 <p>编译器优化</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa750aaa240?w=640&amp;h=192&amp;f=jpeg&amp;s=15407" alt=""></p>
 <hr>
-<h3 id="更多深入学习"><a href="#更多深入学习" class="headerlink" title="更多深入学习"></a>更多深入学习</h3><p>关于 iOS 编译 Clang LLVM 相关的知识整理参见：<br><a href="https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM" target="_blank" rel="external">深入剖析 iOS 编译 Clang LLVM</a></p>
+<h3 id="更多深入学习"><a href="#更多深入学习" class="headerlink" title="更多深入学习"></a>更多深入学习</h3><p>关于 iOS 编译 Clang LLVM 相关的知识整理参见：<br><a href="https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM" target="_blank" rel="noopener">深入剖析 iOS 编译 Clang LLVM</a></p>
 <hr>
 <h3 id="版权声明"><a href="#版权声明" class="headerlink" title="版权声明"></a>版权声明</h3><p>此系列文章内容多为网上资料整理，文章结尾会列出参照链接，如有纰漏欢迎讨论🤗</p>
 <blockquote>
-<p>以上文章整理自：<a href="https://my.oschina.net/u/2345393/blog/820141，https://linuxtoy.org/archives/llvm-and-clang.html，https://blog.csdn.net/hello_hwc/article/details/53557308，https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM" target="_blank" rel="external">https://my.oschina.net/u/2345393/blog/820141，https://linuxtoy.org/archives/llvm-and-clang.html，https://blog.csdn.net/hello_hwc/article/details/53557308，https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM</a></p>
+<p>以上文章整理自：<a href="https://my.oschina.net/u/2345393/blog/820141，https://linuxtoy.org/archives/llvm-and-clang.html，https://blog.csdn.net/hello_hwc/article/details/53557308，https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM" target="_blank" rel="noopener">https://my.oschina.net/u/2345393/blog/820141，https://linuxtoy.org/archives/llvm-and-clang.html，https://blog.csdn.net/hello_hwc/article/details/53557308，https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM</a></p>
 </blockquote>
 
             <div class="clearfix"></div>

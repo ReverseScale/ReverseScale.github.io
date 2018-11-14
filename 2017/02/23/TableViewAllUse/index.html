@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,26 +243,28 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#UITableView继承自UIScrollview,是苹果为我们封装好的一个基于scroll的控件。可是重用机制却往往使不明所以的新手痛苦不堪。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>上面主要是一个个的UITableViewCell,可以让UITableViewCell响应一些点击事件，也可以在UITableViewCell中加入UITextField或者UITextView等子视图，使得可以在cell上进行文字编辑。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>上面主要是一个个的UITableViewCell,可以让UITableViewCell响应一些点击事件，也可以在UITableViewCell中加入UITextField或者UITextView等子视图，使得可以在cell上进行文字编辑。</p>
 <p>UITableView中的cell可以有很多，一般会通过重用cell来达到节省内存的目的:通过为每个cell指定一个重用标识符(reuseIdentifier),即指定了单元格的种类,当cell滚出屏幕时,会将滚出屏幕的单元格放入重用的queue中，当某个未在屏幕上的单元格要显示的时候，就从这个queue中取出单元格进行重用。</p>
 <p>但对于多变的自定义cell，有时这种重用机制会出错。比如，当一个cell含有一个UITextField的子类并被放在重用queue中以待重用，这时如果一个未包含任何子视图的cell要显示在屏幕上，就会取出并使用这个重用的cell显示在无任何子视图的cell中，这时候就会出错。</p>
 <p>解决方法：</p>
 <hr>
 <p><strong>方法1 改变获得cell的方法</strong><br>将</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-(UITableViewCell*)dequeueReusableCellWithIdentifier:(NSString*)identifier</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(UITableViewCell*)dequeueReusableCellWithIdentifier:(NSString*)identifier</span><br></pre></td></tr></table></figure>
 <p>换为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-(UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath</span><br></pre></td></tr></table></figure>
 <p>重用机制调用的就是dequeueReusableCellWithIdentifier这个方法，方法的意思就是“出列可重用的cell”，因而只要将它换为cellForRowAtIndexPath（只从要更新的cell的那一行取出cell），就可以不使用重用机制，因而问题就可以得到解决，虽然可能会浪费一些空间。</p>
-<p>示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </div><div class="line">&#123;    </div><div class="line">   static NSString *CellIdentifier = @&quot;Cell&quot;;    </div><div class="line">  // UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //改为以下的方法    </div><div class="line">   UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath]; //根据indexPath准确地取出一行，而不是从cell重用队列中取出    </div><div class="line">   if (cell == nil) &#123;    </div><div class="line">   cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </div><div class="line">   &#125;    </div><div class="line">   //...其他代码                                  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </span><br><span class="line">&#123;    </span><br><span class="line">   static NSString *CellIdentifier = @&quot;Cell&quot;;    </span><br><span class="line">  // UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //改为以下的方法    </span><br><span class="line">   UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath]; //根据indexPath准确地取出一行，而不是从cell重用队列中取出    </span><br><span class="line">   if (cell == nil) &#123;    </span><br><span class="line">   cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </span><br><span class="line">   &#125;    </span><br><span class="line">   //...其他代码                                  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <p><strong>方法2 通过为每个cell指定不同的重用标识符(reuseIdentifier)来解决</strong></p>
 <p>重用机制是根据相同的标识符来重用cell的，标识符不同的cell不能彼此重用。于是我们将每个cell的标识符都设置为不同，就可以避免不同cell重用的问题了。</p>
 <p>示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </div><div class="line">&#123;            </div><div class="line">   NSString *CellIdentifier = [NSString stringWithFormat:@&quot;Cell%d%d&quot;, [indexPath section], [indexPath row]];//以indexPath来唯一确定cell    </div><div class="line">   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //出列可重用的cell    </div><div class="line">   if (cell == nil) &#123;    </div><div class="line">     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </div><div class="line">   &#125;    </div><div class="line">   //...其他代码    </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </span><br><span class="line">&#123;            </span><br><span class="line">   NSString *CellIdentifier = [NSString stringWithFormat:@&quot;Cell%d%d&quot;, [indexPath section], [indexPath row]];//以indexPath来唯一确定cell    </span><br><span class="line">   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //出列可重用的cell    </span><br><span class="line">   if (cell == nil) &#123;    </span><br><span class="line">     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </span><br><span class="line">   &#125;    </span><br><span class="line">   //...其他代码    </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p><strong>方法3 删除重用cell的所有子视图</strong><br>这个方法是通过删除重用的cell的所有子视图，从而得到一个没有特殊格式的cell，供其他cell重用。</p>
 <p>示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </div><div class="line">&#123;    </div><div class="line">   static NSString *CellIdentifier = @&quot;Cell&quot;;    </div><div class="line">   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //出列可重用的cell    </div><div class="line">  if (cell == nil) &#123;    </div><div class="line">     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </div><div class="line">   &#125;    </div><div class="line">  else    </div><div class="line">  &#123;    </div><div class="line">     //删除cell的所有子视图    </div><div class="line">     while ([cell.contentView.subviews lastObject] != nil)    </div><div class="line">    &#123;    </div><div class="line">     [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];    </div><div class="line">     &#125;    </div><div class="line">   &#125;    </div><div class="line">   //...其他代码    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath    </span><br><span class="line">&#123;    </span><br><span class="line">   static NSString *CellIdentifier = @&quot;Cell&quot;;    </span><br><span class="line">   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier]; //出列可重用的cell    </span><br><span class="line">  if (cell == nil) &#123;    </span><br><span class="line">     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];    </span><br><span class="line">   &#125;    </span><br><span class="line">  else    </span><br><span class="line">  &#123;    </span><br><span class="line">     //删除cell的所有子视图    </span><br><span class="line">     while ([cell.contentView.subviews lastObject] != nil)    </span><br><span class="line">    &#123;    </span><br><span class="line">     [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];    </span><br><span class="line">     &#125;    </span><br><span class="line">   &#125;    </span><br><span class="line">   //...其他代码    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

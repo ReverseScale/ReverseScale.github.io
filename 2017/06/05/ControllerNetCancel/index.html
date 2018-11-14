@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#一个编写iOS代码的经典场景：用户进入某个Controller，发起Http网络请求从Server获取数据，在数据返回之前用户退出了Controller。此时是否需要Cancel之前发出的网络请求呢？</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>熟悉的朋友都已经知道了，我最近利用空闲时间在重构项目和组织架构，目前正在设计网络层相关的部分，网络层的优良直接影响着一个项目的稳定性、拓展性和以后的开发效率，所以我格外的慎重，而且在不断地深入调研中也在不断地进步着。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>熟悉的朋友都已经知道了，我最近利用空闲时间在重构项目和组织架构，目前正在设计网络层相关的部分，网络层的优良直接影响着一个项目的稳定性、拓展性和以后的开发效率，所以我格外的慎重，而且在不断地深入调研中也在不断地进步着。</p>
 <p>言归正传，回答开篇问题。如果请求的数据只在当前Controller产生内容，结论当然是需要Cancel，虽然我知道不少iOS程序员因为偷懒而忘了取消。我们用工程的思维，深入本质，一起看下这背后都发生了什么，如果不Cancel会有哪些副作用。</p>
 <hr>
 <p>我们可以把一个Http请求分为这几步：</p>
@@ -255,7 +257,7 @@
 <p>根据Response的大小，产生的packet数量不相同，一般一个packet在1.5KB左右。</p>
 <hr>
 <h4 id="通过代码查看测试样本"><a href="#通过代码查看测试样本" class="headerlink" title="通过代码查看测试样本"></a>通过代码查看测试样本</h4><p>我们在Demo项目中运行如下代码，再配合tcpdump抓包看看背后究竟发生了什么？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];</div><div class="line">AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];</div><div class="line"></div><div class="line">NSURL *URL = [NSURL URLWithString:@&quot;http://httpbin.org/get&quot;];</div><div class="line">NSURLRequest *request = [NSURLRequest requestWithURL:URL];</div><div class="line"></div><div class="line">NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse 星response, id responseObject, NSError 星error) &#123;</div><div class="line">    if (error) &#123;</div><div class="line">        NSLog(@&quot;Error: %@&quot;, error);</div><div class="line">    &#125; else &#123;</div><div class="line">        NSLog(@&quot;%@ %@&quot;, response, responseObject);</div><div class="line">    &#125;</div><div class="line">&#125;];</div><div class="line">[dataTask resume];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];</span><br><span class="line">AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];</span><br><span class="line"></span><br><span class="line">NSURL *URL = [NSURL URLWithString:@&quot;http://httpbin.org/get&quot;];</span><br><span class="line">NSURLRequest *request = [NSURLRequest requestWithURL:URL];</span><br><span class="line"></span><br><span class="line">NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse 星response, id responseObject, NSError 星error) &#123;</span><br><span class="line">    if (error) &#123;</span><br><span class="line">        NSLog(@&quot;Error: %@&quot;, error);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;%@ %@&quot;, response, responseObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line">[dataTask resume];</span><br></pre></td></tr></table></figure>
 <p>运行结果：<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-5/39991308.jpg" alt=""></p>
 <p>下图是tcpdump获取的结果：<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-5/97078009.jpg" alt=""></p>
 <ul>
@@ -266,7 +268,7 @@
 <p>后面还有几个断开tcp连接的包被我省去了，前面这6个packet足以说明问题了。</p>
 <p>上述三步中，前两步消耗的是用户上行的流量，第三步用的下行的流量。国内移动运营商对于上行和下行的流量都算在包月的总流量当中的，所以如果用户在第六个或者之后的Packet没有返回之前退出Controller的话，后续的Packet依然会通过连接，走下行通道，抵达我们的客户端，耗费用户的流量，Response往往还是一个请求的流量大头。</p>
 <p>如果我们在请求返回之前，调用Cancel:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[dataTask cancel];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dataTask cancel];</span><br></pre></td></tr></table></figure>
 <p>取消请求的话，客户端会发送如下一个Reset Packet断开当前的Http连接，阻止后续的流量产生：<br><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-5/29481279.jpg" alt=""></p>
 <p>所以结论是：如果不Cancel，请求完成之后通过回调找到delegate，如果是weak引用，Controller被释放，delegate变为nil，业务流程被中断，代码还算安全。但是会的的确确浪费一些用户流量。养成好习惯，自己产生的垃圾自己清理哦。</p>
 

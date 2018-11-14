@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#依然是一篇基础指南，为那些看到Swift越来越精练而心动，却对OC丰富的三方库而留恋的孩子们指明方向。一个不能不说的事实就是无论苹果对Swift再上心，实际项目中你也不可能真正做到全篇Swift一句OC都不用，除非你的老板也是一名“极客”。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><strong>先列举这个工程中用到的oc源码库：</strong></p>
+<a id="more"></a><!--more-->
+<hr>
+<p><strong>先列举这个工程中用到的oc源码库：</strong></p>
 <ul>
 <li>MBProgressHUD：半透明提示器，Loading动画等</li>
 <li>SDWebImage：图片下载和缓存的库</li>
@@ -257,7 +259,7 @@
 <hr>
 <h4 id="第三步：新建完成后，使用＃import来引用oc库，如下图"><a href="#第三步：新建完成后，使用＃import来引用oc库，如下图" class="headerlink" title="第三步：新建完成后，使用＃import来引用oc库，如下图"></a>第三步：新建完成后，使用＃import来引用oc库，如下图</h4><p><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-24/53162726.jpg" alt=""></p>
 <hr>
-<h4 id="第四步：该步骤比较重要，使用桥接文件"><a href="#第四步：该步骤比较重要，使用桥接文件" class="headerlink" title="第四步：该步骤比较重要，使用桥接文件"></a>第四步：该步骤比较重要，使用桥接文件</h4><p>选择 SexyGallery &gt; Build Settings &gt; 在搜索框输入 “Swift Compiler” &gt;  选择 Objective-C Bridging Header &gt; 键入刚才的文件名 SexyGallery－Bridging－Header.h &gt; Command + s 保存即可。<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-24/46919952.jpg" alt=""><br>导入成功后，接下来测试如何引用，下面以及调用MJRefresh库为例，只要UIRefreshControl声明变量能编译能通过，就说明能正常调用，具体使用方法参见MJRefresh的相关文档：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GalleryListViewController</span>:  <span class="title">UIViewController</span>, <span class="title">UICollectionViewDataSource</span>,<span class="title">UICollectionViewDelegateFlowLayout</span>  </span>&#123;       </div><div class="line"><span class="keyword">let</span> refreshControl = <span class="type">UIRefreshControl</span>() <span class="comment">//下拉刷新     </span></div><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> collectionView: <span class="type">UICollectionView</span>!       </div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;         </div><div class="line"><span class="keyword">super</span>.viewDidLoad()         </div><div class="line"><span class="keyword">self</span>.configureRefresh()     </div><div class="line">&#125;         </div><div class="line"><span class="comment">//设置下拉和上啦刷新     </span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">configureRefresh</span><span class="params">()</span></span>&#123;         </div><div class="line">	<span class="keyword">self</span>.collectionView?.header = <span class="type">MJRefreshNormalHeader</span>(refreshingBlock: &#123; () <span class="keyword">in</span>             </div><div class="line">	<span class="built_in">print</span>(<span class="string">"header"</span>)             </div><div class="line">	<span class="keyword">self</span>.<span class="type">RefreshData</span>()             </div><div class="line">	<span class="keyword">self</span>.collectionView?.header.endRefreshing()         &#125;)                 </div><div class="line">	<span class="keyword">self</span>.collectionView?.footer = <span class="type">MJRefreshAutoFooter</span>(refreshingBlock:             </div><div class="line">		&#123; () <span class="keyword">in</span>                 </div><div class="line">		<span class="built_in">print</span>(<span class="string">"footer"</span>)                 </div><div class="line">		<span class="keyword">self</span>.loadData()                 </div><div class="line">		<span class="keyword">self</span>.collectionView?.footer.endRefreshing()        </div><div class="line">		&#125;)     </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="第四步：该步骤比较重要，使用桥接文件"><a href="#第四步：该步骤比较重要，使用桥接文件" class="headerlink" title="第四步：该步骤比较重要，使用桥接文件"></a>第四步：该步骤比较重要，使用桥接文件</h4><p>选择 SexyGallery &gt; Build Settings &gt; 在搜索框输入 “Swift Compiler” &gt;  选择 Objective-C Bridging Header &gt; 键入刚才的文件名 SexyGallery－Bridging－Header.h &gt; Command + s 保存即可。<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-24/46919952.jpg" alt=""><br>导入成功后，接下来测试如何引用，下面以及调用MJRefresh库为例，只要UIRefreshControl声明变量能编译能通过，就说明能正常调用，具体使用方法参见MJRefresh的相关文档：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GalleryListViewController</span>:  <span class="title">UIViewController</span>, <span class="title">UICollectionViewDataSource</span>,<span class="title">UICollectionViewDelegateFlowLayout</span>  </span>&#123;       </span><br><span class="line"><span class="keyword">let</span> refreshControl = <span class="type">UIRefreshControl</span>() <span class="comment">//下拉刷新     </span></span><br><span class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> collectionView: <span class="type">UICollectionView</span>!       </span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;         </span><br><span class="line"><span class="keyword">super</span>.viewDidLoad()         </span><br><span class="line"><span class="keyword">self</span>.configureRefresh()     </span><br><span class="line">&#125;         </span><br><span class="line"><span class="comment">//设置下拉和上啦刷新     </span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">configureRefresh</span><span class="params">()</span></span>&#123;         </span><br><span class="line">	<span class="keyword">self</span>.collectionView?.header = <span class="type">MJRefreshNormalHeader</span>(refreshingBlock: &#123; () <span class="keyword">in</span>             </span><br><span class="line">	<span class="built_in">print</span>(<span class="string">"header"</span>)             </span><br><span class="line">	<span class="keyword">self</span>.<span class="type">RefreshData</span>()             </span><br><span class="line">	<span class="keyword">self</span>.collectionView?.header.endRefreshing()         &#125;)                 </span><br><span class="line">	<span class="keyword">self</span>.collectionView?.footer = <span class="type">MJRefreshAutoFooter</span>(refreshingBlock:             </span><br><span class="line">		&#123; () <span class="keyword">in</span>                 </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">"footer"</span>)                 </span><br><span class="line">		<span class="keyword">self</span>.loadData()                 </span><br><span class="line">		<span class="keyword">self</span>.collectionView?.footer.endRefreshing()        </span><br><span class="line">		&#125;)     </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <p><strong>好了，大家可以从此恬不知耻的在Swift中使用OC丰富的三方库了。</strong></p>
 

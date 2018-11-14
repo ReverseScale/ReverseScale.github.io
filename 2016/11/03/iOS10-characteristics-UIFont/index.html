@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,16 +243,18 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#在以前如果说我们想改变APP中程序的字体大小，我们只能自定义字体或者使用runtime进行处理，或者都得设置UIFont，非常的不妨百年，从iOS 10苹果官方允许我们自定义设置。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>核心代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">在iOS <span class="number">10</span>当中，当咱们用户将手机的字体大小进行了设置调整之后，那么app中设置相关代码字体也会跟着一起变化 ，支持常见一些字体UI控件 比如uilabel uibutton</div><div class="line"> **/</div><div class="line">[super viewDidLoad];</div><div class="line"></div><div class="line">//设置字体的改变大小</div><div class="line">self.labels.font =[UIFont preferredFontForTextStyle:UIFontTextStyleBody];</div><div class="line">//允许改变</div><div class="line">/*</div><div class="line">   苹果官方明确的告诉你必须和  preferredFontForTextStyle 或者preferredFontForTextStyle:(NSString *)style compatibleWithTraitCollection 进行结合使用</div><div class="line">   注意这里不支持模拟器操作</div><div class="line"> **/</div><div class="line"></div><div class="line">self.labels.adjustsFontForContentSizeCategory = YES;</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
+<hr>
+<p>核心代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">在iOS <span class="number">10</span>当中，当咱们用户将手机的字体大小进行了设置调整之后，那么app中设置相关代码字体也会跟着一起变化 ，支持常见一些字体UI控件 比如uilabel uibutton</span><br><span class="line"> **/</span><br><span class="line">[super viewDidLoad];</span><br><span class="line"></span><br><span class="line">//设置字体的改变大小</span><br><span class="line">self.labels.font =[UIFont preferredFontForTextStyle:UIFontTextStyleBody];</span><br><span class="line">//允许改变</span><br><span class="line">/*</span><br><span class="line">   苹果官方明确的告诉你必须和  preferredFontForTextStyle 或者preferredFontForTextStyle:(NSString *)style compatibleWithTraitCollection 进行结合使用</span><br><span class="line">   注意这里不支持模拟器操作</span><br><span class="line"> **/</span><br><span class="line"></span><br><span class="line">self.labels.adjustsFontForContentSizeCategory = YES;</span><br></pre></td></tr></table></figure>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/11/03/iOS10-characteristics-UIColor/" style="float: left;">
-        ← iOS 10 新特性 UIColor 新增方法
+    <a class="pull-left" href="/2016/11/03/iOS10-characteristics-UIViewPropertyAnimator/" style="float: left;">
+        ← iOS 10 新特性 UIViewPropertyAnimator属性动画器
     </a>
     
     

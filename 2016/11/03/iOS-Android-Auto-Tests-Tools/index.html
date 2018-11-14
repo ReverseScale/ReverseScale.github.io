@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#现今自动化测试在产品测试中占有很重要地位。实现测试的自动化有很多积极的意义，比如尽量缩短测试执行时间，关键发布阶段在更短时间保证更大的测试覆盖，产品开发阶段可靠和重复运行确保不引入回归问题；并且它也能最大可能地减少在重复性回归周期由于人的错误或疏忽带来的风险。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><blockquote>
+<a id="more"></a><!--more-->
+<hr>
+<blockquote>
 <p>摘要：现今自动化测试在产品测试中占有很重要地位。实现测试的自动化有很多积极的意义，比如尽量缩短测试执行时间，关键发布阶段在更短时间保证更大的测试覆盖， 产品开发阶段可靠和重复运行确保不引入回归问题；并且它也能最大可能地减少在重复性回归周期由于人的错误或疏忽带来的风险。</p>
 </blockquote>
 <p>市场上有大量的工具可以用来做测试自动化，其中有开源的也有付费的。尽管使用付费的或者开源的工具各有优劣，后一类的工具还是在各自动化测试社区被广泛使用。根据你的项目需求选择恰当的自动化工具是非常棘手的。</p>
@@ -256,6 +258,8 @@
 <p>实际的测试是用 Gherkin 编写，支持 Ruby 代码，并且运行在 cucumber 框架中。</p>
 <blockquote>
 <p>优点:<br>1.大型的社区支持。<br>2.简单的，富有感染力的类似于英语的测试语句。<br>3.支持屏幕所有的动作，比如滑动，缩放，旋转和敲击。<br>4.大型而热情的社区。<br>5.跨平台开发的支持(相同的代码在安卓和 iOS 都适用)</p>
+</blockquote>
+<blockquote>
 <p>缺点:<br>1.当测试步骤失败的时候，后续步骤会被忽略。这个会导致漏掉更严重的产品问题。<br>2.跑测试需要花费时间应为默认是总是在最开始安装应用，但是这个设定可以在代码添加钩子给覆盖掉。<br>3.需要 Calabash 框架在安装在 iOS 的 ipa 文件中。<br>4.在 iOS 上我们必须要应用的代码。<br>5.对 Ruby 之外的语言不友好。</p>
 </blockquote>
 <hr>
@@ -265,6 +269,8 @@
 <p>一 个 Appium 服务器是部署在Node服务器上的。 可以通过一组Node明年来启动一个Appium 服务器。如果使用Appium独立服务器作为你的应用服务器 (可以从Appium网站下载), 检查员工具提供了 定位/甄别/操作 你的应用中的所有定位器的能力。</p>
 <blockquote>
 <p>优点:<br>1.支持多语言。<br>2.无需访问源码。<br>3.跨平台脚本编程能力。<br>4.大社区的支持。<br>5.支持在Mac平台录制。<br>6.能够使用Appium服务器程序的‘定位’工具提取标识符。<br>7.由Appium服务器桌面程序内建支持‘Selendroid’。<br>8.还能使用供应商的框架: UIAutomation用于iOS,  UIAutomator和Selendroid分别支持android 4.2+ 和 2.3+。<br>9.支持物理设备和模拟器。<br>10.支持原生，混合和手机网络程序的自动化。</p>
+</blockquote>
+<blockquote>
 <p>缺点:<br>1.Appium服务器桌面程序常常有不稳定版本。<br>2.Window操作系统上对服务器桌面应用不支持脚本录制。</p>
 </blockquote>
 <hr>
@@ -273,6 +279,8 @@
 <p>由于它简单易用，并且能够创建出强大、健壮性良好的自动化测试场景，Robotium 正在受到越来越多的自动化测试社区用户的欢迎。<br>Robotium 使用运行时绑定 GUI 组建的方式。使用时将测试用例库，以一个应用程序的形式安装到 Android 的设备或者模拟器上，以此提供一个真实的环境用以执行测试。</p>
 <blockquote>
 <p>亮点:<br>1.让编写测试脚本工作变得轻而易举.<br>2.能够对预装应用进行自动化测试.<br>3.自动追踪当前的 activity.<br>4.由于采用了运行时绑定 GUI 组件的方式，与 Appium 相比，它能够更加快速稳定的执行测试.<br>5.可以在没有源代码，也不知道应用具体实现的条件下进行测试.<br>6.支持 Activities, Dialogs（对话框） ,Toasts, Menus（菜单）, Context Menus（上下文菜单）和其他 Android SDK 的控件.</p>
+</blockquote>
+<blockquote>
 <p>不足:<br>1.无法处理 flash 和 web 组件.<br>2.仅能够支持 Java 开发环境.<br>3.在较早期的设备上运行不够流畅.<br>4.由于不支持 iOS 设备，当自动化测试同时覆盖 android 与 iOS 的情况时，测试会被中断.<br>5.没有内置的记录和回放功能. 使用记录功能需要 TestDroid 和 Robotium Recorder 这样收费工具。</p>
 </blockquote>
 <hr>
@@ -281,6 +289,8 @@
 <p>Frank 需要被编译进被测试的应用程序，这意味着你的源代码必须被修改。它是一个工具，使用的是Cucumber 和 JSON 的组合命令，并将这些命令发送到你本地应用程序中的一个服务器。然后，利用 UISpec 来执行这些命令。</p>
 <blockquote>
 <p>优点:<br>1.借助于 Cucumber 框架，可以使用容易理解的自然语句书写测试用例。<br>2.自带审查工具。<br>3.显示出了高效性，对于拥有 Selenium 和 Cucumber 自动化测试框架使用经验的团队。<br>4.活跃的社区支持。<br>5.持续扩展的功能库。</p>
+</blockquote>
+<blockquote>
 <p>不足:<br>1.有限的手势支持功能。<br>2.设备上跑测试有点困难。<br>3.需要修改配置文件才能在真实设备上运行。<br>4.缺少记录功能。</p>
 </blockquote>
 <hr>
@@ -289,7 +299,9 @@
 <p>尽管对于原生 app 的自动测试，它是又好又简单，但是对于自动测试 web view 的支持则是那么的有限近乎不支持。它只支持 API level16 及以上的设备，但这并没有多大问题，毕竟现在大部分都已在 API level19 及以上了。</p>
 <blockquote>
 <p>优点:<br>1.简单易用，教程丰富；<br>2.Library 支持且由 Google 社区维护；<br>3.第三方付费集成云端的测试管理。</p>
-<p>缺点:<br>1.只支持 Android4.1 和更高；<br>2.不支持脚本录制；<br>3.支持只专注于 Java；<br>4.无法获得当前的 Activity 或 Instrumentation；<br>5.当前不支持 WebView 或混合 app；<br>6.Library 只支持 Java，因此想集成到 ruby 的 cucumber（译注：Cucumber 是 BDD（行为驱动开发）中成熟的一个框架，官方网址: <a href="http://cukes.info/）框架中则比较困难，尽管" target="_blank" rel="external">http://cukes.info/）框架中则比较困难，尽管</a> Java 已有 BDD框架可用，可实际上却用的很少。</p>
+</blockquote>
+<blockquote>
+<p>缺点:<br>1.只支持 Android4.1 和更高；<br>2.不支持脚本录制；<br>3.支持只专注于 Java；<br>4.无法获得当前的 Activity 或 Instrumentation；<br>5.当前不支持 WebView 或混合 app；<br>6.Library 只支持 Java，因此想集成到 ruby 的 cucumber（译注：Cucumber 是 BDD（行为驱动开发）中成熟的一个框架，官方网址: <a href="http://cukes.info/）框架中则比较困难，尽管" target="_blank" rel="noopener">http://cukes.info/）框架中则比较困难，尽管</a> Java 已有 BDD框架可用，可实际上却用的很少。</p>
 </blockquote>
 
             <div class="clearfix"></div>

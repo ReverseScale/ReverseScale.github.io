@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,8 +243,10 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#dispatch_barrier_async 作用是在并行队列中，等待前面两个操作并行操作完成。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>先看段代码</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue = dispatch_queue_create(<span class="string">"my.concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-1"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-2"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_barrier_async(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-barrier"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-3"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-4"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
+<hr>
+<p>先看段代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> concurrentQueue = dispatch_queue_create(<span class="string">"my.concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-1"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-2"</span>);</span><br><span class="line">&#125;);</span><br><span class="line">dispatch_barrier_async(concurrentQueue, ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-barrier"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-3"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">dispatch_async</span>(concurrentQueue, ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-4"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>dispatch_barrier_async 作用是在并行队列中，等待前面两个操作并行操作完成，这里是并行输出<br>dispatch-1，dispatch-2<br>然后执行<br>dispatch_barrier_async中的操作，(现在就只会执行这一个操作)执行完成后，即输出<br>“dispatch-barrier，<br>最后该并行队列恢复原有执行状态，继续并行执行<br>dispatch-3,dispatch-4。</p>
 
             <div class="clearfix"></div>

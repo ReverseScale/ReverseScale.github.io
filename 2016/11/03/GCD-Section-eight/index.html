@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#dispatch_semaphore 信号量基于计数器的一种多线程同步机制。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>在多个线程访问共有资源时候，会因为多线程的特性而引发数据出错的问题。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>);</div><div class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(<span class="number">1</span>);</div><div class="line"><span class="built_in">NSMutableArray</span> *array = [<span class="built_in">NSMutableArrayarray</span>];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; <span class="number">100000</span>; index++) &#123;</div><div class="line">    <span class="built_in">dispatch_async</span>(queue, ^()&#123;</div><div class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);<span class="comment">//</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"addd :%d"</span>, index);</div><div class="line">        [array addObject:[<span class="built_in">NSNumber</span> numberWithInt:index]];</div><div class="line">        dispatch_semaphore_signal(semaphore);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a><!--more-->
+<hr>
+<p>在多个线程访问共有资源时候，会因为多线程的特性而引发数据出错的问题。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">NSMutableArray</span> *array = [<span class="built_in">NSMutableArrayarray</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; <span class="number">100000</span>; index++) &#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(queue, ^()&#123;</span><br><span class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);<span class="comment">//</span></span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"addd :%d"</span>, index);</span><br><span class="line">        [array addObject:[<span class="built_in">NSNumber</span> numberWithInt:index]];</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); 如果semaphore计数大于等于1.计数－1，返回，程序继续运行。如果计数为0，则等待。这里设置的等待时间是一直等待。<br>dispatch_semaphore_signal(semaphore);计数＋1.在这两句代码中间的执行代码，每次只会允许一个线程进入，这样就有效的保证了在多线程环境下，只能有一个线程进入。</p>
 
             <div class="clearfix"></div>

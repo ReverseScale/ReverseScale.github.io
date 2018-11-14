@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,10 +243,12 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#可能你会发现这个类的父类是NSMutableSet。纳尼？不是说NSMutableSet是不可以储存重复对象的吗。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>其实NSCountedSet也是不能储存重复的对象的，查看Apple文档中对这个类的描述有这么一句：<br>Each distinct object inserted into an NSCountedSet object has a counter associated with it.</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>其实NSCountedSet也是不能储存重复的对象的，查看Apple文档中对这个类的描述有这么一句：<br>Each distinct object inserted into an NSCountedSet object has a counter associated with it.</p>
 <p>插入NSCountedSet对象的每个不同的对象都有一个与之相关的计数器</p>
 <p>也就是说如果遇到重复对象的加入，这个对象的计数器就会+1。所以可以到这个类有个名叫 <strong>- (NSUInteger)countForObject:(id)object</strong> 的方法来统计重复对象的个数。  </p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = @[@<span class="number">1</span>, @<span class="number">2</span>, @<span class="number">2</span>, @<span class="number">1</span>];  </div><div class="line"><span class="built_in">NSCountedSet</span> *set = [[<span class="built_in">NSCountedSet</span> alloc]initWithArray:array];  </div><div class="line">[set enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, BOOLBOOL *stop) &#123;  </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ =&gt; %d"</span>, obj, [set countForObject:obj]);  </div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *array = @[@<span class="number">1</span>, @<span class="number">2</span>, @<span class="number">2</span>, @<span class="number">1</span>];  </span><br><span class="line"><span class="built_in">NSCountedSet</span> *set = [[<span class="built_in">NSCountedSet</span> alloc]initWithArray:array];  </span><br><span class="line">[set enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, BOOLBOOL *stop) &#123;  </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ =&gt; %d"</span>, obj, [set countForObject:obj]);  </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

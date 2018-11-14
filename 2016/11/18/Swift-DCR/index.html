@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#我们在深入初始化方法之前，不妨先再想想 Swift 中的初始化想要达到一种怎样的目的。其实就是安全。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>在 Objective-C 中，init 方法是非常不安全的：没有人能保证 init 只被调用一次，也没有人保证在初始化方法调用以后实例的各个变量都完成初始化，甚至如果在初始化里使用属性进行设置的话，还可能会造成各种问题，虽然 Apple 也明确说明了不应该在 init 中使用属性来访问，但是这并不是编译器强制的，因此还是会有很多开发者犯这样的错误。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>在 Objective-C 中，init 方法是非常不安全的：没有人能保证 init 只被调用一次，也没有人保证在初始化方法调用以后实例的各个变量都完成初始化，甚至如果在初始化里使用属性进行设置的话，还可能会造成各种问题，虽然 Apple 也明确说明了不应该在 init 中使用属性来访问，但是这并不是编译器强制的，因此还是会有很多开发者犯这样的错误。</p>
 <p>所以 Swift 有了超级严格的初始化方法。一方面，Swift 强化了 designated 初始化方法的地位。Swift 中不加修饰的 init 方法都需要在方法中保证所有非 Optional 的实例变量被赋值初始化，而在子类中也强制 (显式或者隐式地) 调用 super 版本的 designated 初始化，所以无论如何走何种路径，被初始化的对象总是可以完成完整的初始化的。</p>
 <pre><code>class ClassA {     
 let numA: Int     

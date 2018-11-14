@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#苹果在WWDC 2016大会上发布了iOS10系统,相应的Xcode8版本也随之而来,目前来说Xcode Release的最新版本是7.3.1,相较于Xcode7.3.1新版本的Xcode还是有很多变化的,为此写一下个人体验。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><blockquote>
+<a id="more"></a><!--more-->
+<hr>
+<blockquote>
 <p>最近发布了iPhone7，再加上前两天发布的iOS10,这几天也算是果粉们的节日了，那么万众瞩目下,我们来看看iPhone7和iOS10”背后的男人“——Xcode8到底更新了什么东西呢?</p>
 </blockquote>
 <h3 id="1-新建工程"><a href="#1-新建工程" class="headerlink" title="1.新建工程"></a>1.新建工程</h3><p>创建工程的界面发生了明显的变化</p>
@@ -263,7 +265,7 @@
 <p>Version_0.png<br>Xcode7再次打开xib就会报错.</p>
 <p><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-4/34730531.jpg" alt=""></p>
 <p>Version_1.png<br>对于这个问题你可以这么做:<br>1.整个团队都升级Xcode8;<br>2.不理会这个弹框,直接Cancel;<br>3.如果不幸已经点了可以选中xib右击选择Open As -&gt;Source Code 然后在xml文件中你会看到这句话.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;capability name=<span class="string">"documents saved in the Xcode 8 format"</span> minToolsVersion=<span class="string">"8.0"</span>/&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;capability name=<span class="string">"documents saved in the Xcode 8 format"</span> minToolsVersion=<span class="string">"8.0"</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>只需把这句删除即可.</p>
 <h3 id="3-强大而简单的Code-Signing"><a href="#3-强大而简单的Code-Signing" class="headerlink" title="3.强大而简单的Code Signing"></a>3.强大而简单的Code Signing</h3><p>Xcode8中还有一个很重要的变化就是签名文件变了在Genernal下有个Signing,Xcode会自动管理需要的配置文件和证书,我们只需要在Xcode的Account中登录我们的AppleID账号即可,配置证书变得如此简单强大,之前被签名证书折磨的时光终于一去不复返了.</p>
 <p>Provisioning Profile 文件选取，已经从Buiid Settings移动到了General中,Buiid Settings中已经标识了 Deprecated.</p>

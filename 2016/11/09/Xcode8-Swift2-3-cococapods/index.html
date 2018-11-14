@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,12 +243,14 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#Xcode8 GM + Swift3发布，影响最大的就是一直以来使用Swift2.3开发，包含各种依赖lib的成熟项目，虽然Xcode8提供了一键Swift2.3 convert Swift3的选项，但是转换完成后几百个error也是常事。所以，在Xcode8下继续使用Swift2.3开发是简便快速的方式。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><div align="center"><br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-9/31809039.jpg"><br></div>
+<a id="more"></a><!--more-->
+<hr>
+<div align="center"><br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-9/31809039.jpg"><br></div>
 
 <p>项目适配</p>
 <p>1.升级完Xcode8之后，老项目打开之后，会弹出转换到Swift3的提示，两次点击Later忽略它。<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-9/84777219.jpg" alt=""><br>可以通过 Edit -&gt; Convert -&gt; To Current Swift Syntax… 来手动转换到Swift3</p>
 <p>2.通过将Build Settings里的Use Legacy Swift Language Version设置为Yes，限定项目的Swift版本为2.3。<br><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-11-9/53807115.jpg" alt=""></p>
-<p>3.Cocoapods适配<br>我们可以使用上面的方式，同样将Podsproject的Use Legacy Swift Language Version设置为Yes，老的项目就能够在Xcode8下以Swift2.3运行了。<br>但是重新运行pod install或pod update安装(更新)pods后，Podsproject的Use Legacy Swift Language Version会被重置，我们可以通过pod钩子的方式，自动设置swift版本在Podfile文件头部，加入代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">post_install do |installer|</div><div class="line">  installer.pods_project.targets.each do |target|</div><div class="line">    target.build_configurations.each do |config|</div><div class="line">      config.build_settings[<span class="string">'SWIFT_VERSION'</span>] = <span class="string">'2.3'</span></div><div class="line">    end</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<p>3.Cocoapods适配<br>我们可以使用上面的方式，同样将Podsproject的Use Legacy Swift Language Version设置为Yes，老的项目就能够在Xcode8下以Swift2.3运行了。<br>但是重新运行pod install或pod update安装(更新)pods后，Podsproject的Use Legacy Swift Language Version会被重置，我们可以通过pod钩子的方式，自动设置swift版本在Podfile文件头部，加入代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_install do |installer|</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">    target.build_configurations.each do |config|</span><br><span class="line">      config.build_settings[<span class="string">'SWIFT_VERSION'</span>] = <span class="string">'2.3'</span></span><br><span class="line">    end</span><br><span class="line">  end</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
 <p>再次运行pod install后，所有的Swift依赖都会被限定为Swift2.3版本运行。</p>
 <p>End</p>
 <p>继续使用Swift2.3只是权宜之策，待各类小问题解决之后，Swift3必然是大势所趋。</p>

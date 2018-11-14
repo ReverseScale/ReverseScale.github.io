@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,20 +243,22 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#给大家推荐一个非常实用的布局工具——“格子”布局工具，点进查看吧。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>“格子”布局工具，顾名思义是对多个类似的功能模块（格子图案）进行布局的封装工具。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>“格子”布局工具，顾名思义是对多个类似的功能模块（格子图案）进行布局的封装工具。</p>
 <p>使用之前需要先制定一个可重复使用的“格子”：</p>
 <div align="left"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/52309182.jpg" width="35%" height="35%"></div>
 
 <p>如图由于不需要复杂的动画效果，我使用XIB画出（StatisticsUIView.xib），提升效率。</p>
-<p>使用方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gridsView = <span class="type">DJGridView</span>()</div><div class="line"><span class="keyword">let</span> v1:<span class="type">StatisticsUIView</span> = <span class="type">NSBundle</span>.mainBundle().loadView(<span class="string">"StatisticsUIView"</span>)</div><div class="line"><span class="keyword">let</span> v2:<span class="type">StatisticsUIView</span> = <span class="type">NSBundle</span>.mainBundle().loadView(<span class="string">"StatisticsUIView"</span>)</div><div class="line"><span class="comment">// 设置高度</span></div><div class="line"><span class="keyword">self</span>.gridsView.preferRowHeight = <span class="number">90</span></div><div class="line"><span class="keyword">self</span>.gridsView.views = [v1,v2]</div><div class="line">v1.iconImage.image = <span class="type">UIImage</span>(named: <span class="string">"statistics_I sent"</span>)</div><div class="line">v1.tittleLabel.text = <span class="string">"已发出"</span></div><div class="line">v2.iconImage.image = <span class="type">UIImage</span>(named: <span class="string">"statistics_I received"</span>)</div><div class="line">v2.tittleLabel.text = <span class="string">"已收到"</span></div><div class="line"><span class="keyword">self</span>.gridsView.borderColor = <span class="type">Designs</span>.<span class="type">Colors</span>.lightGrayColor</div><div class="line"><span class="keyword">self</span>.gridsView.bottomBorderWidth = <span class="number">0.5</span></div><div class="line"><span class="comment">// Masony布局</span></div><div class="line"><span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.gridsView)</div><div class="line"><span class="keyword">self</span>.gridsView.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></div><div class="line">    make.top.<span class="keyword">right</span>.<span class="keyword">left</span>.equalTo(<span class="number">0</span>)</div><div class="line">    make.height.equalTo(<span class="number">90</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>使用方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gridsView = <span class="type">DJGridView</span>()</span><br><span class="line"><span class="keyword">let</span> v1:<span class="type">StatisticsUIView</span> = <span class="type">NSBundle</span>.mainBundle().loadView(<span class="string">"StatisticsUIView"</span>)</span><br><span class="line"><span class="keyword">let</span> v2:<span class="type">StatisticsUIView</span> = <span class="type">NSBundle</span>.mainBundle().loadView(<span class="string">"StatisticsUIView"</span>)</span><br><span class="line"><span class="comment">// 设置高度</span></span><br><span class="line"><span class="keyword">self</span>.gridsView.preferRowHeight = <span class="number">90</span></span><br><span class="line"><span class="keyword">self</span>.gridsView.views = [v1,v2]</span><br><span class="line">v1.iconImage.image = <span class="type">UIImage</span>(named: <span class="string">"statistics_I sent"</span>)</span><br><span class="line">v1.tittleLabel.text = <span class="string">"已发出"</span></span><br><span class="line">v2.iconImage.image = <span class="type">UIImage</span>(named: <span class="string">"statistics_I received"</span>)</span><br><span class="line">v2.tittleLabel.text = <span class="string">"已收到"</span></span><br><span class="line"><span class="keyword">self</span>.gridsView.borderColor = <span class="type">Designs</span>.<span class="type">Colors</span>.lightGrayColor</span><br><span class="line"><span class="keyword">self</span>.gridsView.bottomBorderWidth = <span class="number">0.5</span></span><br><span class="line"><span class="comment">// Masony布局</span></span><br><span class="line"><span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.gridsView)</span><br><span class="line"><span class="keyword">self</span>.gridsView.snp_makeConstraints(closure: &#123; (make) <span class="keyword">in</span></span><br><span class="line">    make.top.<span class="keyword">right</span>.<span class="keyword">left</span>.equalTo(<span class="number">0</span>)</span><br><span class="line">    make.height.equalTo(<span class="number">90</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <hr>
-<p>Delegate &amp;&amp; 点击回调：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">FangAnFunctionViewController</span>:<span class="title">StatisticsUIViewDelegate</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buttonDelegateAction</span><span class="params">(type: Int)</span></span> &#123;</div><div class="line">        <span class="comment">// 可以根据type回调，区分跳转</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Delegate &amp;&amp; 点击回调：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">FangAnFunctionViewController</span>:<span class="title">StatisticsUIViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buttonDelegateAction</span><span class="params">(type: Int)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 可以根据type回调，区分跳转</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <p>效果截图：（列表头的两个卡片效果）</p>
 <div align="left"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/11521460.jpg" width="35%" height="35%"></div>
 
 <hr>
-<div align="center">GZGridView格子工具:<br><a href="https://github.com/ReverseScale/GZGridView" target="_blank" rel="external"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%"></a></div>
+<div align="center">GZGridView格子工具:<br><a href="https://github.com/ReverseScale/GZGridView" target="_blank" rel="noopener"><img src="http://og1yl0w9z.bkt.clouddn.com/public/16-12-6/65909887.jpg" width="15%" height="15%"></a></div>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

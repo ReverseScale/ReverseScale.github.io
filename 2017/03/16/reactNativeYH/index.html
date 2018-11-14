@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,20 +243,22 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#一个简单的react-native HelloWorld项目打包后的大小是7MB多，对于现有项目集成react-native来说是一个不小的负担。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>拆开apk包占据大部分容量的是react-native的so，所以我们的法子是怎么减少打包的so。本文讲的方法对于很多只是在现有项目中集成react-native做部分业务模块实验目的的用户来说是肥肠有用的。</p>
+<a id="more"></a><!--more-->
+<hr>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>拆开apk包占据大部分容量的是react-native的so，所以我们的法子是怎么减少打包的so。本文讲的方法对于很多只是在现有项目中集成react-native做部分业务模块实验目的的用户来说是肥肠有用的。</p>
 <hr>
 <h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p><strong>只保留armeabi so</strong></p>
-<p>大家惯用的伎俩了，不多解释直接上个删除其他abi的gradle代码方便大家<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">splits &#123;</div><div class="line">    abi &#123;</div><div class="line">        enable <span class="literal">true</span></div><div class="line">        reset()</div><div class="line">        include <span class="string">'armeabi'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>大家惯用的伎俩了，不多解释直接上个删除其他abi的gradle代码方便大家<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">splits &#123;</span><br><span class="line">    abi &#123;</span><br><span class="line">        enable <span class="literal">true</span></span><br><span class="line">        reset()</span><br><span class="line">        include <span class="string">'armeabi'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>react-native so不打包进apk，而是从网络下载</strong></p>
 <p>react-native能运行的api level需要&gt;=16，意味着android 4.1以下系统是跑不了react-native的。对于android 4.1以下系统那么干脆禁掉react-native独立打包或许是个不错的选择。但是你能独立对android 4.1以下系统独立打包，用户不会乖乖下载指定系统的安装包的。所以我在这里提出一个更加彻底的方案：所有react-native的so都不打包进apk，而是在用户启动后下载react-native的so再放置到lib目录。</p>
 <p>将react-native做成动态下载so，面临的一个技术问题是程序安装包的lib目录没有写入权限的。所以我们得想法子让react-native从其他目录加载so而不是从默认的so目录。幸运的是reac-native是用SoLoader库来加载so。我们可以从SoLoader入手对SoLoader代码修改或者是hack让它从指定的目录加载react-native的so。先来看看SoLoader在react-native中的初始化流程</p>
 <p><img src="http://p1.bqimg.com/567571/8f2d89d2aed454a3.png" alt=""></p>
 <p>由ReactInstanceManager.Builder创建ReactInstanceManager（XReactInstanceManagerImpl/ReactInstanceManagerImpl），XReactInstanceManagerImpl（ReactInstanceManagerImpl）调用SoLoader.init初始化一些SoSource存储在静态数组sSoSources中。</p>
-<p>SoSource是一个抽象类,负责处理你想要怎么加载so。该类需要实现两个方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public int loadLibrary(<span class="built_in">String</span> soName, int loadFlags)</div></pre></td></tr></table></figure></p>
+<p>SoSource是一个抽象类,负责处理你想要怎么加载so。该类需要实现两个方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public int loadLibrary(<span class="built_in">String</span> soName, int loadFlags)</span><br></pre></td></tr></table></figure></p>
 <p>加载so相当于System.loadLibrary</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public File unpackLibrary(<span class="built_in">String</span> soName)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public File unpackLibrary(<span class="built_in">String</span> soName)</span><br></pre></td></tr></table></figure>
 <p>确保so已经加压存到对应的目录<br>除了NoopSoSource其他SoSorce子类都是继承自DirectorySoSource,    让我们来看看SoSorce的实现类DirectorySoSource。DirectorySoSource的loadLibrary实际调用的是loadLibraryFrom，一个protected方法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int loadLibraryFrom(<span class="built_in">String</span> soName, int loadFlags, File libDir)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int loadLibraryFrom(<span class="built_in">String</span> soName, int loadFlags, File libDir)</span><br></pre></td></tr></table></figure>
 <p>loadLibraryFrom的参数libDir可以传入加载so的路径.<br>到这里您应该明白更改SoLoader加载so路径的方法了吧：写一个DirectorySoSource代理类替换掉DirectorySoSource（修改SoLoader的静态变量sSoSources）,在loadLibrary、unpackLibrary时发现是react-native的so，设法让它跑到指定的目录加载。</p>
 <p>最后，代码就不上了。方法2中简单的反射一下或者修改SoLoader代码都是可行的。通过这两个方法处理后最后打包一个HelloWorld项目立马减少5MB多！</p>
 

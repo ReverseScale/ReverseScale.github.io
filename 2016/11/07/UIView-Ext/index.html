@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,11 +243,13 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#UIView作为开发中最长用到的组件，相信在其上面做些文章最是划算。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>在针对UIView进行的一些延展操作（需要导入SnapKit框架）。</p>
-<p><strong>添加阴影</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//MARK: - 添加阴影</div><div class="line">    func addShadowWithColor(color:UIColor = UIColor.blackColor()) &#123;</div><div class="line">        let path = UIBezierPath(rect: self.layer.bounds)</div><div class="line">        self.layer.shadowPath = path.CGPath</div><div class="line">        self.layer.shadowColor =  color.CGColor</div><div class="line">        layer.shadowOffset = CGSizeZero</div><div class="line">        layer.shadowOpacity = <span class="number">0.4</span></div><div class="line">        layer.shadowRadius = <span class="number">8.0</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p><strong>圆角描边</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//MARK: - 圆角描边</div><div class="line">    func circleStyle(borderColor:UIColor = UIColor(hexString: <span class="string">"DFDFDF"</span>), borderWidth:CGFloat = <span class="number">0.5</span>) &#123;</div><div class="line">        self.layer.borderWidth = borderWidth</div><div class="line">        self.layer.borderColor = borderColor.CGColor</div><div class="line">        self.layer.cornerRadius = self.frame.height / <span class="number">2</span></div><div class="line">        self.layer.masksToBounds = true</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p><strong>设置UITextField/UITextview 边框</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//MARK: - 设置UITextField/UITextview 边框</div><div class="line">    static func setViewsBorder(views:[UIView])&#123;</div><div class="line">        views.forEach &#123; (view) <span class="keyword">in</span></div><div class="line">            view.layer.borderColor = UIColor(hexString: <span class="string">"e5e1e1"</span>).CGColor</div><div class="line">            view.layer.borderWidth = <span class="number">0.5</span></div><div class="line">            view.layer.masksToBounds = true</div><div class="line">            view.layer.cornerRadius = <span class="number">4</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p><strong>添加底部横线</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//MARK: - 添加底部横线</div><div class="line">    func addBottomLine(lineColor:UIColor = UIColor(hexString: <span class="string">"dfdfdf"</span>))&#123;</div><div class="line">        let line = UIView()</div><div class="line">        line.backgroundColor = lineColor</div><div class="line">        self.addSubview(line)</div><div class="line">        line.snp_makeConstraints &#123; (make) <span class="keyword">in</span></div><div class="line">            make.left.equalToSuperview()</div><div class="line">            make.right.equalToSuperview()</div><div class="line">            make.bottom.equalToSuperview().offset(<span class="number">-0.5</span>)</div><div class="line">            make.height.equalTo(<span class="number">0.5</span>)</div><div class="line">        &#125;</div><div class="line">        self.bringSubviewToFront(line)</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a><!--more-->
+<hr>
+<p>在针对UIView进行的一些延展操作（需要导入SnapKit框架）。</p>
+<p><strong>添加阴影</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//MARK: - 添加阴影</span><br><span class="line">    func addShadowWithColor(color:UIColor = UIColor.blackColor()) &#123;</span><br><span class="line">        let path = UIBezierPath(rect: self.layer.bounds)</span><br><span class="line">        self.layer.shadowPath = path.CGPath</span><br><span class="line">        self.layer.shadowColor =  color.CGColor</span><br><span class="line">        layer.shadowOffset = CGSizeZero</span><br><span class="line">        layer.shadowOpacity = <span class="number">0.4</span></span><br><span class="line">        layer.shadowRadius = <span class="number">8.0</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>圆角描边</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//MARK: - 圆角描边</span><br><span class="line">    func circleStyle(borderColor:UIColor = UIColor(hexString: <span class="string">"DFDFDF"</span>), borderWidth:CGFloat = <span class="number">0.5</span>) &#123;</span><br><span class="line">        self.layer.borderWidth = borderWidth</span><br><span class="line">        self.layer.borderColor = borderColor.CGColor</span><br><span class="line">        self.layer.cornerRadius = self.frame.height / <span class="number">2</span></span><br><span class="line">        self.layer.masksToBounds = true</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>设置UITextField/UITextview 边框</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//MARK: - 设置UITextField/UITextview 边框</span><br><span class="line">    static func setViewsBorder(views:[UIView])&#123;</span><br><span class="line">        views.forEach &#123; (view) <span class="keyword">in</span></span><br><span class="line">            view.layer.borderColor = UIColor(hexString: <span class="string">"e5e1e1"</span>).CGColor</span><br><span class="line">            view.layer.borderWidth = <span class="number">0.5</span></span><br><span class="line">            view.layer.masksToBounds = true</span><br><span class="line">            view.layer.cornerRadius = <span class="number">4</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>添加底部横线</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//MARK: - 添加底部横线</span><br><span class="line">    func addBottomLine(lineColor:UIColor = UIColor(hexString: <span class="string">"dfdfdf"</span>))&#123;</span><br><span class="line">        let line = UIView()</span><br><span class="line">        line.backgroundColor = lineColor</span><br><span class="line">        self.addSubview(line)</span><br><span class="line">        line.snp_makeConstraints &#123; (make) <span class="keyword">in</span></span><br><span class="line">            make.left.equalToSuperview()</span><br><span class="line">            make.right.equalToSuperview()</span><br><span class="line">            make.bottom.equalToSuperview().offset(<span class="number">-0.5</span>)</span><br><span class="line">            make.height.equalTo(<span class="number">0.5</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        self.bringSubviewToFront(line)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

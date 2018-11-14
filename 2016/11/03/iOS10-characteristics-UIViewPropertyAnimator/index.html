@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#那么在iOS 10之前，我们使用UIView 做动画效果或者自定义一些layer 的动画，如果开始了，一般无法进行停止操作更不能暂停操作，而且一些非常复杂的动画处理也比较麻烦，但是在iOS10，苹果退出了一个全新的API  UIViewPropertyAnimator，可供我们处理动画操作。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>UIViewPropertyAnimator 是 iOS 10 中新增的一个执行 View 动画的类，具有以下特点：</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>UIViewPropertyAnimator 是 iOS 10 中新增的一个执行 View 动画的类，具有以下特点：</p>
 <ul>
 <li>可中断性</li>
 <li>可擦除</li>
@@ -251,20 +253,20 @@
 <li>丰富的动画时间控制功能</li>
 </ul>
 <hr>
-<p>官方文档:<br><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/21830768.jpg" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/18138640.jpg" alt=""><br>核心代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#import "ViewController.h"</span></div><div class="line"><span class="meta">@interface ViewController ()</span></div><div class="line"><span class="meta">@property(nonatomic,strong)UIView *myView; @property(nonatomic,strong)UIViewPropertyAnimator *myViewPro;</span></div><div class="line"><span class="meta">@end</span></div><div class="line"><span class="meta">@implementation ViewController</span></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">[super viewDidLoad];</div><div class="line">//<span class="number">1.</span>创建一个View对象</div><div class="line">UIView *Views =[[UIView alloc] initWithFrame:CGRectMake(<span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>)]; Views.backgroundColor =[UIColor yellowColor];</div><div class="line">[self.view addSubview:Views];</div><div class="line">//<span class="number">2.</span>创建一个外部的变量进行引用 self.myView = Views;</div><div class="line">//<span class="number">3.</span>创建一个view 动画器 UIViewPropertyAnimator *viewPro =[UIViewPropertyAnimator runningPropertyAnimatorWithDuration:<span class="number">1.0</span> delay:<span class="number">30.0</span> options:UIViewAnimationOptionCurveLinear animations:^&#123; //使用View动画器修改View的frame self.myView.frame = CGRectMake(<span class="number">230</span>, <span class="number">230</span>, <span class="number">130</span>, <span class="number">130</span>); &#125; completion:nil];</div><div class="line">self.myViewPro = viewPro; &#125;</div><div class="line">//结束 - (IBAction)stop:(id)sender &#123;</div><div class="line">// YES 和NO 适用于设置当前这个属性动画器是否可以继续使用</div><div class="line">[self.myViewPro stopAnimation:YES];</div><div class="line">&#125;</div><div class="line">//继续 - (IBAction)continued:(id)sender &#123;</div><div class="line">//UITimingCurveProvider</div><div class="line">/**</div><div class="line"><span class="meta">@property(nullable, nonatomic, readonly) UICubicTimingParameters *cubicTimingParameters;</span></div><div class="line"><span class="meta">@property(nullable, nonatomic, readonly) UISpringTimingParameters *springTimingParameters;</span></div><div class="line">**/</div><div class="line">//设置弹簧效果 DampingRatio取值范围是 <span class="number">0</span><span class="number">-1</span></div><div class="line">//这个取值 决定弹簧抖动效果 的大小 ，越往 <span class="number">0</span> 靠近那么就越明显</div><div class="line">UISpringTimingParameters *sp =[[UISpringTimingParameters alloc] initWithDampingRatio:<span class="number">0.01</span>];</div><div class="line">//设置一个动画的效果</div><div class="line">// UICubicTimingParameters *cub =[[UICubicTimingParameters alloc] initWithAnimationCurve:UIViewAnimationCurveEaseInOut];</div><div class="line">//durationFactor 给一个默认值 <span class="number">1</span>就可以</div><div class="line">[self.myViewPro continueAnimationWithTimingParameters:sp durationFactor:<span class="number">1.0</span>]; &#125;</div><div class="line">//暂停</div><div class="line">- (IBAction)puase:(id)sender &#123;</div><div class="line">[self.myViewPro pauseAnimation];</div><div class="line">&#125;</div><div class="line">//开始 - (IBAction)start:(id)sender &#123;</div><div class="line">[self.myViewPro startAnimation];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>官方文档:<br><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/21830768.jpg" alt=""><br><img src="http://og1yl0w9z.bkt.clouddn.com/16-11-3/18138640.jpg" alt=""><br>核心代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#import "ViewController.h"</span></span><br><span class="line"><span class="meta">@interface ViewController ()</span></span><br><span class="line"><span class="meta">@property(nonatomic,strong)UIView *myView; @property(nonatomic,strong)UIViewPropertyAnimator *myViewPro;</span></span><br><span class="line"><span class="meta">@end</span></span><br><span class="line"><span class="meta">@implementation ViewController</span></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">[super viewDidLoad];</span><br><span class="line">//<span class="number">1.</span>创建一个View对象</span><br><span class="line">UIView *Views =[[UIView alloc] initWithFrame:CGRectMake(<span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>)]; Views.backgroundColor =[UIColor yellowColor];</span><br><span class="line">[self.view addSubview:Views];</span><br><span class="line">//<span class="number">2.</span>创建一个外部的变量进行引用 self.myView = Views;</span><br><span class="line">//<span class="number">3.</span>创建一个view 动画器 UIViewPropertyAnimator *viewPro =[UIViewPropertyAnimator runningPropertyAnimatorWithDuration:<span class="number">1.0</span> delay:<span class="number">30.0</span> options:UIViewAnimationOptionCurveLinear animations:^&#123; //使用View动画器修改View的frame self.myView.frame = CGRectMake(<span class="number">230</span>, <span class="number">230</span>, <span class="number">130</span>, <span class="number">130</span>); &#125; completion:nil];</span><br><span class="line">self.myViewPro = viewPro; &#125;</span><br><span class="line">//结束 - (IBAction)stop:(id)sender &#123;</span><br><span class="line">// YES 和NO 适用于设置当前这个属性动画器是否可以继续使用</span><br><span class="line">[self.myViewPro stopAnimation:YES];</span><br><span class="line">&#125;</span><br><span class="line">//继续 - (IBAction)continued:(id)sender &#123;</span><br><span class="line">//UITimingCurveProvider</span><br><span class="line">/**</span><br><span class="line"><span class="meta">@property(nullable, nonatomic, readonly) UICubicTimingParameters *cubicTimingParameters;</span></span><br><span class="line"><span class="meta">@property(nullable, nonatomic, readonly) UISpringTimingParameters *springTimingParameters;</span></span><br><span class="line">**/</span><br><span class="line">//设置弹簧效果 DampingRatio取值范围是 <span class="number">0</span><span class="number">-1</span></span><br><span class="line">//这个取值 决定弹簧抖动效果 的大小 ，越往 <span class="number">0</span> 靠近那么就越明显</span><br><span class="line">UISpringTimingParameters *sp =[[UISpringTimingParameters alloc] initWithDampingRatio:<span class="number">0.01</span>];</span><br><span class="line">//设置一个动画的效果</span><br><span class="line">// UICubicTimingParameters *cub =[[UICubicTimingParameters alloc] initWithAnimationCurve:UIViewAnimationCurveEaseInOut];</span><br><span class="line">//durationFactor 给一个默认值 <span class="number">1</span>就可以</span><br><span class="line">[self.myViewPro continueAnimationWithTimingParameters:sp durationFactor:<span class="number">1.0</span>]; &#125;</span><br><span class="line">//暂停</span><br><span class="line">- (IBAction)puase:(id)sender &#123;</span><br><span class="line">[self.myViewPro pauseAnimation];</span><br><span class="line">&#125;</span><br><span class="line">//开始 - (IBAction)start:(id)sender &#123;</span><br><span class="line">[self.myViewPro startAnimation];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2016/11/03/BaiDuYun-Frontier-Technology/" style="float: left;">
-        ← 前沿技术资料百度云链接
+    <a class="pull-left" href="/2016/11/03/iOS10-characteristics-UIColor/" style="float: left;">
+        ← iOS 10 新特性 UIColor 新增方法
     </a>
     
     
-    <a class="pull-right" href="/2016/11/03/iOS10-characteristics-UIColor/">
-        iOS 10 新特性 UIColor 新增方法 →
+    <a class="pull-right" href="/2016/11/03/iOS10-characteristics-UIFont/">
+        iOS 10 新特性 字体跟随系统设置变化大小 →
     </a>
     
 </nav>

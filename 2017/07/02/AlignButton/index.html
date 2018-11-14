@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,17 +243,19 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#日常开发中对卡片布局需求很多，而 CollectionView 的量级又过重，就想着封装一份轻量级的卡片布局工具，基于 UIView+UIButton，支持图片、文字、自适应布局和手势等，使用安全方便。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-30/43420438.jpg" alt="image"></p>
+<a id="more"></a><!--more-->
+<hr>
+<p><img src="http://og1yl0w9z.bkt.clouddn.com/17-6-30/43420438.jpg" alt="image"></p>
 <h2 id="Requirements-要求"><a href="#Requirements-要求" class="headerlink" title="Requirements 要求"></a>Requirements 要求</h2><ul>
 <li>iOS 7+</li>
 <li>Xcode 8+</li>
 </ul>
 <hr>
-<h2 id="Usage-使用方法"><a href="#Usage-使用方法" class="headerlink" title="Usage 使用方法"></a>Usage 使用方法</h2><h3 id="AutoAlignButtonView-封装方法"><a href="#AutoAlignButtonView-封装方法" class="headerlink" title="AutoAlignButtonView 封装方法"></a>AutoAlignButtonView 封装方法</h3><h4 id="1-基本方法"><a href="#1-基本方法" class="headerlink" title="1.基本方法"></a>1.基本方法</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">* 是否九宫格 默认:打开</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> isScratchableLatex;</div><div class="line"><span class="comment">/*</span></div><div class="line">* 是：自动布局</div><div class="line">*    countHorizonal 九宫格横排数量</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> countHorizonal;</div><div class="line"><span class="comment">/*</span></div><div class="line">* 否：参数布局</div><div class="line">*    buttonVerticalPadding 竖向间距</div><div class="line">*    buttonHorizonalPadding 横向间距</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> buttonVerticalPadding;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> buttonHorizonalPadding;</div></pre></td></tr></table></figure>
+<h2 id="Usage-使用方法"><a href="#Usage-使用方法" class="headerlink" title="Usage 使用方法"></a>Usage 使用方法</h2><h3 id="AutoAlignButtonView-封装方法"><a href="#AutoAlignButtonView-封装方法" class="headerlink" title="AutoAlignButtonView 封装方法"></a>AutoAlignButtonView 封装方法</h3><h4 id="1-基本方法"><a href="#1-基本方法" class="headerlink" title="1.基本方法"></a>1.基本方法</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 是否九宫格 默认:打开</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> isScratchableLatex;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 是：自动布局</span></span><br><span class="line"><span class="comment">*    countHorizonal 九宫格横排数量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> countHorizonal;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 否：参数布局</span></span><br><span class="line"><span class="comment">*    buttonVerticalPadding 竖向间距</span></span><br><span class="line"><span class="comment">*    buttonHorizonalPadding 横向间距</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> buttonVerticalPadding;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> buttonHorizonalPadding;</span><br></pre></td></tr></table></figure>
 <hr>
-<h4 id="2-增强方法"><a href="#2-增强方法" class="headerlink" title="2.增强方法"></a>2.增强方法</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">* 是否开启圆角 默认:关闭 打开后根据需要设置圆角参数（离屏渲染待优化）</div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> isCornerRadius;</div><div class="line"><span class="comment">// 数据源 （必选方法）</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *dataTitleArray;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *dataImagesArray;</div><div class="line"><span class="comment">// 点击事件delegate</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span>&lt;AutoAlignButtonViewDelegate&gt; delegate;</div></pre></td></tr></table></figure>
+<h4 id="2-增强方法"><a href="#2-增强方法" class="headerlink" title="2.增强方法"></a>2.增强方法</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 是否开启圆角 默认:关闭 打开后根据需要设置圆角参数（离屏渲染待优化）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> isCornerRadius;</span><br><span class="line"><span class="comment">// 数据源 （必选方法）</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *dataTitleArray;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *dataImagesArray;</span><br><span class="line"><span class="comment">// 点击事件delegate</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span>&lt;AutoAlignButtonViewDelegate&gt; delegate;</span><br></pre></td></tr></table></figure>
 <hr>
-<p>使用简单、效率高效、进程安全~~~如果你有更好的建议,希望不吝赐教!<br>Github：<a href="https://github.com/ReverseScale/AutoAlignButton" target="_blank" rel="external">https://github.com/ReverseScale/AutoAlignButton</a><br>你的star是我持续更新的动力!</p>
+<p>使用简单、效率高效、进程安全~~~如果你有更好的建议,希望不吝赐教!<br>Github：<a href="https://github.com/ReverseScale/AutoAlignButton" target="_blank" rel="noopener">https://github.com/ReverseScale/AutoAlignButton</a><br>你的star是我持续更新的动力!</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">

@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,8 +243,10 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#如果想在dispatch_queue中所有的任务执行完成后在做某种操作，在串行队列中，可以把该操作放到最后一个任务执行完成后继续，但是在并行队列中怎么做呢。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>这就有dispatch_group 成组操作。比如</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> dispatchQueue = dispatch_queue_create(<span class="string">"ted.queue.next"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">dispatch_group_t dispatchGroup = dispatch_group_create();</div><div class="line">dispatch_group_async(dispatchGroup, dispatchQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-1"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_group_async(dispatchGroup, dispatchQueue, ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dspatch-2"</span>);</div><div class="line">&#125;);</div><div class="line">dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"end"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
+<hr>
+<p>这就有dispatch_group 成组操作。比如</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> dispatchQueue = dispatch_queue_create(<span class="string">"ted.queue.next"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">dispatch_group_t dispatchGroup = dispatch_group_create();</span><br><span class="line">dispatch_group_async(dispatchGroup, dispatchQueue, ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dispatch-1"</span>);</span><br><span class="line">&#125;);</span><br><span class="line">dispatch_group_async(dispatchGroup, dispatchQueue, ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dspatch-2"</span>);</span><br><span class="line">&#125;);</span><br><span class="line">dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"end"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>上面的 log1 和log2输出顺序不定，因为是在并行队列上执行，当并行队列全部执行完成后，最后到main队列上执行一个操作，保证“end”是最后输出。 另外，这里也可以不用创建自己的并行队列，用全局的global，那个也是个并行队列. dispatch_get_gloable_queue(0,0)。</p>
 
             <div class="clearfix"></div>

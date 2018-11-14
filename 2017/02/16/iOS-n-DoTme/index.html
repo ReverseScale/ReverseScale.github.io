@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#简单的剖析几种延迟执行的方法及特点。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><h4 id="一、performSelector方法："><a href="#一、performSelector方法：" class="headerlink" title="一、performSelector方法："></a>一、performSelector方法：</h4><p>[self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0f];</p>
+<a id="more"></a><!--more-->
+<hr>
+<h4 id="一、performSelector方法："><a href="#一、performSelector方法：" class="headerlink" title="一、performSelector方法："></a>一、performSelector方法：</h4><p>[self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0f];</p>
 <p>特点: 此方式要求必须在主线程中执行，否则无效。 是一种非阻塞的执行方式， 暂时未找到取消执行的方法。</p>
 <hr>
 <h4 id="二、定时器-NSTimer："><a href="#二、定时器-NSTimer：" class="headerlink" title="二、定时器:NSTimer："></a>二、定时器:NSTimer：</h4><p>[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(delayMethod) userInfo:nil repeats:NO];</p>

@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,7 +243,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#FBMemoryProfiler是Facebook开源的一款用于分析iOS内存使用和检测循环引用的工具库，Facebook必出精品。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>手机设备的内存是一个共享资源。应用程序可能会不当的耗尽内存、崩溃，或者遭遇大幅度的性能降低。当分配了一块内存，并设置了对象之后，如果在使用完了之后忘记释放，这就会发生内存泄露。这意味着系统是无法回收内存并交予他人使用，这也最终意味着我们的内存将会逐渐耗尽。</p>
+<a id="more"></a><!--more-->
+<hr>
+<p>手机设备的内存是一个共享资源。应用程序可能会不当的耗尽内存、崩溃，或者遭遇大幅度的性能降低。当分配了一块内存，并设置了对象之后，如果在使用完了之后忘记释放，这就会发生内存泄露。这意味着系统是无法回收内存并交予他人使用，这也最终意味着我们的内存将会逐渐耗尽。</p>
 <p>在Facebook，有很多工程师在代码库的不同部分上工作。这不可避免的会发生内存泄露。当发生内存泄露之后，工程师需要尽快找到并修复它们。一些工具已经可以找到内存泄露，但是它们需要大量的人工干预。自动化可以在不需要更多开发者的情况下，更快的找到内存泄露。为了解决这个问题，Facebook做了一套工具来自动化的处理和修复代码库中的一些问题，这个工具就是FBMemoryProfiler。</p>
 <p>这个库显示FBAllocationTracker和FBRetainCycleDetector怎么能一起合作，以及如何在真正的应用程序中使用。</p>
 <p>它采用FBAllocationTracker收集有关对象的信息。它支持 generations 和保留周期检测 。</p>

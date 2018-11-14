@@ -92,7 +92,7 @@
 
     <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
         <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
-            <img src="/img/close.png" alt="Close"/>
+            <img src="/img/close.png" alt="Close">
         </div>
         <!-- Lists in Slidebars -->
         <ul class="sb-menu">
@@ -178,7 +178,7 @@
                     <!-- Nav logo -->
                     <div class="logo">
                         <a href="/" title="Logo" class="animsition-link">
-                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                         <img src="/img/logo.png" alt="Logo" width="35px;"> 
                         </a>
                     </div>
                     <!-- // Nav logo -->
@@ -221,7 +221,7 @@
 
         <!-- ============================ Header & Logo bar =========================== -->
 
-
+</div>
       
 <section id="intro">
     <div class="container">
@@ -234,7 +234,7 @@
     
     
     | 
-    <a href='/tags/博客，文章/'>博客，文章</a>
+    <a href="/tags/博客，文章/">博客，文章</a>
     
     
 </span>
@@ -243,13 +243,17 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>#GCD（Grand Central Dispatch）是从OS X Snow Leopard和iOS 4开始引入的新一代的多线程编程技术。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a><!--more--></h2><p>开发者只需定义想执行的任务并追加到适当的Dispatch Queue中，GCD就能生成必要的线程并有计划的执行任务。并且由于线程管理是作为系统的一部分来实现的，因此系统可以统一管理，它会决定什么时候创建新线程，创建哪些新线程，多个任务是顺序执行还是并发执行。这样就比以前的线程编程更有效率。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line">  <span class="comment">// dispatch_async是异步方法。长时间处理，例如数据库访问</span></div><div class="line">  <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">    <span class="comment">// 到主线程队列中执行</span></div><div class="line">    <span class="comment">// 例如界面更新</span></div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<a id="more"></a><!--more-->
+<hr>
+<p>开发者只需定义想执行的任务并追加到适当的Dispatch Queue中，GCD就能生成必要的线程并有计划的执行任务。并且由于线程管理是作为系统的一部分来实现的，因此系统可以统一管理，它会决定什么时候创建新线程，创建哪些新线程，多个任务是顺序执行还是并发执行。这样就比以前的线程编程更有效率。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">  <span class="comment">// dispatch_async是异步方法。长时间处理，例如数据库访问</span></span><br><span class="line">  <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">    <span class="comment">// 到主线程队列中执行</span></span><br><span class="line">    <span class="comment">// 例如界面更新</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="Dispatch-Queue-调度队列"><a href="#Dispatch-Queue-调度队列" class="headerlink" title="Dispatch Queue(调度队列)"></a>Dispatch Queue(调度队列)</h3><p>使用GCD进行编程，开发者要做的只是定义想执行的任务并追加到适当的Dispatch Queue中。其中，“定义想执行的任务”使用Block语法来完成。Dispatch Queue中的任务按照FIFO的顺序进行处理，也就是先进入的任务先处理。另外，Dispatch Queue分为串行和并发两种。</p>
 <p>Serial Dispatch Queue要求等待正在执行的任务完成，再执行下一个。而Concurrent Dispatch Queue中后面的任务可以不必等待正在执行的任务执行完成就可以开始执行，也就是同时可以执行多个任务。换句话说，其实就是Serial Dispatch Queue只会创建一个线程来执行任务，而Concurrent Dispatch Queue会创建多个线程同时执行多个任务。</p>
 <p>对于Concurrent Dispatch Queue，OS X和iOS的XNU内核会基于Dispatch Queue中的任务数量、CPU核数和CPU负荷等当前系统状态来决定创建多少个线程和并行执行多少个任务。</p>
-<p>&gt;<br>一般情况下：如果要求在不能改变执行顺序或不想并行执行多个任务时使用Serial Dispatch Queue。<br>简言之：Serial Dispatch Queue串行代码；Concurrent Dispatch Queue并行代码。</p>
+<blockquote>
+</blockquote>
+<p>一般情况下：如果要求在不能改变执行顺序或不想并行执行多个任务时使用Serial Dispatch Queue。<br>简言之：Serial Dispatch Queue串行代码；Concurrent Dispatch Queue并行代码。</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
