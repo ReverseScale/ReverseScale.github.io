@@ -593,7 +593,7 @@ body {
 @media screen and (max-width: 479px) {
   .brand {
     display: inline;
-    margin-left: -39.5px;
+    margin-left: -44px;
     left: 50%;
   }
 }
