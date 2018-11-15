@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>reactnative 学习成果总结 | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="React">
+  
+  
+  
+  
+  <meta name="description" content="ReactNative 这几年风生水起，当然除了 React 社区生态圈的加持和 Facebook 的大力推广以外，另外一个最主要的原因就是其在开发效率和应用性能方面取得了一个比较好的平衡~">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactNative 学习成果总结">
+<meta property="og:url" content="https://reversescale.github.io/2018/03/29/ReactNative APP/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="ReactNative 这几年风生水起，当然除了 React 社区生态圈的加持和 Facebook 的大力推广以外，另外一个最主要的原因就是其在开发效率和应用性能方面取得了一个比较好的平衡~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270d10d158f637?w=814&h=608&f=png&s=400633">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270d28bc94375d?w=718&h=306&f=png&s=92798">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270d596bf5c9ca?w=358&h=704&f=png&s=90318">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270d8c07bddb39?w=358&h=704&f=png&s=77915">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270debf54570c4?w=740&h=900&f=jpeg&s=63320">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/1627105390f390e6?w=624&h=379&f=png&s=60739">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16271082c4091e40?w=707&h=628&f=png&s=121488">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270e1ee5a277a9?w=563&h=333&f=png&s=10005">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270e3fbd81a480?w=358&h=704&f=png&s=74402">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270dfa999713c4?w=739&h=165&f=png&s=27366">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270e8a3f60ae27?w=358&h=704&f=png&s=148723">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270eb1d31699b8?w=358&h=704&f=png&s=158600">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270fccfcb56db1?w=358&h=704&f=png&s=35862">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270f47940dd642?w=358&h=704&f=png&s=89782">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16271023c1f9396f?w=358&h=704&f=png&s=62408">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/1627102aa331c056?w=957&h=645&f=png&s=213866">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/162710e8caa81348?w=347&h=706&f=gif&s=599458">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16271098701076c5?w=358&h=704&f=png&s=31664">
+<meta property="og:updated_time" content="2018-11-15T13:45:53.356Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ReactNative 学习成果总结">
+<meta name="twitter:description" content="ReactNative 这几年风生水起，当然除了 React 社区生态圈的加持和 Facebook 的大力推广以外，另外一个最主要的原因就是其在开发效率和应用性能方面取得了一个比较好的平衡~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/3/29/16270d10d158f637?w=814&h=608&f=png&s=400633">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ReactNative APP" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      ReactNative 学习成果总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-03-29T11:56:27.000Z" itemprop="datePublished">2018-03-29</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Project/">Project</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ReactNative 这几年风生水起，当然除了 React 社区生态圈的加持和 Facebook 的大力推广以外，另外一个最主要的原因就是其在开发效率和应用性能方面取得了一个比较好的平衡~                                                                                                                        </p>
+<a id="more"></a>
+<hr>
+<h1 id="学习课程："><a href="#学习课程：" class="headerlink" title="学习课程："></a>学习课程：</h1><p>《双平台真实开发GitHub App React Native技术全面掌握》399 大洋，含着泪吃了一个月泡面..</p>
+<p>Github 代码库：<a href="https://github.com/ReverseScale/RNAPPGithub.git" target="_blank" rel="noopener">https://github.com/ReverseScale/RNAPPGithub.git</a></p>
+<h1 id="知识点："><a href="#知识点：" class="headerlink" title="知识点："></a>知识点：</h1><ul>
+<li>1.整理 ReactNative 网络封装及常用的三方模块</li>
+<li>2.ReactNative 的 AsyncStorage数据库技术、离线缓存</li>
+<li>3.ReactNative 的数据 DAO 层设计技巧，数据状态实时更新</li>
+<li>4.ReactNative 的代码提取技巧，组合模式应用技巧，数据异步刷新与动态添加</li>
+<li>5.ReactNative 的版本升级、数据统计、社会化分享、第三方登录，热更新等</li>
+<li>6.ReactNative 项目发布前的优化、打包与上线</li>
+</ul>
+<h1 id="目录结构："><a href="#目录结构：" class="headerlink" title="目录结构："></a>目录结构：</h1><ul>
+<li><a href="#生命周期及使用场景">生命周期及使用场景</a></li>
+<li><a href="#项目介绍">项目介绍</a></li>
+<li><a href="#组件化">组件化</a></li>
+<li><a href="#集成与管理">集成与管理</a></li>
+<li><a href="#布局约束">布局约束</a></li>
+<li><a href="#组件封装">组件封装</a></li>
+<li><a href="#本地持久化">本地持久化</a></li>
+<li><a href="#网络请求封装">网络请求封装</a></li>
+<li><a href="#功能调试">功能调试</a></li>
+<li><a href="#适配双平台适配">双平台适配</a></li>
+<li><a href="#开源组件库的使用">开源组件库的使用</a></li>
+<li><a href="#热更新">热更新</a></li>
+</ul>
+<h2 id="生命周期及使用场景"><a href="#生命周期及使用场景" class="headerlink" title="生命周期及使用场景"></a>生命周期及使用场景</h2><p>常用方法：</p>
+<ul>
+<li>constructor:</li>
+<li>componentWillMount:</li>
+<li>render:</li>
+<li>componentDidMount:</li>
+<li>componentWillReceiveProps:</li>
+<li>shouldComponentUpdate:</li>
+<li>componentWillUpdate:</li>
+<li>componentDidUpdate</li>
+<li>componentWillUnmount:</li>
+</ul>
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor:"></a>constructor:</h3><p>在组件创建的时候调用一次,这个方法进行this.state初始化状态机。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">     <span class="keyword">super</span>(props);  <span class="comment">// 初始状态</span></span><br><span class="line">     <span class="keyword">this</span>.state = &#123;</span><br><span class="line">         isShow:<span class="literal">true</span></span><br><span class="line">     &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentWillMount"><a href="#componentWillMount" class="headerlink" title="componentWillMount:"></a>componentWillMount:</h3><p>在组件生命周期中只会被执行一次,在初始渲染(render函数)前被执行。<br>注意:</p>
+<ul>
+<li><p>如果这个函数通过setState函数修改状态机变量,RN框架不会额外执行渲染(界面刷新)</p>
+</li>
+<li><p>如果子组件也有componentWillMount函数使用,会在父组件之后调用</p>
+</li>
+<li><p>需要从本地存储中读取数据用于显示,常用这个函数</p>
+</li>
+</ul>
+<h3 id="render"><a href="#render" class="headerlink" title="render:"></a>render:</h3><p>该函数组件必有的，通过返回JSX或其他组件来构成DOM，换言之，就是组件的核心渲染过程。</p>
+<h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount:"></a>componentDidMount:</h3><p>在React Native组件的生命周期中,这个函数只会被执行一次，它在初始渲染完成后会马上被调用。在这之后开发者可以通过子组件的引用来访问，操作任何子组件。<br>如果RN组件的子组件也有componentDidMount函数，并会在父组件的componentDidMount函数之前被调用。</p>
+<ul>
+<li>常用来网络请求数据</li>
+</ul>
+<h3 id="componentWillReceiveProps"><a href="#componentWillReceiveProps" class="headerlink" title="componentWillReceiveProps:"></a>componentWillReceiveProps:</h3><p>在React Native组件的初始渲染完成后，props改变时，这个函数被调用，参数是个新的props。</p>
+<h3 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate:"></a>shouldComponentUpdate:</h3><p>React Native组件的初始渲染执行完成后, RN组件接收到新的state或者props时这个函数会调用。</p>
+<ul>
+<li>通过这个函数阻止无必要的重新渲染，是提高React Native应用程序性能的一大技巧。</li>
+</ul>
+<h3 id="componentWillUpdate"><a href="#componentWillUpdate" class="headerlink" title="componentWillUpdate:"></a>componentWillUpdate:</h3><p>初始渲染完成后,重新渲染前会调用这个函数。</p>
+<ul>
+<li><p>这个函数不能通过this.setState再次改变状态机变量的值。</p>
+</li>
+<li><p>组件更新时调用。</p>
+</li>
+</ul>
+<h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate"></a>componentDidUpdate</h3><p>RN组件初始渲染完成后，RN框架在重新渲染RN组件完成后调用。<br>参数是渲染前的props和state。</p>
+<ul>
+<li>组件更新完毕时调用。</li>
+</ul>
+<h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount:"></a>componentWillUnmount:</h3><p>ReactNative 组件被卸载前会调用，通常做一些清理内容。</p>
+<hr>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>双平台效果预览：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270d10d158f637?w=814&amp;h=608&amp;f=png&amp;s=400633" alt=""></p>
+<p>React Native是React在移动端的跨平台方案。如果想更快地理解和掌握React Native开发，就必须先了解React。</p>
+<p>React是FaceBook开源的一个前端框架，它起源于 Facebook 的内部项目，并于 2013 年 5 月开源。因为React 拥有较高的性能，代码逻辑非常简单，所以越来越多的人已开始关注和使用它，目前该框架在Github上已经有7万+star。</p>
+<p>ReactNative 技术导图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270d28bc94375d?w=718&amp;h=306&amp;f=png&amp;s=92798" alt=""></p>
+<h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p>React采用组件化的方式开发，通过将view构建成组件，使得代码更加容易得到复用，能够很好的应用在大项目的开发中。有一句话说的很形象：在React中，构建应用就像搭积木一样。</p>
+<h3 id="组件化特征"><a href="#组件化特征" class="headerlink" title="组件化特征"></a>组件化特征</h3><p>React认为一个组件应该具有如下特征：</p>
+<ul>
+<li><p>可组合（Composeable）：一个组件易于和其它组件一起使用，或者嵌套在另一个组件内部。如果一个组件内部创建了另一个组件，那么说父组件拥有它创建的子组件，通过这个特性，一个复杂的UI可以拆分成多个简单的UI组件；</p>
+</li>
+<li><p>可重用（Reusable）：每个组件都是具有独立功能的，它可以被使用在多个UI场景；</p>
+</li>
+<li><p>可维护（Maintainable）：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护；</p>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270d596bf5c9ca?w=358&amp;h=704&amp;f=png&amp;s=90318" alt=""></p>
+<p>封装好的导航栏就可以被称之为一个组件，它符合上述三个特点：</p>
+<ul>
+<li><p>可组合：可以将导航栏组件放在页面组件中作为页面组件的子组件。而且在导航栏组件的内部，也有按钮组件等子组件。</p>
+</li>
+<li><p>可重用：如果封装好了该组件，就可以放在任意需要导航栏的页面（组件）使用，也可以放在其他项目中使用。</p>
+</li>
+<li><p>可维护：因为具有独立的功能和展示逻辑，所以便于定位和修改。</p>
+</li>
+</ul>
+<h3 id="组件的属性与状态"><a href="#组件的属性与状态" class="headerlink" title="组件的属性与状态"></a>组件的属性与状态</h3><p>在React Native（React.js）里，组件所持有的数据分为两种：</p>
+<ul>
+<li><p>属性（props）：组件的props是不可变的，它只能从其他的组件（例如父组件）传递过来。</p>
+</li>
+<li><p>状态（state）：组件的state是可变的，它负责处理与用户的交互。在通过用户点击事件等操作以后，如果使得当前组件的某个state发生了改变，那么当前组件就会触发render()方法刷新自己。</p>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270d8c07bddb39?w=358&amp;h=704&amp;f=png&amp;s=77915" alt=""></p>
+<p>我们可以看到这个页面有两个子页面，一个是‘最热’页面（组件），另一个是‘趋势‘页面（组件）。那么这两个组件都有什么props和state呢？</p>
+<p>1.props：<br>由于props是从其父组件传递过来的，那么可想而知，props的声明应该是在当前组件的父组件里来做。在React Native中，通常props的声明是和当前组件的声明放在一起的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最热子页面</span></span><br><span class="line">&lt;FavoriteTabPage  &#123;...this.props&#125; tabLabel=<span class="string">'最热'</span> flag=&#123;FlAG_STORAGE.flag_popular&#125;/&gt;</span><br><span class="line"><span class="comment">//趋势子页面</span></span><br><span class="line">&lt;FavoriteTabPage  &#123;...this.props&#125; tabLabel=<span class="string">'趋势'</span> flag=&#123;FlAG_STORAGE.flag_trending&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p>在这里，收藏页面是父组件，而最热页面和趋势页面是其子组件。在收藏页面组件里声明了最热页面和趋势页面的组件。</p>
+<p>而且我们也可以看到，最热页面和趋势页面组件都用的是同一个组件：FavoriteTabPage，而这两个页面的不同点只在于传入的两个props的不同：tabLabel和flag。</p>
+<p>而在FavoriteTabPage组件内部，如果想调用flag这个props，可以使用this.props.flag来调用。</p>
+<p>2.state:</p>
+<p>下面是最热和趋势页面的组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FavoriteTabPage</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line"><span class="comment">//组件的构造方法</span></span><br><span class="line"><span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state=&#123;</span><br><span class="line">    dataSource:<span class="keyword">new</span> ListView.DataSource(&#123;<span class="attr">rowHasChanged</span>:<span class="function">(<span class="params">r1,r2</span>)=&gt;</span>r1!==r2&#125;),<span class="attr">isLoading</span>:<span class="literal">false</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面定义了两个state:</p>
+<ul>
+<li>dataSource:列表的数据源</li>
+<li>isLoading:是否正在刷新</li>
+</ul>
+<p>这两个state都是将来可能经常变化的。比如在网络请求以后，列表的数据源会被替换掉，这个时候就要调用:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      <span class="comment">//把新的值newDataArr对象传给dataSource</span></span><br><span class="line">      dataSource:newDataArr</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>3.DOM<br>DOM 是前端的一个概念，暂时可以粗略理解为一个页面的树形结构。<br>React 生命周期的三大阶段</p>
+<ul>
+<li>Mounting：已插入真实 DOM</li>
+<li>Updating：正在被重新渲染</li>
+<li>Unmounting：已移出真实 DOM</li>
+</ul>
+<p>在每个阶段都有相应的状态和与之对应的回调函数，具体可以看下图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270debf54570c4?w=740&amp;h=900&amp;f=jpeg&amp;s=63320" alt=""></p>
+<p>上图来自：贾鹏辉的技术博客：React Native之React速学教程(中)</p>
+<h2 id="集成与管理"><a href="#集成与管理" class="headerlink" title="集成与管理"></a>集成与管理</h2><p>1.指定版本初始化<br>在终端输入react-native demo –version 0.40.0命令以后，就会初始化一个React Native版本为0.40.0的项目。这个最初项目里面直接就包含了iOS和Android的工程文件夹，可以用对应的IDE打开后编译运行。</p>
+<p>在新建一个React Native项目之后的根目录结构是这样的：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/1627105390f390e6?w=624&amp;h=379&amp;f=png&amp;s=60739" alt=""></p>
+<p>2.使用 Cocoapods 管理 ReactNative<br>Podfile 文件格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;React&apos;, :path =&gt; &apos;./node_modules/react-native&apos;, :subspecs =&gt; [</span><br><span class="line">  &apos;Core&apos;,</span><br><span class="line">  &apos;RCTText&apos;,</span><br><span class="line">  &apos;RCTImage&apos;,</span><br><span class="line">  &apos;RCTActionSheet&apos;,</span><br><span class="line">  &apos;RCTGeolocation&apos;,</span><br><span class="line">  &apos;RCTNetwork&apos;,</span><br><span class="line">  &apos;RCTSettings&apos;,</span><br><span class="line">  &apos;RCTVibration&apos;,</span><br><span class="line">  &apos;RCTWebSocket&apos;,</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
+<p>ReactNative 0.42.0 以上版本需在 Podfile 配置 yoga：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 如果你的RN版本 &gt;= 0.42.0，请加入下面这行</span><br><span class="line">pod &quot;yoga&quot;, :path =&gt; &quot;./node_modules/react-native/ReactCommon/yoga&quot;</span><br></pre></td></tr></table></figure></p>
+<p>输入react-native run-ios或者react-native run-android指令， 就会自动打开模拟器运行项目(前提是安装了相应的开发环境)。</p>
+<p>但是一个比较完整的项目仅仅有这些类别的文件是不够的，还需要一些工具类，模型类，资源等文件。为了很好地区分它们，使项目结构一目了然，需要组织好项目文件夹以及类的命名，下面是我将教程里的文件夹命名和结构稍加修改后的一个方案，可供大家参考：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16271082c4091e40?w=707&amp;h=628&amp;f=png&amp;s=121488" alt=""></p>
+<h2 id="布局约束"><a href="#布局约束" class="headerlink" title="布局约束"></a>布局约束</h2><p>采用Flex布局的元素，被称为Flex container，其所有子元素被称为Flex item；容器默认存在两个轴，分别是主轴（main axis）和垂直的交叉轴（cross axis）,主轴开始的位置叫做main start，结束的位置叫main end；交叉轴的开始位置叫做cross start，结束的位置叫做cross end；单个item占据的主轴空间叫做main size，占据的交叉轴控件叫做cross size。</p>
+<p>如下图所示：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270e1ee5a277a9?w=563&amp;h=333&amp;f=png&amp;s=10005" alt=""></p>
+<p>组件化驱动下，搜索结果页中展示的 Cell 与之前的列表页 Cell 可以重用：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270e3fbd81a480?w=358&amp;h=704&amp;f=png&amp;s=74402" alt=""></p>
+<p>我们把该组件定名为：RespositoryCell，结合代码来看一下具体的实现：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">RepositoryCell</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.state = &#123;</span><br><span class="line">            isFavorite: <span class="keyword">this</span>.props.projectModel.isFavorite,</span><br><span class="line">            favoriteIcon: <span class="keyword">this</span>.props.projectModel.isFavorite ? <span class="built_in">require</span>(<span class="string">'../../res/images/ic_star.png'</span>) : <span class="built_in">require</span>(<span class="string">'../../res/images/ic_unstar_transparent.png'</span>),</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    componentWillReceiveProps(nextProps) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setFavoriteState(nextProps.projectModel.isFavorite)</span><br><span class="line">    &#125;</span><br><span class="line">    setFavoriteState(isFavorite) &#123;</span><br><span class="line">        <span class="keyword">this</span>.props.projectModel.isFavorite = isFavorite;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            isFavorite: isFavorite,</span><br><span class="line">            favoriteIcon: isFavorite ? <span class="built_in">require</span>(<span class="string">'../../res/images/ic_star.png'</span>) : <span class="built_in">require</span>(<span class="string">'../../res/images/ic_unstar_transparent.png'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    onPressFavorite() &#123;</span><br><span class="line">        <span class="keyword">this</span>.setFavoriteState(!<span class="keyword">this</span>.state.isFavorite)</span><br><span class="line">        <span class="keyword">this</span>.props.onFavorite(<span class="keyword">this</span>.props.projectModel.item, !<span class="keyword">this</span>.state.isFavorite)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">this</span>.props.projectModel.item? <span class="keyword">this</span>.props.projectModel.item:<span class="keyword">this</span>.props.projectModel;</span><br><span class="line">        <span class="keyword">let</span> favoriteButton=<span class="keyword">this</span>.props.projectModel.item?</span><br><span class="line">            &lt;TouchableOpacity</span><br><span class="line">                style=&#123;&#123;<span class="attr">padding</span>:<span class="number">6</span>&#125;&#125;</span><br><span class="line">                onPress=&#123;()=&gt;<span class="keyword">this</span>.onPressFavorite()&#125; underlayColor=<span class="string">'transparent'</span>&gt;</span><br><span class="line">                &lt;Image</span><br><span class="line">                    ref=<span class="string">'favoriteIcon'</span></span><br><span class="line">                    style=&#123;[&#123;<span class="attr">width</span>: <span class="number">22</span>, <span class="attr">height</span>: <span class="number">22</span>,&#125;,<span class="keyword">this</span>.props.theme.styles.tabBarSelectedIcon]&#125;</span><br><span class="line">                    source=&#123;<span class="keyword">this</span>.state.favoriteIcon&#125;/&gt;</span><br><span class="line">            &lt;<span class="regexp">/TouchableOpacity&gt;:null;</span></span><br><span class="line"><span class="regexp">        return (</span></span><br><span class="line"><span class="regexp">            &lt;TouchableOpacity</span></span><br><span class="line"><span class="regexp">                onPress=&#123;this.props.onSelect&#125;</span></span><br><span class="line"><span class="regexp">                style=&#123;styles.container&#125;</span></span><br><span class="line"><span class="regexp">            &gt;</span></span><br><span class="line"><span class="regexp">                &lt;View style=&#123;styles.cell_container&#125;&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;Text style=&#123;styles.title&#125;&gt;&#123;item.full_name&#125;&lt;/</span>Text&gt;</span><br><span class="line">                    &lt;Text style=&#123;styles.description&#125;&gt;&#123;item.description&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;View style=&#123;styles.row&#125;&gt;</span></span><br><span class="line"><span class="regexp">                        &lt;View style=&#123;styles.row&#125;&gt;</span></span><br><span class="line"><span class="regexp">                            &lt;Text&gt;Author:&lt;/</span>Text&gt;</span><br><span class="line">                            &lt;Image</span><br><span class="line">                                style=&#123;&#123;<span class="attr">height</span>: <span class="number">22</span>, <span class="attr">width</span>: <span class="number">22</span>&#125;&#125;</span><br><span class="line">                                source=&#123;&#123;<span class="attr">uri</span>: item.owner.avatar_url&#125;&#125;</span><br><span class="line">                            /&gt;</span><br><span class="line">                        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">                        &lt;View style=&#123;&#123;justifyContent: 'space-between', flexDirection: 'row'&#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">                            &lt;Text&gt;Star:&lt;/</span>Text&gt;</span><br><span class="line">                            &lt;Text&gt;&#123;item.stargazers_count&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">                        &lt;/</span>View&gt;</span><br><span class="line">                        &#123;favoriteButton&#125;</span><br><span class="line">                    &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">                &lt;/</span>View&gt;</span><br><span class="line">            &lt;<span class="regexp">/TouchableOpacity&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>这里声明了RespositoryCell组件，它继承于Component，也就是组件类，即是说，声明组件的时候必须都要继承与这个类。</p>
+</li>
+<li><p>集中看一下该组件的render方法，它返回的是该组件的实际布局：在语法上使用JSX，类似于HTML的标签式语法，很清楚地将cell的层级展现了出来：</p>
+<ul>
+<li><p>最外层被一个View组件包裹着，里面第一层有三个子组件：两个Text组件和一个作为底部背景的View组件。</p>
+</li>
+<li><p>底部背景的View组件又有三个子组件：View组件（显示作者信息），View组件（显示star信息）,收藏按钮。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>结构分解图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270dfa999713c4?w=739&amp;h=165&amp;f=png&amp;s=27366" alt=""></p>
+<h2 id="组件封装"><a href="#组件封装" class="headerlink" title="组件封装"></a>组件封装</h2><table>
+<thead>
+<tr>
+<th>我的页面</th>
+<th>个人中心</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270e8a3f60ae27?w=358&amp;h=704&amp;f=png&amp;s=148723" alt=""></td>
+<td><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270eb1d31699b8?w=358&amp;h=704&amp;f=png&amp;s=158600" alt=""></td>
+</tr>
+</tbody>
+</table>
+<p>对于“我的页面”和“个人中心”这类结构相似的页面，建议进行组件封装，封装后的 AboutPage 实现代码简洁如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">AboutPage</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.aboutCommon=<span class="keyword">new</span> AboutCommon(props,(dic)=&gt;<span class="keyword">this</span>.updateState(dic),FLAG_ABOUT.flag_about,config);</span><br><span class="line">        <span class="keyword">this</span>.state = &#123;</span><br><span class="line">            projectModels: [],</span><br><span class="line">            author:config.author</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        <span class="keyword">this</span>.aboutCommon.componentDidMount();</span><br><span class="line">    &#125;</span><br><span class="line">    componentWillUnmount() &#123;</span><br><span class="line">        <span class="keyword">this</span>.aboutCommon.componentWillUnmount();</span><br><span class="line">    &#125;</span><br><span class="line">    updateState(dic)&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(dic);</span><br><span class="line">    &#125;</span><br><span class="line">    onClick(tab) &#123;</span><br><span class="line">        <span class="keyword">let</span> TargetComponent, params = &#123;...this.props,<span class="attr">menuType</span>:tab&#125;;</span><br><span class="line">        <span class="keyword">switch</span> (tab) &#123;</span><br><span class="line">            <span class="keyword">case</span> MORE_MENU.About_Author:</span><br><span class="line">                TargetComponent = AboutMePage;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MORE_MENU.Website:</span><br><span class="line">                TargetComponent = WebViewPage;</span><br><span class="line">                params.title=<span class="string">'GitHubPopular'</span>;</span><br><span class="line">                <span class="keyword">var</span> url=<span class="string">'https://reversescale.github.io'</span>;</span><br><span class="line">                params.url=url;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MORE_MENU.Feedback:</span><br><span class="line">                <span class="keyword">var</span> url=<span class="string">'mailto://reversescale@icloud.com'</span>;</span><br><span class="line">                Linking.canOpenURL(url).then(<span class="function"><span class="params">supported</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!supported) &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">'Can\'t handle url: '</span> + url);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span> Linking.openURL(url);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.error(<span class="string">'An error occurred'</span>, err));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MORE_MENU.Share:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (TargetComponent) &#123;</span><br><span class="line">            <span class="keyword">this</span>.props.navigator.push(&#123;</span><br><span class="line">                component: TargetComponent,</span><br><span class="line">                params: params,</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> content=&lt;View&gt;</span><br><span class="line">            &#123;this.aboutCommon.renderRepository(this.state.projectModels)&#125;</span><br><span class="line">            &#123;ViewUtils.getSettingItem(()=&gt;this.onClick(MORE_MENU.Website), require('../../../res/images/ic_computer.png'), MORE_MENU.Website, this.props.theme.styles.tabBarSelectedIcon)&#125;</span><br><span class="line">            &lt;View style=&#123;GlobalStyles.line&#125;/&gt;</span><br><span class="line">            &#123;ViewUtils.getSettingItem(()=&gt;this.onClick(MORE_MENU.About_Author), require('../my/img/ic_insert_emoticon.png'), MORE_MENU.About_Author, this.props.theme.styles.tabBarSelectedIcon)&#125;</span><br><span class="line">            &lt;View style=&#123;GlobalStyles.line&#125;/&gt;</span><br><span class="line">            &#123;ViewUtils.getSettingItem(()=&gt;this.onClick(MORE_MENU.Feedback), require('../../../res/images/ic_feedback.png'), MORE_MENU.Feedback, this.props.theme.styles.tabBarSelectedIcon)&#125;</span><br><span class="line">        &lt;/View&gt;</span><br><span class="line">        return this.aboutCommon.render(content, &#123;</span><br><span class="line">            'name': 'GitHub Popular',</span><br><span class="line">            'description': '这是一个用来查看GitHub最受欢迎与最热项目的App,它基于React Native支持Android和iOS双平台。',</span><br><span class="line">            "avatar": "http://og1yl0w9z.bkt.clouddn.com/18-3-28/61685877.jpg",</span><br><span class="line">            "backgroundImg": "http://og1yl0w9z.bkt.clouddn.com/18-3-28/37407402.jpg",</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="本地持久化"><a href="#本地持久化" class="headerlink" title="本地持久化"></a>本地持久化</h2><table>
+<thead>
+<tr>
+<th>主题选择界面</th>
+<th>切换主题后界面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270fccfcb56db1?w=358&amp;h=704&amp;f=png&amp;s=35862" alt=""></td>
+<td><img src="https://user-gold-cdn.xitu.io/2018/3/29/16270f47940dd642?w=358&amp;h=704&amp;f=png&amp;s=89782" alt=""></td>
+</tr>
+</tbody>
+</table>
+<p>在涉及如主题变更等操作时，需要将状态信息保存，这时就需要用到类似于iOS 中的NSUserDefault， AsyncStorage 是React Native中的 Key-Value 存储系统，可以做本地持久化。</p>
+<p>首先看它主要的几个接口：</p>
+<p>根据键来获取值，获取的结果会放在回调函数中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> getItem(key: string, <span class="attr">callback</span>:(error, result))</span><br></pre></td></tr></table></figure></p>
+<p>根据键来设置值：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> setItem(key: string, <span class="attr">value</span>: string, <span class="attr">callback</span>:(error))</span><br></pre></td></tr></table></figure></p>
+<p>根据键来移除项：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> removeItem(key: string, <span class="attr">callback</span>:(error))</span><br></pre></td></tr></table></figure></p>
+<p>获取所有的键：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> getAllKeys(callback:(error, keys))</span><br></pre></td></tr></table></figure></p>
+<p>设置多项，其中 keyValuePairs 是字符串的二维数组，比如：[[‘k1’, ‘val1’], [‘k2’, ‘val2’]]：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> multiSet(keyValuePairs, <span class="attr">callback</span>:(errors))</span><br></pre></td></tr></table></figure></p>
+<p>获取多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> multiGet(keys, <span class="attr">callback</span>:(errors, result))</span><br></pre></td></tr></table></figure></p>
+<p>删除多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> multiRemove(keys, <span class="attr">callback</span>:(errors))</span><br></pre></td></tr></table></figure></p>
+<p>清除所有的项目：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> clear(callback:(error))</span><br></pre></td></tr></table></figure></p>
+<h2 id="网络请求封装"><a href="#网络请求封装" class="headerlink" title="网络请求封装"></a>网络请求封装</h2><p>在React Native中，经常使用Fetch函数来实现网络请求，它支持GET和POST请求并返回一个Promise对象，这个对象包含一个正确的结果和一个错误的结果。</p>
+<p>来看一下用Fetch发起的POST请求封装：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> post(url,data)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">            fetch(url,&#123;</span><br><span class="line">                method:<span class="string">'POST'</span>,</span><br><span class="line">                header:&#123;</span><br><span class="line">                    <span class="string">'Accept'</span>:<span class="string">'application/json'</span>,</span><br><span class="line">                    <span class="string">'Content-Type'</span>:<span class="string">'application/json'</span></span><br><span class="line">                &#125;,</span><br><span class="line">                body:<span class="built_in">JSON</span>.stringify(data)</span><br><span class="line">            &#125;)</span><br><span class="line">                .then(<span class="function"><span class="params">response</span>=&gt;</span>response.json())</span><br><span class="line">                .then(<span class="function"><span class="params">result</span>=&gt;</span>&#123;</span><br><span class="line">                    resolve(result);</span><br><span class="line">                &#125;)</span><br><span class="line">                .catch(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">                    reject(error);</span><br><span class="line">                &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码中，我们可以大致看到：Fetch函数中，第一个参数是请求url，第二个参数是一个字典，包括方法，请求头，请求体等信息。</p>
+<p>随后的then和catch分别捕捉了fetch函数的返回值：一个Promise对象的正确结果和错误结果。注意，这里面有两个then，其中第二个then把第一个then的结果拿了过来。而第一个then做的事情是把网络请求的结果转化为JSON对象。</p>
+<p>那么什么是Promise对象呢？</p>
+<p>Promise 是异步编程的一种解决方案，Promise对象可以获取某个异步操作的消息。它里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。</p>
+<p>它分为三种状态：</p>
+<p>Pending（进行中）、Resolved（已成功）和Rejected（已失败）</p>
+<p>它的构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject：</p>
+<ul>
+<li>resolve函数的作用：将Promise对象的状态从“未完成”变成“成功”(即从Pending变为Resolved)，在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；</li>
+<li>reject函数的作用：将Promise对象的状态从“未完成”变成“成功”(即从Pending变为Rejected)，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</li>
+</ul>
+<p>GET 请求封装：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> get(url)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">            fetch(url)</span><br><span class="line">                .then(<span class="function"><span class="params">response</span>=&gt;</span>response.json())</span><br><span class="line">                .then(<span class="function"><span class="params">result</span>=&gt;</span>&#123;</span><br><span class="line">                    resolve(result);</span><br><span class="line">                &#125;)</span><br><span class="line">                .catch(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">                    reject(error);</span><br><span class="line">                &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为只是GET请求，所以不需要配置请求体，而且因为这个fetch函数返回值是一个Promise对象， 所以我们可以用.then和.catch来捕捉正确和错误的结果。</p>
+<h2 id="功能调试"><a href="#功能调试" class="headerlink" title="功能调试"></a>功能调试</h2><p>我们可以使用浏览器的开发者工具来调试React Native项目，可以通过打断点的方式来看数据信息以及方法的调用：</p>
+<ul>
+<li>首先在iOS模拟器中点击command + D，然后再弹出菜单里点击Debug JS Remotely。随后就打开了浏览器进入了调试。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16271023c1f9396f?w=358&amp;h=704&amp;f=png&amp;s=62408" alt=""></p>
+<ul>
+<li>浏览器一般会展示下面的页面，然后点击command + option + J进入真生的调试界面。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/1627102aa331c056?w=957&amp;h=645&amp;f=png&amp;s=213866" alt=""></p>
+<h2 id="双平台适配"><a href="#双平台适配" class="headerlink" title="双平台适配"></a>双平台适配</h2><p>因为React Native讲求的是一份代码跑在两个平台上，而客观上这两个平台又有一些不一样的地方，所以就需要在别要的时候做一下两个平台的适配。</p>
+<p>例如导航栏：在iOS设备中是存在导航栏的，而安卓设备上是没有的。所以在定制导航栏的时候，在不同平台下给导航栏设置不同的高度：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> NAV_BAR_HEIGHT_IOS = <span class="number">54</span>;</span><br><span class="line"><span class="keyword">const</span> NAV_BAR_HEIGHT_ANDROID = <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// css</span></span><br><span class="line">    navBar: &#123;</span><br><span class="line">        flexDirection: <span class="string">'row'</span>,</span><br><span class="line">        alignItems: <span class="string">'center'</span>,</span><br><span class="line">        justifyContent: <span class="string">'space-between'</span>,</span><br><span class="line">        height: Platform.OS === <span class="string">'ios'</span> ? NAV_BAR_HEIGHT_IOS : NAV_BAR_HEIGHT_ANDROID,</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<p>上面的Platform是React Native内置的用于区分平台的库，可以在引入后直接使用。</p>
+<p>建议在调试程序的时候，同时打开iOS和Android的模拟器进行调试，因为有些地方可能在某个平台上是没问题的，但是另一个平台上有问题，这就需要使用Platform来区分平台。</p>
+<h2 id="开源组件库的使用"><a href="#开源组件库的使用" class="headerlink" title="开源组件库的使用"></a>开源组件库的使用</h2><p>ReactNative 的组件与原生的组件有许多共同之处，如下拉刷新，同样的 Github 中开源组件已经相当完善。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/162710e8caa81348?w=347&amp;h=706&amp;f=gif&amp;s=599458" alt=""></p>
+<p>开源组件库方法如下，安装最新版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-native-tab-navigator --save</span><br></pre></td></tr></table></figure></p>
+<p>安装指定版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save react-native-tab-navigator@0.4.0</span><br></pre></td></tr></table></figure></p>
+<p>react-native 集成组件绑定(ReactNative 0.27以后，自集成RNPM)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native link react-native-splash-screen</span><br></pre></td></tr></table></figure></p>
+<p>常用开源库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">npm install --save react-native-tab-navigator@0.4.0</span><br><span class="line">npm install --save react-native-scrollable-tab-view@0.7.0</span><br><span class="line">npm install --save react-native-check-box@1.0.4</span><br><span class="line">npm install --react-native-easy-toast@1.0.9</span><br><span class="line">npm install --save GitHubTrending@2.0.0</span><br><span class="line">npm install --save react-native-htmlview@0.5.0</span><br><span class="line">npm install --save react-native-popover@0.5.0</span><br><span class="line">npm install --react-native-splash-screen@2.0.0</span><br></pre></td></tr></table></figure></p>
+<p>下图为使用 react-native-splash-screen 后的效果演示：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/29/16271098701076c5?w=358&amp;h=704&amp;f=png&amp;s=31664" alt=""></p>
+<h2 id="热更新"><a href="#热更新" class="headerlink" title="热更新"></a>热更新</h2><p>CodePush 是微软提供的一套用于热更新 React Native 和 Cordova 应用的服务。</p>
+<p>CodePush 是提供给 React Native 和 Cordova 开发者直接部署移动应用更新给用户设备的云服务。CodePush 作为一个中央仓库，开发者可以推送更新 (JS, HTML, CSS and images)，应用可以从客户端 SDK 里面查询更新。</p>
+<p>Code-Push 推包命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-push release-react &lt;appName&gt; &lt;platform&gt; [options]</span><br></pre></td></tr></table></figure></p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-push release-react RNAPPGithub ios --t 1.0.0 --dev false --d Staging --des &quot;1.热更新我的页面背景色&quot; --m true</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-push release-react RNAPPGithub ios --t 1.0.1 --dev false --d Staging --des &quot;1.热更新相关设置&quot; --m true</span><br></pre></td></tr></table></figure>
+<p>Code-Push 线上查看更新：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-push deployment ls RNAPPGithub</span><br></pre></td></tr></table></figure></p>
+<p>Code-Push 查看项目Key：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-push deployment ls RNAPPGithub -k</span><br></pre></td></tr></table></figure></p>
+<p>Code-Push iOS更新打包方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native bundle --platform ios --entry-file index.ios.js --bundle-output release_ios/main.jsbundle --assets-dest release_ios/ --dev fasle</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>之前也有零零散散的调研这门技术，但是经过系统的 15 个下午的坚持学习，深感跨平台技术的独到之处，特别是在与原生交互的编写上简直让人欲生欲死，还好在 Github 上已经有各路大神开源的各种方便开发的组件库可以供我们使用。</p>
+<h1 id="分享链接"><a href="#分享链接" class="headerlink" title="分享链接"></a>分享链接</h1><p>《React Native 开发常用命令行（持续更新）》(<a href="https://juejin.im/post/5abc54c86fb9a028da7c998c" target="_blank" rel="noopener">https://juejin.im/post/5abc54c86fb9a028da7c998c</a>)</p>
+<p>《ReactNative 开发常用的三方模块》(<a href="https://www.jianshu.com/p/53ff78168acc" target="_blank" rel="noopener">https://www.jianshu.com/p/53ff78168acc</a>)</p>
+<p>《使用VS Code调试React-Native程序》（<a href="https://jingyan.baidu.com/article/ad310e80fb13fc1849f49ed1.html）" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ad310e80fb13fc1849f49ed1.html）</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><p>React Native中文网</p>
+</li>
+<li><p>贾鹏辉的技术博客</p>
+</li>
+<li><p>从一个实战项目来看一下React Native开发的几个关键技术点</p>
+</li>
+<li><p>Marno:给所有开发者的React Native详细入门指南</p>
+</li>
+<li><p>大漠:一个完整的Flexbox指南</p>
+</li>
+<li><p>阮一峰:Flex 布局教程：语法篇</p>
+</li>
+<li><p>八段代码彻底掌握 Promise</p>
+</li>
+<li><p>阮一峰：Promise对象</p>
+</li>
+<li><p>asce1885:React Native 高质量学习资料汇总</p>
+</li>
+<li><p>世锋日上:ReactNative 学习资源大汇集</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-15/29881714.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../07/06/How to build DApp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          如何用 Swift 打造你的第一个区块链 App
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../../2017/06/20/AutoBuildScript/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Jenkins + Fastlane 自动打包脚本</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习课程："><span class="nav-number">1.</span> <span class="nav-text">学习课程：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点："><span class="nav-number">2.</span> <span class="nav-text">知识点：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构："><span class="nav-number">3.</span> <span class="nav-text">目录结构：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期及使用场景"><span class="nav-number">3.1.</span> <span class="nav-text">生命周期及使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">3.1.1.</span> <span class="nav-text">constructor:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentWillMount"><span class="nav-number">3.1.2.</span> <span class="nav-text">componentWillMount:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#render"><span class="nav-number">3.1.3.</span> <span class="nav-text">render:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentDidMount"><span class="nav-number">3.1.4.</span> <span class="nav-text">componentDidMount:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentWillReceiveProps"><span class="nav-number">3.1.5.</span> <span class="nav-text">componentWillReceiveProps:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shouldComponentUpdate"><span class="nav-number">3.1.6.</span> <span class="nav-text">shouldComponentUpdate:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentWillUpdate"><span class="nav-number">3.1.7.</span> <span class="nav-text">componentWillUpdate:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentDidUpdate"><span class="nav-number">3.1.8.</span> <span class="nav-text">componentDidUpdate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentWillUnmount"><span class="nav-number">3.1.9.</span> <span class="nav-text">componentWillUnmount:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">3.2.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化"><span class="nav-number">3.3.</span> <span class="nav-text">组件化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件化特征"><span class="nav-number">3.3.1.</span> <span class="nav-text">组件化特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件的属性与状态"><span class="nav-number">3.3.2.</span> <span class="nav-text">组件的属性与状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成与管理"><span class="nav-number">3.4.</span> <span class="nav-text">集成与管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布局约束"><span class="nav-number">3.5.</span> <span class="nav-text">布局约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件封装"><span class="nav-number">3.6.</span> <span class="nav-text">组件封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地持久化"><span class="nav-number">3.7.</span> <span class="nav-text">本地持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络请求封装"><span class="nav-number">3.8.</span> <span class="nav-text">网络请求封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能调试"><span class="nav-number">3.9.</span> <span class="nav-text">功能调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双平台适配"><span class="nav-number">3.10.</span> <span class="nav-text">双平台适配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开源组件库的使用"><span class="nav-number">3.11.</span> <span class="nav-text">开源组件库的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热更新"><span class="nav-number">3.12.</span> <span class="nav-text">热更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分享链接"><span class="nav-number">5.</span> <span class="nav-text">分享链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
