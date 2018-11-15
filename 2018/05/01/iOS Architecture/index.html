@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>走在技术前沿的 ios 架构实现 | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="架构">
+  
+  
+  
+  
+  <meta name="description" content="我理解的框架，就好比计算机的主板，房屋的建筑骨架，道路的基础设施配套，框架搭的好，能直接影响开发者的开发心情，更能让项目健壮性和扩展性大大增强~">
+<meta name="keywords" content="架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="走在技术前沿的 iOS 架构实现">
+<meta property="og:url" content="https://reversescale.github.io/2018/05/01/iOS Architecture/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="我理解的框架，就好比计算机的主板，房屋的建筑骨架，道路的基础设施配套，框架搭的好，能直接影响开发者的开发心情，更能让项目健壮性和扩展性大大增强~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/7/1616f69358239a6e?w=820&h=480&f=jpeg&s=46204">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/7/1616f6935dd3886f?w=358&h=704&f=png&s=34082">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/25/162fc1ec1003f018?w=358&h=704&f=png&s=29004">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/25/162fc1f021208dde?w=358&h=704&f=png&s=42923">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/25/162fc1fd987f8a76?w=358&h=704&f=png&s=38676">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/7/1616f6935ce5f838?w=198&h=166&f=png&s=36645">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/7/1616f6935e05933d?w=215&h=172&f=png&s=34900">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/7/1616f69385b2261c?w=181&h=131&f=png&s=34097">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/25/162fc3254daa470b?w=468&h=368&f=png&s=37364">
+<meta property="og:updated_time" content="2018-11-15T15:14:12.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="走在技术前沿的 iOS 架构实现">
+<meta name="twitter:description" content="我理解的框架，就好比计算机的主板，房屋的建筑骨架，道路的基础设施配套，框架搭的好，能直接影响开发者的开发心情，更能让项目健壮性和扩展性大大增强~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/2/7/1616f69358239a6e?w=820&h=480&f=jpeg&s=46204">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-iOS Architecture" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      走在技术前沿的 iOS 架构实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-05-01T13:56:27.000Z" itemprop="datePublished">2018-05-01</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Project/">Project</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我理解的框架，就好比计算机的主板，房屋的建筑骨架，道路的基础设施配套，框架搭的好，能直接影响开发者的开发心情，更能让项目健壮性和扩展性大大增强~</p>
+<a id="more"></a>
+<hr>
+<p>基于 Objective-C 实现的框架设计，YTKNetwork网络层 + AOP替代基类 + MVVM + ReactiveObjC + JLRoutes路由</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/7/1616f69358239a6e?w=820&amp;h=480&amp;f=jpeg&amp;s=46204" alt=""></p>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/OCTemplate" target="_blank" rel="noopener">Github Demo</a></p>
+<hr>
+<h3 id="🤖-要求"><a href="#🤖-要求" class="headerlink" title="🤖 要求"></a>🤖 要求</h3><ul>
+<li>iOS 8.0+</li>
+<li>Xcode 8.0+</li>
+<li>Objective-C</li>
+</ul>
+<hr>
+<h3 id="🎨-测试-UI-什么样子？"><a href="#🎨-测试-UI-什么样子？" class="headerlink" title="🎨 测试 UI 什么样子？"></a>🎨 测试 UI 什么样子？</h3><table>
+<thead>
+<tr>
+<th>1.展示页</th>
+<th>2.展示页</th>
+<th>3.展示页</th>
+<th>4.说明页</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://user-gold-cdn.xitu.io/2018/2/7/1616f6935dd3886f?w=358&amp;h=704&amp;f=png&amp;s=34082" alt=""></td>
+<td><img src="https://user-gold-cdn.xitu.io/2018/4/25/162fc1ec1003f018?w=358&amp;h=704&amp;f=png&amp;s=29004" alt=""></td>
+<td><img src="https://user-gold-cdn.xitu.io/2018/4/25/162fc1f021208dde?w=358&amp;h=704&amp;f=png&amp;s=42923" alt=""></td>
+<td><img src="https://user-gold-cdn.xitu.io/2018/4/25/162fc1fd987f8a76?w=358&amp;h=704&amp;f=png&amp;s=38676" alt=""></td>
+</tr>
+<tr>
+<td>登录视图</td>
+<td>示例展示</td>
+<td>跳转页面</td>
+<td>介绍页面</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="🎯-安装方法"><a href="#🎯-安装方法" class="headerlink" title="🎯 安装方法"></a>🎯 安装方法</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>在 <em>iOS</em>, 你需要在 Podfile 中添加.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line">platform :ios, &apos;9.0&apos;</span><br><span class="line">use_frameworks!</span><br><span class="line"></span><br><span class="line">  # 提示组件框架</span><br><span class="line">  pod &apos;SVProgressHUD&apos;, &apos;~&gt; 2.2.2&apos;</span><br><span class="line">  # 网络请求框架</span><br><span class="line">  pod &apos;YTKNetwork&apos;, &apos;~&gt; 2.0.3&apos;</span><br><span class="line">  # AOP面向切面</span><br><span class="line">  pod &apos;Aspects&apos;, &apos;~&gt; 1.4.1&apos;</span><br><span class="line">  # 响应函数式框架</span><br><span class="line">  pod &apos;ReactiveObjC&apos;, &apos;~&gt; 3.0.0&apos;</span><br><span class="line">  # 路由组件化解耦</span><br><span class="line">  pod &apos;JLRoutes&apos;, &apos;~&gt; 2.0.5&apos;</span><br><span class="line">  # 提示组件框架</span><br><span class="line">  pod &apos;SVProgressHUD&apos;, &apos;~&gt; 2.2.2&apos;</span><br><span class="line">  # 自动布局</span><br><span class="line">  pod &apos;Masonry&apos;, &apos;~&gt; 1.0.2&apos;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="🛠-框架介绍"><a href="#🛠-框架介绍" class="headerlink" title="🛠 框架介绍"></a>🛠 框架介绍</h3><h4 id="AOP-模式（Aspects-RunTime-代替基类）-Category-方法交换"><a href="#AOP-模式（Aspects-RunTime-代替基类）-Category-方法交换" class="headerlink" title="AOP 模式（Aspects-RunTime 代替基类）+ Category 方法交换"></a>AOP 模式（Aspects-RunTime 代替基类）+ Category 方法交换</h4><p>采用AOP思想，使用 Aspects 来完成替换 Controller ，View，ViewModel基类，和基类说拜拜</p>
+<p>Casa反革命工程师 iOS应用架构谈 view层的组织和调用方案 博客中提到一个疑问<br>是否有必要让业务方统一派生ViewController</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/7/1616f6935ce5f838?w=198&amp;h=166&amp;f=png&amp;s=36645" alt=""></p>
+<p>Casa大神回答是NO，原因如下</p>
+<ol>
+<li>使用派生比不使用派生更容易增加业务方的使用成本</li>
+<li>不使用派生手段一样也能达到统一设置的目的<br>对于第一点，从 集成成本 ，上手成本 ，架构维护成本等因素入手，大神博客中也已经很详细。</li>
+</ol>
+<p>框架不需要通过继承即能够对ViewController进行统一配置。业务即使脱离环境，也能够跑完代码，ViewController一旦放入框架环境，不需要添加额外的或者只需添加少量代码，框架也能够起到相应的作用 对于本人来说 ，具备这点的吸引力，已经足够让我有尝试一番的心思了。</p>
+<p>对于OC来说，方法拦截很容易就想到自带的黑魔法方法调配 Method Swizzling， 至于为ViewController做动态配置，自然非Category莫属了<br>Method Swizzling 业界已经有非常成熟的三方库 Aspects, 所以Demo代码采用 Aspects 做方法拦截。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)load &#123;</span><br><span class="line">    [<span class="keyword">super</span> load];</span><br><span class="line">    [FKViewControllerIntercepter sharedInstance];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// .... 单例初始化代码</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">/* 方法拦截 */</span></span><br><span class="line">        <span class="comment">// 拦截 viewDidLoad 方法</span></span><br><span class="line">        [<span class="built_in">UIViewController</span> aspect_hookSelector:<span class="keyword">@selector</span>(viewDidLoad) withOptions:AspectPositionAfter usingBlock:^(<span class="keyword">id</span>&lt;AspectInfo&gt;aspectInfo)&#123;</span><br><span class="line">            [<span class="keyword">self</span> _viewDidLoad:aspectInfo.instance];</span><br><span class="line">        &#125;  error:<span class="literal">nil</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 拦截 viewWillAppear:</span></span><br><span class="line">        [<span class="built_in">UIViewController</span> aspect_hookSelector:<span class="keyword">@selector</span>(viewWillAppear:) withOptions:AspectPositionAfter usingBlock:^(<span class="keyword">id</span>&lt;AspectInfo&gt; aspectInfo, <span class="built_in">BOOL</span> animated)&#123;</span><br><span class="line">            [<span class="keyword">self</span> _viewWillAppear:animated controller:aspectInfo.instance];</span><br><span class="line">        &#125; error:<span class="literal">NULL</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至于 Category 已经非常熟悉了</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIViewController</span> (<span class="title">NonBase</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 去Model&amp;&amp;表征化参数列表</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSDictionary</span> *params;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> ViewModel 属性</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="keyword">id</span> &lt;FKViewControllerProtocol&gt; viewModel;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - 通用类</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 返回Controller的当前bounds</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> @param hasNav 是否有导航栏</span></span><br><span class="line"><span class="comment"> @param hasTabBar 是否有tabbar</span></span><br><span class="line"><span class="comment"> @return 坐标</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">CGRect</span>)fk_visibleBoundsShowNav:(<span class="built_in">BOOL</span>)hasNav showTabBar:(<span class="built_in">BOOL</span>)hasTabBar;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 隐藏键盘</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)fk_hideKeyBoard;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>至此，我们已经实现了不继承基类来实现对ViewController的配置，项目中的 View ViewModel 去基类原理如出一辙。</p>
+<h4 id="View层采用-MVVM-设计模式，使用-ReactiveObjC-进行数据绑定"><a href="#View层采用-MVVM-设计模式，使用-ReactiveObjC-进行数据绑定" class="headerlink" title="View层采用 MVVM 设计模式，使用 ReactiveObjC 进行数据绑定"></a>View层采用 MVVM 设计模式，使用 ReactiveObjC 进行数据绑定</h4><p><em>-MVC-</em></p>
+<p>作为老牌思想MVC，大家早已耳熟能详，MVC素有 Massive VC之称，随着业务增加，Controller将会越来越复杂，最终Controller会变成一个”神类”, 即有网络请求等代码，又充斥着大量业务逻辑，所以为Controller减负，在某些情况下变得势在必行</p>
+<p><em>-MVVM-</em></p>
+<p>MVVM是基于胖Model的架构思路建立的，然后在胖Model中拆出两部分：Model和ViewModel (注：胖Model 是指包含了一些弱业务逻辑的Model)<br>胖Model实际上是为了减负 Controller 而存在的，而 MVVM 是为了拆分胖Model , 最终目的都是为了减负Controller。</p>
+<p>我们知道，苹果MVC并没有专门为网络层代码分专门的层级，按照以往习惯，大家都写在了Controller 中，这也是Controller 变Massive得元凶之一，现在我们可以将网络请求等诸如此类的代码放到ViewModel中了 （文章后半部分将会描述ViewModel中的网络请求）</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/7/1616f6935e05933d?w=215&amp;h=172&amp;f=png&amp;s=34900" alt=""></p>
+<p><em>-数据流向-</em></p>
+<p>正常的网络请求获取数据，然后更新View自然不必多说，那么如果View产生了数据要怎么把数据给到Model，由于View不直接持有ViewModel，所以我们需要有个桥梁 ReactiveCocoa, 通过 Signal 来和 ViewModel 通信，这个过程我们使用 通知 或者 Target-Action也可以实现相同的效果，只不过没有 ReactiveCocoa 如此方便罢了</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  View -&gt; ViewModel 传递数据示例   */</span></span><br><span class="line"><span class="meta">#pragma mark - Bind ViewModel</span></span><br><span class="line">- (<span class="keyword">void</span>)bindViewModel:(<span class="keyword">id</span>&lt;FKViewModelProtocol&gt;)viewModel withParams:(<span class="built_in">NSDictionary</span> *)params &#123;</span><br><span class="line">    <span class="keyword">if</span> ([viewModel isKindOfClass:[FKLoginViewModel <span class="keyword">class</span>]])&#123;</span><br><span class="line">        </span><br><span class="line">        FKLoginViewModel *_viewModel = (FKLoginViewModel *)viewModel;</span><br><span class="line">        <span class="comment">// 绑定账号 View -&gt; ViewModel 传递数据 </span></span><br><span class="line">        @weakify(<span class="keyword">self</span>);</span><br><span class="line">        RAC(_viewModel, userAccount) = [[<span class="keyword">self</span>.inputTextFiled.rac_textSignal takeUntil:<span class="keyword">self</span>.rac_prepareForReuseSignal] map:^<span class="keyword">id</span> _Nullable(<span class="built_in">NSString</span> * _Nullable account) &#123;</span><br><span class="line">            @strongify(<span class="keyword">self</span>);</span><br><span class="line">            <span class="comment">// 限制账号长度</span></span><br><span class="line">            <span class="keyword">if</span> (account.length &gt; <span class="number">25</span>) &#123;</span><br><span class="line">                <span class="keyword">self</span>.inputTextFiled.text = [account substringToIndex:<span class="number">25</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">self</span>.inputTextFiled.text;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码给出了 View -&gt; ViewModel 绑定的一个例子 具体一些详情，可以直接看Demo<br>MVVM一些总结：</p>
+<ol>
+<li>View <-> C <-> ViewModel <-> Model 实际上应该称之为MVCVM</-></-></-></li>
+<li>Controller 将不再直接和 Model 进行绑定，而通过桥梁ViewModel</li>
+<li>最终 Controller 的作用变成一些UI的处理逻辑，和进行View和ViewModel的绑定</li>
+<li>MVVM 和 MVC 兼容</li>
+<li>由于多了一层 ViewModel, 会需要写一些胶水代码，所以代码量会增加</li>
+</ol>
+<h4 id="网络层使用-YTKNetwork-配合-ReactiveCocoa-封装网络请求，解决如何交付数据，交付什么样的数据（去Model化-等问题"><a href="#网络层使用-YTKNetwork-配合-ReactiveCocoa-封装网络请求，解决如何交付数据，交付什么样的数据（去Model化-等问题" class="headerlink" title="网络层使用 YTKNetwork 配合 ReactiveCocoa 封装网络请求，解决如何交付数据，交付什么样的数据（去Model化)等问题"></a>网络层使用 YTKNetwork 配合 ReactiveCocoa 封装网络请求，解决如何交付数据，交付什么样的数据（去Model化)等问题</h4><p>YTKNetwork 是猿题库 iOS 研发团队基于 AFNetworking 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象。</p>
+<p>笔者对 YTKNetwork 进行了一些封装，结合 ReactiveCocoa，并提供 reFormatter 接口对服务器响应数据重新处理，灵活交付给业务层。<br>接下来，本文会回答两个问题</p>
+<ol>
+<li>以什么方式将数据交付给业务层？</li>
+<li>交付什么样的数据 ?<br>对于第一个问题</li>
+</ol>
+<p><em>以什么方式将数据交付给业务层？</em></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/7/1616f69385b2261c?w=181&amp;h=131&amp;f=png&amp;s=34097" alt=""></p>
+<p>虽然 iOS应用架构谈 网络层设计方案 中 Casa大神写到 尽量不要用block，应该使用代理<br>的确，Block难以追踪和定位错误，容易内存泄漏， YTKNetwork 也提供代理方式回调</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">YTKRequestDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@optional</span></span><br><span class="line"><span class="comment">///  Tell the delegate that the request has finished successfully.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">///  @param request The corresponding request.</span></span><br><span class="line">- (<span class="keyword">void</span>)requestFinished:(__kindof YTKBaseRequest *)request;</span><br><span class="line"></span><br><span class="line"><span class="comment">///  Tell the delegate that the request has failed.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">///  @param request The corresponding request.</span></span><br><span class="line">- (<span class="keyword">void</span>)requestFailed:(__kindof YTKBaseRequest *)request;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>前文有说过，MVVM 并不等于 ReactiveCocoa , 但是想要体验最纯正的 ReactiveCocoa 还是Block较为酸爽，Demo中笔者两者都给出了代码, 大家可以自行选择和斟酌哈<br>我们看一下 YTKNetwork 和 ReactiveCocoa 结合的代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">- (RACSignal *)rac_requestSignal &#123;</span><br><span class="line">    [<span class="keyword">self</span> stop];</span><br><span class="line">    RACSignal *signal = [[RACSignal createSignal:^RACDisposable * _Nullable(<span class="keyword">id</span>&lt;RACSubscriber&gt;  _Nonnull subscriber) &#123;</span><br><span class="line">        <span class="comment">// 请求起飞</span></span><br><span class="line">        [<span class="keyword">self</span> startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) &#123;</span><br><span class="line">            <span class="comment">// 成功回调</span></span><br><span class="line">            [subscriber sendNext:[request responseJSONObject]];</span><br><span class="line">            [subscriber sendCompleted];</span><br><span class="line">            </span><br><span class="line">        &#125; failure:^(__kindof YTKBaseRequest * _Nonnull request) &#123;</span><br><span class="line">            <span class="comment">// 错误回调</span></span><br><span class="line">            [subscriber sendError:[request error]];</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> [RACDisposable disposableWithBlock:^&#123;</span><br><span class="line">            <span class="comment">// Signal销毁 停止请求</span></span><br><span class="line">            [<span class="keyword">self</span> stop];</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;] takeUntil:[<span class="keyword">self</span> rac_willDeallocSignal]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置名称 便于调试</span></span><br><span class="line">    <span class="keyword">if</span> (DEBUG) &#123;</span><br><span class="line">        [signal setNameWithFormat:<span class="string">@"%@ -rac_xzwRequest"</span>,  RACDescription(<span class="keyword">self</span>)];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> signal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>写了一个简单的 Category FKBaseRequest+Rac.h<br>ViewModel 中使用 RACCommand 封装调用：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (RACCommand *)loginCommand &#123;</span><br><span class="line">    <span class="keyword">if</span> (!_loginCommand) &#123;</span><br><span class="line">        @weakify(<span class="keyword">self</span>);</span><br><span class="line">        _loginCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(<span class="keyword">id</span>  _Nullable input) &#123;</span><br><span class="line">            @strongify(<span class="keyword">self</span>);</span><br><span class="line">      </span><br><span class="line">            <span class="keyword">return</span> [[[FKLoginRequest alloc] initWithUsr:<span class="keyword">self</span>.userAccount pwd:<span class="keyword">self</span>.password] rac_requestSignal];</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _loginCommand;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Block方式交付业务<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FKLoginRequest *loginRequest = [[FKLoginRequest alloc] initWithUsr:<span class="keyword">self</span>.userAccount pwd:<span class="keyword">self</span>.password];</span><br><span class="line"><span class="keyword">return</span> [[[loginRequest rac_requestSignal] doNext:^(<span class="keyword">id</span>  _Nullable x) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 解析数据</span></span><br><span class="line">    [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:@(<span class="literal">YES</span>) forKey:<span class="string">@"isLogin"</span>];</span><br><span class="line">    </span><br><span class="line">&#125;] materialize];</span><br></pre></td></tr></table></figure></p>
+<p>Delegate方式交付业务<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FKLoginRequest *loginRequest = [[FKLoginRequest alloc] initWithUsr:<span class="keyword">self</span>.userAccount pwd:<span class="keyword">self</span>.password];</span><br><span class="line"><span class="comment">// 数据请求响应代理 通过代理回调</span></span><br><span class="line">loginRequest.delegate = <span class="keyword">self</span>;</span><br><span class="line"><span class="keyword">return</span> [loginRequest rac_requestSignal];</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - YTKRequestDelegate</span></span><br><span class="line">- (<span class="keyword">void</span>)requestFinished:(__kindof YTKBaseRequest *)request &#123;</span><br><span class="line">    <span class="comment">// 解析数据</span></span><br><span class="line">    [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:@(<span class="literal">YES</span>) forKey:<span class="string">@"isLogin"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>交付什么样的数据 ?</em></p>
+<p>现在诸如 JSONModel ，YYModel 之类的Json转Model的库也非常多，大多数Json对象，网络请求成功直接就被转成Model了<br>然而 iOS应用架构谈 网络层设计方案 中给出了两种有意思的交付思路</p>
+<ol>
+<li>使用 reformer 对数据进行清洗</li>
+<li>去特定对象表征 （去Model）</li>
+</ol>
+<p>Casa文章中好处已经写得很详细了，通过不同的 reformer 来重塑和交付不同的业务数据，可以说是非常灵活了</p>
+<p><em>使用 reformer 对数据进行清洗</em></p>
+<p>在网络层封装 FKBaseRequest.h 中 给出了 FKBaseRequestFeformDelegate 接口来重塑数据<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">FKBaseRequestFeformDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 自定义解析器解析响应参数</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> @param request 当前请求</span></span><br><span class="line"><span class="comment"> @param jsonResponse 响应数据</span></span><br><span class="line"><span class="comment"> @return 自定reformat数据</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">id</span>)request:(FKBaseRequest *)request reformJSONResponse:(<span class="keyword">id</span>)jsonResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">然后在对应的 reformer 对数据进行重塑</span><br><span class="line"><span class="meta">#pragma mark - FKBaseRequestFeformDelegate</span></span><br><span class="line">- (<span class="keyword">id</span>)request:(FKBaseRequest *)request reformJSONResponse:(<span class="keyword">id</span>)jsonResponse &#123;</span><br><span class="line">    <span class="keyword">if</span>([request isKindOfClass:FKLoginRequest.class])&#123;</span><br><span class="line">        <span class="comment">// 在这里对json数据进行重新格式化</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> jsonResponse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以直接在子类的 RequestManager 中覆盖父类方法达到一样的效果<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* FKLoginRequest.m */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以在这里对response 数据进行重新格式化， 也可以使用delegate 设置 reformattor</span></span><br><span class="line">- (<span class="keyword">id</span>)reformJSONResponse:(<span class="keyword">id</span>)jsonResponse &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>去特定对象表征 （去Model）</em></p>
+<p>这思路可以说是业界的泥石流了<br>去Model也就是说，使用NSDictionary形式交付数据，对于网络层而言，只需要保持住原始数据即可，不需要主动转化成数据原型<br>但是会存在一些小问题</p>
+<ol>
+<li>去Model如何保持可读性？</li>
+<li>复杂和多样的数据结构如何解析？</li>
+</ol>
+<p>Casa大神 提出了 使用EXTERN + Const 字符串形式，并建议字符串跟着reformer走，个人觉得很多时候API只需要一种解析格式，所以Demo跟着 APIManager 走，其他情况下常量字符串建议听从 Casa大神 的建议，<br>常量定义：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* FKBaseRequest.h */</span></span><br><span class="line"><span class="comment">// 登录token key</span></span><br><span class="line">FOUNDATION_EXTERN <span class="built_in">NSString</span> *FKLoginAccessTokenKey;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* FKBaseRequest.m */</span></span><br><span class="line"><span class="built_in">NSString</span> *FKLoginAccessTokenKey = <span class="string">@"accessToken"</span>;</span><br></pre></td></tr></table></figure>
+<p>在 .h 和 .m 文件中要同时写太多代码，我们也可以使用局部常量的形式，只要在 .h 文件中定义即可</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 也可以写成 局部常量形式</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="built_in">NSString</span> *FKLoginAccessTokenKey2 = <span class="string">@"accessToken"</span>;</span><br><span class="line">最终那么我们的reformer可能会变成这样子</span><br><span class="line">- (<span class="keyword">id</span>)request:(FKBaseRequest *)request reformJSONResponse:(<span class="keyword">id</span>)jsonResponse &#123;</span><br><span class="line">    <span class="keyword">if</span>([request isKindOfClass:FKLoginRequest.class])&#123;</span><br><span class="line">        <span class="comment">// 在这里对json数据进行重新格式化</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> @&#123;</span><br><span class="line">                 FKLoginAccessTokenKey : jsonResponse[<span class="string">@"token"</span>],</span><br><span class="line">                 &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> jsonResponse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复杂和多样的数据结构如何解析？<br>有时候，reformer 交付过来的数据，我们需要解析的可能是字符串类型，也可能是NSNumber类型，也有可能是数组<br>为此，笔者提供了一系列 Encode Decode方法，来降低解析的复杂度和安全性<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark - Encode Decode 方法</span></span><br><span class="line"><span class="comment">// NSDictionary -&gt; NSString</span></span><br><span class="line">FK_EXTERN <span class="built_in">NSString</span>* DecodeObjectFromDic(<span class="built_in">NSDictionary</span> *dic, <span class="built_in">NSString</span> *key);</span><br><span class="line"><span class="comment">// NSArray + index -&gt; id</span></span><br><span class="line">FK_EXTERN <span class="keyword">id</span>        DecodeSafeObjectAtIndex(<span class="built_in">NSArray</span> *arr, <span class="built_in">NSInteger</span> index);</span><br><span class="line"><span class="comment">// NSDictionary -&gt; NSString</span></span><br><span class="line">FK_EXTERN <span class="built_in">NSString</span>     * DecodeStringFromDic(<span class="built_in">NSDictionary</span> *dic, <span class="built_in">NSString</span> *key);</span><br><span class="line"><span class="comment">// NSDictionary -&gt; NSString ？ NSString ： defaultStr</span></span><br><span class="line">FK_EXTERN <span class="built_in">NSString</span>* DecodeDefaultStrFromDic(<span class="built_in">NSDictionary</span> *dic, <span class="built_in">NSString</span> *key,<span class="built_in">NSString</span> * defaultStr);</span><br><span class="line"><span class="comment">// NSDictionary -&gt; NSNumber</span></span><br><span class="line">FK_EXTERN <span class="built_in">NSNumber</span>     * DecodeNumberFromDic(<span class="built_in">NSDictionary</span> *dic, <span class="built_in">NSString</span> *key);</span><br><span class="line"><span class="comment">// NSDictionary -&gt; NSDictionary</span></span><br><span class="line">FK_EXTERN <span class="built_in">NSDictionary</span> *DecodeDicFromDic(<span class="built_in">NSDictionary</span> *dic, <span class="built_in">NSString</span> *key);</span><br><span class="line"><span class="comment">// NSDictionary -&gt; NSArray</span></span><br><span class="line">FK_EXTERN <span class="built_in">NSArray</span>      *DecodeArrayFromDic(<span class="built_in">NSDictionary</span> *dic, <span class="built_in">NSString</span> *key);</span><br><span class="line">FK_EXTERN <span class="built_in">NSArray</span>      *DecodeArrayFromDicUsingParseBlock(<span class="built_in">NSDictionary</span> *dic, <span class="built_in">NSString</span> *key, <span class="keyword">id</span>(^parseBlock)(<span class="built_in">NSDictionary</span> *innerDic));</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Encode Decode 方法</span></span><br><span class="line"><span class="comment">// (nonull Key: nonull NSString) -&gt; NSMutableDictionary</span></span><br><span class="line">FK_EXTERN <span class="keyword">void</span> EncodeUnEmptyStrObjctToDic(<span class="built_in">NSMutableDictionary</span> *dic,<span class="built_in">NSString</span> *object, <span class="built_in">NSString</span> *key);</span><br><span class="line"><span class="comment">// nonull objec -&gt; NSMutableArray</span></span><br><span class="line">FK_EXTERN <span class="keyword">void</span> EncodeUnEmptyObjctToArray(<span class="built_in">NSMutableArray</span> *arr,<span class="keyword">id</span> object);</span><br><span class="line"><span class="comment">// (nonull (Key ? key : defaultStr) : nonull Value) -&gt; NSMutableDictionary</span></span><br><span class="line">FK_EXTERN <span class="keyword">void</span> EncodeDefaultStrObjctToDic(<span class="built_in">NSMutableDictionary</span> *dic,<span class="built_in">NSString</span> *object, <span class="built_in">NSString</span> *key,<span class="built_in">NSString</span> * defaultStr);</span><br><span class="line"><span class="comment">// (nonull Key: nonull object) -&gt; NSMutableDictionary</span></span><br><span class="line">FK_EXTERN <span class="keyword">void</span> EncodeUnEmptyObjctToDic(<span class="built_in">NSMutableDictionary</span> *dic,<span class="built_in">NSObject</span> *object, <span class="built_in">NSString</span> *key);</span><br></pre></td></tr></table></figure></p>
+<p>我们的reformer可以写成这样子<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark - FKBaseRequestFeformDelegate</span></span><br><span class="line">- (<span class="keyword">id</span>)request:(FKBaseRequest *)request reformJSONResponse:(<span class="keyword">id</span>)jsonResponse &#123;</span><br><span class="line">    <span class="keyword">if</span>([request isKindOfClass:FKLoginRequest.class])&#123;</span><br><span class="line">        <span class="comment">// 在这里对json数据进行重新格式化</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> @&#123;</span><br><span class="line">                 FKLoginAccessTokenKey : DecodeStringFromDic(jsonResponse, <span class="string">@"token"</span>)</span><br><span class="line">                 &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> jsonResponse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解析有可能是这样子<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *token = DecodeStringFromDic(jsonResponse, FKLoginAccessTokenKey)</span><br></pre></td></tr></table></figure></p>
+<p>好了，至此我们解决了两个问题</p>
+<ol>
+<li>以什么方式将数据交付给业务层<br>答：delegate 最佳，block为次</li>
+<li>交付什么样的数据<br>答：纯字典，去Model</li>
+</ol>
+<h4 id="采用-JLRoutes-路由对应用进行组件化解耦"><a href="#采用-JLRoutes-路由对应用进行组件化解耦" class="headerlink" title="采用 JLRoutes 路由对应用进行组件化解耦"></a>采用 JLRoutes 路由对应用进行组件化解耦</h4><p><img src="https://user-gold-cdn.xitu.io/2018/4/25/162fc3254daa470b?w=468&amp;h=368&amp;f=png&amp;s=37364" alt=""></p>
+<p>带着问题思考如何才能设计出最好的组件化路由：</p>
+<ul>
+<li>1）3D-Touch功能或者点击推送消息，要求外部跳转到App内部一个很深层次的一个界面。</li>
+<li>2）自家的一系列App之间如何相互跳转？</li>
+<li>3）如何解除App组件之间和App页面之间的耦合性？</li>
+<li>4）如何能统一iOS和Android两端的页面跳转逻辑？甚至如何能统一三端的请求资源的方式？</li>
+<li>5）如果使用了动态下发配置文件来配置App的跳转逻辑，那么如果做到iOS和Android两边只要共用一套配置文件？</li>
+<li>6）如果App出现bug了，如何不用JSPatch，就能做到简单的热修复功能？</li>
+<li>7）如何在每个组件间调用和页面跳转时都进行埋点统计？每个跳转的地方都手写代码埋点？利用Runtime AOP ？</li>
+<li>8）如何在每个组件间调用的过程中，加入调用的逻辑检查，令牌机制，配合灰度进行风控逻辑？</li>
+<li>9）如何在App任何界面都可以调用同一个界面或者同一个组件？只能在AppDelegate里面注册单例来实现？</li>
+</ul>
+<p>iOS应用架构谈 组件化方案 一文中 Casa 针对 蘑菇街组件化 提出了质疑，质疑点主要在这几方面</p>
+<ol>
+<li>App启动时组件需要注册URL</li>
+<li>URL调用组件方式不太好传递类似 UIImage 等非常规对象</li>
+<li>URL需要添加额外参数可读性差，所以没必要使用URL</li>
+</ol>
+<p>对于 App启动时组件需要注册URL 顾虑主要在于，注册的URL需要在应用生存周期内常驻内存，如果是注册Class还好些，如果注册的是实例，消耗的内存就非常可观了</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark - 路由表</span></span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> FKNavPushRoute = <span class="string">@"/com_madao_navPush/:viewController"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> FKNavPresentRoute = <span class="string">@"/com_madao_navPresent/:viewController"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> FKNavStoryBoardPushRoute = <span class="string">@"/com_madao_navStoryboardPush/:viewController"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> FKComponentsCallBackRoute = <span class="string">@"/com_madao_callBack/*"</span>;</span><br></pre></td></tr></table></figure>
+<p>而且JLRoutes 还支持 * 来进行通配，路由表如何编写大家可以自由发挥<br>对应的路由事件 handler</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// push</span></span><br><span class="line"><span class="comment">// 路由 /com_madao_navPush/:viewController</span></span><br><span class="line">[[JLRoutes globalRoutes] addRoute:FKNavPushRoute handler:^<span class="built_in">BOOL</span>(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; * _Nonnull parameters) &#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [<span class="keyword">self</span> _handlerSceneWithPresent:<span class="literal">NO</span> parameters:parameters];</span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// present</span></span><br><span class="line"><span class="comment">// 路由 /com_madao_navPresent/:viewController</span></span><br><span class="line">[[JLRoutes globalRoutes] addRoute:FKNavPresentRoute handler:^<span class="built_in">BOOL</span>(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; * _Nonnull parameters) &#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [<span class="keyword">self</span> _handlerSceneWithPresent:<span class="literal">YES</span> parameters:parameters];</span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Private</span></span><br><span class="line"><span class="comment">/// 处理跳转事件</span></span><br><span class="line">- (<span class="keyword">void</span>)_handlerSceneWithPresent:(<span class="built_in">BOOL</span>)isPresent parameters:(<span class="built_in">NSDictionary</span> *)parameters &#123;</span><br><span class="line">    <span class="comment">// 当前控制器</span></span><br><span class="line">    <span class="built_in">NSString</span> *controllerName = [parameters objectForKey:FKControllerNameRouteParam];</span><br><span class="line">    <span class="built_in">UIViewController</span> *currentVC = [<span class="keyword">self</span> _currentViewController];</span><br><span class="line">    <span class="built_in">UIViewController</span> *toVC = [[<span class="built_in">NSClassFromString</span>(controllerName) alloc] init];</span><br><span class="line">    toVC.params = parameters;</span><br><span class="line">    <span class="keyword">if</span> (currentVC &amp;&amp; currentVC.navigationController) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isPresent) &#123;</span><br><span class="line">            [currentVC.navigationController presentViewController:toVC animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            [currentVC.navigationController pushViewController:toVC animated:<span class="literal">YES</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过URL中传入的组件名动态注册，处理相应跳转事件，并不需要每个组件一一注册<br>使用URL路由，必然URL会散落到代码各个地方</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *key = <span class="string">@"key"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *value = <span class="string">@"value"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *url = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"/com_madao_navPush/%@?%@=%@"</span>, <span class="built_in">NSStringFromClass</span>(ViewController.class), key, value];</span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:url]];</span><br></pre></td></tr></table></figure>
+<p>诸如此类丑陋的代码，散落在各个地方的话简直会让人头皮发麻, 所以笔者在 JLRoutes+GenerateURL.h 写了一些 Helper方法<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 避免 URL 散落各处， 集中生成URL</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> @param pattern 匹配模式</span></span><br><span class="line"><span class="comment"> @param parameters 附带参数</span></span><br><span class="line"><span class="comment"> @return URL字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)fk_generateURLWithPattern:(<span class="built_in">NSString</span> *)pattern parameters:(<span class="built_in">NSArray</span> *)parameters;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 避免 URL 散落各处， 集中生成URL</span></span><br><span class="line"><span class="comment"> 额外参数将被 ?key=value&amp;key2=value2 样式给出</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> @param pattern 匹配模式</span></span><br><span class="line"><span class="comment"> @param parameters 附加参数</span></span><br><span class="line"><span class="comment"> @param extraParameters 额外参数</span></span><br><span class="line"><span class="comment"> @return URL字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)fk_generateURLWithPattern:(<span class="built_in">NSString</span> *)pattern parameters:(<span class="built_in">NSArray</span> *)parameters extraParameters:(<span class="built_in">NSDictionary</span> *)extraParameters;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 解析NSURL对象中的请求参数</span></span><br><span class="line"><span class="comment">http://madao?param1=value1¶m2=value2 解析成 @&#123;param1:value1, param2:value2&#125;</span></span><br><span class="line"><span class="comment"> @param URL NSURL对象</span></span><br><span class="line"><span class="comment"> @return URL字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSDictionary</span> *)fk_parseParamsWithURL:(<span class="built_in">NSURL</span> *)URL;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 将参数对象进行url编码</span></span><br><span class="line"><span class="comment"> 将@&#123;param1:value1, param2:value2&#125; 转换成 ?param1=value1&amp;param2=value2</span></span><br><span class="line"><span class="comment"> @param dic 参数对象</span></span><br><span class="line"><span class="comment"> @return URL字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)fk_mapDictionaryToURLQueryString:(<span class="built_in">NSDictionary</span> *)dic;</span><br></pre></td></tr></table></figure></p>
+<p>宏定义Helper<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#undef JLRGenRoute</span></span><br><span class="line"><span class="meta">#define JLRGenRoute(Schema, path) \</span></span><br><span class="line">([<span class="built_in">NSString</span> stringWithFormat: <span class="string">@"%@:/%@"</span>, \</span><br><span class="line">Schema, \</span><br><span class="line">path])</span><br><span class="line"></span><br><span class="line"><span class="meta">#undef JLRGenRouteURL</span></span><br><span class="line"><span class="meta">#define JLRGenRouteURL(Schema, path) \</span></span><br><span class="line">([<span class="built_in">NSURL</span> URLWithString: \</span><br><span class="line">JLRGenRoute(Schema, path)])</span><br></pre></td></tr></table></figure></p>
+<p>最终我们的调用可以变成<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *router = [JLRoutes fk_generateURLWithPattern:FKNavPushRoute parameters:@[<span class="built_in">NSStringFromClass</span>(ViewController.class)] extraParameters:<span class="literal">nil</span>];</span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:JLRGenRouteURL(FKDefaultRouteSchema, router)];</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="📝-整理制作"><a href="#📝-整理制作" class="headerlink" title="📝 整理制作"></a>📝 整理制作</h3><p>Casa Taloyum：<a href="https://casatwy.com/modulization_in_action.html" target="_blank" rel="noopener">https://casatwy.com/modulization_in_action.html</a>  </p>
+<p>简书博客：<a href="http://www.jianshu.com/p/921dd65e79cb" target="_blank" rel="noopener">http://www.jianshu.com/p/921dd65e79cb</a>  </p>
+<hr>
+<h3 id="😬-联系"><a href="#😬-联系" class="headerlink" title="😬 联系"></a>😬 联系</h3><ul>
+<li>微信 : WhatsXie</li>
+<li>邮件 : <a href="mailto:ReverseScale@iCloud.com" target="_blank" rel="noopener">ReverseScale@iCloud.com</a></li>
+<li>博客 : <a href="https://reversescale.github.io">https://reversescale.github.io</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-15/29881714.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../07/06/How to build DApp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          如何用 Swift 打造你的第一个区块链 App
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../03/29/ReactNative command/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ReactNative 开发常用命令行（持续更新）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#🤖-要求"><span class="nav-number">1.</span> <span class="nav-text">🤖 要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🎨-测试-UI-什么样子？"><span class="nav-number">2.</span> <span class="nav-text">🎨 测试 UI 什么样子？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🎯-安装方法"><span class="nav-number">3.</span> <span class="nav-text">🎯 安装方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🛠-框架介绍"><span class="nav-number">4.</span> <span class="nav-text">🛠 框架介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AOP-模式（Aspects-RunTime-代替基类）-Category-方法交换"><span class="nav-number">4.1.</span> <span class="nav-text">AOP 模式（Aspects-RunTime 代替基类）+ Category 方法交换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View层采用-MVVM-设计模式，使用-ReactiveObjC-进行数据绑定"><span class="nav-number">4.2.</span> <span class="nav-text">View层采用 MVVM 设计模式，使用 ReactiveObjC 进行数据绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络层使用-YTKNetwork-配合-ReactiveCocoa-封装网络请求，解决如何交付数据，交付什么样的数据（去Model化-等问题"><span class="nav-number">4.3.</span> <span class="nav-text">网络层使用 YTKNetwork 配合 ReactiveCocoa 封装网络请求，解决如何交付数据，交付什么样的数据（去Model化)等问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#采用-JLRoutes-路由对应用进行组件化解耦"><span class="nav-number">4.4.</span> <span class="nav-text">采用 JLRoutes 路由对应用进行组件化解耦</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#📝-整理制作"><span class="nav-number">5.</span> <span class="nav-text">📝 整理制作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#😬-联系"><span class="nav-number">6.</span> <span class="nav-text">😬 联系</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
