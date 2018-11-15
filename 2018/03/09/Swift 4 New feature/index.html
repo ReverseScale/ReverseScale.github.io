@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>swift 4.0 新特征汇总及演示附 demo | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Swift">
+  
+  
+  
+  
+  <meta name="description" content="Swift 在不断的版本迭代中，由于其 ABI 尚不稳定，所以给开发者带来许多的挑战，但也正因为如此，这门语言才有无限可能~">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 4.0 新特征汇总及演示附 Demo">
+<meta property="og:url" content="https://reversescale.github.io/2018/03/09/Swift 4 New feature/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="Swift 在不断的版本迭代中，由于其 ABI 尚不稳定，所以给开发者带来许多的挑战，但也正因为如此，这门语言才有无限可能~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/20/16241654c9724f1d?w=792&h=270&f=png&s=31206">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/9/1620949944021d59?w=331&h=41&f=png&s=9756">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/9/162094994523a249?w=661&h=54&f=png&s=36843">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/9/162094994476f137?w=333&h=44&f=png&s=13584">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/9/1620949968e93e6f?w=363&h=50&f=png&s=15143">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/9/162094994414e30b?w=205&h=39&f=png&s=8642">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/9/16209499445602df?w=285&h=55&f=png&s=16118">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/9/162094993a3445b9?w=270&h=36&f=png&s=9367">
+<meta property="og:updated_time" content="2018-11-15T14:33:01.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 4.0 新特征汇总及演示附 Demo">
+<meta name="twitter:description" content="Swift 在不断的版本迭代中，由于其 ABI 尚不稳定，所以给开发者带来许多的挑战，但也正因为如此，这门语言才有无限可能~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/3/20/16241654c9724f1d?w=792&h=270&f=png&s=31206">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Swift 4 New feature" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      Swift 4.0 新特征汇总及演示附 Demo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-03-09T13:16:27.000Z" itemprop="datePublished">2018-03-09</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Project/">Project</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Swift 在不断的版本迭代中，由于其 ABI 尚不稳定，所以给开发者带来许多的挑战，但也正因为如此，这门语言才有无限可能~                                                                                                                        </p>
+<a id="more"></a>
+<hr>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/20/16241654c9724f1d?w=792&amp;h=270&amp;f=png&amp;s=31206" alt=""></p>
+<h3 id="Key-Paths-新语法"><a href="#Key-Paths-新语法" class="headerlink" title="Key Paths 新语法"></a>Key Paths 新语法</h3><p>key-path 通常是用在键值编码（KVC）与键值观察（KVO）上的，KVC、KVO 相关内容可以参考我之前写的这篇文章：Swift - 反射（Reflection）的介绍与使用样例（附KVC介绍）</p>
+<p>1.Swift 3 之前使用的是 String 类型的 key-Path<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//用户类</span><br><span class="line">class User: NSObject&#123;</span><br><span class="line">    @objc var name:String = &quot;&quot;  //姓名</span><br><span class="line">    @objc var age:Int = 0  //年龄</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//创建一个User实例对象</span><br><span class="line">let user1 = User()</span><br><span class="line">user1.name = &quot;hangge&quot;</span><br><span class="line">user1.age = 100</span><br><span class="line"> </span><br><span class="line">//使用KVC取值</span><br><span class="line">let name = user1.value(forKey: &quot;name&quot;)</span><br><span class="line">print(name)</span><br><span class="line"> </span><br><span class="line">//使用KVC赋值</span><br><span class="line">user1.setValue(&quot;hangge.com&quot;, forKey: &quot;name&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>具体显示如下：<br><img src="https://user-gold-cdn.xitu.io/2018/3/9/1620949944021d59?w=331&amp;h=41&amp;f=png&amp;s=9756" alt=""></p>
+<p>2.到了 Swift 3 新增了 #keyPath() 写法<br>使用 #keyPath() 写法，可以避免我们因为拼写错误而引发问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//用户类</span><br><span class="line">class User: NSObject&#123;</span><br><span class="line">    @objc var name:String = &quot;&quot;  //姓名</span><br><span class="line">    @objc var age:Int = 0  //年龄</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//创建一个User实例对象</span><br><span class="line">let user1 = User()</span><br><span class="line">user1.name = &quot;hangge&quot;</span><br><span class="line">user1.age = 100</span><br><span class="line"> </span><br><span class="line">//使用KVC取值</span><br><span class="line">let name = user1.value(forKeyPath: #keyPath(User.name))</span><br><span class="line">print(name)</span><br><span class="line"> </span><br><span class="line">//使用KVC赋值</span><br><span class="line">user1.setValue(&quot;hangge.com&quot;, forKeyPath: #keyPath(User.name))</span><br></pre></td></tr></table></figure></p>
+<p>3.Swift 4 中直接用 \ 作为开头创建 KeyPath<br>新的方式不仅使用更加简单，而且有如下优点：</p>
+<ul>
+<li>类型可以定义为 class、struct</li>
+<li>定义类型时无需加上 @objc 等关键字</li>
+<li>性能更好</li>
+<li>类型安全和类型推断，例如：user1.value(forKeyPath: #keyPath(User.name)) 返回的类型是 Any，user1[keyPath: \User.name] 直接返回 String 类型</li>
+<li>可以在所有值类型上使用<br>（1）比如上面的样例在 Swift4 中可以这么写：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//用户类</span><br><span class="line">class User: NSObject&#123;</span><br><span class="line">    var name:String = &quot;&quot;  //姓名</span><br><span class="line">    var age:Int = 0  //年龄</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//创建一个User实例对象</span><br><span class="line">let user1 = User()</span><br><span class="line">user1.name = &quot;hangge&quot;</span><br><span class="line">user1.age = 100</span><br><span class="line"> </span><br><span class="line">//使用KVC取值</span><br><span class="line">let name = user1[keyPath: \User.name]</span><br><span class="line">print(name)</span><br><span class="line"> </span><br><span class="line">//使用KVC赋值</span><br><span class="line">user1[keyPath: \User.name] = &quot;hangge.com&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>（2）keyPath 定义在外面也是可以的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let keyPath = \User.name</span><br><span class="line"> </span><br><span class="line">let name = user1[keyPath: keyPath]</span><br><span class="line">print(name)</span><br><span class="line"> </span><br><span class="line">user1[keyPath: keyPath] = &quot;hangge.com&quot;</span><br></pre></td></tr></table></figure></p>
+<p>（3）可以使用 appending 方法向已定义的 Key Path 基础上填加新的 Key Path。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let keyPath1 = \User.phone</span><br><span class="line">let keyPath2 = keyPath1.appending(path: \.number)</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="类与协议的组合类型"><a href="#类与协议的组合类型" class="headerlink" title="类与协议的组合类型"></a>类与协议的组合类型</h3><p>在 Swift 4 中，可以把类（Class）和协议（Protocol）用 &amp; 组合在一起作为一个类型使用。</p>
+<p>使用样例1：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">protocol MyProtocol &#123; &#125;</span><br><span class="line"> </span><br><span class="line">class View &#123; &#125;</span><br><span class="line"> </span><br><span class="line">class ViewSubclass: View, MyProtocol &#123; &#125;</span><br><span class="line"> </span><br><span class="line">class MyClass &#123;</span><br><span class="line">    var delegate: (View &amp; MyProtocol)?</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let myClass = MyClass()</span><br><span class="line">myClass.delegate = ViewSubclass() //这个编译正常</span><br><span class="line">myClass.delegate = View() //这个编译报错:</span><br></pre></td></tr></table></figure></p>
+<p>具体错误信息如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/9/162094994523a249?w=661&amp;h=54&amp;f=png&amp;s=36843" alt=""></p>
+<p>使用样例2：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">protocol Shakeable &#123;</span><br><span class="line">    func shake()</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">extension UIButton: Shakeable &#123;</span><br><span class="line">    func shake() &#123;</span><br><span class="line">        /* ... */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">extension UISlider: Shakeable &#123;</span><br><span class="line">    func shake() &#123;</span><br><span class="line">        /* ... */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func shakeEm(controls: [UIControl &amp; Shakeable]) &#123;</span><br><span class="line">    for control in controls where control.isEnabled &#123;</span><br><span class="line">        control.shake()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="下标支持泛型"><a href="#下标支持泛型" class="headerlink" title="下标支持泛型"></a>下标支持泛型</h3><p>1.下标的返回类型支持泛型<br>有时候我们会写一些数据容器，Swift 支持通过下标来读写容器中的数据。但是如果容器类中的数据类型定义为泛型，过去下标语法就只能返回 Any，在取出值后需要用 as? 来转换类型。现在 Swift 4 定义下标也可以使用泛型了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">struct GenericDictionary&lt;Key: Hashable, Value&gt; &#123;</span><br><span class="line">    private var data: [Key: Value]</span><br><span class="line">     </span><br><span class="line">    init(data: [Key: Value]) &#123;</span><br><span class="line">        self.data = data</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    subscript&lt;T&gt;(key: Key) -&gt; T? &#123;</span><br><span class="line">        return data[key] as? T</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//字典类型: [String: Any]</span><br><span class="line">let earthData = GenericDictionary(data: [&quot;name&quot;: &quot;Earth&quot;, &quot;population&quot;: 7500000000, &quot;moons&quot;: 1])</span><br><span class="line"> </span><br><span class="line">//自动转换类型，不需要在写 &quot;as? String&quot;</span><br><span class="line">let name: String? = earthData[&quot;name&quot;]</span><br><span class="line">print(name)</span><br><span class="line"> </span><br><span class="line">//自动转换类型，不需要在写 &quot;as? Int&quot;</span><br><span class="line">let population: Int? = earthData[&quot;population&quot;]</span><br><span class="line">print(population)</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/9/162094994476f137?w=333&amp;h=44&amp;f=png&amp;s=13584" alt=""></p>
+<p>2.下标类型同样支持泛型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">extension GenericDictionary &#123;</span><br><span class="line">    subscript&lt;Keys: Sequence&gt;(keys: Keys) -&gt; [Value] where Keys.Iterator.Element == Key &#123;</span><br><span class="line">        var values: [Value] = []</span><br><span class="line">        for key in keys &#123;</span><br><span class="line">            if let value = data[key] &#123;</span><br><span class="line">                values.append(value)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return values</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// Array下标</span><br><span class="line">let nameAndMoons = earthData[[&quot;moons&quot;, &quot;name&quot;]]        // [1, &quot;Earth&quot;]</span><br><span class="line">// Set下标</span><br><span class="line">let nameAndMoons2 = earthData[Set([&quot;moons&quot;, &quot;name&quot;])]  // [1, &quot;Earth&quot;]</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="Codable-序列化"><a href="#Codable-序列化" class="headerlink" title="Codable 序列化"></a>Codable 序列化</h3><p>如果要将一个对象持久化，需要把这个对象序列化。过去的做法是实现 NSCoding 协议，但实现 NSCoding 协议的代码写起来很繁琐，尤其是当属性非常多的时候。<br>Swift 4 中引入了 Codable 协议，可以大大减轻了我们的工作量。我们只需要让需要序列化的对象符合 Codable 协议即可，不用再写任何其他的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct Language: Codable &#123;</span><br><span class="line">    var name: String</span><br><span class="line">    var version: Int</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>1.Encode 操作<br>我们可以直接把符合了 Codable 协议的对象 encode 成 JSON 或者 PropertyList。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let swift = Language(name: &quot;Swift&quot;, version: 4)</span><br><span class="line"> </span><br><span class="line">//encoded对象</span><br><span class="line">let encodedData = try JSONEncoder().encode(swift)</span><br><span class="line"> </span><br><span class="line">//从encoded对象获取String</span><br><span class="line">let jsonString = String(data: encodedData, encoding: .utf8)</span><br><span class="line">print(jsonString)</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/9/1620949968e93e6f?w=363&amp;h=50&amp;f=png&amp;s=15143" alt=""></p>
+<p>2.Decode 操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let decodedData = try JSONDecoder().decode(Language.self, from: encodedData)</span><br><span class="line">print(decodedData.name, decodedData.version)</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/9/162094994414e30b?w=205&amp;h=39&amp;f=png&amp;s=8642" alt=""></p>
+<hr>
+<h3 id="Subtring"><a href="#Subtring" class="headerlink" title="Subtring"></a>Subtring</h3><p>Swift 4 中有一个很大的变化就是 String 可以当做 Collection 来用，并不是因为 String 实现了 Collection 协议，而是 String 本身增加了很多 Collection 协议中的方法，使得 String 在使用时看上去就是个 Collection。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let str = &quot;hangge.com&quot;</span><br><span class="line"> </span><br><span class="line">print(str.prefix(5)) // &quot;hangg&quot;</span><br><span class="line">print(str.suffix(5)) // &quot;e.com&quot;</span><br><span class="line"> </span><br><span class="line">print(str.dropFirst()) // &quot;angge.com&quot;</span><br><span class="line">print(str.dropLast()) // &quot;hangge.co&quot;</span><br></pre></td></tr></table></figure></p>
+<p>比如上面的样例，我们使用一些 Collection 协议的方法对字符串进行截取，只不过它们的返回结果不是 String 类型，而是 Swift 4 新增的 Substring 类型。</p>
+<p>1.为何要引入 Substring？<br>既然我们想要的到的就是字符串，那么直接返回 String 就好了，为什么还要多此一举返回 Substring。原因只有一个：性能。具体可以参考下图：<br>当我们用一些 Collection 的方式得到 String 里的一部分时，创建的都是 Substring。Substring 与原 String 是共享一个 Storage。这意味我们在操作这个部分的时候，是不需要频繁的去创建内存，从而使得 Swift 4 的 String 相关操作可以获取比较高的性能。<br>而当我们显式地将 Substring 转成 String 的时候，才会 Copy 一份 String 到新的内存空间来，这时新的 String 和之前的 String 就没有关系了。</p>
+<p>2.使用 Substring 的注意事项<br>由于 Substring 与原 String 是共享存储空间的，只要我们使用了 Substring，原 String 就会存在内存空间中。只有 Substring 被释放以后，整个 String 才会被释放。<br>而且 Substring 类型无法直接赋值给需要 String 类型的地方，我们必须用 String() 包一层。当然这时系统就会通过复制创建出一个新的字符串对象，之后原字符串就会被释放。</p>
+<p>3.使用样例<br>这里对 String 进行扩展，新增一个 subString 方法。直接可以根据起始位置（Int 类型）和需要的长度（Int 类型），来截取出子字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extension String &#123;</span><br><span class="line">    //根据开始位置和长度截取字符串</span><br><span class="line">    func subString(start:Int, length:Int = -1) -&gt; String &#123;</span><br><span class="line">        var len = length</span><br><span class="line">        if len == -1 &#123;</span><br><span class="line">            len = self.count - start</span><br><span class="line">        &#125;</span><br><span class="line">        let st = self.index(startIndex, offsetBy:start)</span><br><span class="line">        let en = self.index(st, offsetBy:len)</span><br><span class="line">        return String(self[st ..&lt; en])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用样例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let str1 = &quot;欢迎访问hangge.com&quot;</span><br><span class="line">let str2 = str1.subString(start: 4, length: 6)</span><br><span class="line">print(&quot;原字符串：\(str1)&quot;)</span><br><span class="line">print(&quot;截取出的字符串：\(str2)&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/9/16209499445602df?w=285&amp;h=55&amp;f=png&amp;s=16118" alt=""></p>
+<p>注意：这个方法最后我们会将 Substring 显式地转成 String 再返回。</p>
+<hr>
+<h3 id="废除-swap-方法"><a href="#废除-swap-方法" class="headerlink" title="废除 swap 方法"></a>废除 swap 方法</h3><p>（1）过去我们会使用 swap(_:_:) 来将两个变量的值进行交换：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var b = 2</span><br><span class="line">swap(&amp;a, &amp;b)</span><br><span class="line">print(a, b)</span><br></pre></td></tr></table></figure></p>
+<p>（2）后面 swap() 方法将会被废弃，建议使用 tuple（元组）特性来实现值交换，也只需要一句话就能实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var b = 2</span><br><span class="line">(b, a) = (a, b)</span><br><span class="line">print(a, b)</span><br></pre></td></tr></table></figure></p>
+<p>使用 tuple 方式的好处是，多个变量值也可以一起进行交换：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var b = 2</span><br><span class="line">var c = 3</span><br><span class="line">(a, b, c) = (b, c, a)</span><br><span class="line">print(a, b, c)</span><br></pre></td></tr></table></figure></p>
+<p>（3）补充一下：现在数组增加了个 swapAt 方法可以实现两个元素的位置交换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fruits = [&quot;apple&quot;, &quot;pear&quot;, &quot;grape&quot;, &quot;banana&quot;]</span><br><span class="line">//交换元素位置（第2个和第3个元素位置进行交换）</span><br><span class="line">fruits.swapAt(1, 2)</span><br><span class="line">print(fruits)</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/9/162094993a3445b9?w=270&amp;h=36&amp;f=png&amp;s=9367" alt=""></p>
+<hr>
+<h3 id="减少隐式-objc-自动推断"><a href="#减少隐式-objc-自动推断" class="headerlink" title="减少隐式 @objc 自动推断"></a>减少隐式 @objc 自动推断</h3><p>1.过去的情况（Swift 3）<br>（1）在项目中如果想把 Swift 写的 API 暴露给 Objective-C 调用，需要增加 @objc。在 Swift 3 中，编译器会在很多地方为我们隐式的加上 @objc。<br>（2）比如当一个类继承于 NSObject，那么这个类的所有方法都会被隐式的加上 @objc。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class MyClass: NSObject &#123;</span><br><span class="line">    func print() &#123; &#125; // 包含隐式的 @objc</span><br><span class="line">    func show() &#123; &#125; // 包含隐式的 @objc</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（3）但这样做很多并不需要暴露给 Objective-C 也被加上了 @objc。而大量 @objc 会导致二进制文件大小的增加。</p>
+<p>2.现在的情况（Swift 4）<br>（1）在 Swift 4 中隐式 @objc 自动推断只会发生在下面这种必须要使用 @objc 的情况：</p>
+<ul>
+<li>覆盖父类的 Objective-C 方法</li>
+<li>符合一个 Objective-C 的协议</li>
+</ul>
+<p>（2）大多数地方必须手工显示地加上 @objc。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class MyClass: NSObject &#123;</span><br><span class="line">    @objc func print() &#123; &#125; //显示的加上 @objc</span><br><span class="line">    @objc func show() &#123; &#125; //显示的加上 @objc</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（3）如果在类前加上 @objcMembers，那么它、它的子类、扩展里的方法都会隐式的加上 @objc。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@objcMembers</span><br><span class="line">class MyClass: NSObject &#123;</span><br><span class="line">    func print() &#123; &#125; //包含隐式的 @objc</span><br><span class="line">    func show() &#123; &#125; //包含隐式的 @objc</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">extension MyClass &#123;</span><br><span class="line">    func baz() &#123; &#125; //包含隐式的 @objc</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（4）如果在扩展（extension）前加上 @objc，那么该扩展里的方法都会隐式的加上 @objc。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class SwiftClass &#123; &#125;</span><br><span class="line"> </span><br><span class="line">@objc extension SwiftClass &#123;</span><br><span class="line">    func foo() &#123; &#125; //包含隐式的 @objc</span><br><span class="line">    func bar() &#123; &#125; //包含隐式的 @objc</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（5）如果在扩展（extension）前加上 @nonobjc，那么该扩展里的方法都不会隐式的加上 @objc。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@objcMembers</span><br><span class="line">class MyClass : NSObject &#123;</span><br><span class="line">    func wibble() &#123; &#125; //包含隐式的 @objc</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">@nonobjc extension MyClass &#123;</span><br><span class="line">    func wobble() &#123; &#125; //不会包含隐式的 @objc</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Demo-演示"><a href="#Demo-演示" class="headerlink" title="Demo 演示"></a>Demo 演示</h3><ul>
+<li>源码 : <a href="https://github.com/ReverseScale/Swift4.0NewFeature" target="_blank" rel="noopener">https://github.com/ReverseScale/Swift4.0NewFeature</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-15/29881714.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../12/Open source library/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用 CocoaPods 对公有库开源和私有库组件
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../02/23/Library Async/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">让 Async 帮你解决线程问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Paths-新语法"><span class="nav-number">1.</span> <span class="nav-text">Key Paths 新语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类与协议的组合类型"><span class="nav-number">2.</span> <span class="nav-text">类与协议的组合类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下标支持泛型"><span class="nav-number">3.</span> <span class="nav-text">下标支持泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Codable-序列化"><span class="nav-number">4.</span> <span class="nav-text">Codable 序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subtring"><span class="nav-number">5.</span> <span class="nav-text">Subtring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#废除-swap-方法"><span class="nav-number">6.</span> <span class="nav-text">废除 swap 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少隐式-objc-自动推断"><span class="nav-number">7.</span> <span class="nav-text">减少隐式 @objc 自动推断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo-演示"><span class="nav-number">8.</span> <span class="nav-text">Demo 演示</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

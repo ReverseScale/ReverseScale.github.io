@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>swift 4.0 中对 dictionary 的改进 | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Swift">
+  
+  
+  
+  
+  <meta name="description" content="Swift 4 发布已经有一段时间了，不知道大家有没有切换到 4.0 版本。 这次 4.0 更新给我最大的感受就是没有了前几次升级的跳跃式变化。 不用为了更新语言版本，完全推翻已有的项目，这也是 Swift 慢慢趋向于稳定的标志~">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 4.0 中对 Dictionary 的改进">
+<meta property="og:url" content="https://reversescale.github.io/2018/03/13/Swift 4 Dictionary/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="Swift 4 发布已经有一段时间了，不知道大家有没有切换到 4.0 版本。 这次 4.0 更新给我最大的感受就是没有了前几次升级的跳跃式变化。 不用为了更新语言版本，完全推翻已有的项目，这也是 Swift 慢慢趋向于稳定的标志~">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-15T14:04:15.042Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 4.0 中对 Dictionary 的改进">
+<meta name="twitter:description" content="Swift 4 发布已经有一段时间了，不知道大家有没有切换到 4.0 版本。 这次 4.0 更新给我最大的感受就是没有了前几次升级的跳跃式变化。 不用为了更新语言版本，完全推翻已有的项目，这也是 Swift 慢慢趋向于稳定的标志~">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Swift 4 Dictionary" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      Swift 4.0 中对 Dictionary 的改进
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-03-13T13:56:27.000Z" itemprop="datePublished">2018-03-13</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Tips/">Tips</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Swift 4 发布已经有一段时间了，不知道大家有没有切换到 4.0 版本。 这次 4.0 更新给我最大的感受就是没有了前几次升级的跳跃式变化。 不用为了更新语言版本，完全推翻已有的项目，这也是 Swift 慢慢趋向于稳定的标志~</p>
+<a id="more"></a>
+<p>咱们这次说说 Swift 4.0 对 Dictionary 这个经常会用到的类的改进。</p>
+<h3 id="自动根据-key-分组"><a href="#自动根据-key-分组" class="headerlink" title="自动根据 key 分组"></a>自动根据 key 分组</h3><p>Dictionary 新增了一个构造方法，可以将给定的一个数组，根据指定的条件进行分组。 来看一个例子:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> gender: <span class="type">Gender</span></span><br><span class="line">    <span class="keyword">var</span> age: <span class="type">Int</span></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Gender</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> male</span><br><span class="line">        <span class="keyword">case</span> female</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有一个 Person 结构, 然后我们初始化一个数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="type">Person</span>(name: <span class="string">"aa"</span>, gender: .female, age: <span class="number">22</span>)</span><br><span class="line"><span class="keyword">let</span> p2 = <span class="type">Person</span>(name: <span class="string">"bb"</span>, gender: .male, age: <span class="number">24</span>)</span><br><span class="line"><span class="keyword">let</span> p3 = <span class="type">Person</span>(name: <span class="string">"cc"</span>, gender: .male, age: <span class="number">21</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> persons = [p1, p2, p3]</span><br></pre></td></tr></table></figure>
+<p>现在用新的 Dictionary 构造方法，可以立即将这组 Person 实例根据他们的 gender 属性进行分组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> groupedDict = <span class="type">Dictionary</span>(grouping: persons) &#123; p <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> p.gender</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个构造方法，第一个参数 grouping 接收的是 persons 数组， 第二个参数是一个闭包，用于返回根据进行分组的依据，我们这里返回的是 p.gender。结果一目了然：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    .male: [</span><br><span class="line">        <span class="type">Person</span>(name: <span class="string">"bb"</span>, gender: .male, age: <span class="number">24</span>), </span><br><span class="line">        <span class="type">Person</span>(name: <span class="string">"cc"</span>, gender: .male, age: <span class="number">21</span>)</span><br><span class="line">    ], </span><br><span class="line">    .female: [</span><br><span class="line">        <span class="type">Person</span>(name: <span class="string">"aa"</span>, gender: .female, age: <span class="number">22</span>)</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>以往要实现这样的功能，就需要手动遍历整个数组，取出 key， 然后生成字典， 现在方便很多。</p>
+<h3 id="value-无缝转换"><a href="#value-无缝转换" class="headerlink" title="value 无缝转换"></a>value 无缝转换</h3><p>另外一个比较有用的特性是，Dictionary 提供的 mapValues 方法。 还以我们刚才生成的 groupedDict 为例，可以进行这样的操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">count</span> = groupedDict.mapValues &#123; persons <span class="keyword">in</span></span><br><span class="line">    persons.<span class="built_in">count</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先看一下输出，大家可能就猜到这个方法的用途是什么了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    .male: <span class="number">2</span>, </span><br><span class="line">    .female: <span class="number">1</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>上面的输出可以看到， mapValues 会遍历每一个 key 对应的 values， 然后传递给闭包进行自定义转换。 我们例子中的闭包返回的就是每个 key 对应的 Person 集合的数量，最生成了一个新的 Dictionary，里面的 key 和之前一样，只是对应的值变成了我们闭包中自定义的了。</p>
+<p>mapValues 方法同样是一个帮助我们解决繁杂操作的工具方法。</p>
+<h3 id="从键值对元组中直接构建"><a href="#从键值对元组中直接构建" class="headerlink" title="从键值对元组中直接构建"></a>从键值对元组中直接构建</h3><p>假如我们有这样一个数组:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> personsTuples = [(<span class="string">"group 1"</span>, [p1, p2]),  (<span class="string">"group 2"</span>, [p3])]</span><br></pre></td></tr></table></figure>
+<p>然后可以调用 uniqueKeysWithValues 构造方法直接初始化字典：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dict = <span class="type">Dictionary</span>(uniqueKeysWithValues: personsTuples)</span><br></pre></td></tr></table></figure>
+<p>personsTuples 数组中，每一个元素都是一个元组(Tuple)， 这个构造方法把元组中的第一项当做 key， 第二项当做 value， 生成一个新的 Dictionary，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    <span class="string">"group 1"</span>: [</span><br><span class="line">        <span class="type">Person</span>(name: <span class="string">"aa"</span>, gender: .female, age: <span class="number">22</span>), </span><br><span class="line">        <span class="type">Person</span>(name: <span class="string">"bb"</span>, gender: .male, age: <span class="number">24</span>)</span><br><span class="line">    ], </span><br><span class="line">    <span class="string">"group 2"</span>: [</span><br><span class="line">        <span class="type">Person</span>(name: <span class="string">"cc"</span>, gender: .male, age: <span class="number">21</span>)</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>使用 uniqueKeysWithValues 构造方法时候需要注意，就是传入的数组中，不能有重复的 key， 否则会报运行时错误，比如这个数组就会报错：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> personsTuples = [(<span class="string">"group 1"</span>, [p1, p2]),  (<span class="string">"group 2"</span>, [p3]), (<span class="string">"group 2"</span>, [p4])]</span><br></pre></td></tr></table></figure>
+<p>上面数组中 group 2 出现了两次。 如果用它来初始化的话，就会出错。 所以 Swift 4.0 还提供了另外一个初始化方法， 对于上面这个数组，可以调用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dict = <span class="type">Dictionary</span>(personsTuples) &#123; old, new <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> new</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二个闭包参数，会在遇到重复的 key 时候调用。 它提供两个参数，一个是同样这个 key 的上一个值 old， 还有当前的值 new。 我们这里直接返回 new，意思就是 每次遇到重复的 key， 就用新的值代替老的值。 这样初始化后，生成的 Dictionary 结构如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    <span class="string">"group 1"</span>: [</span><br><span class="line">            p1,</span><br><span class="line">            p2</span><br><span class="line">    ], </span><br><span class="line">    <span class="string">"group 2"</span>: [</span><br><span class="line">            p4</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>group 2 中的值， 是第二次 key 所对应的 p4。</p>
+<h3 id="提供默认值"><a href="#提供默认值" class="headerlink" title="提供默认值"></a>提供默认值</h3><p>如果我们访问了一个字典中不存在的 key， 会返回 nil：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict[<span class="string">"group 3"</span>]</span><br></pre></td></tr></table></figure>
+<p>因为上面字典中，不存在 group 3 这个 key， 所以它返回了 nil。 Swift 4 中新增了指定默认值的能力：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict[<span class="string">"group 3"</span>, <span class="keyword">default</span>: []]</span><br></pre></td></tr></table></figure>
+<p>这样调用，如果 group 3 这个 key 不存在的话， 就会返回我们指定的默认值空数组， 而不是 nil 了。 这个特性在我们处理 JSON 数据解析这类的问题上很实用。</p>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>过滤器对于集合类来说是比较常用的功能。 Swift 4 中对 Dictionary 类型也提供了过滤器的支持：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> filteredDict = dict.<span class="built_in">filter</span> &#123; key, val <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> val.<span class="built_in">count</span> &gt;= <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>filter 方法接收一个闭包，它会遍历 Dictionary 中所有的元素，并且作为闭包的参数传入。 我们需要通过闭包的返回值确定这个元素是否被保留。 上面的例子中，比如我们 dict 中的元素是 ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    <span class="string">"group 1"</span>: [</span><br><span class="line">            p1,</span><br><span class="line">            p2</span><br><span class="line">    ], </span><br><span class="line">    <span class="string">"group 2"</span>: [</span><br><span class="line">            p4</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>调用 filter 后，我们只保留数量大于 2 的集合：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    <span class="string">"group 1"</span>: [</span><br><span class="line">            p1,</span><br><span class="line">            p2</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上就是 Swift 4.0 对于 Dictionary 的主要改进。 这些新增的工具方法对于提高我们开发效率和代码质量都有帮助，希望这里的介绍对你有帮助。 关于 Dictionary 更完整的信息，大家还可以参考苹果官方的文档，还有 Swift Blog 中的介绍。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>Dictionary 官方文档：<a href="https://developer.apple.com/documentation/swift/dictionary" target="_blank" rel="noopener">https://developer.apple.com/documentation/swift/dictionary</a><br>Swift Blog: <a href="https://swift.org/blog/dictionary-and-set-improvements/" target="_blank" rel="noopener">https://swift.org/blog/dictionary-and-set-improvements/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-15/29881714.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../16/Reactive Cocoa/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          iOS RAC 的使用总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../12/Open source library/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用 CocoaPods 对公有库开源和私有库组件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动根据-key-分组"><span class="nav-number">1.</span> <span class="nav-text">自动根据 key 分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#value-无缝转换"><span class="nav-number">2.</span> <span class="nav-text">value 无缝转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从键值对元组中直接构建"><span class="nav-number">3.</span> <span class="nav-text">从键值对元组中直接构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提供默认值"><span class="nav-number">4.</span> <span class="nav-text">提供默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤器"><span class="nav-number">5.</span> <span class="nav-text">过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
