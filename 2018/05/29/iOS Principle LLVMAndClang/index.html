@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ios principle：llvmandclang | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Principle">
+  
+  
+  
+  
+  <meta name="description" content="LLVM 是 Low Level Virtual Machine 的简称，这个库提供了与编译器相关的支持，能够进行程序语言的编译期优化、链接优化、在线编译优化、代码生成。简而言之，可以作为多种语言编译器的后台来使用~">
+<meta name="keywords" content="Principle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Principle：LLVMAndClang">
+<meta property="og:url" content="https://reversescale.github.io/2018/05/29/iOS Principle LLVMAndClang/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="LLVM 是 Low Level Virtual Machine 的简称，这个库提供了与编译器相关的支持，能够进行程序语言的编译期优化、链接优化、在线编译优化、代码生成。简而言之，可以作为多种语言编译器的后台来使用~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163ab14714064c56?w=262&h=133&f=jpeg&s=7096">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa75352abcc?w=640&h=169&f=png&s=8837">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6eb105817?w=640&h=540&f=jpeg&s=21665">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa7700e2b00?w=640&h=379&f=jpeg&s=12687">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa7782cac78?w=640&h=498&f=jpeg&s=16835">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa75a3a49f3?w=640&h=264&f=jpeg&s=12910">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e98ed1a3?w=640&h=367&f=jpeg&s=24206">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6ea6e757b?w=640&h=226&f=jpeg&s=10972">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e98b2419?w=418&h=542&f=jpeg&s=31719">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e73f1e27?w=640&h=239&f=jpeg&s=15090">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa7225559d5?w=640&h=239&f=jpeg&s=15090">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6eb298a6c?w=640&h=360&f=jpeg&s=20959">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa758ba06d4?w=640&h=97&f=png&s=23724">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163aafa750aaa240?w=640&h=192&f=jpeg&s=15407">
+<meta property="og:updated_time" content="2018-11-16T13:06:08.511Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Principle：LLVMAndClang">
+<meta name="twitter:description" content="LLVM 是 Low Level Virtual Machine 的简称，这个库提供了与编译器相关的支持，能够进行程序语言的编译期优化、链接优化、在线编译优化、代码生成。简而言之，可以作为多种语言编译器的后台来使用~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/5/29/163ab14714064c56?w=262&h=133&f=jpeg&s=7096">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-iOS Principle LLVMAndClang" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      iOS Principle：LLVMAndClang
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-05-29T13:56:27.000Z" itemprop="datePublished">2018-05-29</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Principle/">Principle</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>LLVM 是 Low Level Virtual Machine 的简称，这个库提供了与编译器相关的支持，能够进行程序语言的编译期优化、链接优化、在线编译优化、代码生成。简而言之，可以作为多种语言编译器的后台来使用~                                                                                                 </p>
+<a id="more"></a>
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_LLVMAndClang" target="_blank" rel="noopener">Github Demo</a></p>
+<h3 id="方便记忆"><a href="#方便记忆" class="headerlink" title="方便记忆"></a>方便记忆</h3><ul>
+<li>编译语言：OC 和 Swift 基于 Clang 和 LLVM 来编译（Clang 前端、LLVM 后端）</li>
+<li>特点：Clang 更快、内存占用小、兼容GCC、设计简单、模块化库（GCC 支持JAVA等和更多平台）</li>
+<li>编译工作：Clang 语法分析，语义分析，生成中间代码；LLVM 机器无关的代码优化，生成机器语言</li>
+<li>编译完成：生成 dSYM 文件存放函数地址映射，Fabric、友盟等崩溃解析</li>
+<li>编译插入：预处理——宏、插入脚本——cocoapod</li>
+<li>编译时间优化：<ul>
+<li>代码层—优化@class代替#import、打包库、头文件进行预编译；</li>
+<li>编译器层—debug模式不生成dsym和开启Build Active Architecture并且关闭编译器优化Only</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>整理学习 iOS Principle 一系列的文章，每篇开头归结知识点，帮助记忆</p>
+</blockquote>
+<hr>
+<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><h4 id="历史原因"><a href="#历史原因" class="headerlink" title="历史原因"></a>历史原因</h4><p>2000年，伊利诺伊大学厄巴纳－香槟分校（University of Illinois at Urbana-Champaign 简称UIUC）这所享有世界声望的一流公立研究型大学的 Chris Lattner（他的 twitter @clattner_llvm ） 开发了一个叫作 Low Level Virtual Machine 的编译器开发工具套件，后来涉及范围越来越大，可以用于常规编译器，JIT编译器，汇编器，调试器，静态分析工具等一系列跟编程语言相关的工作，于是就把简称 LLVM 这个简称作为了正式的名字。Chris Lattner 后来又开发了 Clang，使得 LLVM 直接挑战 GCC 的地位。2012年，LLVM 获得美国计算机学会 ACM 的软件系统大奖，和 UNIX，WWW，TCP/IP，Tex，JAVA 等齐名。</p>
+<p>Chris Lattner 生于 1978 年，2005年加入苹果，将苹果使用的 GCC 全面转为 LLVM。2010年开始主导开发 Swift 语言。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163ab14714064c56?w=262&amp;h=133&amp;f=jpeg&amp;s=7096" alt=""></p>
+<p>iOS 开发中 Objective-C 是 Clang / LLVM 来编译的。</p>
+<p>Swift 是 Swift / LLVM，其中 Swift 前端会多出 SIL optimizer，它会把 .swift 生成为中间代码 .sil 属于 High-Level IR， 因为 Swift 在编译时就完成了方法绑定，直接通过地址调用属于强类型语言，方法调用不再是像OC那样的消息发送，这样编译就可以获得更多的信息用在后面的后端优化上。</p>
+<p>LLVM是一个模块化和可重用的编译器和工具链技术的集合，Clang 是 LLVM 的子项目，是 C，C++ 和 Objective-C 编译器，目的是提供惊人的快速编译，比 GCC 快3倍，其中的 clang static analyzer 主要是进行语法分析，语义分析和生成中间代码，当然这个过程会对代码进行检查，出错的和需要警告的会标注出来。LLVM 核心库提供一个优化器，对流行的 CPU 做代码生成支持。lld 是 Clang / LLVM 的内置链接器，clang 必须调用链接器来产生可执行文件。</p>
+<p>这里是 Clang 官方详细文档： <a href="http://clang.llvm.org/docs/" target="_blank" rel="noopener">Welcome to Clang’s documentation! — Clang 4.0 documentation </a></p>
+<p>这篇是对 LLVM 架构的一个概述： <a href="http://www.aosabook.org/en/llvm.html" target="_blank" rel="noopener">The Architecture of Open Source Applications</a></p>
+<p>将编译器之前对于编译的前世今生也是需要了解的，比如回答下这个问题，编译器程序是用什么编译的？看看 <a href="https://book.douban.com/subject/1436811/" target="_blank" rel="noopener">《linkers and loaders》</a>这本书就知道了。</p>
+<hr>
+<h4 id="LLVM-与-Clang-介绍"><a href="#LLVM-与-Clang-介绍" class="headerlink" title="LLVM 与 Clang 介绍"></a>LLVM 与 Clang 介绍</h4><p>LLVM 是 Low Level Virtual Machine 的简称，这个库提供了与编译器相关的支持，能够进行程序语言的编译期优化、链接优化、在线编译优化、代码生成。简而言之，可以作为多种语言编译器的后台来使用。如果这样还比较抽象的话，介绍下 Clang 就知道了：Clang 是一个 C++ 编写、基于 LLVM、发布于 LLVM BSD 许可证下的 C/C++/Objective C/Objective C++ 编译器，其目标（之一）就是超越 GCC。</p>
+<p>Clang 开发事出有因，Wiki 介绍如下：</p>
+<blockquote>
+<p>Apple 使用 LLVM 在不支持全部 OpenGL 特性的 GPU (Intel 低端显卡) 上生成代码 (JIT)，令程序仍然能够正常运行。之后 LLVM 与 GCC 的集成过程引发了一些不快，GCC 系统庞大而笨重，而 Apple 大量使用的 Objective-C 在 GCC 中优先级很低。此外 GCC 作为一个纯粹的编译系统，与 IDE 配合很差。加之许可证方面的要求，Apple 无法使用修改版的 GCC 而闭源。于是 Apple 决定从零开始写 C family 的前端，也就是基于 LLVM 的 Clang 了。</p>
+</blockquote>
+<p>Clang 的特性：</p>
+<ul>
+<li>快：通过编译 OS X 上几乎包含了所有 C 头文件的 carbon.h 的测试，包括预处理 (Preprocess)，语法 (lex)，解析 (parse)，语义分析 (Semantic Analysis)，抽象语法树生成 (Abstract Syntax Tree) 的时间，Clang 是 Apple GCC 4.0 的 2.5x 快。(2007-7-25)</li>
+<li>内存占用小：Clang 内存占用是源码的 130%，Apple GCC 则超过 10x。</li>
+<li>诊断信息可读性强：我不会排版，推荐去网站观看。其中错误的语法不但有源码提示，还会在错误的调用和相关上下文的下方有<del>~</del>和^的提示，相比之下 GCC 的提示很天书。</li>
+<li>GCC 兼容性。</li>
+<li>设计清晰简单，容易理解，易于扩展增强。与代码基础古老的 GCC 相比，学习曲线平缓。</li>
+<li>基于库的模块化设计，易于 IDE 集成及其他用途的重用。由于历史原因，GCC 是一个单一的可执行程序编译器，其内部完成了从预处理到最后代码生成的全部过程，中间诸多信息都无法被其他程序重用。Clang 将编译过程分成彼此分离的几个阶段，AST 信息可序列化。通过库的支持，程序能够获取到 AST 级别的信息，将大大增强对于代码的操控能力。对于 IDE 而言，代码补全、重构是重要的功能，然而如果没有底层的支持，只使用 tags 分析或是正则表达式匹配是很难达成的。</li>
+</ul>
+<p>当然，GCC 也有其优势：</p>
+<ul>
+<li>支持 JAVA/ADA/FORTRAN</li>
+<li>当前的 Clang 的 C++ 支持落后于 GCC，参见。（近日 Clang 已经可以自编译，见）</li>
+<li>GCC 支持更多平台</li>
+<li>GCC 更流行，广泛使用，支持完备</li>
+<li>GCC 基于 C，不需要 C++ 编译器即可编译</li>
+</ul>
+<hr>
+<h3 id="iOS-开发中用途"><a href="#iOS-开发中用途" class="headerlink" title="iOS 开发中用途"></a>iOS 开发中用途</h3><blockquote>
+<p>一般可以将编程语言分为两种，编译语言和直译式语言。</p>
+</blockquote>
+<ul>
+<li>编译语言:像C++,Objective C都是编译语言。编译语言在执行的时候，必须先通过编译器生成机器码，机器码可以直接在CPU上执行，所以执行效率较高。</li>
+<li>直译式语言:像JavaScript,Python都是直译式语言。直译式语言不需要经过编译的过程，而是在执行的时候通过一个中间的解释器将代码解释为CPU可以执行的代码。所以，较编译语言来说，直译式语言效率低一些，但是编写的更灵活，也就是为啥JS大法好。</li>
+</ul>
+<p>iOS开发目前的常用语言是：Objective和Swift。二者都是编译语言，换句话说都是需要编译才能执行的。二者的编译都是依赖于Clang + LLVM.</p>
+<hr>
+<h4 id="iOS编译"><a href="#iOS编译" class="headerlink" title="iOS编译"></a>iOS编译</h4><p>不管是OC还是Swift，都是采用Clang作为编译器前端，LLVM(Low level vritual machine)作为编译器后端。所以简单的编译过程如图</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa75352abcc?w=640&amp;h=169&amp;f=png&amp;s=8837" alt=""></p>
+<hr>
+<h4 id="编译器前端"><a href="#编译器前端" class="headerlink" title="编译器前端"></a>编译器前端</h4><p>编译器前端的任务是进行：语法分析，语义分析，生成中间代码(intermediate representation )。在这个过程中，会进行类型检查，如果发现错误或者警告会标注出来在哪一行。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6eb105817?w=640&amp;h=540&amp;f=jpeg&amp;s=21665" alt=""></p>
+<hr>
+<h4 id="编译器后端"><a href="#编译器后端" class="headerlink" title="编译器后端"></a>编译器后端</h4><p>编译器后端会进行机器无关的代码优化，生成机器语言，并且进行机器相关的代码优化。iOS的编译过程，后端的处理如下</p>
+<ul>
+<li>LVVM优化器会进行BitCode的生成，链接期优化等等。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa7700e2b00?w=640&amp;h=379&amp;f=jpeg&amp;s=12687" alt=""></p>
+<ul>
+<li>LLVM机器码生成器会针对不同的架构，比如arm64等生成不同的机器码。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa7782cac78?w=640&amp;h=498&amp;f=jpeg&amp;s=16835" alt=""></p>
+<hr>
+<h4 id="执行一次-XCode-build-的流程"><a href="#执行一次-XCode-build-的流程" class="headerlink" title="执行一次 XCode build 的流程"></a>执行一次 XCode build 的流程</h4><p>当你在XCode中，选择build的时候(快捷键command+B)，会执行如下过程</p>
+<ul>
+<li>编译信息写入辅助文件，创建编译后的文件架构(name.app)</li>
+<li>处理文件打包信息，例如在debug环境下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Entitlements:</span><br><span class="line">&#123;</span><br><span class="line">   &quot;application-identifier&quot; = &quot;app的bundleid&quot;;</span><br><span class="line">   &quot;aps-environment&quot; = development;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行CocoaPod编译前脚本(例如对于使用CocoaPod的工程会执行CheckPods Manifest.lock)</li>
+<li>编译各个.m文件，使用CompileC和clang命令。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CompileC ClassName.o ClassName.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler</span><br><span class="line">export LANG=en_US.US-ASCII</span><br><span class="line">export PATH=&quot;...&quot;</span><br><span class="line">clang -x objective-c -arch x86_64 -fmessage-length=0 -fobjc-arc... -Wno-missing-field-initializers ... -DDEBUG=1 ... -isysroot iPhoneSimulator10.1.sdk -fasm-blocks ... -I 上文提到的文件 -F 所需要的Framework  -iquote 所需要的Framework  ... -c ClassName.c -o ClassName.o</span><br></pre></td></tr></table></figure>
+<p>通过这个编译的命令，我们可以看到</p>
+<ul>
+<li>clang是实际的编译命令</li>
+<li>x objective-c 指定了编译的语言</li>
+<li>arch x86_64制定了编译的架构，类似还有arm7等</li>
+<li>fobjc-arc 一些列-f开头的，指定了采用arc等信息。这个也就是为什么你可以对单独的一个.m文件采用非ARC编程。</li>
+<li>Wno-missing-field-initializers 一系列以-W开头的，指的是编译的警告选项，通过这些你可以定制化编译选项</li>
+<li>DDEBUG=1 一些列-D开头的，指的是预编译宏，通过这些宏可以实现条件编译</li>
+<li>iPhoneSimulator10.1.sdk 制定了编译采用的iOS SDK版本</li>
+<li>I 把编译信息写入指定的辅助文件</li>
+<li>F 链接所需要的Framework</li>
+<li>c ClassName.c 编译文件</li>
+<li>o ClassName.o 编译产物</li>
+</ul>
+<hr>
+<h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><ul>
+<li>链接需要的Framework，例如Foundation.framework,AFNetworking.framework,ALiPay.fframework</li>
+<li>编译xib文件</li>
+<li>拷贝xib，图片等资源文件到结果目录</li>
+<li>编译ImageAssets</li>
+<li>处理info.plist</li>
+<li>执行CocoaPod脚本</li>
+<li>拷贝Swift标准库</li>
+<li>创建.app文件和对其签名</li>
+</ul>
+<hr>
+<h4 id="dSYM-文件"><a href="#dSYM-文件" class="headerlink" title="dSYM 文件"></a>dSYM 文件</h4><p>我们在每次编译过后，都会生成一个dsym文件。dsym文件中，存储了16进制的函数地址映射。</p>
+<p>在App实际执行的二进制文件中，是通过地址来调用方法的。在App crash的时候，第三方工具(Fabric,友盟等)会帮我们抓到崩溃的调用栈，调用栈里会包含crash地址的调用信息。然后，通过dSYM文件，我们就可以由地址映射到具体的函数位置。</p>
+<p>XCode中，选择Window -&gt; Organizer可以看到我们生成的archier文件</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa75a3a49f3?w=640&amp;h=264&amp;f=jpeg&amp;s=12910" alt=""></p>
+<blockquote>
+<p>iOS 如何调试第三方统计到的崩溃报告 (<a href="http://blog.csdn.net/hello_hwc/article/details/50036323" target="_blank" rel="noopener">http://blog.csdn.net/hello_hwc/article/details/50036323</a>)</p>
+</blockquote>
+<hr>
+<h4 id="attribute"><a href="#attribute" class="headerlink" title="attribute"></a><strong>attribute</strong></h4><p>或多或少，你都会在第三方库或者iOS的头文件中，见到过attribute。</p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__attribute__ ((warn_unused_result)) //如果没有使用返回值，编译的时候给出警告</span><br></pre></td></tr></table></figure>
+<p><strong>attribtue</strong> 是一个高级的的编译器指令，它允许开发者指定更更多的编译检查和一些高级的编译期优化。</p>
+<p>分为三种：</p>
+<ul>
+<li>函数属性 (Function Attribute)</li>
+<li>类型属性 (Variable Attribute )</li>
+<li>变量属性 (Type Attribute )</li>
+</ul>
+<p>语法结构</p>
+<p><strong>attribute</strong> 语法格式为：<strong>attribute</strong> ((attribute-list))</p>
+<p>放在声明分号“;”前面。</p>
+<p>比如，在三方库中最常见的，声明一个属性或者方法在当前版本弃用了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong,nonatomic)CLASSNAME * property __deprecated;</span><br></pre></td></tr></table></figure>
+<p>这样的好处是：给开发者一个过渡的版本，让开发者知道这个属性被弃用了，应当使用最新的API，但是被__deprecated的属性仍然可以正常使用。如果直接弃用，会导致开发者在更新Pod的时候，代码无法运行了。</p>
+<p><strong>attribtue</strong>的使用场景很多，本文只列举iOS开发中常用的几个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//弃用API，用作API更新</span><br><span class="line">#define __deprecated    __attribute__((deprecated))</span><br><span class="line"></span><br><span class="line">//带描述信息的弃用</span><br><span class="line">#define __deprecated_msg(_msg) __attribute__((deprecated(_msg)))</span><br><span class="line"></span><br><span class="line">//遇到__unavailable的变量/方法，编译器直接抛出Error</span><br><span class="line">#define __unavailable   __attribute__((unavailable))</span><br><span class="line"></span><br><span class="line">//告诉编译器，即使这个变量/方法 没被使用，也不要抛出警告</span><br><span class="line">#define __unused    __attribute__((unused))</span><br><span class="line"></span><br><span class="line">//和__unused相反</span><br><span class="line">#define __used      __attribute__((used))</span><br><span class="line"></span><br><span class="line">//如果不使用方法的返回值，进行警告</span><br><span class="line">#define __result_use_check __attribute__((__warn_unused_result__))</span><br><span class="line"></span><br><span class="line">//OC方法在Swift中不可用</span><br><span class="line">#define __swift_unavailable(_msg)   __attribute__((__availability__(swift, unavailable, message=_msg)))</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="Clang警告处理"><a href="#Clang警告处理" class="headerlink" title="Clang警告处理"></a>Clang警告处理</h4><p>你一定还见过如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored &quot;-Wundeclared-selector&quot;</span><br><span class="line">///代码</span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
+<p>这段代码的作用是</p>
+<ul>
+<li>对当前编译环境进行压栈</li>
+<li>忽略-Wundeclared-selector(未声明的)Selector警告</li>
+<li>编译代码</li>
+<li>对编译环境进行出栈</li>
+</ul>
+<p>通过clang diagnostic push/pop,你可以灵活的控制代码块的编译选项。</p>
+<blockquote>
+<ul>
+<li>iOS 合理利用Clang警告来提高代码质量 (<a href="http://blog.csdn.net/Hello_Hwc/article/details/46425503" target="_blank" rel="noopener">http://blog.csdn.net/Hello_Hwc/article/details/46425503</a>)</li>
+</ul>
+</blockquote>
+<hr>
+<h4 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h4><p>所谓预处理，就是在编译之前的处理。预处理能够让你定义编译器变量，实现条件编译。</p>
+<p>比如，这样的代码很常见</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef DEBUG</span><br><span class="line">//...</span><br><span class="line">#else</span><br><span class="line">//...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>同样，我们同样也可以定义其他预处理变量,在XCode-选中Target-build settings中，搜索proprecess。然后点击图中蓝色的加号，可以分别为debug和release两种模式设置预处理宏。</p>
+<p>比如我们加上：TestServer，表示在这个宏中的代码运行在测试服务器</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e98ed1a3?w=640&amp;h=367&amp;f=jpeg&amp;s=24206" alt=""></p>
+<p>然后，配合多个Target(右键Target，选择Duplicate)，单独一个Target负责测试服务器。这样我们就不用每次切换测试服务器都要修改代码了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef TESTMODE</span><br><span class="line">//测试服务器相关的代码</span><br><span class="line">#else</span><br><span class="line">//生产服务器相关代码</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="插入脚本"><a href="#插入脚本" class="headerlink" title="插入脚本"></a>插入脚本</h4><p>通常，如果你使用CocoaPod来管理三方库，那么你的Build Phase是这样子的：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6ea6e757b?w=640&amp;h=226&amp;f=jpeg&amp;s=10972" alt=""></p>
+<p>其中：[CP]开头的，就是CocoaPod插入的脚本。</p>
+<ul>
+<li>Check Pods Manifest.lock，用来检查cocoapod管理的三方库是否需要更新</li>
+<li>Embed Pods Framework，运行脚本来链接三方库的静态/动态库</li>
+<li>Copy Pods Resources，运行脚本来拷贝三方库的资源文件</li>
+</ul>
+<p>而这些配置信息都存储在这个文件(.xcodeprog)里</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e98b2419?w=418&amp;h=542&amp;f=jpeg&amp;s=31719" alt=""></p>
+<p>到这里，CocoaPod的原理也就大致搞清楚了，通过修改xcodeproject，然后配置编译期脚本，来保证三方库能够正确的编译连接。</p>
+<p>同样，我们也可以插入自己的脚本，来做一些额外的事情。比如，每次进行archive的时候，我们都必须手动调整target的build版本，如果一不小心，就会忘记。这个过程，我们可以通过插入脚本自动化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buildNumber=$(/usr/libexec/PlistBuddy -c &quot;Print CFBundleVersion&quot; &quot;$&#123;PROJECT_DIR&#125;/$&#123;INFOPLIST_FILE&#125;&quot;)</span><br><span class="line">buildNumber=$(($buildNumber + 1))</span><br><span class="line">/usr/libexec/PlistBuddy -c &quot;Set :CFBundleVersion $buildNumber&quot; &quot;$&#123;PROJECT_DIR&#125;/$&#123;INFOPLIST_FILE&#125;&quot;</span><br></pre></td></tr></table></figure>
+<p>这段脚本其实很简单，读取当前pist的build版本号,然后对其加一，重新写入。</p>
+<p>使用起来也很简单：</p>
+<ul>
+<li>Xcode – 选中Target – 选中build phase</li>
+<li>选择添加Run Script Phase</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6e73f1e27?w=640&amp;h=239&amp;f=jpeg&amp;s=15090" alt=""></p>
+<p>然后把这段脚本拷贝进去，并且勾选Run Script Only When installing，保证只有我们在安装到设备上的时候，才会执行这段脚本。重命名脚本的名字为Auto Increase build number</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa7225559d5?w=640&amp;h=239&amp;f=jpeg&amp;s=15090" alt=""></p>
+<p>然后，拖动这个脚本的到Link Binary With Libraries下面</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa6eb298a6c?w=640&amp;h=360&amp;f=jpeg&amp;s=20959" alt=""></p>
+<hr>
+<h4 id="脚本编译打包"><a href="#脚本编译打包" class="headerlink" title="脚本编译打包"></a>脚本编译打包</h4><p>脚本化编译打包对于CI(持续集成)来说，十分有用。iOS开发中，编译打包必备的两个命令是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//编译成.app</span><br><span class="line">xcodebuild  -workspace $projectName.xcworkspace -scheme $projectName  -configuration $buildConfig clean build SYMROOT=$buildAppToDir</span><br><span class="line">//打包</span><br><span class="line">xcrun -sdk iphoneos PackageApplication -v $appDir/$projectName.app -o $appDir/$ipaName.ipa</span><br><span class="line"></span><br><span class="line">通过info命令，可以查看到详细的文档</span><br><span class="line">info xcodebuild</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>之前写的一套基于 Python 的编译打包脚本 (<a href="https://github.com/ReverseScale/AutoBuildScript/blob/master/autobuild.py" target="_blank" rel="noopener">https://github.com/ReverseScale/AutoBuildScript/blob/master/autobuild.py</a>)</p>
+</blockquote>
+<hr>
+<h4 id="提高项目编译速度"><a href="#提高项目编译速度" class="headerlink" title="提高项目编译速度"></a>提高项目编译速度</h4><p>通常，当项目很大，源代码和三方库引入很多的时候，我们会发现编译的速度很慢。在了解了XCode的编译过程后，我们可以从以下角度来优化编译速度：</p>
+<h5 id="查看编译时间"><a href="#查看编译时间" class="headerlink" title="查看编译时间"></a>查看编译时间</h5><p>我们需要一个途径，能够看到编译的时间，这样才能有个对比，知道我们的优化究竟有没有效果。</p>
+<p>对于XCode 8，关闭XCode，终端输入以下指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dt.Xcode ShowBuildOperationDuration YES</span><br></pre></td></tr></table></figure>
+<p>然后，重启XCode，然后编译，你会在这里看到编译时间。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa758ba06d4?w=640&amp;h=97&amp;f=png&amp;s=23724" alt=""></p>
+<h5 id="代码层面的优化"><a href="#代码层面的优化" class="headerlink" title="代码层面的优化"></a>代码层面的优化</h5><p>2.1)forward declaration</p>
+<p>所谓forward declaration，就是@class CLASSNAME，而不是#import CLASSNAME.h。这样，编译器能大大提高#import的替换速度。</p>
+<p>2.2)对常用的工具类进行打包(Framework/.a)</p>
+<p>打包成Framework或者静态库，这样编译的时候这部分代码就不需要重新编译了。</p>
+<p>2.3)常用头文件放到预编译文件里</p>
+<p>XCode的pch文件是预编译文件，这里的内容在执行XCode build之前就已经被预编译，并且引入到每一个.m文件里了。</p>
+<h5 id="编译器选项优化"><a href="#编译器选项优化" class="headerlink" title="编译器选项优化"></a>编译器选项优化</h5><p>3.1)Debug模式下，不生成dsym文件</p>
+<p>上文提到了，dysm文件里存储了调试信息，在Debug模式下，我们可以借助XCode和LLDB进行调试。所以，不需要生成额外的dsym文件来降低编译速度。</p>
+<p>3.2)Debug开启Build Active Architecture Only</p>
+<p>在XCode -&gt; Build Settings -&gt; Build Active Architecture Only 改为YES。这样做，可以只编译当前的版本，比如arm7/arm64等等，记得只开启Debug模式。这个选项在高版本的XCode中自动开启了。</p>
+<p>3.3)Debug模式下，关闭编译器优化</p>
+<p>编译器优化</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/29/163aafa750aaa240?w=640&amp;h=192&amp;f=jpeg&amp;s=15407" alt=""></p>
+<hr>
+<h4 id="更多深入学习"><a href="#更多深入学习" class="headerlink" title="更多深入学习"></a>更多深入学习</h4><p>关于 iOS 编译 Clang LLVM 相关的知识整理参见：<br><a href="https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM" target="_blank" rel="noopener">深入剖析 iOS 编译 Clang LLVM</a></p>
+<hr>
+<h4 id="版权声明"><a href="#版权声明" class="headerlink" title="版权声明"></a>版权声明</h4><p>此系列文章内容多为网上资料整理，文章结尾会列出参照链接，如有纰漏欢迎讨论🤗</p>
+<blockquote>
+<p>以上文章整理自：<a href="https://my.oschina.net/u/2345393/blog/820141，https://linuxtoy.org/archives/llvm-and-clang.html，https://blog.csdn.net/hello_hwc/article/details/53557308，https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM" target="_blank" rel="noopener">https://my.oschina.net/u/2345393/blog/820141，https://linuxtoy.org/archives/llvm-and-clang.html，https://blog.csdn.net/hello_hwc/article/details/53557308，https://github.com/ming1016/study/wiki/深入剖析-iOS-编译-Clang---LLVM</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../06/02/iOS Principle ClassAndObjective/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          iOS Principle：ClassAndObjective
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../01/iOS Architecture/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">走在技术前沿的 iOS 架构实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方便记忆"><span class="nav-number">1.</span> <span class="nav-text">方便记忆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关概念"><span class="nav-number">2.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#历史原因"><span class="nav-number">2.1.</span> <span class="nav-text">历史原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LLVM-与-Clang-介绍"><span class="nav-number">2.2.</span> <span class="nav-text">LLVM 与 Clang 介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-开发中用途"><span class="nav-number">3.</span> <span class="nav-text">iOS 开发中用途</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS编译"><span class="nav-number">3.1.</span> <span class="nav-text">iOS编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译器前端"><span class="nav-number">3.2.</span> <span class="nav-text">编译器前端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译器后端"><span class="nav-number">3.3.</span> <span class="nav-text">编译器后端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行一次-XCode-build-的流程"><span class="nav-number">3.4.</span> <span class="nav-text">执行一次 XCode build 的流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作流程"><span class="nav-number">3.5.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dSYM-文件"><span class="nav-number">3.6.</span> <span class="nav-text">dSYM 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#attribute"><span class="nav-number">3.7.</span> <span class="nav-text">attribute</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clang警告处理"><span class="nav-number">3.8.</span> <span class="nav-text">Clang警告处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预处理"><span class="nav-number">3.9.</span> <span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入脚本"><span class="nav-number">3.10.</span> <span class="nav-text">插入脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本编译打包"><span class="nav-number">3.11.</span> <span class="nav-text">脚本编译打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提高项目编译速度"><span class="nav-number">3.12.</span> <span class="nav-text">提高项目编译速度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看编译时间"><span class="nav-number">3.12.1.</span> <span class="nav-text">查看编译时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码层面的优化"><span class="nav-number">3.12.2.</span> <span class="nav-text">代码层面的优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译器选项优化"><span class="nav-number">3.12.3.</span> <span class="nav-text">编译器选项优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更多深入学习"><span class="nav-number">3.13.</span> <span class="nav-text">更多深入学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#版权声明"><span class="nav-number">3.14.</span> <span class="nav-text">版权声明</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
