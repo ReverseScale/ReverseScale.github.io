@@ -20,7 +20,7 @@
 <meta property="og:description" content="使用 Jenkins 运行 Fastlane 命令，实现定时自动打包、修改版本号、上传 Fir 或者 TestFlight 等功能，从此再也不用被小伙伴追着要测试包。  三步配置，杜绝污染，一步操作自动上传~">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg">
-<meta property="og:updated_time" content="2018-11-15T13:19:25.616Z">
+<meta property="og:updated_time" content="2018-11-16T12:45:03.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins + Fastlane 自动打包脚本">
 <meta name="twitter:description" content="使用 Jenkins 运行 Fastlane 命令，实现定时自动打包、修改版本号、上传 Fir 或者 TestFlight 等功能，从此再也不用被小伙伴追着要测试包。  三步配置，杜绝污染，一步操作自动上传~">
@@ -169,7 +169,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" rel="gallery_cjoirlj7b000zq4vpfb1zxx8v">
+      <a class="article-gallery-img fancybox" href="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" rel="gallery_cjok0rmgx000v1lvptp4ylpjn">
         <img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" itemprop="image">
       </a>
     
@@ -194,7 +194,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="../../../../categories/Script/">Script</a>
+    <a class="article-category-link" href="../../../../categories/Summary/">Summary</a>
 
       
 	<a class="article-views">
@@ -211,7 +211,9 @@
 <p>三步配置，杜绝污染，一步操作自动上传~                                                                                                           </p>
 </blockquote>
 <a id="more"></a>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/AutoBuildScript" target="_blank" rel="noopener">Github Demo</a></p>
 <h2 id="📺-故事背景"><a href="#📺-故事背景" class="headerlink" title="📺 故事背景"></a>📺 故事背景</h2><p>记得大约两年前，当时在创业公司，开发任务重，提测前常常加班到晚上 12 点，就算 bug 修完，也要看着 Xcode 不慌不忙的花半个多小时打包完成，再上传测试平台，发了邮件才能安心回家。鉴于这种惨痛经历，利用闲暇时间就搞一搞自动打包脚本，后期有配上 Jenkins，从此过上了没羞没臊的生活。（已适配 Xcode 8.2 之后版本）</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/35494290.jpg" alt=""></p>
 <h2 id="🚀-框架的优势"><a href="#🚀-框架的优势" class="headerlink" title="🚀 框架的优势"></a>🚀 框架的优势</h2><ul>
 <li>1.市面上文件最少，使用最便捷的自动化打包脚本</li>
 <li>2.冗余方法少，结构清晰，注释齐全</li>
@@ -225,7 +227,7 @@
 </blockquote>
 <h3 id="第一步-安装fir-cil"><a href="#第一步-安装fir-cil" class="headerlink" title="第一步 安装fir-cil"></a>第一步 安装fir-cil</h3><p>fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ruby -v # &gt; 1.9.3</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure>
-<h4 id="常见的安装问题"><a href="#常见的安装问题" class="headerlink" title="常见的安装问题"></a>常见的安装问题</h4><p>(1)使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:</p>
+<p>常见的安装问题<br>(1)使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ xcode-select --install        # OS X 系统</span><br><span class="line">$ sudo apt-get install ruby-dev # Linux 系统</span><br></pre></td></tr></table></figure>
 <p>(2)现 Permission denied 相关错误:</p>
 <p>解决：在命令前加上 sudo</p>
@@ -235,7 +237,8 @@
 <p>方法一： 使用 Homebrew 及 RVM 安装 Ruby, 再安装 fir-cli(推荐)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Install Homebrew:</span><br><span class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br><span class="line"># Install RVM:</span><br><span class="line">$ \curl -sSL https://get.rvm.io | bash -s stable --ruby</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure></p>
 <p>方法二： 指定 fir-cli 中 bin 文件的 PATH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ export PATH=/usr/local/bin:$PATH;gem install -n /usr/local/bin fir-cli</span><br></pre></td></tr></table></figure></p>
 <p>方法三： 重写 Ruby Gem 的 bindir<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;gem: --bindir /usr/local/bin&apos; &gt;&gt; ~/.gemrc</span><br><span class="line">$ gem install fir-cli</span><br></pre></td></tr></table></figure></p>
-<h3 id="第二步-登录fir-im"><a href="#第二步-登录fir-im" class="headerlink" title="第二步 登录fir.im"></a>第二步 登录fir.im</h3><p>先到 <a href="https://fir.im" target="_blank" rel="noopener">https://fir.im</a> 创建项目，得到 API Token 并复制。</p>
+<h3 id="第二步-登录fir-im"><a href="#第二步-登录fir-im" class="headerlink" title="第二步 登录fir.im"></a>第二步 登录fir.im</h3><p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/77393802.jpg" alt=""></p>
+<p>先到 <a href="https://fir.im" target="_blank" rel="noopener">https://fir.im</a> 创建项目，得到 API Token 并复制。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fir login</span><br></pre></td></tr></table></figure>
 <p>命令用于使用 API token 登录 fir.im, 并使用发布应用等相关命令.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fir me</span><br></pre></td></tr></table></figure>
@@ -252,7 +255,8 @@
 <p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/57912059.jpg" alt=""></p>
 <p>时，打包好的项目已经躺在你的 Fir 测试平台中了。</p>
 <p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
-<h2 id="🚄-Fastlane-的时代"><a href="#🚄-Fastlane-的时代" class="headerlink" title="🚄 Fastlane 的时代"></a>🚄 Fastlane 的时代</h2><h3 id="2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英"><a href="#2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英" class="headerlink" title="2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)"></a>2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)</h3><h3 id="第一步-安装-Fastlane"><a href="#第一步-安装-Fastlane" class="headerlink" title="第一步 安装 Fastlane"></a>第一步 安装 Fastlane</h3><p>Fastlane 是一套使用Ruby写的自动化工具集，用于iOS和Android的自动化打包、发布等工作，可以节省大量的时间</p>
+<h2 id="🚄-Fastlane-的时代"><a href="#🚄-Fastlane-的时代" class="headerlink" title="🚄 Fastlane 的时代"></a>🚄 Fastlane 的时代</h2><h3 id="2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英"><a href="#2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英" class="headerlink" title="2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)"></a>2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)</h3><p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/23367632.jpg" alt=""></p>
+<h3 id="第一步-安装-Fastlane"><a href="#第一步-安装-Fastlane" class="headerlink" title="第一步 安装 Fastlane"></a>第一步 安装 Fastlane</h3><p>Fastlane 是一套使用Ruby写的自动化工具集，用于iOS和Android的自动化打包、发布等工作，可以节省大量的时间</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install fastlane --verbose</span><br></pre></td></tr></table></figure>
 <h3 id="第二步-移动脚本至项目目录下"><a href="#第二步-移动脚本至项目目录下" class="headerlink" title="第二步 移动脚本至项目目录下"></a>第二步 移动脚本至项目目录下</h3><p>根据注释完善脚本配置信息</p>
 <p>脚本说明：</p>
@@ -264,15 +268,22 @@
 </ul>
 <h3 id="第三步-上传"><a href="#第三步-上传" class="headerlink" title="第三步 上传"></a>第三步 上传</h3><h4 id="上传到-fir-的用法："><a href="#上传到-fir-的用法：" class="headerlink" title="上传到 fir 的用法："></a>上传到 fir 的用法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.sh -m &quot;xxxx_app_test&quot; -t test</span><br></pre></td></tr></table></figure>
 <h4 id="上传到-testflight-的用法："><a href="#上传到-testflight-的用法：" class="headerlink" title="上传到 testflight 的用法："></a>上传到 testflight 的用法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.sh -m &quot;xxxx_app_pro&quot; -t pro</span><br></pre></td></tr></table></figure>
-<h3 id="第四步-配置-Jenkins"><a href="#第四步-配置-Jenkins" class="headerlink" title="第四步 配置 Jenkins"></a>第四步 配置 Jenkins</h3><p>Jenkins 是一个开源项目，提供了一种易于使用的持续集成系统，使开发者从繁杂的集成中解脱出来，专注于更为重要的业务逻辑实现上。同时 Jenkins 能实施监控集成中存在的错误，提供详细的日志文件和提醒功能，还能用图表的形式形象地展示项目构建的趋势和稳定性。</p>
-<h4 id="下载-Jenkins："><a href="#下载-Jenkins：" class="headerlink" title="下载 Jenkins："></a>下载 Jenkins：</h4><p>点击 <a href="http://mirrors.jenkins.io/war-stable/latest/jenkins.war" target="_blank" rel="noopener">http://mirrors.jenkins.io/war-stable/latest/jenkins.war</a> 下载最新的Jenkins.war</p>
-<h4 id="运行服务器："><a href="#运行服务器：" class="headerlink" title="运行服务器："></a>运行服务器：</h4><p>需要先安装 java sdk （<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）</a></p>
+<h3 id="第四步-配置-Jenkins"><a href="#第四步-配置-Jenkins" class="headerlink" title="第四步 配置 Jenkins"></a>第四步 配置 Jenkins</h3><p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/76315805.jpg" alt=""></p>
+<p>Jenkins 是一个开源项目，提供了一种易于使用的持续集成系统，使开发者从繁杂的集成中解脱出来，专注于更为重要的业务逻辑实现上。同时 Jenkins 能实施监控集成中存在的错误，提供详细的日志文件和提醒功能，还能用图表的形式形象地展示项目构建的趋势和稳定性。</p>
+<p>1）下载 Jenkins：</p>
+<p>点击 <a href="http://mirrors.jenkins.io/war-stable/latest/jenkins.war" target="_blank" rel="noopener">http://mirrors.jenkins.io/war-stable/latest/jenkins.war</a> 下载最新的Jenkins.war</p>
+<p>2）运行服务器：</p>
+<p>需要先安装 java sdk （<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure>
-<h4 id="运行-Jenkins"><a href="#运行-Jenkins" class="headerlink" title="运行 Jenkins"></a>运行 Jenkins</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenkins</span><br></pre></td></tr></table></figure>
-<h4 id="配置-Jenkins："><a href="#配置-Jenkins：" class="headerlink" title="配置 Jenkins："></a>配置 Jenkins：</h4><p>浏览器打开 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 输入安全密码，安全密码命令行输出的一个文件里面。</p>
+<p>3）运行 Jenkins</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenkins</span><br></pre></td></tr></table></figure>
+<p>4）配置 Jenkins：</p>
+<p>浏览器打开 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 输入安全密码，安全密码命令行输出的一个文件里面。</p>
 <p>然后自动安装推荐的插件，并新建管理员账号密码。</p>
-<h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><p>登录<a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> ，选择系统管理 - 管理插件。<br>在可选插件中选择GitLab Plugin，Gitlab Hook Plugin，和 Cocoapod plugin 进行安装。</p>
-<h4 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h4><ul>
+<p>5）安装插件</p>
+<p>登录<a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> ，选择系统管理 - 管理插件。<br>在可选插件中选择GitLab Plugin，Gitlab Hook Plugin，和 Cocoapod plugin 进行安装。</p>
+<p>6）构建任务</p>
+<ul>
 <li><ol>
 <li>点击新建，输入名称，构建一个自由风格的软件项目。</li>
 </ol>
@@ -287,14 +298,22 @@
 </li>
 </ul>
 <p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/14722271.jpg" alt=""></p>
-<h3 id="附录-执行脚本过程中遇到的问题和解决方案"><a href="#附录-执行脚本过程中遇到的问题和解决方案" class="headerlink" title="附录 执行脚本过程中遇到的问题和解决方案"></a>附录 执行脚本过程中遇到的问题和解决方案</h3><h4 id="fir-command-not-found"><a href="#fir-command-not-found" class="headerlink" title="fir: command not found"></a>fir: command not found</h4><p>这个是因为没有安装fir-cil，导致找不到相应的命令行，只需要安装一下就行了，详情见上文写的如何安装fir-cil。</p>
-<h4 id="README-No-such-file-or-directory"><a href="#README-No-such-file-or-directory" class="headerlink" title="README: No such file or directory"></a>README: No such file or directory</h4><p>那是因为你的脚本目录下没有README的文件，只需要建一个README的文件就行了，打开终端，cd到当前位置，然后执行下面的命令：</p>
+<blockquote>
+<p>附录 执行脚本过程中遇到的问题和解决方案</p>
+</blockquote>
+<p>1）fir: command not found</p>
+<p>这个是因为没有安装fir-cil，导致找不到相应的命令行，只需要安装一下就行了，详情见上文写的如何安装fir-cil。</p>
+<p>2）README: No such file or directory</p>
+<p>那是因为你的脚本目录下没有README的文件，只需要建一个README的文件就行了，打开终端，cd到当前位置，然后执行下面的命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch README</span><br></pre></td></tr></table></figure>
-<h4 id="ERROR-–-Token-can-not-be-blank"><a href="#ERROR-–-Token-can-not-be-blank" class="headerlink" title="ERROR – : Token can not be blank"></a>ERROR – : Token can not be blank</h4><p>这个原因是因为你没有登录fir导致的，你执行这个脚本之前应该先登录一下fir，详情请看上文写的登录fir.im。</p>
-<h4 id="ERROR-–-Code-14-没有试用的设备-Domain-IDEDistributionErrorDomain-Code-14-“No-applicable-devices"><a href="#ERROR-–-Code-14-没有试用的设备-Domain-IDEDistributionErrorDomain-Code-14-“No-applicable-devices" class="headerlink" title="ERROR – : Code=14 (没有试用的设备 Domain=IDEDistributionErrorDomain Code=14 “No applicable devices"></a>ERROR – : Code=14 (没有试用的设备 Domain=IDEDistributionErrorDomain Code=14 “No applicable devices</h4><p>原因：rvm ruby 配置错误</p>
+<p>3）ERROR – : Token can not be blank</p>
+<p>这个原因是因为你没有登录fir导致的，你执行这个脚本之前应该先登录一下fir，详情请看上文写的登录fir.im。</p>
+<p>4）ERROR – : Code=14 (没有试用的设备 Domain=IDEDistributionErrorDomain Code=14 “No applicable devices</p>
+<p>原因：rvm ruby 配置错误</p>
 <p>解决：控制台 rvm system</p>
 <p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
-<h3 id="2018-08-20-更新：Jenkins-相关设置方法"><a href="#2018-08-20-更新：Jenkins-相关设置方法" class="headerlink" title="2018.08.20 更新：Jenkins 相关设置方法"></a>2018.08.20 更新：Jenkins 相关设置方法</h3><h4 id="查看端口占用"><a href="#查看端口占用" class="headerlink" title="查看端口占用"></a>查看端口占用</h4><p>端口占用</p>
+<h3 id="2018-08-20-更新：Jenkins-相关设置"><a href="#2018-08-20-更新：Jenkins-相关设置" class="headerlink" title="2018.08.20 更新：Jenkins 相关设置"></a>2018.08.20 更新：Jenkins 相关设置</h3><p>5）查看端口占用</p>
+<p>端口占用</p>
 <p>使用 lsof 会列举所有占用的端口列表：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof</span><br></pre></td></tr></table></figure>
 <p>使用less可以用于分页展示，如：</p>
@@ -303,18 +322,25 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i:3000</span><br></pre></td></tr></table></figure>
 <p>杀死进程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill PID（进程的PID，如2044）</span><br></pre></td></tr></table></figure>
-<h4 id="Jenkins-改时区"><a href="#Jenkins-改时区" class="headerlink" title="Jenkins 改时区"></a>Jenkins 改时区</h4><p><a href="http://your-jenkins/systemInfo，查看user.timezone变量的值" target="_blank" rel="noopener">http://your-jenkins/systemInfo，查看user.timezone变量的值</a></p>
+<p>6）Jenkins 改时区</p>
+<p><a href="http://your-jenkins/systemInfo，查看user.timezone变量的值" target="_blank" rel="noopener">http://your-jenkins/systemInfo，查看user.timezone变量的值</a></p>
 <p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/85610878.jpg" alt=""></p>
 <p>在jenkins的【系统管理】-【脚本命令行】里运行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.setProperty(&apos;org.apache.commons.jelly.tags.fmt.timeZone&apos;, &apos;Asia/Shanghai&apos;)</span><br></pre></td></tr></table></figure>
-<h4 id="Jenkins-构建超时"><a href="#Jenkins-构建超时" class="headerlink" title="Jenkins 构建超时"></a>Jenkins 构建超时</h4><p>jenkins的”build timeout plugin”插件可以帮我们完成该任务。我使用的是jenkins-2.7.1, 默认就已经安装了该插件，如果默认没有安装可在插件管理中搜索进行安装。</p>
-<h4 id="Jenkins-定时构建和Poll-SCM的区别"><a href="#Jenkins-定时构建和Poll-SCM的区别" class="headerlink" title="Jenkins 定时构建和Poll SCM的区别"></a>Jenkins 定时构建和Poll SCM的区别</h4><ul>
+<p>7）Jenkins 构建超时</p>
+<p>jenkins的”build timeout plugin”插件可以帮我们完成该任务。我使用的是jenkins-2.7.1, 默认就已经安装了该插件，如果默认没有安装可在插件管理中搜索进行安装。</p>
+<p>8）Jenkins 定时构建和Poll SCM的区别</p>
+<ul>
 <li>Build periodically：周期进行项目构建（源码是否发生变化没有关系）</li>
 <li>Poll SCM：定时检查源码变更，如果有更新就checkout最新code下来，然后执行构建动作</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">每15分钟构建一次：H/15 * * * *  或 */5 * * * *</span><br><span class="line"></span><br><span class="line">每天8点构建一次：0 8 * * *</span><br><span class="line"></span><br><span class="line">每天8点~17点，两小时构建一次：0 8-17/2 * * *</span><br><span class="line"></span><br><span class="line">周一到周五，8点~17点，两小时构建一次：0 8-17/2 * * 1-5</span><br><span class="line"></span><br><span class="line">每月1号、15号各构建一次，除12月：H H 1,15 1-11 *</span><br><span class="line"></span><br><span class="line">*/5 * * * * （每5分钟检查一次源码变化）</span><br><span class="line"></span><br><span class="line">0 2 * * * （每天2:00 必须build一次源码）</span><br></pre></td></tr></table></figure>
 <p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
-<h2 id="🕹-agvtool-命令行"><a href="#🕹-agvtool-命令行" class="headerlink" title="🕹 agvtool 命令行"></a>🕹 agvtool 命令行</h2><h3 id="2018-08-20-更新：agvtool-命令行-管理版本号"><a href="#2018-08-20-更新：agvtool-命令行-管理版本号" class="headerlink" title="2018.08.20 更新：agvtool 命令行 管理版本号"></a>2018.08.20 更新：agvtool 命令行 管理版本号</h3><h4 id="常用命令行："><a href="#常用命令行：" class="headerlink" title="常用命令行："></a>常用命令行：</h4><p>设置 版本号 为 <code>1.1.0</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool new-marketing-version 1.1.0</span><br></pre></td></tr></table></figure></p>
+<h2 id="🕹-agvtool-命令行"><a href="#🕹-agvtool-命令行" class="headerlink" title="🕹 agvtool 命令行"></a>🕹 agvtool 命令行</h2><h3 id="2018-08-20-更新：管理版本号"><a href="#2018-08-20-更新：管理版本号" class="headerlink" title="2018.08.20 更新：管理版本号"></a>2018.08.20 更新：管理版本号</h3><p><img width="210" height="210" src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/31517217.jpg"></p>
+<blockquote>
+<p>常用命令行：</p>
+</blockquote>
+<p>设置 版本号 为 <code>1.1.0</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool new-marketing-version 1.1.0</span><br></pre></td></tr></table></figure></p>
 <p>设置 build 号 <code>自动加1</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool next-version -all</span><br></pre></td></tr></table></figure></p>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>agvtool 是一个命令行工具，允许你自动递增到下一个最高的数量或具体的数字这些数字。</p>
 <h4 id="修改Xcode的默认设置"><a href="#修改Xcode的默认设置" class="headerlink" title="修改Xcode的默认设置"></a>修改Xcode的默认设置</h4><p>默认情况下，在不使用任何版本控制系统。设置版本系统苹果通用确保 Xcode 将包括在你的项目中生成的所有agvtool版本信息。</p>
@@ -349,7 +375,7 @@ var a = new Donate({
   btnText: 'Donate', // 可选参数，打赏按钮文字
   el: document.getElementById('donation_div'),
   wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
-  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-15/29881714.jpg'
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
 });
 </script>
       
@@ -414,7 +440,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#📺-故事背景"><span class="nav-number">1.</span> <span class="nav-text">📺 故事背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚀-框架的优势"><span class="nav-number">2.</span> <span class="nav-text">🚀 框架的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚂-自编脚本的时代"><span class="nav-number">3.</span> <span class="nav-text">🚂 自编脚本的时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-安装fir-cil"><span class="nav-number">3.1.</span> <span class="nav-text">第一步 安装fir-cil</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的安装问题"><span class="nav-number">3.1.1.</span> <span class="nav-text">常见的安装问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-登录fir-im"><span class="nav-number">3.2.</span> <span class="nav-text">第二步 登录fir.im</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步-下载并配置-shell-脚本"><span class="nav-number">3.3.</span> <span class="nav-text">第三步 下载并配置 shell 脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚄-Fastlane-的时代"><span class="nav-number">4.</span> <span class="nav-text">🚄 Fastlane 的时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英"><span class="nav-number">4.1.</span> <span class="nav-text">2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-安装-Fastlane"><span class="nav-number">4.2.</span> <span class="nav-text">第一步 安装 Fastlane</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-移动脚本至项目目录下"><span class="nav-number">4.3.</span> <span class="nav-text">第二步 移动脚本至项目目录下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步-上传"><span class="nav-number">4.4.</span> <span class="nav-text">第三步 上传</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上传到-fir-的用法："><span class="nav-number">4.4.1.</span> <span class="nav-text">上传到 fir 的用法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传到-testflight-的用法："><span class="nav-number">4.4.2.</span> <span class="nav-text">上传到 testflight 的用法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步-配置-Jenkins"><span class="nav-number">4.5.</span> <span class="nav-text">第四步 配置 Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载-Jenkins："><span class="nav-number">4.5.1.</span> <span class="nav-text">下载 Jenkins：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行服务器："><span class="nav-number">4.5.2.</span> <span class="nav-text">运行服务器：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行-Jenkins"><span class="nav-number">4.5.3.</span> <span class="nav-text">运行 Jenkins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-Jenkins："><span class="nav-number">4.5.4.</span> <span class="nav-text">配置 Jenkins：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装插件"><span class="nav-number">4.5.5.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建任务"><span class="nav-number">4.5.6.</span> <span class="nav-text">构建任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录-执行脚本过程中遇到的问题和解决方案"><span class="nav-number">4.6.</span> <span class="nav-text">附录 执行脚本过程中遇到的问题和解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fir-command-not-found"><span class="nav-number">4.6.1.</span> <span class="nav-text">fir: command not found</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#README-No-such-file-or-directory"><span class="nav-number">4.6.2.</span> <span class="nav-text">README: No such file or directory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ERROR-–-Token-can-not-be-blank"><span class="nav-number">4.6.3.</span> <span class="nav-text">ERROR – : Token can not be blank</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ERROR-–-Code-14-没有试用的设备-Domain-IDEDistributionErrorDomain-Code-14-“No-applicable-devices"><span class="nav-number">4.6.4.</span> <span class="nav-text">ERROR – : Code=14 (没有试用的设备 Domain=IDEDistributionErrorDomain Code=14 “No applicable devices</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：Jenkins-相关设置方法"><span class="nav-number">4.7.</span> <span class="nav-text">2018.08.20 更新：Jenkins 相关设置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看端口占用"><span class="nav-number">4.7.1.</span> <span class="nav-text">查看端口占用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jenkins-改时区"><span class="nav-number">4.7.2.</span> <span class="nav-text">Jenkins 改时区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jenkins-构建超时"><span class="nav-number">4.7.3.</span> <span class="nav-text">Jenkins 构建超时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jenkins-定时构建和Poll-SCM的区别"><span class="nav-number">4.7.4.</span> <span class="nav-text">Jenkins 定时构建和Poll SCM的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🕹-agvtool-命令行"><span class="nav-number">5.</span> <span class="nav-text">🕹 agvtool 命令行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：agvtool-命令行-管理版本号"><span class="nav-number">5.1.</span> <span class="nav-text">2018.08.20 更新：agvtool 命令行 管理版本号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用命令行："><span class="nav-number">5.1.1.</span> <span class="nav-text">常用命令行：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">5.2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改Xcode的默认设置"><span class="nav-number">5.2.1.</span> <span class="nav-text">修改Xcode的默认设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置你的版本号和-bulid-版本号"><span class="nav-number">5.2.2.</span> <span class="nav-text">设置你的版本号和 bulid 版本号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行操作更新版本号"><span class="nav-number">5.2.3.</span> <span class="nav-text">命令行操作更新版本号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#😬-联系"><span class="nav-number">6.</span> <span class="nav-text">😬  联系</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#📺-故事背景"><span class="nav-number">1.</span> <span class="nav-text">📺 故事背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚀-框架的优势"><span class="nav-number">2.</span> <span class="nav-text">🚀 框架的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚂-自编脚本的时代"><span class="nav-number">3.</span> <span class="nav-text">🚂 自编脚本的时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-安装fir-cil"><span class="nav-number">3.1.</span> <span class="nav-text">第一步 安装fir-cil</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-登录fir-im"><span class="nav-number">3.2.</span> <span class="nav-text">第二步 登录fir.im</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步-下载并配置-shell-脚本"><span class="nav-number">3.3.</span> <span class="nav-text">第三步 下载并配置 shell 脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🚄-Fastlane-的时代"><span class="nav-number">4.</span> <span class="nav-text">🚄 Fastlane 的时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：Jenkins-Fastlane-GitLab-fir-或者蒲公英"><span class="nav-number">4.1.</span> <span class="nav-text">2018.08.20 更新：Jenkins + Fastlane + GitLab + fir (或者蒲公英)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-安装-Fastlane"><span class="nav-number">4.2.</span> <span class="nav-text">第一步 安装 Fastlane</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-移动脚本至项目目录下"><span class="nav-number">4.3.</span> <span class="nav-text">第二步 移动脚本至项目目录下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步-上传"><span class="nav-number">4.4.</span> <span class="nav-text">第三步 上传</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上传到-fir-的用法："><span class="nav-number">4.4.1.</span> <span class="nav-text">上传到 fir 的用法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传到-testflight-的用法："><span class="nav-number">4.4.2.</span> <span class="nav-text">上传到 testflight 的用法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步-配置-Jenkins"><span class="nav-number">4.5.</span> <span class="nav-text">第四步 配置 Jenkins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：Jenkins-相关设置"><span class="nav-number">4.6.</span> <span class="nav-text">2018.08.20 更新：Jenkins 相关设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🕹-agvtool-命令行"><span class="nav-number">5.</span> <span class="nav-text">🕹 agvtool 命令行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20-更新：管理版本号"><span class="nav-number">5.1.</span> <span class="nav-text">2018.08.20 更新：管理版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">5.2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改Xcode的默认设置"><span class="nav-number">5.2.1.</span> <span class="nav-text">修改Xcode的默认设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置你的版本号和-bulid-版本号"><span class="nav-number">5.2.2.</span> <span class="nav-text">设置你的版本号和 bulid 版本号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行操作更新版本号"><span class="nav-number">5.2.3.</span> <span class="nav-text">命令行操作更新版本号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#😬-联系"><span class="nav-number">6.</span> <span class="nav-text">😬  联系</span></a></li></ol>
     
     </div>
   </aside>

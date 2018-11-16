@@ -19,10 +19,12 @@
 <meta property="og:site_name" content="Technology">
 <meta property="og:description" content="Swift 4 发布已经有一段时间了，不知道大家有没有切换到 4.0 版本。 这次 4.0 更新给我最大的感受就是没有了前几次升级的跳跃式变化。 不用为了更新语言版本，完全推翻已有的项目，这也是 Swift 慢慢趋向于稳定的标志~">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-15T14:04:15.042Z">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/54292846.jpg">
+<meta property="og:updated_time" content="2018-11-16T12:47:15.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift 4.0 中对 Dictionary 的改进">
 <meta name="twitter:description" content="Swift 4 发布已经有一段时间了，不知道大家有没有切换到 4.0 版本。 这次 4.0 更新给我最大的感受就是没有了前几次升级的跳跃式变化。 不用为了更新语言版本，完全推翻已有的项目，这也是 Swift 慢慢趋向于稳定的标志~">
+<meta name="twitter:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/54292846.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
   
@@ -197,6 +199,7 @@
         <p>Swift 4 发布已经有一段时间了，不知道大家有没有切换到 4.0 版本。 这次 4.0 更新给我最大的感受就是没有了前几次升级的跳跃式变化。 不用为了更新语言版本，完全推翻已有的项目，这也是 Swift 慢慢趋向于稳定的标志~</p>
 <a id="more"></a>
 <p>咱们这次说说 Swift 4.0 对 Dictionary 这个经常会用到的类的改进。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/54292846.jpg" alt=""></p>
 <h3 id="自动根据-key-分组"><a href="#自动根据-key-分组" class="headerlink" title="自动根据 key 分组"></a>自动根据 key 分组</h3><p>Dictionary 新增了一个构造方法，可以将给定的一个数组，根据指定的条件进行分组。 来看一个例子:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> gender: <span class="type">Gender</span></span><br><span class="line">    <span class="keyword">var</span> age: <span class="type">Int</span></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Gender</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> male</span><br><span class="line">        <span class="keyword">case</span> female</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里有一个 Person 结构, 然后我们初始化一个数组：</p>
@@ -252,7 +255,7 @@ var a = new Donate({
   btnText: 'Donate', // 可选参数，打赏按钮文字
   el: document.getElementById('donation_div'),
   wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
-  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-15/29881714.jpg'
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
 });
 </script>
       
