@@ -20,7 +20,7 @@
 <meta property="og:description" content="使用 Jenkins 运行 Fastlane 命令，实现定时自动打包、修改版本号、上传 Fir 或者 TestFlight 等功能，从此再也不用被小伙伴追着要测试包。  三步配置，杜绝污染，一步操作自动上传~">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg">
-<meta property="og:updated_time" content="2018-11-16T12:45:03.758Z">
+<meta property="og:updated_time" content="2018-11-17T07:36:42.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins + Fastlane 自动打包脚本">
 <meta name="twitter:description" content="使用 Jenkins 运行 Fastlane 命令，实现定时自动打包、修改版本号、上传 Fir 或者 TestFlight 等功能，从此再也不用被小伙伴追着要测试包。  三步配置，杜绝污染，一步操作自动上传~">
@@ -169,7 +169,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" rel="gallery_cjol4ytyw000zt3vpdo6wh350">
+      <a class="article-gallery-img fancybox" href="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" rel="gallery_cjol52v92000zugvpcpmu0onj">
         <img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/88488532.jpg" itemprop="image">
       </a>
     
@@ -344,7 +344,7 @@
 <p>设置 build 号 <code>自动加1</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun agvtool next-version -all</span><br></pre></td></tr></table></figure></p>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>agvtool 是一个命令行工具，允许你自动递增到下一个最高的数量或具体的数字这些数字。</p>
 <h4 id="修改Xcode的默认设置"><a href="#修改Xcode的默认设置" class="headerlink" title="修改Xcode的默认设置"></a>修改Xcode的默认设置</h4><p>默认情况下，在不使用任何版本控制系统。设置版本系统苹果通用确保 Xcode 将包括在你的项目中生成的所有agvtool版本信息。</p>
-<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/25883858.jpg" alt=""></p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-17/52603280.jpg" alt=""></p>
 <p>上图：设置当前项目的版本和版本控制系统的构建设置</p>
 <h4 id="设置你的版本号和-bulid-版本号"><a href="#设置你的版本号和-bulid-版本号" class="headerlink" title="设置你的版本号和 bulid 版本号"></a>设置你的版本号和 bulid 版本号</h4><p>agvtool 查询应用程序的 Info.plist 得到你的版本和 bulid 版本号。</p>
 <p>所以确保 CFBundleVersion (Bundle version) 和 CFBundleShortVersionString (Bundle versions string, short）的 key 在你的 Info.plist 中。</p>
