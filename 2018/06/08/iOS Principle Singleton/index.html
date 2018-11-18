@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ios principle：singleton | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Principle">
+  
+  
+  
+  
+  <meta name="description" content="SINGLETON—俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公Singleton，她们只要说道“老公”，都是指的同一个人，那就是我。(刚才做了个梦啦，哪有这么好的事)~">
+<meta name="keywords" content="Principle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Principle：Singleton">
+<meta property="og:url" content="https://reversescale.github.io/2018/06/08/iOS Principle Singleton/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="SINGLETON—俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公Singleton，她们只要说道“老公”，都是指的同一个人，那就是我。(刚才做了个梦啦，哪有这么好的事)~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/4/163ca11de66bd6cc?w=873&h=68&f=png&s=50340">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/4/163ca11dec5ffba2?w=570&h=88&f=png&s=20792">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/4/163ca11deba891c2?w=587&h=47&f=png&s=18500">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/4/163ca11dec62dd96?w=398&h=75&f=png&s=17156">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/4/163ca11deb9f4c08?w=429&h=189&f=png&s=40523">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/4/163ca11deb8191e2?w=556&h=118&f=png&s=33382">
+<meta property="og:updated_time" content="2018-11-18T05:33:17.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Principle：Singleton">
+<meta name="twitter:description" content="SINGLETON—俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公Singleton，她们只要说道“老公”，都是指的同一个人，那就是我。(刚才做了个梦啦，哪有这么好的事)~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/6/4/163ca11de66bd6cc?w=873&h=68&f=png&s=50340">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-iOS Principle Singleton" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      iOS Principle：Singleton
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-06-08T13:56:27.000Z" itemprop="datePublished">2018-06-08</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Principle/">Principle</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SINGLETON—俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公Singleton，她们只要说道“老公”，都是指的同一个人，那就是我。(刚才做了个梦啦，哪有这么好的事)~ </p>
+<a id="more"></a>
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_Singleton" target="_blank" rel="noopener">Github Demo</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>单例模式：确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例单例模式（通过防护措施，禁止其再创建其他实例）</li>
+<li>安全保障：防止两个线程同时调用shareInstance，使用@synchronized锁定</li>
+<li>GCD创建：dispatch_once中dispatch_once_t类型为typedef long<ul>
+<li>onceToken= 0，线程执行dispatch_once的block中代码</li>
+<li>onceToken= -1，线程跳过dispatch_once的block中代码不执行</li>
+<li>onceToken= 其他值，线程被线程被阻塞，等待onceToken值改变</li>
+</ul>
+</li>
+<li>用途：限制创建，提供全局调用，节约资源和提高性能</li>
+<li>常见的应用场景：<ul>
+<li>UIApplication</li>
+<li>NSNotificationCenter</li>
+<li>NSFileManager</li>
+<li>NSUserDefaults</li>
+<li>NSURLCache</li>
+<li>NSHTTPCookieStorage</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="引文"><a href="#引文" class="headerlink" title="引文"></a>引文</h3><blockquote>
+<p>《Design Patterns: Elements of Reusable Object-Oriented Software》（即后述《设计模式》一书）是由 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 合著（Addison-Wesley，1995）。这几位作者常被称为”四人组（Gang of Four）。</p>
+</blockquote>
+<p>开篇引用 GoF 的示例帮助理解创建型设计模式——单例</p>
+<p>单例模式：单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例单例模式。单例模式只应在有真正的“单一实例”的需求时才可使用。</p>
+<h3 id="单例的创建"><a href="#单例的创建" class="headerlink" title="单例的创建"></a>单例的创建</h3><h4 id="单线程单例"><a href="#单线程单例" class="headerlink" title="单线程单例"></a>单线程单例</h4><p>我们知道对于单例类，我们必须留出一个接口来返回生成的单例，由于一个类中只能有一个实例，所以我们在第一次访问这个实例的时候创建，之后访问直接取已经创建好的实例</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@implementationSingleton</span><br><span class="line">+ (<span class="keyword">instancetype</span>)shareInstance&#123;</span><br><span class="line">    staticSingleton* single;</span><br><span class="line">    <span class="keyword">if</span>(!single) &#123;      </span><br><span class="line">        single = [[Singleton alloc] init];   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> single;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>ps:严格意义上来说，我们还需要将alloc方法封住，因为严格的单例是不允许再创建其他实例的，而alloc方法可以在外部任意生成实例。但是考虑到alloc属于NSObject，iOS中无法将alloc变成私有方法，最多只能覆盖alloc让其返回空，不过这样做也可能会让使用接口的人误解，造成其他问题。所以我们一般情况下对alloc不做特殊处理。系统的单例也未对alloc做任何处理</p>
+<h4 id="synchronized单例"><a href="#synchronized单例" class="headerlink" title="@synchronized单例"></a>@synchronized单例</h4><p>对于一个实例，我们一般并不能保证他一定会在单线程模式下使用，所以我们得适配多线程情况。在多线程情况下，上面的单例创建方式可能会出现问题。如果两个线程同时调用shareInstance,可能会创建出2个single来。所以对于多线程情况下，我们需要使用@synchronized来加锁。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@implementationSingleton</span><br><span class="line">+ (<span class="keyword">instancetype</span>)shareInstance&#123;</span><br><span class="line">    staticSingleton* single;</span><br><span class="line">    <span class="keyword">@synchronized</span>(<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!single) &#123;           </span><br><span class="line">            single = [[Singleton alloc] init];       </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> single;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>这样的话，当多个线程同时调用shareInstance时，由于@synchronized已经加锁，所以只能有一个线程进入创建single。这样就解决了多线程下调用单例的问题</p>
+<h4 id="dispatch-once单例"><a href="#dispatch-once单例" class="headerlink" title="dispatch_once单例"></a>dispatch_once单例</h4><p>使用@synchronized虽然解决了多线程的问题，但是并不完美。因为只有在single未创建时，我们加锁才是有必要的。如果single已经创建.这时候锁不仅没有好处，而且还会影响到程序执行的性能（多个线程执行@synchronized中的代码时，只有一个线程执行，其他线程需要等待）。那么有没有方法既可以解决问题，又不影响性能呢？<br>这个方法就是GCD中的dispatch_once</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+ (SingletonManager*)shareManager &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> token;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;token, ^&#123;</span><br><span class="line">        <span class="keyword">if</span>(defaultManager == <span class="literal">nil</span>) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"dispatch_once Token: %ld"</span>,token);</span><br><span class="line">            defaultManager = [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Token: %ld"</span>,token);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"DefaultManager: %@"</span>,defaultManager);</span><br><span class="line">    <span class="keyword">return</span> defaultManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果<br><img src="https://user-gold-cdn.xitu.io/2018/6/4/163ca11de66bd6cc?w=873&amp;h=68&amp;f=png&amp;s=50340" alt=""></p>
+<h4 id="dispatch-once-为什么能做到既解决同步多线程问题又不影响性能呢？"><a href="#dispatch-once-为什么能做到既解决同步多线程问题又不影响性能呢？" class="headerlink" title="dispatch_once 为什么能做到既解决同步多线程问题又不影响性能呢？"></a>dispatch_once 为什么能做到既解决同步多线程问题又不影响性能呢？</h4><p>下面我们来看看dispatch_once的原理：</p>
+<p>dispatch_once主要是根据onceToken的值来决定怎么去执行代码。</p>
+<ul>
+<li>当onceToken= 0时，线程执行dispatch_once的block中代码</li>
+<li>当onceToken= -1时，线程跳过dispatch_once的block中代码不执行</li>
+<li>当onceToken为其他值时，线程被线程被阻塞，等待onceToken值改变</li>
+</ul>
+<p>当线程首先调用shareInstance，某一线程要执行block中的代码时，首先需要改变onceToken的值，再去执行block中的代码。这里onceToken的值变为了768。</p>
+<p>这样当其他线程再获取onceToken的值时，值已经变为768。其他线程被阻塞。</p>
+<p>当block线程执行完block之后。onceToken变为-1。其他线程不再阻塞，跳过block。</p>
+<p>下次再调用shareInstance时，block已经为-1。直接跳过block。</p>
+<p>这样dispatch_once在首次调用时同步阻塞线程，生成单例之后，不再阻塞线程。</p>
+<blockquote>
+<p>遇到问题：线程1和线程2，都在调用shareInstance方法来创建单例，那么线程1运行到if (_instance == nil)发现_instance = nil,那么就会初始化一个_instance，假设此时线程2也运行到if的判断处了，此时线程1还没有创建完成实例_instance，所以此时_instance = nil还是成立的，那么线程2又会创建一个_instace。</p>
+</blockquote>
+<p>虽然使用互斥锁也可以解决多线程同时创建的问题，但是dispatch_once更为高效安全是解决这类问题的最优方案。</p>
+<h4 id="宏方法创建单例"><a href="#宏方法创建单例" class="headerlink" title="宏方法创建单例"></a>宏方法创建单例</h4><p>Singleton.h 中进行宏定义</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Singleton.h</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#define SingletonH(name) + (instancetype)shared##name;</span></span><br><span class="line"><span class="meta">#define SingletonM(name) \</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">id</span> _instance; \</span><br><span class="line">\</span><br><span class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone \</span><br><span class="line">&#123; \</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">_instance = [<span class="keyword">super</span> allocWithZone:zone]; \</span><br><span class="line">&#125;); \</span><br><span class="line"><span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">+ (<span class="keyword">instancetype</span>)shared<span class="meta">##name \</span></span><br><span class="line">&#123; \</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">_instance = [[<span class="keyword">self</span> alloc] init]; \</span><br><span class="line">&#125;); \</span><br><span class="line"><span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone \</span><br><span class="line">&#123; \</span><br><span class="line"><span class="keyword">return</span> _instance; \</span><br><span class="line">&#125;\</span><br><span class="line">\</span><br><span class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone &#123; \</span><br><span class="line"><span class="keyword">return</span> _instance; \</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Singleton</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>使用方法 ViewController.h 中</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ViewController.h</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span> //宏方法</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span></span></span><br><span class="line">SingletonH(viewController)</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>ViewController.m 中</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SingletonM(ViewController)</span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// 调用宏定义单例</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"地址打印：\n%@\n%@\n%@\n%@"</span>, [ViewController sharedViewController], [ViewController sharedViewController], [[ViewController alloc] init], [[ViewController alloc] init]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/4/163ca11dec5ffba2?w=570&amp;h=88&amp;f=png&amp;s=20792" alt=""></p>
+<p>打印结果可见地址相同</p>
+<h3 id="单例的用途"><a href="#单例的用途" class="headerlink" title="单例的用途"></a>单例的用途</h3><p>1）单例模式用来限制一个类只能创建一个对象，那么此对象的属性可以存储全局共享的数据。所有类都可以访问、设置此单例对象中的属性数据；</p>
+<p>2）如果一个类创建的时候非常的耗费资源或影响性能，那么此对象可以设置为单例以节约资源和提高性能。</p>
+<p>单例类保证了应用程序的生命周期中有且仅有一个该类的实例对象，而且易于外界访问。</p>
+<h4 id="iOS-系统中使用的单例类"><a href="#iOS-系统中使用的单例类" class="headerlink" title="iOS 系统中使用的单例类"></a>iOS 系统中使用的单例类</h4><ul>
+<li>UIApplication</li>
+<li>NSNotificationCenter</li>
+<li>NSFileManager</li>
+<li>NSUserDefaults</li>
+<li>NSURLCache</li>
+<li>NSHTTPCookieStorage</li>
+</ul>
+<h3 id="dispatch-once-原理剖析"><a href="#dispatch-once-原理剖析" class="headerlink" title="dispatch_once 原理剖析"></a>dispatch_once 原理剖析</h3><p>在IOS开发中，为保证单例在整个程序运行中只被初始化一次，单线程的时候，通过静态变量可以实现；但是多线程的出现，使得在如上面的极端条件下，单例也可能返回了不同的对象。如在单例初始化完成前，多个进程同时访问单例，那么这些进程可能都获得了不同的单例对象。</p>
+<p>多线程保护下的单例初始化代码</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)defaultObject&#123;</span><br><span class="line">    <span class="keyword">static</span> SharedObject *sharedObject = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> predicate;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;predicate, ^&#123;</span><br><span class="line">        sharedObject = [[SharedObject alloc] init];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> sharedObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/4/163ca11deba891c2?w=587&amp;h=47&amp;f=png&amp;s=18500" alt=""></p>
+<p>点击查看 dispatch_once_t 发现其是 typedef long 类型</p>
+<blockquote>
+<p>静态变量在程序运行期间只被初始化一次，然后其在下一次被访问时，其值都是上次的值，其在除了这个初始化方法以外的任何地方都不能直接修改这两个变量的值。这是单例只被初始化一次的前提。</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/4/163ca11dec62dd96?w=398&amp;h=75&amp;f=png&amp;s=17156" alt=""></p>
+<p>点击查看 dispatch_once 发现内部通过宏把 _dispatch_once 转化成 dispatch_once</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/4/163ca11deb9f4c08?w=429&amp;h=189&amp;f=png&amp;s=40523" alt=""></p>
+<p>查找到 _dispatch_once 函数，我们发现 DISPATCH_EXPECT 方法</p>
+<blockquote>
+<p>~0l 是长整型0按位取反，就是长整型的-1</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/4/163ca11deb8191e2?w=556&amp;h=118&amp;f=png&amp;s=33382" alt=""></p>
+<p><strong>GNUC</strong> 只代表gcc的主版本号，我们忽略它，剩下就是 DISPATCH_EXPECT(x, v) 了，DISPATCH_EXPECT(<em>predicate, ~0l)  就是说，</em>predicate 很可能是 ~0l ，而当  DISPATCH_EXPECT(*predicate, ~0l)  不是 ~0! 时 才调用真正的 dispatch_once 函数。</p>
+<p>第一次运行，predicate的值是默认值0，按照逻辑，如果有两个进程同时运行到 dispatch_once 方法时，这个两个进程获取到的 predicate 值都是0，那么最终两个进程都会调用 最原始那个 dispatch_once 函数。</p>
+<p>由此我再把上面的规则贴一遍，可以自己调试看看</p>
+<ul>
+<li>当onceToken= 0时，线程执行dispatch_once的block中代码</li>
+<li>当onceToken= -1时，线程跳过dispatch_once的block中代码不执行</li>
+<li>当onceToken为其他值时，线程被线程被阻塞，等待onceToken值改变</li>
+</ul>
+<blockquote>
+<p>以上文章整理自：<a href="http://www.cocoachina.com/ios/20160907/17497.html，https://www.jianshu.com/p/160d77888443，https://blog.csdn.net/mlibai/article/details/46945331" target="_blank" rel="noopener">http://www.cocoachina.com/ios/20160907/17497.html，https://www.jianshu.com/p/160d77888443，https://blog.csdn.net/mlibai/article/details/46945331</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../07/06/How to build DApp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          如何用 Swift 打造你的第一个区块链 App
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../07/iOS Principle Runloop/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS Principle：Runloop</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方便记忆："><span class="nav-number">1.</span> <span class="nav-text">方便记忆：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引文"><span class="nav-number">2.</span> <span class="nav-text">引文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例的创建"><span class="nav-number">3.</span> <span class="nav-text">单例的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单线程单例"><span class="nav-number">3.1.</span> <span class="nav-text">单线程单例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#synchronized单例"><span class="nav-number">3.2.</span> <span class="nav-text">@synchronized单例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-once单例"><span class="nav-number">3.3.</span> <span class="nav-text">dispatch_once单例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-once-为什么能做到既解决同步多线程问题又不影响性能呢？"><span class="nav-number">3.4.</span> <span class="nav-text">dispatch_once 为什么能做到既解决同步多线程问题又不影响性能呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#宏方法创建单例"><span class="nav-number">3.5.</span> <span class="nav-text">宏方法创建单例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例的用途"><span class="nav-number">4.</span> <span class="nav-text">单例的用途</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-系统中使用的单例类"><span class="nav-number">4.1.</span> <span class="nav-text">iOS 系统中使用的单例类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-once-原理剖析"><span class="nav-number">5.</span> <span class="nav-text">dispatch_once 原理剖析</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
