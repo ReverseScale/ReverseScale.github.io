@@ -3,31 +3,32 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>使用 ngrok 快速实现内网穿透 | Technology</title>
+  <title>读书好伙伴 kindle app | Technology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    <meta name="keywords" content="内网穿透">
+    <meta name="keywords" content="Kindle">
   
   
   
   
-  <meta name="description" content="实现内网穿透的工具很多，之所以介绍 Ngrok，主要还是因为它使用便捷，不用搭建服务器等等麻烦的工序，适合前段开发过程中，快速评估检测项目~">
-<meta name="keywords" content="内网穿透">
+  <meta name="description" content="kindle 未必随身携带，但是总有那么几段时间你会没事可干，Kindle App 的意义就是为了发挥“碎片时间阅读”效能的，同步阅读进度，同步阅读内容、同步笔记等等~~">
+<meta name="keywords" content="Kindle">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 Ngrok 快速实现内网穿透">
-<meta property="og:url" content="https://reversescale.github.io/2018/08/13/Ngrok through/index.html">
+<meta property="og:title" content="读书好伙伴 Kindle App">
+<meta property="og:url" content="https://reversescale.github.io/2018/11/19/Kindle App/index.html">
 <meta property="og:site_name" content="Technology">
-<meta property="og:description" content="实现内网穿透的工具很多，之所以介绍 Ngrok，主要还是因为它使用便捷，不用搭建服务器等等麻烦的工序，适合前段开发过程中，快速评估检测项目~">
+<meta property="og:description" content="kindle 未必随身携带，但是总有那么几段时间你会没事可干，Kindle App 的意义就是为了发挥“碎片时间阅读”效能的，同步阅读进度，同步阅读内容、同步笔记等等~~">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/13/16531b4060d824c0?w=700&h=438&f=png&s=167025">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/13/16531b47946c06f4?w=873&h=721&f=png&s=120693">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/13/16531b4d12c6f8ce?w=193&h=211&f=png&s=14935">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/13/16531b626fe2b14b?w=570&h=475&f=png&s=85834">
-<meta property="og:updated_time" content="2018-11-16T13:22:10.603Z">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/96097284.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/10279990.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/65629175.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/66404917.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/54834476.jpg">
+<meta property="og:updated_time" content="2018-11-19T12:24:34.729Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 Ngrok 快速实现内网穿透">
-<meta name="twitter:description" content="实现内网穿透的工具很多，之所以介绍 Ngrok，主要还是因为它使用便捷，不用搭建服务器等等麻烦的工序，适合前段开发过程中，快速评估检测项目~">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/8/13/16531b4060d824c0?w=700&h=438&f=png&s=167025">
+<meta name="twitter:title" content="读书好伙伴 Kindle App">
+<meta name="twitter:description" content="kindle 未必随身携带，但是总有那么几段时间你会没事可干，Kindle App 的意义就是为了发挥“碎片时间阅读”效能的，同步阅读进度，同步阅读内容、同步笔记等等~~">
+<meta name="twitter:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/96097284.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
   
@@ -166,7 +167,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Ngrok through" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-Kindle App" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div id="articleInner" class="article-inner">
     
     
@@ -174,7 +175,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      使用 Ngrok 快速实现内网穿透
+      读书好伙伴 Kindle App
     </h1>
   
 
@@ -183,7 +184,7 @@
     <div class="article-meta">
       
 	<a href="" class="article-date">
-	  <time datetime="2018-08-13T03:56:27.000Z" itemprop="datePublished">2018-08-13</time>
+	  <time datetime="2018-11-19T12:16:27.000Z" itemprop="datePublished">2018-11-19</time>
 	</a>
 
       
@@ -199,27 +200,23 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>实现内网穿透的工具很多，之所以介绍 Ngrok，主要还是因为它使用便捷，不用搭建服务器等等麻烦的工序，适合前段开发过程中，快速评估检测项目~                                                                                                                        </p>
+        <p>kindle 未必随身携带，但是总有那么几段时间你会没事可干，Kindle App 的意义就是为了发挥“碎片时间阅读”效能的，同步阅读进度，同步阅读内容、同步笔记等等~~                                                                                                                        </p>
 <a id="more"></a>
 <hr>
-<h3 id="Ngrok是什么"><a href="#Ngrok是什么" class="headerlink" title="Ngrok是什么"></a>Ngrok是什么</h3><p>ngrok 是一个反向代理，通过在公共的端点和本地运行的 Web 服务器之间建立一个安全的通道。ngrok 可捕获和分析所有通道上的流量，便于后期分析和重放。</p>
-<p>而我用来在家里快速访问 Jenkins，偷个懒🤪</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/8/13/16531b4060d824c0?w=700&amp;h=438&amp;f=png&amp;s=167025" alt=""></p>
-<h3 id="搭建方法"><a href="#搭建方法" class="headerlink" title="搭建方法"></a>搭建方法</h3><p>由于要完成一个网页优化的作业找了很久ngrok的使用方法，都不够简便易行最后终于发现了一个好方法。</p>
-<h4 id="下载-MAC-版的-ngrok：https-ngrok-com-download"><a href="#下载-MAC-版的-ngrok：https-ngrok-com-download" class="headerlink" title="下载 MAC 版的 ngrok：https://ngrok.com/download"></a>下载 MAC 版的 ngrok：<a href="https://ngrok.com/download" target="_blank" rel="noopener">https://ngrok.com/download</a></h4><p><img src="https://user-gold-cdn.xitu.io/2018/8/13/16531b47946c06f4?w=873&amp;h=721&amp;f=png&amp;s=120693" alt=""></p>
-<h4 id="解压到指定目录："><a href="#解压到指定目录：" class="headerlink" title="解压到指定目录："></a>解压到指定目录：</h4><p>Safari 浏览器下载 Mac OS X 环境一般直接解压（反正我是自动解压的），将 ngrok 放进项目目录。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/8/13/16531b4d12c6f8ce?w=193&amp;h=211&amp;f=png&amp;s=14935" alt=""></p>
-<h4 id="进入到-ngrok-所在路径："><a href="#进入到-ngrok-所在路径：" class="headerlink" title="进入到 ngrok 所在路径："></a>进入到 ngrok 所在路径：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br></pre></td></tr></table></figure>
-<h4 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ngrok http localhost:8080</span><br></pre></td></tr></table></figure>
-<p>会出现如下 ngrok 控制台</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/8/13/16531b626fe2b14b?w=570&amp;h=475&amp;f=png&amp;s=85834" alt=""></p>
-<p>等待 Session Status 状态为 online（变绿），就可以在外网通过 Forwarding 的地址进行连接了。</p>
-<blockquote>
-<p>注意：Forwarding地址中的 c33faf1b 不是固定的，在每次开始 ngrok 服务的时候都会变更，想固定？ ngrok:😛要钱。</p>
-</blockquote>
-<h3 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h3><p>例如：</p>
-<p>ngrok 穿透前在局域网中访问地址：<br><a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p>
-<p>ngrok 穿透后局域网 + 公网访问地址：<br><a href="https://c33faf1b.ngrok.io" target="_blank" rel="noopener">https://c33faf1b.ngrok.io</a></p>
+<h3 id="Kindle-App"><a href="#Kindle-App" class="headerlink" title="Kindle App"></a>Kindle App</h3><p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/96097284.jpg" alt=""></p>
+<p>Kindle App 是亚马逊 Kindle 开发出的阅读 App，可用于同步我们在亚马逊 Kindle 书城购买中购买的书到各个客户端（Windows、OSX、Android 以及 iOS）。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/10279990.jpg" alt=""></p>
+<p>只要你在 Z.cn 注册一个亚马逊账户，就可以试读各种技术类书籍，看的不错的就可以直接购买。下单后这本书就会储存在你的亚马逊云，你可以再智能手机、平板电脑和 MacBook 上随时汲取知识，不再浪费时间。</p>
+<h3 id="实际体验"><a href="#实际体验" class="headerlink" title="实际体验"></a>实际体验</h3><p>基于亚马逊的庞大图书网络，这里应有尽有，配合整齐排布的彩色图书封面，给人耳目一新的 Kindle 感觉。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/65629175.jpg" alt=""></p>
+<p>如下图所示，我们可以看到，在 App 中看到的 Kindle App 在布局上是比较接近于 Kindle 设备本身的，我们可以调整字号、亮度、对其方式甚至是背景颜色，额，等等，它是彩…色的！</p>
+<p>当我们选择了其中一本书后就可以直接进入阅读界面，在三杠的菜单后我们会发现，这个菜单集成了同步、X-Ray、生词卡以及目录等诸多元素一身。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/66404917.jpg" alt=""></p>
+<p>Kindle App 更是支持 X-Ray，其一直以来都是 Kindle 的一个亮点所在，它可以把我们需要的重点信息（人物、术语、图片）汇总在了一起，让我们可以减少成本去了解作者的写作重点。现在，这个功能也可以在 Kindle App 使用了，真是普喜大奔。</p>
+<p>不仅如此，Kindle App 还将 X-Ray 中的排序方式也做了优化，可以说非常人性化了。</p>
+<p>其实 Kindle App 还有很多的功能有待发现和科学使用的，比如通过卡片来学习啥的，实用性还是很强的，大家可以参考 Kindle 学习方面的资料就行了。</p>
+<p>作为一名程序员可能面对电脑的时间会更多一些，而且大屏幕也更适合阅读，所以这里顺带推荐一下 kindle Mac App。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-19/54834476.jpg" alt=""></p>
 
       
     </div>
@@ -273,19 +270,10 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="../../../11/19/Kindle App/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          读书好伙伴 Kindle App
-        
-      </div>
-    </a>
   
-  
-    <a href="../../../07/06/How to build DApp/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../../08/13/Ngrok through/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">如何用 Swift 打造你的第一个区块链 App</div>
+      <div class="article-nav-title">使用 Ngrok 快速实现内网穿透</div>
     </a>
   
 </nav>
@@ -299,7 +287,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ngrok是什么"><span class="nav-number">1.</span> <span class="nav-text">Ngrok是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建方法"><span class="nav-number">2.</span> <span class="nav-text">搭建方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载-MAC-版的-ngrok：https-ngrok-com-download"><span class="nav-number">2.1.</span> <span class="nav-text">下载 MAC 版的 ngrok：https://ngrok.com/download</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解压到指定目录："><span class="nav-number">2.2.</span> <span class="nav-text">解压到指定目录：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进入到-ngrok-所在路径："><span class="nav-number">2.3.</span> <span class="nav-text">进入到 ngrok 所在路径：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开启服务"><span class="nav-number">2.4.</span> <span class="nav-text">开启服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试一下"><span class="nav-number">3.</span> <span class="nav-text">测试一下</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kindle-App"><span class="nav-number">1.</span> <span class="nav-text">Kindle App</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际体验"><span class="nav-number">2.</span> <span class="nav-text">实际体验</span></a></li></ol>
     
     </div>
   </aside>
