@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ios principle：notification | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Principle">
+  
+  
+  
+  
+  <meta name="description" content="Cocoa 中使用 NSNotification、NSNotificationCenter 和 KVO 来实现观察者模式，实现对象间一对多的依赖关系~">
+<meta name="keywords" content="Principle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Principle：Notification">
+<meta property="og:url" content="https://reversescale.github.io/2018/06/12/iOS Principle Notification/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="Cocoa 中使用 NSNotification、NSNotificationCenter 和 KVO 来实现观察者模式，实现对象间一对多的依赖关系~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d50b490c5?w=700&h=44&f=png&s=29155">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d558eeba0?w=952&h=52&f=png&s=47684">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d55b94760?w=979&h=50&f=png&s=49949">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d56f8836e?w=979&h=81&f=png&s=77932">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d55ce8eb2?w=947&h=49&f=png&s=47572">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d56f53724?w=946&h=49&f=png&s=48213">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d7c6999d2?w=978&h=59&f=png&s=49945">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d81aaa7e5?w=972&h=50&f=png&s=47729">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d81c74cfe?w=790&h=539&f=png&s=30252">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d83ae2321?w=993&h=63&f=png&s=58865">
+<meta property="og:updated_time" content="2018-11-26T12:56:16.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Principle：Notification">
+<meta name="twitter:description" content="Cocoa 中使用 NSNotification、NSNotificationCenter 和 KVO 来实现观察者模式，实现对象间一对多的依赖关系~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163de75d50b490c5?w=700&h=44&f=png&s=29155">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-iOS Principle Notification" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      iOS Principle：Notification
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-06-12T13:56:27.000Z" itemprop="datePublished">2018-06-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Principle/">Principle</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Cocoa 中使用 NSNotification、NSNotificationCenter 和 KVO 来实现观察者模式，实现对象间一对多的依赖关系~ </p>
+<a id="more"></a>
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_Notification" target="_blank" rel="noopener">Github Demo</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>设计模式：观察者模式，实现对象间一对多的依赖关系</li>
+<li>NSNotification：方便 NSNotificationCenter 广播到其他对象的封装对象</li>
+<li>NSNotificationCenter：管理通知调度表中对象的发送和接收通知</li>
+<li>发送时机：<ul>
+<li>NSPostWhenIdle：空闲发送通知 (当运行循环处于等待或空闲状态时，发送通知，对于不重要的通知可以使用)</li>
+<li>NSPostASAP：尽快发送通知 (当前运行循环迭代完成时，通知将会被发送，有点类似没有延迟的定时器)</li>
+<li>NSPostNow ：同步发送通知 (如果不使用合并通知和postNotification:一样是同步通知)</li>
+</ul>
+</li>
+<li>合并通知（系统的drawRect方法）：<ul>
+<li>NSNotificationNoCoalescing：不合并通知</li>
+<li>NSNotificationCoalescingOnName：合并相同名称的通知</li>
+<li>NSNotificationCoalescingOnSender：合并相同通知和同一对象的通知</li>
+</ul>
+</li>
+<li>异步通知：NSNotificationQueue实现对通知的控制管理</li>
+<li>多线程通知：使用runloop维持多个线程使用NSPort进行通知（NSPort的runloop兼容mode）</li>
+</ul>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本篇文章主要来讨论NSNotification、NSNotificationCenter、同步异步通知、通知中心底层原理</p>
+<h3 id="NSNotification、NSNotificationCenter-等"><a href="#NSNotification、NSNotificationCenter-等" class="headerlink" title="NSNotification、NSNotificationCenter 等"></a>NSNotification、NSNotificationCenter 等</h3><h4 id="NSNotification"><a href="#NSNotification" class="headerlink" title="NSNotification"></a>NSNotification</h4><p>NSNotification 是方便 NSNotificationCenter 广播到其他对象的封装对象，通知中心(NSNotificationCenter)对通知调度表中的对象广播时发送NSNotification对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSNotification</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSCoding</span>&gt;</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSNotificationName</span> name; <span class="comment">//标识通知的标记</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">readonly</span>, <span class="keyword">retain</span>) <span class="keyword">id</span> object; <span class="comment">//要通知的对象</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSDictionary</span> *userInfo; <span class="comment">//存储发送通知时附带的信息</span></span><br></pre></td></tr></table></figure>
+<h4 id="NSNotificationCenter"><a href="#NSNotificationCenter" class="headerlink" title="NSNotificationCenter"></a>NSNotificationCenter</h4><p>NSNotificationCenter是类似一个广播中心站，使用defaultCenter来获取应用中的通知中心，它可以向应用任何地方发送和接收通知。</p>
+<p>在通知中心注册观察者，发送者使用通知中心广播时，以NSNotification的name和object来确定需要发送给哪个观察者。</p>
+<p>为保证观察者能接收到通知，所以应先向通知中心注册观察者，接着再发送通知这样才能在通知中心调度表中查找到相应观察者进行通知。</p>
+<h4 id="发送者"><a href="#发送者" class="headerlink" title="发送者"></a>发送者</h4><p>发送者其实就是对post的使用，后面单独讲，发送通知可使用以下方法发送通知</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)postNotification:(<span class="built_in">NSNotification</span> *)notification;</span><br><span class="line">- (<span class="keyword">void</span>)postNotificationName:(<span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br><span class="line">- (<span class="keyword">void</span>)postNotificationName:(<span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject userInfo:(<span class="keyword">nullable</span> <span class="built_in">NSDictionary</span> *)aUserInfo;</span><br></pre></td></tr></table></figure>
+<p>三种方式实际上都是发送NSNotification对象给通知中心注册的观察者。</p>
+<p>发送通知通过name和object来确定来标识观察者,name和object两个参数的规则相同即当通知设置name为kChangeNotifition时，那么只会发送给符合name为kChangeNotifition的观察者</p>
+<p>同理object指发送给某个特定对象通知</p>
+<ul>
+<li>如果只设置了name，那么只有对应名称的通知会触发。</li>
+<li>如果同时设置name和object参数时就必须同时符合这两个条件的观察者才能接收到通知。</li>
+</ul>
+<h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><p>你可以使用以下两种方式注册观察者</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addObserver:(<span class="keyword">id</span>)observer selector:(SEL)aSelector name:(<span class="keyword">nullable</span> <span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span> &lt;<span class="built_in">NSObject</span>&gt;)addObserverForName:(<span class="keyword">nullable</span> <span class="built_in">NSNotificationName</span>)name object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)obj queue:(<span class="keyword">nullable</span> <span class="built_in">NSOperationQueue</span> *)queue usingBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSNotification</span> *note))block <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_6, <span class="number">4</span>_0);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一种方式是比较常用的添加Oberver的方式，接到通知时执行aSelector。</li>
+<li>第二种方式是基于Block来添加观察者，往通知中心的调度表中添加观察者，这个观察者包括一个queue和一个block,并且会返回这个观察者对象。当接到通知时执行block所在的线程为添加观察者时传入的queue参数，queue也可以为nil，那么block就在通知所在的线程同步执行。</li>
+</ul>
+<blockquote>
+<p>这里需要注意的是如果使用第二种的方式创建观察者需要弱引用可能引起循环引用的对象,避免内存泄漏。</p>
+</blockquote>
+<h4 id="移除观察者"><a href="#移除观察者" class="headerlink" title="移除观察者"></a>移除观察者</h4><p>在对象被释放前需要移除掉观察者，避免已经被释放的对象还接收到通知导致崩溃。</p>
+<p>移除观察者有两种方式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="keyword">id</span>)observer;</span><br><span class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="keyword">id</span>)observer name:(<span class="keyword">nullable</span> <span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br></pre></td></tr></table></figure>
+<p>传入相应的需要移除的observer 或者使用第二种方式三个参数来移除指定某个观察者。</p>
+<p>如果使用基于-[NSNotificationCenter addObserverForName:object:queue:usingBlock:]方法在获取方法返回的观察者进行释放。基于这个方法我们还可以让观察者接到通知后只执行一次：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__block __<span class="keyword">weak</span> <span class="keyword">id</span>&lt;<span class="built_in">NSObject</span>&gt; observer = [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserverForName:kChangeNotifition object:<span class="literal">nil</span> queue:[<span class="built_in">NSOperationQueue</span> mainQueue] usingBlock:^(<span class="built_in">NSNotification</span> * _Nonnull note) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"-[NSNotificationCenter addObserverForName:object:queue:usingBlock:]"</span>);</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:observer];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d50b490c5?w=700&amp;h=44&amp;f=png&amp;s=29155" alt=""></p>
+<blockquote>
+<p>在iOS9中使用-[NSNotificationCenter addObserverForName:object:queue:usingBlock:]方法需要手动释放</p>
+</blockquote>
+<h4 id="NSNotificationQueue"><a href="#NSNotificationQueue" class="headerlink" title="NSNotificationQueue"></a>NSNotificationQueue</h4><p>NSNotificationQueue通知队列，用来管理多个通知的调用。通知队列通常以先进先出（FIFO）顺序维护通。</p>
+<p>NSNotificationQueue就像一个缓冲池把一个个通知放进池子中，使用特定方式通过NSNotificationCenter发送到相应的观察者。下面我们会提到特定的方式即合并通知和异步通知。</p>
+<p>1.创建通知队列方法:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)initWithNotificationCenter:(<span class="built_in">NSNotificationCenter</span> *)notificationCenter <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line"><span class="comment">// 或者直接 defaultQueue</span></span><br><span class="line"><span class="built_in">NSNotificationQueue</span> * notificationQueue = [<span class="built_in">NSNotificationQueue</span> defaultQueue];</span><br></pre></td></tr></table></figure>
+<p>2.往队列加入通知方法:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)enqueueNotification:(<span class="built_in">NSNotification</span> *)notification postingStyle:(<span class="built_in">NSPostingStyle</span>)postingStyle;</span><br><span class="line">- (<span class="keyword">void</span>)enqueueNotification:(<span class="built_in">NSNotification</span> *)notification postingStyle:(<span class="built_in">NSPostingStyle</span>)postingStyle coalesceMask:(<span class="built_in">NSNotificationCoalescing</span>)coalesceMask forModes:(<span class="keyword">nullable</span> <span class="built_in">NSArray</span>&lt;<span class="built_in">NSRunLoopMode</span>&gt; *)modes;</span><br></pre></td></tr></table></figure>
+<p>3.移除队列中的通知方法:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)dequeueNotificationsMatching:(<span class="built_in">NSNotification</span> *)notification coalesceMask:(<span class="built_in">NSUInteger</span>)coalesceMask;</span><br></pre></td></tr></table></figure></p>
+<p>4.发送方式</p>
+<p>控制通知发送的时机</p>
+<p>NSPostingStyle包括三种类型：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, <span class="built_in">NSPostingStyle</span>) &#123;</span><br><span class="line">    <span class="built_in">NSPostWhenIdle</span> = <span class="number">1</span>,</span><br><span class="line">    <span class="built_in">NSPostASAP</span> = <span class="number">2</span>,</span><br><span class="line">    <span class="built_in">NSPostNow</span> = <span class="number">3</span>  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>NSPostWhenIdle：空闲发送通知 (当运行循环处于等待或空闲状态时，发送通知，对于不重要的通知可以使用)</li>
+<li>NSPostASAP：尽快发送通知 (当前运行循环迭代完成时，通知将会被发送，有点类似没有延迟的定时器)</li>
+<li>NSPostNow ：同步发送通知 (如果不使用合并通知和postNotification:一样是同步通知)</li>
+</ul>
+<p>5.合并通知</p>
+<p>通过合并我们可以用来保证相同的通知只被发送一次</p>
+<p>NSNotificationCoalescing包括三种类型：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_OPTIONS</span>(<span class="built_in">NSUInteger</span>, <span class="built_in">NSNotificationCoalescing</span>) &#123;</span><br><span class="line">    <span class="built_in">NSNotificationNoCoalescing</span> = <span class="number">0</span>,</span><br><span class="line">    <span class="built_in">NSNotificationCoalescingOnName</span> = <span class="number">1</span>,</span><br><span class="line">    <span class="built_in">NSNotificationCoalescingOnSender</span> = <span class="number">2</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>NSNotificationNoCoalescing：不合并通知。</li>
+<li>NSNotificationCoalescingOnName：合并相同名称的通知。</li>
+<li>NSNotificationCoalescingOnSender：合并相同通知和同一对象的通知。</li>
+</ul>
+<blockquote>
+<p>forModes:(nullable NSArray<nsrunloopmode> *)modes可以使用不同的NSRunLoopMode配合来发送通知，可以看出实际上NSNotificationQueue与RunLoop的机制以及运行循环有关系，通过NSNotificationQueue队列来发送的通知和关联的RunLoop运行机制来进行的。</nsrunloopmode></p>
+</blockquote>
+<h3 id="通知管理：同-异-步、单-多-线程"><a href="#通知管理：同-异-步、单-多-线程" class="headerlink" title="通知管理：同(异)步、单(多)线程"></a>通知管理：同(异)步、单(多)线程</h3><h4 id="同步通知"><a href="#同步通知" class="headerlink" title="同步通知"></a>同步通知</h4><p>先写一个简单的通知示例</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//object：指定接受某个对象的通知，为nil表示可以接受任意对象的通知</span></span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(handleNotifi:) name:<span class="string">@"EdisonNotif"</span> object:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    [<span class="keyword">self</span> sendNotification];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)sendNotification &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"发送通知before：%@"</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:<span class="string">@"EdisonNotif"</span> object:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"发送通知after：%@"</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)handleNotifi:(<span class="built_in">NSNotification</span>*)notif &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到通知了:%@"</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d558eeba0?w=952&amp;h=52&amp;f=png&amp;s=47684" alt=""></p>
+<p>从 log 结果看出，通知处理都是同步的</p>
+<blockquote>
+<p>发送通知before -&gt; 接收到通知了 -&gt; 发送通知after</p>
+</blockquote>
+<p>说明消息发完之后要等处理了消息才跑发送消息之后的代码，这跟多线程中的同步概念相似</p>
+<h4 id="异步通知"><a href="#异步通知" class="headerlink" title="异步通知"></a>异步通知</h4><p>发送完之后就继续执行下面的代码，不需要去等待接受通知的处理，这里用到通知对列 NSNotificationQueue</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sendNotificationQueue &#123;</span><br><span class="line">    <span class="comment">//每个线程都默认又一个通知队列，可以直接获取，也可以alloc</span></span><br><span class="line">    <span class="built_in">NSNotificationQueue</span> * notificationQueue = [<span class="built_in">NSNotificationQueue</span> defaultQueue];</span><br><span class="line">    <span class="built_in">NSNotification</span> * notification = [<span class="built_in">NSNotification</span> notificationWithName:<span class="string">@"EdisonNotif"</span> object:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"异步发送通知before:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    [notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostWhenIdle</span> coalesceMask:<span class="built_in">NSNotificationCoalescingOnName</span> forModes:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"异步发送通知after:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d55b94760?w=979&amp;h=50&amp;f=png&amp;s=49949" alt=""></p>
+<p>从 log 结果看出，通知处理实现了异步</p>
+<blockquote>
+<p>发送通知before -&gt; 发送通知after -&gt; 接收到通知了 </p>
+</blockquote>
+<h4 id="多线程通知"><a href="#多线程通知" class="headerlink" title="多线程通知"></a>多线程通知</h4><p>点击屏幕直接发送通知，开启一个线程发送通知</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    [<span class="built_in">NSThread</span> detachNewThreadSelector:<span class="keyword">@selector</span>(sendNotification) toTarget:<span class="keyword">self</span> withObject:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而用线程发送同步的是可以接受到通知的，并且处理也是在线程里处理的<br>，这说通知队列跟线程是有关系的，再继续改代码，回到线程发送异步通知，只是把发送时机改成马上发送</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d56f8836e?w=979&amp;h=81&amp;f=png&amp;s=77932" alt=""></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostNow</span> coalesceMask:<span class="built_in">NSNotificationNoCoalescing</span> forModes:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d55ce8eb2?w=947&amp;h=49&amp;f=png&amp;s=47572" alt=""></p>
+<p>这又能处理通知，所以可以说NSPostNow就是同步，其实呢，[[NSNotificationCenter defaultCenter]通知中心这句代码的意思就是：你在哪个线程里面就是获取当前线程的通知队列并且默认采用NSPostNow发送时机</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostWhenIdle</span> coalesceMask:<span class="built_in">NSNotificationNoCoalescing</span> forModes:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d56f53724?w=946&amp;h=49&amp;f=png&amp;s=48213" alt=""></p>
+<p>那么通知队列到底和线程有什么关系呢：每个线程都有一个通知队列，当线程结束了，通知队列就被释放了，所以当前选择发送时机为NSPostWhenIdle时也就是空闲的时候发送通知，通知队列就已经释放了，所以通知发送不出去了</p>
+<p>如果线程不结束，就可以发送通知了，用runloop让线程不结束</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sendAsyncNotification &#123;</span><br><span class="line">    <span class="comment">//每个线程都默认又一个通知队列，可以直接获取，也可以alloc</span></span><br><span class="line">    <span class="built_in">NSNotificationQueue</span> * notificationQueue = [<span class="built_in">NSNotificationQueue</span> defaultQueue];</span><br><span class="line">    <span class="built_in">NSNotification</span> * notification = [<span class="built_in">NSNotification</span> notificationWithName:<span class="string">@"EdisonNotif"</span> object:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"异步发送通知before:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    [notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostWhenIdle</span> coalesceMask:<span class="built_in">NSNotificationNoCoalescing</span> forModes:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"异步发送通知after:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    <span class="built_in">NSPort</span> * port = [<span class="built_in">NSPort</span> new];</span><br><span class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] addPort:port forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br><span class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] run];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d7c6999d2?w=978&amp;h=59&amp;f=png&amp;s=49945" alt=""></p>
+<p>这样通知就被发送出去了，而且发送和处理也在线程中，这还没有达到真正的异步是吧，应该发送在一个线程，处理在另一个线程</p>
+<p>消息合并处理</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sendAsyncNotificationTwo &#123;</span><br><span class="line">    <span class="built_in">NSNotificationQueue</span> * notificationQueue = [<span class="built_in">NSNotificationQueue</span> defaultQueue];</span><br><span class="line">    <span class="built_in">NSNotification</span> * notification = [<span class="built_in">NSNotification</span> notificationWithName:<span class="string">@"EdisonNotif"</span> object:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSNotification</span> * notificationtwo = [<span class="built_in">NSNotification</span> notificationWithName:<span class="string">@"EdisonNotif"</span> object:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"异步发送通知before:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    [notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostWhenIdle</span> coalesceMask:<span class="built_in">NSNotificationCoalescingOnName</span> forModes:<span class="literal">nil</span>];</span><br><span class="line">    [notificationQueue enqueueNotification:notificationtwo postingStyle:<span class="built_in">NSPostWhenIdle</span> coalesceMask:<span class="built_in">NSNotificationCoalescingOnName</span> forModes:<span class="literal">nil</span>];</span><br><span class="line">    [notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostWhenIdle</span> coalesceMask:<span class="built_in">NSNotificationCoalescingOnName</span> forModes:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"异步发送通知after:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    <span class="built_in">NSPort</span> * port = [<span class="built_in">NSPort</span> new];</span><br><span class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] addPort:port forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br><span class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] run];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d81aaa7e5?w=972&amp;h=50&amp;f=png&amp;s=47729" alt=""></p>
+<p>设置成NSNotificationCoalescingOnName按名称合并，此时我连续发送三条,但是只处理了一次，<br>再继续，上面代码就只是把发送时机改成NSPostNow</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostNow</span> coalesceMask:<span class="built_in">NSNotificationCoalescingOnName</span> forModes:<span class="literal">nil</span>];</span><br><span class="line">[notificationQueue enqueueNotification:notificationTwo postingStyle:<span class="built_in">NSPostNow</span> coalesceMask:<span class="built_in">NSNotificationCoalescingOnName</span> forModes:<span class="literal">nil</span>];</span><br><span class="line">[notificationQueue enqueueNotification:notification postingStyle:<span class="built_in">NSPostNow</span> coalesceMask:<span class="built_in">NSNotificationCoalescingOnName</span> forModes:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">2017-08-30 16:30:04.114 通知的底层解析[4442:164620] 异步发送通知before:&lt;NSThread: 0x600000269a40&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">2017-08-30 16:30:04.115 通知的底层解析[4442:164620] 接收到通知了:&lt;NSThread: 0x600000269a40&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">2017-08-30 16:30:04.115 通知的底层解析[4442:164620] 接收到通知了:&lt;NSThread: 0x600000269a40&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">2017-08-30 16:30:04.115 通知的底层解析[4442:164620] 接收到通知了:&lt;NSThread: 0x600000269a40&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">2017-08-30 16:30:04.116 通知的底层解析[4442:164620] 异步发送通知after:&lt;NSThread: 0x600000269a40&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>结果就打印了处理了三次通知，这个应该好理解吧，就跟dispatch_sync原理一样，就是得发送因为NSPostNow是同步的，所以发送第一条通知，得等处理完第一条通知，才跑发送第二条通知，这样肯定就没有合并消息一说了，因为这有点类似线程阻塞的意思，只有异步，就是三个发送通知全部跑完，在处理通知的时候看是否需要合并和怎么合并，再去处理</p>
+<blockquote>
+<p>系统的很多方法，如 drawRect，就是默认消息合并处理，多次方法只响应一次</p>
+</blockquote>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><h4 id="先猜想一下"><a href="#先猜想一下" class="headerlink" title="先猜想一下"></a>先猜想一下</h4><p>首先，信息的传递就依靠通知(NSNotification),也就是说，通知就是信息(执行的方法，观察者本身(self),参数)的包装。</p>
+<p>通知中心(NSNotificationCenter)是个单例，向通知中心注册观察者，也就是说，这个通知中心有个集合，这个集合存放着观察者。</p>
+<p>可以想象的是，发送通知需要name参数，添加观察者也有个name参数，这两个name一样的时候，当发送通知时候，观察者对象就能接受到信息，执行对应的操作。那么这个集合很容易想到就是NSDictionary! </p>
+<p>key就是name，value就是NSArray(存放数据模型)，里面存放观察者对象。如下图 </p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d81c74cfe?w=790&amp;h=539&amp;f=png&amp;s=30252" alt=""></p>
+<h4 id="实现探究"><a href="#实现探究" class="headerlink" title="实现探究"></a>实现探究</h4><p>根据NSNotification&amp;NSNotificationCenter接口给出实现代码,创建两个新类YFLNotification,YFLNotificationCenter，这两个类的接口和苹果提供的接口完全一样，我将根据接口提供的功能给出实现代码。 </p>
+<p>要点是通知中心是单例类，并且通知中心维护了一个包含所有注册的观察者的集合，这里我选择了动态数组来存储所有的观察者，源码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+ (YFLNotificationCenter*)defaultCenter &#123;</span><br><span class="line">    <span class="keyword">static</span> YFLNotificationCenter *singleton;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        singleton = [[<span class="keyword">self</span> alloc] initSingleton];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">instancetype</span>)initSingleton &#123;</span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        _obsetvers = [[<span class="built_in">NSMutableDictionary</span> alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还定义了一个观察者模型用于保存观察者，通知消息名，观察者收到通知后执行代码所在的操作队列和执行代码的回调，模型源码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">YFLObserverModel</span>: <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="keyword">id</span> observer;  <span class="comment">//观察者对象</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) SEL selector;  <span class="comment">//执行的方法</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *notificationName; <span class="comment">//通知名字</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="keyword">id</span> object;  <span class="comment">//携带参数</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSOperationQueue</span> *operationQueue;<span class="comment">//队列</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) OperationBlock block;  <span class="comment">//回调</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>向通知中心注册观察者，源码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addObserver:(<span class="keyword">id</span>)observer selector:(SEL)aSelector name:(<span class="keyword">nullable</span> <span class="built_in">NSString</span>*)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject &#123;</span><br><span class="line">    <span class="comment">//如果不存在，那么即创建</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span>.obsetvers objectForKey:aName]) &#123;</span><br><span class="line">        <span class="built_in">NSMutableArray</span> *arrays = [[<span class="built_in">NSMutableArray</span> alloc]init];</span><br><span class="line">        <span class="comment">// 创建数组模型</span></span><br><span class="line">        YFLObserverModel *observerModel = [[YFLObserverModel alloc]init];</span><br><span class="line">        observerModel.observer = observer;</span><br><span class="line">        observerModel.selector = aSelector;</span><br><span class="line">        observerModel.notificationName = aName;</span><br><span class="line">        observerModel.object = anObject;</span><br><span class="line">        [arrays addObject:observerModel];</span><br><span class="line">        <span class="comment">//填充进入数组</span></span><br><span class="line">        [<span class="keyword">self</span>.obsetvers setObject:arrays forKey:aName];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果存在，取出来，继续添加减去即可</span></span><br><span class="line">        <span class="built_in">NSMutableArray</span> *arrays = (<span class="built_in">NSMutableArray</span>*)[<span class="keyword">self</span>.obsetvers objectForKey:aName];</span><br><span class="line">        <span class="comment">// 创建数组模型</span></span><br><span class="line">        YFLObserverModel *observerModel = [[YFLObserverModel alloc]init];</span><br><span class="line">        observerModel.observer = observer;</span><br><span class="line">        observerModel.selector = aSelector;</span><br><span class="line">        observerModel.notificationName = aName;</span><br><span class="line">        observerModel.object = anObject;</span><br><span class="line">        [arrays addObject:observerModel];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">id</span> &lt;<span class="built_in">NSObject</span>&gt;)addObserverForName:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)name object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)obj queue:(<span class="keyword">nullable</span> <span class="built_in">NSOperationQueue</span> *)queue usingBlock:(<span class="keyword">void</span> (^)(YFLNotification *note))block &#123;</span><br><span class="line">    <span class="comment">//如果不存在，那么即创建</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span>.obsetvers objectForKey:name]) &#123;</span><br><span class="line">        <span class="built_in">NSMutableArray</span> *arrays = [[<span class="built_in">NSMutableArray</span> alloc]init];</span><br><span class="line">        <span class="comment">// 创建数组模型</span></span><br><span class="line">        YFLObserverModel *observerModel = [[YFLObserverModel alloc]init];</span><br><span class="line">        observerModel.block = block;</span><br><span class="line">        observerModel.notificationName = name;</span><br><span class="line">        observerModel.object = obj;</span><br><span class="line">        observerModel.operationQueue = queue;</span><br><span class="line">        [arrays addObject:observerModel];</span><br><span class="line">        <span class="comment">//填充进入数组</span></span><br><span class="line">        [<span class="keyword">self</span>.obsetvers setObject:arrays forKey:name];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果存在，取出来，继续添加即可</span></span><br><span class="line">        <span class="built_in">NSMutableArray</span> *arrays = (<span class="built_in">NSMutableArray</span>*)[<span class="keyword">self</span>.obsetvers objectForKey:name];</span><br><span class="line">        <span class="comment">// 创建数组模型</span></span><br><span class="line">        YFLObserverModel *observerModel = [[YFLObserverModel alloc]init];</span><br><span class="line">        observerModel.block = block;</span><br><span class="line">        observerModel.notificationName = name;</span><br><span class="line">        observerModel.object = obj;</span><br><span class="line">        observerModel.operationQueue = queue;</span><br><span class="line">        [arrays addObject:observerModel];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发送通知有三种方式，最终都是调用- (void)postNotification:(YFLNotification *)notification，源码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)postNotification:(YFLNotification *)notification &#123;</span><br><span class="line">    <span class="comment">//name 取出来对应观察者数组，执行任务</span></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *arrays = (<span class="built_in">NSMutableArray</span>*)[<span class="keyword">self</span>.obsetvers objectForKey:notification.name];</span><br><span class="line">    [arrays enumerateObjectsUsingBlock:^(<span class="keyword">id</span>  _Nonnull obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">        <span class="comment">//取出数据模型</span></span><br><span class="line">        YFLObserverModel *observerModel = obj;</span><br><span class="line">        <span class="keyword">id</span> observer = observerModel.observer;</span><br><span class="line">        SEL secector = observerModel.selector;</span><br><span class="line">        <span class="keyword">if</span> (!observerModel.operationQueue) &#123; </span><br><span class="line">            <span class="meta">#pragma clang diagnostic push</span></span><br><span class="line">            <span class="meta">#pragma clang diagnostic ignored <span class="meta-string">"-Warc-performSelector-leaks"</span></span></span><br><span class="line">            [observer performSelector:secector withObject:notification];</span><br><span class="line">            <span class="meta">#pragma clang diagnostic pop</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//创建任务</span></span><br><span class="line">            <span class="built_in">NSBlockOperation</span> *operation = [<span class="built_in">NSBlockOperation</span> blockOperationWithBlock:^&#123;</span><br><span class="line">                <span class="comment">//这里用block回调出去</span></span><br><span class="line">                observerModel.block(notification);</span><br><span class="line">            &#125;];</span><br><span class="line">            <span class="comment">// 如果添加观察者 传入 队列，那么就任务放在队列中执行(子线程异步执行)</span></span><br><span class="line">            <span class="built_in">NSOperationQueue</span> *operationQueue = observerModel.operationQueue;</span><br><span class="line">            [operationQueue addOperation:operation];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="底层通信-port"><a href="#底层通信-port" class="headerlink" title="底层通信 port"></a>底层通信 port</h4><p>通知队列也可以实现异步，但是真正的异步还是得通过port</p>
+<p>底层所有的消息触发都是通过端口 NSPort 来进行操作的</p>
+<p>NSPort 接口通信实现代码</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()&lt;<span class="title">NSPortDelegate</span>&gt;</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">NSPort</span> *_port;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    [<span class="keyword">self</span> testPortDemo];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="comment">// NSPort</span></span><br><span class="line">    <span class="comment">//    [self sendPort];</span></span><br><span class="line">    [<span class="built_in">NSThread</span> detachNewThreadSelector:<span class="keyword">@selector</span>(sendPort) toTarget:<span class="keyword">self</span> withObject:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)testPortDemo &#123;</span><br><span class="line">    _port  =[[<span class="built_in">NSPort</span> alloc] init];</span><br><span class="line">    <span class="comment">//消息处理通过代理来处理的</span></span><br><span class="line">    _port.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="comment">//把端口加在哪个线程里，就在哪个线程进行处理，下面：加在当前线程的runloop里</span></span><br><span class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] addPort:_port forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//发送消息</span></span><br><span class="line">- (<span class="keyword">void</span>)sendPort &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"port发送通知before:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    [_port sendBeforeDate:[<span class="built_in">NSDate</span> date] msgid:<span class="number">1212</span> components:<span class="literal">nil</span> from:<span class="literal">nil</span> reserved:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"port发送通知after:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//处理消息</span></span><br><span class="line">- (<span class="keyword">void</span>)handlePortMessage:(<span class="built_in">NSPortMessage</span> *)message &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"port处理任务:%@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    <span class="built_in">NSObject</span> * messageObj = (<span class="built_in">NSObject</span>*)message;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"=%@"</span>,[messageObj valueForKey:<span class="string">@"msgid"</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163de75d83ae2321?w=993&amp;h=63&amp;f=png&amp;s=58865" alt=""></p>
+<p>发送和处理在不同线程，实现通知的效果</p>
+<blockquote>
+<p>以上原理解析文章来源：<a href="https://www.jianshu.com/p/051a9a3af1a4，https://www.jianshu.com/p/087a35d5f778，https://blog.csdn.net/qq_18505715/article/details/76146575" target="_blank" rel="noopener">https://www.jianshu.com/p/051a9a3af1a4，https://www.jianshu.com/p/087a35d5f778，https://blog.csdn.net/qq_18505715/article/details/76146575</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../13/iOS Principle weak/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          iOS Principle：weak
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../11/iOS Principle ReactNative/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS Principle：ReactNative</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方便记忆："><span class="nav-number">1.</span> <span class="nav-text">方便记忆：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSNotification、NSNotificationCenter-等"><span class="nav-number">3.</span> <span class="nav-text">NSNotification、NSNotificationCenter 等</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NSNotification"><span class="nav-number">3.1.</span> <span class="nav-text">NSNotification</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSNotificationCenter"><span class="nav-number">3.2.</span> <span class="nav-text">NSNotificationCenter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送者"><span class="nav-number">3.3.</span> <span class="nav-text">发送者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#观察者"><span class="nav-number">3.4.</span> <span class="nav-text">观察者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除观察者"><span class="nav-number">3.5.</span> <span class="nav-text">移除观察者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSNotificationQueue"><span class="nav-number">3.6.</span> <span class="nav-text">NSNotificationQueue</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通知管理：同-异-步、单-多-线程"><span class="nav-number">4.</span> <span class="nav-text">通知管理：同(异)步、单(多)线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同步通知"><span class="nav-number">4.1.</span> <span class="nav-text">同步通知</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步通知"><span class="nav-number">4.2.</span> <span class="nav-text">异步通知</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程通知"><span class="nav-number">4.3.</span> <span class="nav-text">多线程通知</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现原理"><span class="nav-number">5.</span> <span class="nav-text">实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先猜想一下"><span class="nav-number">5.1.</span> <span class="nav-text">先猜想一下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现探究"><span class="nav-number">5.2.</span> <span class="nav-text">实现探究</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#底层通信-port"><span class="nav-number">5.3.</span> <span class="nav-text">底层通信 port</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

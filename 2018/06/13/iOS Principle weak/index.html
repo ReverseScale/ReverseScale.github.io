@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ios principle：weak | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Principle">
+  
+  
+  
+  
+  <meta name="description" content="之前只是认识到 weak 作为一种弱引用属性修饰词，不增加对象的引用计数，也不持有对象，对象消失后，指针自动变成nil。在ARC环境下，为避免循环引用，往往会把delegate属性用weak修饰~">
+<meta name="keywords" content="Principle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Principle：weak">
+<meta property="og:url" content="https://reversescale.github.io/2018/06/13/iOS Principle weak/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="之前只是认识到 weak 作为一种弱引用属性修饰词，不增加对象的引用计数，也不持有对象，对象消失后，指针自动变成nil。在ARC环境下，为避免循环引用，往往会把delegate属性用weak修饰~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/12/163f30ecf7d18639?w=963&h=129&f=png&s=31588">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/12/163f30ecf0d7c7df?w=589&h=563&f=png&s=79568">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/12/163f30ed0395bee2?w=547&h=595&f=png&s=74638">
+<meta property="og:updated_time" content="2018-11-26T12:57:10.860Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Principle：weak">
+<meta name="twitter:description" content="之前只是认识到 weak 作为一种弱引用属性修饰词，不增加对象的引用计数，也不持有对象，对象消失后，指针自动变成nil。在ARC环境下，为避免循环引用，往往会把delegate属性用weak修饰~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/6/12/163f30ecf7d18639?w=963&h=129&f=png&s=31588">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-iOS Principle weak" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      iOS Principle：weak
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-06-13T13:56:27.000Z" itemprop="datePublished">2018-06-13</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Principle/">Principle</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前只是认识到 weak 作为一种弱引用属性修饰词，不增加对象的引用计数，也不持有对象，对象消失后，指针自动变成nil。在ARC环境下，为避免循环引用，往往会把delegate属性用weak修饰~ </p>
+<a id="more"></a>
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_weak" target="_blank" rel="noopener">Github Demo</a></p>
+<h3 id="方便记忆："><a href="#方便记忆：" class="headerlink" title="方便记忆："></a>方便记忆：</h3><ul>
+<li>作用：作为一种弱引用属性修饰词，不增加对象的引用计数，也不持有对象，对象消失后，指针自动变成nil</li>
+<li>原理：weak 其实是一个 hash（哈希）表，Key:对象的地址，Value:weak 指针的地址数组</li>
+<li>底层实现过程<ul>
+<li>初始化时：runtime会调用objc_initWeak函数，初始化一个新的weak指针指向对象的地址</li>
+<li>添加引用时：objc_initWeak函数会调用 objc_storeWeak() 函数， objc_storeWeak() 的作用是更新指针指向，创建对应的弱引用表</li>
+<li>释放时：调用clearDeallocating函数，对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="引文"><a href="#引文" class="headerlink" title="引文"></a>引文</h3><p>今天整理一下 weak 的实现原理，先概括的讲 weak 其实是一个 hash（哈希）表，Key 是所指对象的地址，Value 是 weak 指针的地址数组。</p>
+<p>顺便发现其实现在想循环引用也挺难的，Xcode会有个提醒，黄黄的挺显眼的…</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/12/163f30ecf7d18639?w=963&amp;h=129&amp;f=png&amp;s=31588" alt=""></p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>Runtime维护了一个weak表，用于存储指向某个对象的所有weak指针。weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址（这个地址的值是所指对象的地址）数组。</p>
+<p>底层的实现大体分为三步：</p>
+<ul>
+<li>1.初始化时：runtime会调用objc_initWeak函数，初始化一个新的weak指针指向对象的地址。（给你添个干兄弟）</li>
+<li>2.添加引用时：objc_initWeak函数会调用 objc_storeWeak() 函数， objc_storeWeak() 的作用是更新指针指向，创建对应的弱引用表。（给这个干兄弟落个户口，介绍给亲戚朋友）</li>
+<li>3.释放时，调用clearDeallocating函数。clearDeallocating函数首先根据对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil，最后把这个entry从weak表中删除，最后清理对象的记录。（最后等这个干兄弟干完活后，被卸磨杀驴）</li>
+</ul>
+<h3 id="分步解析内部实现："><a href="#分步解析内部实现：" class="headerlink" title="分步解析内部实现："></a>分步解析内部实现：</h3><p>1）初始化时：runtime会调用objc_initWeak函数，objc_initWeak函数会初始化一个新的weak指针指向对象的地址。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSObject</span> *obj = [[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line"><span class="keyword">id</span> __<span class="keyword">weak</span> obj1 = obj; <span class="comment">// 看好 weak 了</span></span><br></pre></td></tr></table></figure>
+<p>当我们初始化一个weak变量时，runtime会调用 NSObject.mm 中的objc_initWeak函数。这个函数在Clang中的声明如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">id <span class="title">objc_initWeak</span><span class="params">(id *object, id value)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>objc_initWeak() 方法的实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">id <span class="title">objc_initWeak</span><span class="params">(id *location, id newObj)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 查看对象实例是否有效</span></span><br><span class="line">    <span class="comment">// 无效对象直接导致指针释放</span></span><br><span class="line">    <span class="keyword">if</span> (!newObj) &#123;</span><br><span class="line">        *location = nil;</span><br><span class="line">        <span class="keyword">return</span> nil;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这里传递了三个 bool 数值</span></span><br><span class="line">    <span class="comment">// 使用 template 进行常量参数传递是为了优化性能</span></span><br><span class="line">    <span class="keyword">return</span> storeWeakfalse<span class="comment">/*old*/</span>, <span class="literal">true</span><span class="comment">/*new*/</span>, <span class="literal">true</span><span class="comment">/*crash*/</span>&gt;</span><br><span class="line">    (location, (objc_object*)newObj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，这个函数仅仅是一个深层函数的调用入口，而一般的入口函数中，都会做一些简单的判断（例如 objc_msgSend 中的缓存判断），这里判断了其指针指向的类对象是否有效，无效直接释放，不再往深层调用函数。否则，object将被注册为一个指向value的__weak对象。</p>
+<blockquote>
+<p>注意：objc_initWeak函数有一个前提条件：就是object必须是一个没有被注册为__weak对象的有效指针。而value则可以是null，或者指向一个有效的对象。</p>
+</blockquote>
+<p>2）添加引用时：objc_initWeak函数会调用 objc_storeWeak() 函数， objc_storeWeak() 的作用是更新指针指向，创建对应的弱引用表。</p>
+<p>objc_storeWeak的函数声明如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">id <span class="title">objc_storeWeak</span><span class="params">(id *location, id value)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>objc_storeWeak 方法的实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HaveOld:     true - 变量有值</span></span><br><span class="line"><span class="comment">//             false - 需要被及时清理，当前值可能为 nil</span></span><br><span class="line"><span class="comment">// HaveNew:     true - 需要被分配的新值，当前值可能为 nil</span></span><br><span class="line"><span class="comment">//             false - 不需要分配新值</span></span><br><span class="line"><span class="comment">// CrashIfDeallocating: true - 说明 newObj 已经释放或者 newObj 不支持弱引用，该过程需要暂停</span></span><br><span class="line"><span class="comment">//             false - 用 nil 替代存储</span></span><br><span class="line"><span class="keyword">template</span> <span class="keyword">bool</span> HaveOld, <span class="keyword">bool</span> HaveNew, <span class="keyword">bool</span> CrashIfDeallocating&gt;</span><br><span class="line"><span class="function"><span class="keyword">static</span> id <span class="title">storeWeak</span><span class="params">(id *location, objc_object *newObj)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 该过程用来更新弱引用指针的指向</span></span><br><span class="line">    <span class="comment">// 初始化 previouslyInitializedClass 指针</span></span><br><span class="line">    Class previouslyInitializedClass = nil;</span><br><span class="line">    id oldObj;</span><br><span class="line">    <span class="comment">// 声明两个 SideTable</span></span><br><span class="line">    <span class="comment">// ① 新旧散列创建</span></span><br><span class="line">    SideTable *oldTable;</span><br><span class="line">    SideTable *newTable;</span><br><span class="line">    <span class="comment">// 获得新值和旧值的锁存位置（用地址作为唯一标示）</span></span><br><span class="line">    <span class="comment">// 通过地址来建立索引标志，防止桶重复</span></span><br><span class="line">    <span class="comment">// 下面指向的操作会改变旧值</span></span><br><span class="line">    retry:</span><br><span class="line">    <span class="keyword">if</span> (HaveOld) &#123;</span><br><span class="line">        <span class="comment">// 更改指针，获得以 oldObj 为索引所存储的值地址</span></span><br><span class="line">        oldObj = *location;</span><br><span class="line">        oldTable = &amp;SideTables()[oldObj];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        oldTable = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (HaveNew) &#123;</span><br><span class="line">        <span class="comment">// 更改新值指针，获得以 newObj 为索引所存储的值地址</span></span><br><span class="line">        newTable = &amp;SideTables()[newObj];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        newTable = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 加锁操作，防止多线程中竞争冲突</span></span><br><span class="line">    SideTable::lockTwoHaveOld, HaveNew&gt;(oldTable, newTable);</span><br><span class="line">    <span class="comment">// 避免线程冲突重处理</span></span><br><span class="line">    <span class="comment">// location 应该与 oldObj 保持一致，如果不同，说明当前的 location 已经处理过 oldObj 可是又被其他线程所修改</span></span><br><span class="line">    <span class="keyword">if</span> (HaveOld  &amp;&amp;  *location != oldObj) &#123;</span><br><span class="line">        SideTable::unlockTwoHaveOld, HaveNew&gt;(oldTable, newTable);</span><br><span class="line">        <span class="keyword">goto</span> retry;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 防止弱引用间死锁</span></span><br><span class="line">    <span class="comment">// 并且通过 +initialize 初始化构造器保证所有弱引用的 isa 非空指向</span></span><br><span class="line">    <span class="keyword">if</span> (HaveNew  &amp;&amp;  newObj) &#123;</span><br><span class="line">        <span class="comment">// 获得新对象的 isa 指针</span></span><br><span class="line">        Class cls = newObj-&gt;getIsa();</span><br><span class="line">        <span class="comment">// 判断 isa 非空且已经初始化</span></span><br><span class="line">        <span class="keyword">if</span> (cls != previouslyInitializedClass  &amp;&amp;</span><br><span class="line">        !((objc_class *)cls)-&gt;isInitialized()) &#123;</span><br><span class="line">            <span class="comment">// 解锁</span></span><br><span class="line">            SideTable::unlockTwoHaveOld, HaveNew&gt;(oldTable, newTable);</span><br><span class="line">            <span class="comment">// 对其 isa 指针进行初始化</span></span><br><span class="line">            _class_initialize(_class_getNonMetaClass(cls, (id)newObj));</span><br><span class="line">            <span class="comment">// 如果该类已经完成执行 +initialize 方法是最理想情况</span></span><br><span class="line">            <span class="comment">// 如果该类 +initialize 在线程中</span></span><br><span class="line">            <span class="comment">// 例如 +initialize 正在调用 storeWeak 方法</span></span><br><span class="line">            <span class="comment">// 需要手动对其增加保护策略，并设置 previouslyInitializedClass 指针进行标记</span></span><br><span class="line">            previouslyInitializedClass = cls;</span><br><span class="line">            <span class="comment">// 重新尝试</span></span><br><span class="line">            <span class="keyword">goto</span> retry;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ② 清除旧值</span></span><br><span class="line">    <span class="keyword">if</span> (HaveOld) &#123;</span><br><span class="line">        weak_unregister_no_lock(&amp;oldTable-&gt;weak_table, oldObj, location);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ③ 分配新值</span></span><br><span class="line">    <span class="keyword">if</span> (HaveNew) &#123;</span><br><span class="line">        newObj = (objc_object *)weak_register_no_lock(&amp;newTable-&gt;weak_table,</span><br><span class="line">        (id)newObj, location,</span><br><span class="line">        CrashIfDeallocating);</span><br><span class="line">        <span class="comment">// 如果弱引用被释放 weak_register_no_lock 方法返回 nil</span></span><br><span class="line">        <span class="comment">// 在引用计数表中设置若引用标记位</span></span><br><span class="line">        <span class="keyword">if</span> (newObj  &amp;&amp;  !newObj-&gt;isTaggedPointer()) &#123;</span><br><span class="line">            <span class="comment">// 弱引用位初始化操作</span></span><br><span class="line">            <span class="comment">// 引用计数那张散列表的weak引用对象的引用计数中标识为weak引用</span></span><br><span class="line">            newObj-&gt;setWeaklyReferenced_nolock();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 之前不要设置 location 对象，这里需要更改指针指向</span></span><br><span class="line">        *location = (id)newObj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 没有新值，则无需更改</span></span><br><span class="line">    &#125;</span><br><span class="line">    SideTable::unlockTwoHaveOld, HaveNew&gt;(oldTable, newTable);</span><br><span class="line">    <span class="keyword">return</span> (id)newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="拆分解析上述代码"><a href="#拆分解析上述代码" class="headerlink" title="拆分解析上述代码"></a>拆分解析上述代码</h3><p>① SideTable</p>
+<p>主要用于管理对象的引用计数和 weak 表。在 NSObject.mm 中声明其数据结构：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SideTable</span> &#123;</span></span><br><span class="line">    <span class="comment">// 保证原子操作的自旋锁</span></span><br><span class="line">    <span class="keyword">spinlock_t</span> slock;</span><br><span class="line">    <span class="comment">// 引用计数的 hash 表</span></span><br><span class="line">    RefcountMap refcnts;</span><br><span class="line">    <span class="comment">// weak 引用全局 hash 表</span></span><br><span class="line">    <span class="keyword">weak_table_t</span> weak_table;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于 slock 和 refcnts 两个成员不用多说，第一个是为了防止竞争选择的自旋锁，第二个是协助对象的 isa 指针的 extra_rc 共同引用计数的变量（对于对象结果，在今后的文中提到）。这里主要看 weak 全局 hash 表的结构与作用。</p>
+<p>② weak 表</p>
+<p>weak表是一个弱引用表，实现为一个weak_table_t结构体，存储了某个对象相关的所有的弱引用信息。</p>
+<p>在objc-weak.h中其定义如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">weak_table_t</span> &#123;</span></span><br><span class="line">    <span class="comment">// 保存了所有指向指定对象的 weak 指针</span></span><br><span class="line">    <span class="keyword">weak_entry_t</span> *weak_entries;</span><br><span class="line">    <span class="comment">// 存储空间</span></span><br><span class="line">    <span class="keyword">size_t</span>    num_entries;</span><br><span class="line">    <span class="comment">// 参与判断引用计数辅助量</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> mask;</span><br><span class="line">    <span class="comment">// hash key 最大偏移值</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> max_hash_displacement;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这是一个全局弱引用hash表。使用不定类型对象的地址作为 key ，用 weak_entry_t 类型结构体对象作为 value 。其中的 weak_entries 成员，从字面意思上看，即为弱引用表入口。其实现也是这样的。</p>
+<p>其中weak_entry_t是存储在弱引用表中的一个内部结构体，它负责维护和存储指向一个对象的所有弱引用hash表。其定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> objc_object ** <span class="keyword">weak_referrer_t</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">weak_entry_t</span> &#123;</span></span><br><span class="line">    DisguisedPtrobjc_object&gt; referent;</span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">            <span class="keyword">weak_referrer_t</span> *referrers;</span><br><span class="line">            <span class="keyword">uintptr_t</span>        out_of_line : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">uintptr_t</span>        num_refs : PTR_MINUS_1;</span><br><span class="line">            <span class="keyword">uintptr_t</span>        mask;</span><br><span class="line">            <span class="keyword">uintptr_t</span>        max_hash_displacement;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">            <span class="comment">// out_of_line=0 is LSB of one of these (don't care which)</span></span><br><span class="line">            <span class="keyword">weak_referrer_t</span>  inline_referrers[WEAK_INLINE_COUNT];</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 weak_entry_t 的结构中，DisguisedPtr referent 是对泛型对象的指针做了一个封装，通过这个泛型类来解决内存泄漏的问题。从注释中写 out_of_line 成员为最低有效位，当其为0的时候， weak_referrer_t 成员将扩展为多行静态 hash table。</p>
+<p>其实其中的 weak_referrer_t 是二维 objc_object 的别名，通过一个二维指针地址偏移，用下标作为 hash 的 key，做成了一个弱引用散列。</p>
+<p>out_of_line 的值通常情况下是等于零的，所以弱引用表总是一个 objc_objective 指针二维数组。一维 objc_objective 指针可构成一张弱引用散列表，通过第三纬度实现了多张散列表，并且表数量为 WEAK_INLINE_COUNT 。</p>
+<p>StripedMap 是一个模板类，在这个类中有一个 array 成员，用来存储 PaddedT 对象，并且其中对于 [] 符的重载定义中，会返回这个 PaddedT 的 value 成员，这个 value 就是我们传入的 T 泛型成员，也就是 SideTable 对象。</p>
+<p>在 array 的下标中，这里使用了 indexForPointer 方法通过位运算计算下标，实现了静态的 Hash Table。而在 weak_table 中，其成员 weak_entry 会将传入对象的地址加以封装起来，并且其中也有访问全局弱引用表的入口。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/12/163f30ecf0d7c7df?w=589&amp;h=563&amp;f=png&amp;s=79568" alt=""></p>
+<p>旧对象解除注册操作 weak_unregister_no_lock</p>
+<p>该方法主要作用是将旧对象在 weak_table 中接触 weak 指针的对应绑定。根据函数名，称之为解除注册操作。从源码中，可以知道其功能就是从 weak_table 中接触 weak 指针的绑定。而其中的遍历查询，就是针对于 weak_entry 中的多张弱引用散列表。</p>
+<p>新对象添加注册操作 weak_register_no_lock</p>
+<p>这一步与上一步相反，通过 weak_register_no_lock 函数把心的对象进行注册操作，完成与对应的弱引用表进行绑定操作。</p>
+<p>③ 初始化弱引用对象流程一览</p>
+<p>弱引用的初始化，从上文的分析中可以看出，主要的操作部分就在弱引用表的取键、查询散列、创建弱引用表等操作，可以总结出如下的流程图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/12/163f30ed0395bee2?w=547&amp;h=595&amp;f=png&amp;s=74638" alt=""></p>
+<p>这个图中省略了很多情况的判断，但是当声明一个 weak 会调用上图中的这些方法。当然， storeWeak 方法不仅仅用在 weak 的声明中，在 class 内部的操作中也会常常通过该方法来对 weak 对象进行操作。</p>
+<p>3）释放时，调用clearDeallocating函数。clearDeallocating函数首先根据对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil，最后把这个entry从weak表中删除，最后清理对象的记录。</p>
+<p>当weak引用指向的对象被释放时，又是如何去处理weak指针的呢？当释放对象时，其基本流程如下：</p>
+<ul>
+<li>1、调用objc_release</li>
+<li>2、因为对象的引用计数为0，所以执行dealloc</li>
+<li>3、在dealloc中，调用了_objc_rootDealloc函数</li>
+<li>4、在_objc_rootDealloc中，调用了object_dispose函数</li>
+<li>5、调用objc_destructInstance</li>
+<li>6、最后调用objc_clear_deallocating</li>
+</ul>
+<p>重点看对象被释放时调用的objc_clear_deallocating函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_clear_deallocating</span><span class="params">(id obj)</span> </span>&#123;</span><br><span class="line">    assert(obj);</span><br><span class="line">    assert(!UseGC);</span><br><span class="line">    <span class="keyword">if</span> (obj-&gt;isTaggedPointer()) <span class="keyword">return</span>;</span><br><span class="line">    obj-&gt;clearDeallocating();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是调用了clearDeallocating，继续追踪可以发现，它最终是使用了迭代器来取weak表的value，然后调用weak_clear_no_lock,然后查找对应的value，将该weak指针置空，weak_clear_no_lock函数的实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Called by dealloc; nils out all weak pointers that point to the</span></span><br><span class="line"><span class="comment">* provided object so that they can no longer be used.</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param weak_table</span></span><br><span class="line"><span class="comment">* @param referent The object being deallocated.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">weak_clear_no_lock</span><span class="params">(<span class="keyword">weak_table_t</span> *weak_table, id referent_id)</span> </span>&#123;</span><br><span class="line">    objc_object *referent = (objc_object *)referent_id;</span><br><span class="line">    <span class="keyword">weak_entry_t</span> *entry = weak_entry_for_referent(weak_table, referent);</span><br><span class="line">    <span class="keyword">if</span> (entry == nil) &#123;</span><br><span class="line">        <span class="comment">/// XXX shouldn't happen, but does with mismatched CF/objc</span></span><br><span class="line">        <span class="comment">//printf("XXX no entry for clear deallocating %p\n", referent);</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// zero out references</span></span><br><span class="line">    <span class="keyword">weak_referrer_t</span> *referrers;</span><br><span class="line">    <span class="keyword">size_t</span> count;</span><br><span class="line">    <span class="keyword">if</span> (entry-&gt;out_of_line) &#123;</span><br><span class="line">        referrers = entry-&gt;referrers;</span><br><span class="line">        count = TABLE_SIZE(entry);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        referrers = entry-&gt;inline_referrers;</span><br><span class="line">        count = WEAK_INLINE_COUNT;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; count; ++i) &#123;</span><br><span class="line">        objc_object **referrer = referrers[i];</span><br><span class="line">        <span class="keyword">if</span> (referrer) &#123;</span><br><span class="line">            <span class="keyword">if</span> (*referrer == referent) &#123;</span><br><span class="line">                *referrer = nil;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (*referrer) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"__weak variable at %p holds %p instead of %p. "</span></span><br><span class="line">                <span class="string">"This is probably incorrect use of "</span></span><br><span class="line">                <span class="string">"objc_storeWeak() and objc_loadWeak(). "</span></span><br><span class="line">                <span class="string">"Break on objc_weak_error to debug.\n"</span>,</span><br><span class="line">                referrer, (<span class="keyword">void</span>*)*referrer, (<span class="keyword">void</span>*)referent);</span><br><span class="line">                objc_weak_error();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    weak_entry_remove(weak_table, entry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>objc_clear_deallocating 实现如下</p>
+<ul>
+<li>1、从weak表中获取废弃对象的地址为键值的记录</li>
+<li>2、将包含在记录中的所有附有 weak修饰符变量的地址，赋值为nil</li>
+<li>3、将weak表中该记录删除</li>
+<li>4、从引用计数表中删除废弃对象的地址为键值的记录</li>
+</ul>
+<p>注释：哈希表最大的优点就是把数据的存储和查找消耗的时间大大降低，几乎可以看成是常数时间；而代价仅仅是消耗比较多的内存。然而在当前可利用内存越来越多的情况下，用空间换时间的做法是值得的。另外，编码比较容易也是它的特点之一。</p>
+<blockquote>
+<p>以上原理解析文章来源：<a href="http://www.cocoachina.com/ios/20170328/18962.html" target="_blank" rel="noopener">http://www.cocoachina.com/ios/20170328/18962.html</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../14/iOS Principle CALayer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          iOS Principle：CALayer
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../12/iOS Principle Notification/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS Principle：Notification</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方便记忆："><span class="nav-number">1.</span> <span class="nav-text">方便记忆：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引文"><span class="nav-number">2.</span> <span class="nav-text">引文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现原理"><span class="nav-number">3.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分步解析内部实现："><span class="nav-number">4.</span> <span class="nav-text">分步解析内部实现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分解析上述代码"><span class="nav-number">5.</span> <span class="nav-text">拆分解析上述代码</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
