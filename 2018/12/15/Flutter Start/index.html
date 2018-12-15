@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>flutter 安装配置、三方库使用及 ios 混编 | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Flutter">
+  
+  
+  
+  
+  <meta name="description" content="Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~">
+<meta name="keywords" content="Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter 安装配置、三方库使用及 iOS 混编">
+<meta property="og:url" content="https://reversescale.github.io/2018/12/15/Flutter Start/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d47fa55f6?w=1582&h=414&f=png&s=63434">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4d004fcf?w=1140&h=904&f=png&s=152641">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4ba21c87?w=1440&h=544&f=png&s=79024">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4bbfbc14?w=2360&h=1448&f=png&s=2378266">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6f146584?w=2304&h=962&f=png&s=435208">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6c67bd7d?w=714&h=564&f=jpeg&s=71952">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6ade980e?w=1300&h=274&f=png&s=26614">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4cd46b14?w=972&h=594&f=png&s=398839">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6f695ae0?w=596&h=244&f=png&s=26771">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167ab90307245012?w=816&h=80&f=jpeg&s=17111">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167ab90308dc4167?w=1101&h=559&f=png&s=298040">
+<meta property="og:updated_time" content="2018-12-15T12:59:06.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter 安装配置、三方库使用及 iOS 混编">
+<meta name="twitter:description" content="Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d47fa55f6?w=1582&h=414&f=png&s=63434">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Flutter Start" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      Flutter 安装配置、三方库使用及 iOS 混编
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-12-15T12:29:16.000Z" itemprop="datePublished">2018-12-15</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Flutter/">Flutter</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~</p>
+<a id="more"></a>
+<hr>
+<h3 id="下载-Flutter"><a href="#下载-Flutter" class="headerlink" title="下载 Flutter"></a>下载 Flutter</h3><p>推荐去官网下载，速度并不慢，网址：</p>
+<p><a href="https://flutter.io/setup-macos/" target="_blank" rel="noopener">https://flutter.io/setup-macos/</a></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d47fa55f6?w=1582&amp;h=414&amp;f=png&amp;s=63434" alt=""></p>
+<p>或者也可以通过 git 将 Flutter 项目克隆到本地，其实和官网下载是一样滴。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b alpha https://github.com/flutter/flutter.git</span><br></pre></td></tr></table></figure>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>下载或者克隆完成后，到 flutter 所在目录，配置环境变量。</p>
+<p>如果 bash_profile 文件不存在，就新建一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>开始配置环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>选择 edit，按键盘上的 “i” 键，进入可编辑状态，在文本中增加这三行（后面两行用于 flutter doctor 在天朝下载配置包）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/flutter/bin:$PATH</span><br><span class="line">export PUB_HOSTED_URL=https://pub.flutter-io.cn</span><br><span class="line">export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn</span><br></pre></td></tr></table></figure>
+<p>编辑完，按 “esc” 退出编辑状态，输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq</span><br></pre></td></tr></table></figure>
+<p>保存一下，最后会出现 Welcom to Flutter!。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4d004fcf?w=1140&amp;h=904&amp;f=png&amp;s=152641" alt=""></p>
+<p>设置 flutter 为全局可执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&quot;$PWD/flutter/bin:$PATH&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="使用-flutter-doctor-命令进行安装"><a href="#使用-flutter-doctor-命令进行安装" class="headerlink" title="使用 flutter doctor 命令进行安装"></a>使用 flutter doctor 命令进行安装</h3><p>运行 doctor 安装 Dart SDK 和工具包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter doctor</span><br></pre></td></tr></table></figure></p>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Downloading Dart SDK from Flutter engine e3687f70c7ece72000b32ee1b3c02755ba5361ac...</span><br><span class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100 87.9M  100 87.9M    0     0  4247k      0  0:00:21  0:00:21 --:--:-- 4945k</span><br><span class="line"></span><br><span class="line">Downloading Material fonts...                                0.6s</span><br><span class="line">Downloading package sky_engine...                            0.3s</span><br><span class="line">Downloading common tools...                                  0.8s</span><br><span class="line">Downloading darwin-x64 tools...                              3.4s</span><br><span class="line">Downloading android-arm-profile/darwin-x64 tools...          0.6s</span><br><span class="line">Downloading android-arm-release/darwin-x64 tools...          0.7s</span><br><span class="line">Downloading android-arm64-profile/darwin-x64 tools...        0.6s</span><br><span class="line">Downloading android-arm64-release/darwin-x64 tools...        0.6s</span><br><span class="line">Downloading android-x86 tools...                             1.9s</span><br><span class="line">Downloading android-x64 tools...                             2.4s</span><br><span class="line">Downloading android-arm tools...                             1.2s</span><br><span class="line">Downloading android-arm-profile tools...                     0.9s</span><br><span class="line">Downloading android-arm-release tools...                     0.7s</span><br><span class="line">Downloading android-arm64 tools...                           1.1s</span><br><span class="line">Downloading android-arm64-profile tools...                   1.0s</span><br><span class="line">Downloading android-arm64-release tools...                   0.8s</span><br><span class="line">Downloading ios tools...                                     4.3s</span><br><span class="line">Downloading ios-profile tools...                             3.7s</span><br><span class="line">Downloading ios-release tools...                             3.2s</span><br><span class="line">Downloading Gradle Wrapper...                                0.1s</span><br></pre></td></tr></table></figure>
+<h3 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h3><p>官方地址：<a href="https://developer.android.com/studio/" target="_blank" rel="noopener">https://developer.android.com/studio/</a></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4ba21c87?w=1440&amp;h=544&amp;f=png&amp;s=79024" alt=""></p>
+<p>相关依赖配置可以在 AndroidDevtools 网站找，基本都有的。<br>AndroidDevtools：<a href="http://www.androiddevtools.cn" target="_blank" rel="noopener">http://www.androiddevtools.cn</a></p>
+<h4 id="解决-gradle-sync-太慢的问题"><a href="#解决-gradle-sync-太慢的问题" class="headerlink" title="解决 gradle sync 太慢的问题"></a>解决 gradle sync 太慢的问题</h4><p>就算是翻了墙，gradle sync 依然速度感人，而且国内访问jcenter太慢（甚至连接不上），就会报各种关于依赖更新失败的错误。</p>
+<p>以前oschina（也就是开源中国）提供了jcenter的镜像地址，然而不幸的是因为各种原因，最近停止服务了<br>开源中国 Maven 镜像库关闭访问</p>
+<p>幸运的是阿里云提供了jcenter镜像  <a href="http://maven.aliyun.com/" target="_blank" rel="noopener">http://maven.aliyun.com/</a></p>
+<p>可以在工程gradle中如下修改，加速 gradle sync</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// Top-level build file where you can add configuration options common to all sub-projects/modules.  </span><br><span class="line">  </span><br><span class="line">buildscript &#123;  </span><br><span class="line">    repositories &#123;  </span><br><span class="line">        maven&#123; url &apos;http://maven.aliyun.com/nexus/content/groups/public&apos;&#125;  </span><br><span class="line">        //jcenter()  </span><br><span class="line">    &#125;  </span><br><span class="line">    dependencies &#123;  </span><br><span class="line">        classpath &apos;com.android.tools.build:gradle:2.2.2&apos;  </span><br><span class="line">  </span><br><span class="line">        // NOTE: Do not place your application dependencies here; they belong  </span><br><span class="line">        // in the individual module build.gradle files  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">allprojects &#123;  </span><br><span class="line">    repositories &#123;  </span><br><span class="line">        maven&#123; url &apos;http://maven.aliyun.com/nexus/content/groups/public&apos;&#125;  </span><br><span class="line">        //jcenter()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Xcode"><a href="#Xcode" class="headerlink" title="Xcode"></a>Xcode</h3><p>Xcode 需要 macOS 系统的支持，如果用的是 MacBook，打开 App Store 直接下载就好了。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4bbfbc14?w=2360&amp;h=1448&amp;f=png&amp;s=2378266" alt=""></p>
+<h3 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h3><p>虽然 Android Studio 也可以用，但是 VS Code 更加轻量，所以推荐一下。</p>
+<p>官网：<a href="https://code.visualstudio.com" target="_blank" rel="noopener">https://code.visualstudio.com</a><br><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6f146584?w=2304&amp;h=962&amp;f=png&amp;s=435208" alt=""></p>
+<p>安装 Flutter 包，就可以愉快的敲代码了..<br><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6c67bd7d?w=714&amp;h=564&amp;f=jpeg&amp;s=71952" alt=""></p>
+<p>而且可以直接选择运行的虚拟机，从此不需要打开繁重的双端IDE。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6ade980e?w=1300&amp;h=274&amp;f=png&amp;s=26614" alt=""></p>
+<h3 id="Flutter-Demo"><a href="#Flutter-Demo" class="headerlink" title="Flutter Demo"></a>Flutter Demo</h3><p>简单的 Demo，用 Flutter 写的可以展示豆瓣 Top250 电影的 Demo：<a href="https://github.com/ReverseScale/flutter-demo-topmovies" target="_blank" rel="noopener">https://github.com/ReverseScale/flutter-demo-topmovies</a></p>
+<p>运行结果如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d4cd46b14?w=972&amp;h=594&amp;f=png&amp;s=398839" alt=""></p>
+<h3 id="使用三方库"><a href="#使用三方库" class="headerlink" title="使用三方库"></a>使用三方库</h3><p>Flutter 项目中通过 <code>pubspec.yaml</code> 来管理第三方库，在 <code>pubspec.yaml</code> 中添加第三方库名称和版本号等信息。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6f695ae0?w=596&amp;h=244&amp;f=png&amp;s=26771" alt=""></p>
+<p>以引入 dio 为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dependencies:</span><br><span class="line">  flutter:</span><br><span class="line">    sdk: flutter</span><br><span class="line"></span><br><span class="line">  # The following adds the Cupertino Icons font to your application.</span><br><span class="line">  # Use with the CupertinoIcons class for iOS style icons.</span><br><span class="line">  cupertino_icons: ^0.1.2</span><br><span class="line">  dio: ^1.0.9</span><br></pre></td></tr></table></figure>
+<p>加入一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dio: x.x.x  #latest version</span><br></pre></td></tr></table></figure></p>
+<p>并执行<code>flutter packages get</code>即可将三方库拉入本地工程文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter packages get</span><br></pre></td></tr></table></figure>
+<h3 id="cocoapods-引入"><a href="#cocoapods-引入" class="headerlink" title="cocoapods 引入"></a>cocoapods 引入</h3><p>完成引入后的目录结构如下：<br><img src="https://user-gold-cdn.xitu.io/2018/12/14/167ab90307245012?w=816&amp;h=80&amp;f=jpeg&amp;s=17111" alt=""></p>
+<ul>
+<li>FlutterDemo: 总的父目录</li>
+<li>FlutterIOS: iOS 已有的项目工程</li>
+<li>flutter_module: Flutter 的库包</li>
+</ul>
+<h4 id="创建-module-包"><a href="#创建-module-包" class="headerlink" title="创建 module 包"></a>创建 module 包</h4><p>到 cd 到总目录 FlutterDemo 下，执行 Flutter 命令 <code>flutter create -t module xxx</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter create -t module flutter_module</span><br></pre></td></tr></table></figure>
+<p>运行过后，目录中就出现了 flutter_module 文件。</p>
+<h4 id="Pods-绑定"><a href="#Pods-绑定" class="headerlink" title="Pods 绑定"></a>Pods 绑定</h4><p>这里只介绍通过 cocoapods 绑定 module 包方法，手动导入请参考 Flutter Github wiki。</p>
+<p>打开 <code>Podfile</code> 添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flutter_application_path = &apos;/Users/whatsxie/Desktop/FlutterDemo/flutter_module/&apos;</span><br><span class="line">  eval(File.read(File.join(flutter_application_path, &apos;.ios&apos;, &apos;Flutter&apos;, &apos;podhelper.rb&apos;)), binding)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：上面的路径需要根据本地位置修改</p>
+</blockquote>
+<p>执行 <code>pod install</code> 即可完成绑定。</p>
+<h4 id="设置脚本"><a href="#设置脚本" class="headerlink" title="设置脚本"></a>设置脚本</h4><p>打开 Xcode 至项目 TARGETS - 项目名 - BuildPhases 下，添加一个执行脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh&quot; build</span><br><span class="line">&quot;$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh&quot; embed</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167ab90308dc4167?w=1101&amp;h=559&amp;f=png&amp;s=298040" alt=""></p>
+<p>运行 <code>⌘B</code> 绑定库就 OK 了。</p>
+<h4 id="Native-调用-Flutter-视图"><a href="#Native-调用-Flutter-视图" class="headerlink" title="Native 调用 Flutter 视图"></a>Native 调用 Flutter 视图</h4><p>Demo 中是 Swift 实现，网上很多 OC 的实现，这里两种语言都提供参考。<br>OC:<br>AppDelegate.h<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">#import &lt;Flutter/Flutter.h&gt;</span><br><span class="line"></span><br><span class="line">@interface AppDelegate : FlutterAppDelegate</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>AppDelegate.m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;FlutterPluginRegistrant/GeneratedPluginRegistrant.h&gt; // Only if you have Flutter Plugins</span><br><span class="line"></span><br><span class="line">#include &quot;AppDelegate.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation AppDelegate</span><br><span class="line"></span><br><span class="line">// This override can be omitted if you do not have any Flutter Plugins.</span><br><span class="line">- (BOOL)application:(UIApplication *)application</span><br><span class="line">    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</span><br><span class="line">  [GeneratedPluginRegistrant registerWithRegistry:self];</span><br><span class="line">  return [super application:application didFinishLaunchingWithOptions:launchOptions];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>ViewController.m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Flutter/Flutter.h&gt;</span><br><span class="line">#import &quot;ViewController.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];</span><br><span class="line">    [button addTarget:self</span><br><span class="line">               action:@selector(handleButtonAction)</span><br><span class="line">     forControlEvents:UIControlEventTouchUpInside];</span><br><span class="line">    [button setTitle:@&quot;Press me&quot; forState:UIControlStateNormal];</span><br><span class="line">    [button setBackgroundColor:[UIColor blueColor]];</span><br><span class="line">    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);</span><br><span class="line">    [self.view addSubview:button];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)handleButtonAction &#123;</span><br><span class="line">    FlutterViewController* flutterViewController = [[FlutterViewController alloc] init];</span><br><span class="line">    [self presentViewController:flutterViewController animated:false completion:nil];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>Swift:<br>AppDelegate.swift<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line">import Flutter</span><br><span class="line">import FlutterPluginRegistrant // Only if you have Flutter Plugins.</span><br><span class="line"></span><br><span class="line">@UIApplicationMain</span><br><span class="line">class AppDelegate: FlutterAppDelegate &#123;</span><br><span class="line"></span><br><span class="line">  // Only if you have Flutter plugins.</span><br><span class="line">  override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -&gt; Bool &#123;</span><br><span class="line">    GeneratedPluginRegistrant.register(with: self);</span><br><span class="line">    return super.application(application, didFinishLaunchingWithOptions: launchOptions);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ViewController.swift<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line">import Flutter</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">  override func viewDidLoad() &#123;</span><br><span class="line">    super.viewDidLoad()</span><br><span class="line">    let button = UIButton(type:UIButtonType.custom)</span><br><span class="line">    button.addTarget(self, action: #selector(handleButtonAction), for: .touchUpInside)</span><br><span class="line">    button.setTitle(&quot;Press me&quot;, for: UIControlState.normal)</span><br><span class="line">    button.frame = CGRect(x: 80.0, y: 210.0, width: 160.0, height: 40.0)</span><br><span class="line">    button.backgroundColor = UIColor.blue</span><br><span class="line">    self.view.addSubview(button)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @objc func handleButtonAction() &#123;</span><br><span class="line">    let flutterViewController = FlutterViewController()</span><br><span class="line">    self.present(flutterViewController, animated: false, completion: nil)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体使用中的 Route 跳转方式</p>
+<p>OC:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[flutterViewController setInitialRoute:@&quot;route1&quot;];</span><br></pre></td></tr></table></figure></p>
+<p>Swift:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutterViewController.setInitialRoute(&quot;route1&quot;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p>Flutter 中国：<a href="https://flutter.io/community/china" target="_blank" rel="noopener">https://flutter.io/community/china</a></p>
+<p>Flutter 中文社区：<br><a href="https://flutter-io.cn/" target="_blank" rel="noopener">https://flutter-io.cn/</a></p>
+<p>Flutter Github Wiki:<br><a href="https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps#experiment-integrate-flutterviewcontroller" target="_blank" rel="noopener">https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps#experiment-integrate-flutterviewcontroller</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../10/Book Algorithm/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《经典算法大全》摘抄笔记整理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-Flutter"><span class="nav-number">1.</span> <span class="nav-text">下载 Flutter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">2.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-flutter-doctor-命令进行安装"><span class="nav-number">3.</span> <span class="nav-text">使用 flutter doctor 命令进行安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio"><span class="nav-number">4.</span> <span class="nav-text">Android Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决-gradle-sync-太慢的问题"><span class="nav-number">4.1.</span> <span class="nav-text">解决 gradle sync 太慢的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode"><span class="nav-number">5.</span> <span class="nav-text">Xcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Code"><span class="nav-number">6.</span> <span class="nav-text">Visual Studio Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flutter-Demo"><span class="nav-number">7.</span> <span class="nav-text">Flutter Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用三方库"><span class="nav-number">8.</span> <span class="nav-text">使用三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cocoapods-引入"><span class="nav-number">9.</span> <span class="nav-text">cocoapods 引入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-module-包"><span class="nav-number">9.1.</span> <span class="nav-text">创建 module 包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pods-绑定"><span class="nav-number">9.2.</span> <span class="nav-text">Pods 绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置脚本"><span class="nav-number">9.3.</span> <span class="nav-text">设置脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Native-调用-Flutter-视图"><span class="nav-number">9.4.</span> <span class="nav-text">Native 调用 Flutter 视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关链接"><span class="nav-number">10.</span> <span class="nav-text">相关链接</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
