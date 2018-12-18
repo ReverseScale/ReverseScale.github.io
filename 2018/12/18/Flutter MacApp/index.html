@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>使用 flutter 开发 macos app | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Flutter">
+  
+  
+  
+  
+  <meta name="description" content="Flutter 通过跨平台的 Skia 图形库来实现图形渲染，只依赖各个系统的图形绘制相关的 Api，可能是目前为止真正意义上的全平台 UI 框架~">
+<meta name="keywords" content="Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Flutter 开发 macOS App">
+<meta property="og:url" content="https://reversescale.github.io/2018/12/18/Flutter MacApp/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="Flutter 通过跨平台的 Skia 图形库来实现图形渲染，只依赖各个系统的图形绘制相关的 Api，可能是目前为止真正意义上的全平台 UI 框架~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf85173c1450f?w=2548&h=1266&f=png&s=1940322">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf851ac2e150a?w=832&h=400&f=png&s=458238">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf851ab40081d?w=1034&h=1356&f=png&s=81354">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf851754b19eb?w=1034&h=1356&f=png&s=83137">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf85175e1b385?w=1034&h=1356&f=png&s=102872">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf85175b03c6a?w=1034&h=1356&f=png&s=107681">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf851756cebda?w=517&h=678&f=png&s=29742">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf85175d89a5d?w=1034&h=1356&f=png&s=91739">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf851acec7b56?w=1034&h=1356&f=png&s=122337">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf851ba86160c?w=2334&h=1344&f=png&s=3074967">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf851b32b519d?w=870&h=800&f=png&s=85504">
+<meta property="og:updated_time" content="2018-12-18T12:33:51.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Flutter 开发 macOS App">
+<meta name="twitter:description" content="Flutter 通过跨平台的 Skia 图形库来实现图形渲染，只依赖各个系统的图形绘制相关的 Api，可能是目前为止真正意义上的全平台 UI 框架~">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/18/167bf85173c1450f?w=2548&h=1266&f=png&s=1940322">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Flutter MacApp" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      使用 Flutter 开发 macOS App
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2018-12-18T01:29:16.000Z" itemprop="datePublished">2018-12-18</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Flutter/">Flutter</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Flutter 通过跨平台的 Skia 图形库来实现图形渲染，只依赖各个系统的图形绘制相关的 Api，可能是目前为止真正意义上的全平台 UI 框架~</p>
+<a id="more"></a>
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/FlutterMacApp" target="_blank" rel="noopener">Github Demo</a></p>
+<h3 id="Flutter-框架"><a href="#Flutter-框架" class="headerlink" title="Flutter 框架"></a>Flutter 框架</h3><p>Flutter 是 Google 开发的一套全新的跨平台、开源 UI 框架，支持 iOS、Android 系统开发，并且是未来新操作系统 Fuchsia 的默认开发套件。</p>
+<p>借助 Feather 平台，我们可以在 MacOS 和 Windows 上运行我们的 Flutter 应用程序，也就是说您可以编写一个可以在所有主要桌面和移动设备上运行的应用程序。</p>
+<h3 id="Feather-平台"><a href="#Feather-平台" class="headerlink" title="Feather 平台"></a>Feather 平台</h3><p><img src="https://user-gold-cdn.xitu.io/2018/12/18/167bf85173c1450f?w=2548&amp;h=1266&amp;f=png&amp;s=1940322" alt=""></p>
+<p>Feather 是一个在桌面上运行 Flutter 应用程序的平台。</p>
+<ul>
+<li>在 Mac 和 Windows 上运行 Flutter 应用程序的编译器和库</li>
+<li>一个应用商店，您可以使用它来发布和更新应用，并为用户提供最小的安装阻力</li>
+<li>一组可选的扩展 Flutter UI 小部件，用于高级界面设计</li>
+<li>目前处于 alpha 测试阶段</li>
+<li>免费使用的商业执照</li>
+</ul>
+<p>官网：<a href="https://feather-apps.com" target="_blank" rel="noopener">https://feather-apps.com</a></p>
+<h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><p>进入官网，点击 Build an App Now 下载 Mac 端编译器。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/18/167bf851ac2e150a?w=832&amp;h=400&amp;f=png&amp;s=458238" alt=""></p>
+<p>下载完成后打开 Feature Workbench，这里就有了墙的存在，非精品网可能要自行处理一下。</p>
+<p><img width="480" height="630" src="https://user-gold-cdn.xitu.io/2018/12/18/167bf851ab40081d?w=1034&h=1356&f=png&s=81354"></p>
+<p>Google 账户登录后，可以看到工程列表，如果你第一次做，当然是空的。</p>
+<p><img width="480" height="630" src="https://user-gold-cdn.xitu.io/2018/12/18/167bf851754b19eb?w=1034&h=1356&f=png&s=83137"></p>
+<h4 id="项目改造"><a href="#项目改造" class="headerlink" title="项目改造"></a>项目改造</h4><p>我们这里新建一个项目为例，教大家怎么把 Flutter 项目运行到 MacOS 上，非常简单哦。</p>
+<p>1.打开终端，新建一个 Flutter 项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter create mac_app</span><br></pre></td></tr></table></figure>
+<p>2.打开 mac_app 项目中 main.dart 修改两处：</p>
+<p>1）在代码顶部引入 <code>foundation</code> 架包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;package:flutter/foundation.dart&apos;;</span><br></pre></td></tr></table></figure>
+<p>2）改造 <code>void main()</code> 函数，增加平台覆盖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void main() &#123;</span><br><span class="line">  debugDefaultTargetPlatformOverride = TargetPlatform.iOS;</span><br><span class="line">  runApp(MyApp());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>保存代码，就可以了。</p>
+<h3 id="新建-Feather-项目"><a href="#新建-Feather-项目" class="headerlink" title="新建 Feather 项目"></a>新建 Feather 项目</h3><p>点击 Feature Workbench 界面右下角的加号，进入新建页面，点击 <code>BROWSE</code> 找到 Flutter 项目工程。</p>
+<p><img width="480" height="630" src="https://user-gold-cdn.xitu.io/2018/12/18/167bf85175e1b385?w=1034&h=1356&f=png&s=102872"></p>
+<p>设置应用名和图标就创建完成了。</p>
+<p><img width="480" height="630" src="https://user-gold-cdn.xitu.io/2018/12/18/167bf85175b03c6a?w=1034&h=1356&f=png&s=107681"></p>
+<p>点击 <code>TEST</code> 会打开 Xcode， <code>command + r</code> 运行就会看到 Flutter 的官方示例运行在 MacOS 上了。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/18/167bf851756cebda?w=517&amp;h=678&amp;f=png&amp;s=29742" alt=""></p>
+<blockquote>
+<p>Flutter 右上角的 <code>DEBUG</code> 是环境标记，不想看见它，切换生产环境它就不见了</p>
+</blockquote>
+<h3 id="发布和使用"><a href="#发布和使用" class="headerlink" title="发布和使用"></a>发布和使用</h3><p>点击 <code>PUBLISH</code> 设置应用描述和截图，发布应用到 Feather 商店。</p>
+<p><img width="480" height="630" src="https://user-gold-cdn.xitu.io/2018/12/18/167bf85175d89a5d?w=1034&h=1356&f=png&s=91739"></p>
+<p>发布完成后再次进入项目列表，就可以看到 <code>WEB</code> 选项，点击就会进入 Feather 应用商店的网站。</p>
+<p><img width="480" height="630" src="https://user-gold-cdn.xitu.io/2018/12/18/167bf851acec7b56?w=1034&h=1356&f=png&s=122337"></p>
+<p>任何 Mac 电脑都可以通过这个链接(<a href="https://feather-apps.com/alpha/app.html?id=app_gqcz24d6Vw80)来访问和安装这个应用。" target="_blank" rel="noopener">https://feather-apps.com/alpha/app.html?id=app_gqcz24d6Vw80)来访问和安装这个应用。</a></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/18/167bf851ba86160c?w=2334&amp;h=1344&amp;f=png&amp;s=3074967" alt=""></p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>和发布流程一样，只是需要注意修改版本号、应用描述和截图，最后上传应用即可。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/18/167bf851b32b519d?w=870&amp;h=800&amp;f=png&amp;s=85504" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../15/Flutter Start/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Flutter 安装配置、三方库使用及 iOS 混编</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flutter-框架"><span class="nav-number">1.</span> <span class="nav-text">Flutter 框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Feather-平台"><span class="nav-number">2.</span> <span class="nav-text">Feather 平台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置环境"><span class="nav-number">2.1.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目改造"><span class="nav-number">2.2.</span> <span class="nav-text">项目改造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建-Feather-项目"><span class="nav-number">3.</span> <span class="nav-text">新建 Feather 项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布和使用"><span class="nav-number">4.</span> <span class="nav-text">发布和使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新"><span class="nav-number">5.</span> <span class="nav-text">更新</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Steven&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
