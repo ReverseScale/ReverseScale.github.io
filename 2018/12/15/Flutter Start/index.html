@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>flutter 安装配置、三方库使用及 ios 混编 | Technology</title>
+  <title>flutter 安装配置 + 三方库发布使用 + ios 混编调用 | Technology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Flutter">
@@ -14,7 +14,7 @@
   <meta name="description" content="Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~">
 <meta name="keywords" content="Flutter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flutter 安装配置、三方库使用及 iOS 混编">
+<meta property="og:title" content="Flutter 安装配置 + 三方库发布使用 + iOS 混编调用">
 <meta property="og:url" content="https://reversescale.github.io/2018/12/15/Flutter Start/index.html">
 <meta property="og:site_name" content="Technology">
 <meta property="og:description" content="Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~">
@@ -30,9 +30,9 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aabcc6f695ae0?w=596&h=244&f=png&s=26771">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167ab90307245012?w=816&h=80&f=jpeg&s=17111">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167ab90308dc4167?w=1101&h=559&f=png&s=298040">
-<meta property="og:updated_time" content="2018-12-15T12:59:06.326Z">
+<meta property="og:updated_time" content="2018-12-19T12:11:58.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Flutter 安装配置、三方库使用及 iOS 混编">
+<meta name="twitter:title" content="Flutter 安装配置 + 三方库发布使用 + iOS 混编调用">
 <meta name="twitter:description" content="Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~">
 <meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d47fa55f6?w=1582&h=414&f=png&s=63434">
   
@@ -181,7 +181,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      Flutter 安装配置、三方库使用及 iOS 混编
+      Flutter 安装配置 + 三方库发布使用 + iOS 混编调用
     </h1>
   
 
@@ -209,6 +209,7 @@
         <p>Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 是完全免费、开源的~</p>
 <a id="more"></a>
 <hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/FlutterDemo" target="_blank" rel="noopener">Github Demo</a></p>
 <h3 id="下载-Flutter"><a href="#下载-Flutter" class="headerlink" title="下载 Flutter"></a>下载 Flutter</h3><p>推荐去官网下载，速度并不慢，网址：</p>
 <p><a href="https://flutter.io/setup-macos/" target="_blank" rel="noopener">https://flutter.io/setup-macos/</a></p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/12/14/167aa27d47fa55f6?w=1582&amp;h=414&amp;f=png&amp;s=63434" alt=""></p>
@@ -255,6 +256,30 @@
 <p>加入一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dio: x.x.x  #latest version</span><br></pre></td></tr></table></figure></p>
 <p>并执行<code>flutter packages get</code>即可将三方库拉入本地工程文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter packages get</span><br></pre></td></tr></table></figure>
+<h3 id="发布三方库"><a href="#发布三方库" class="headerlink" title="发布三方库"></a>发布三方库</h3><p>上面通过 pubspec 管理的三方库大都也是开发者封装后打包发布的，接下来我们来试着发布一个自己的三方库。</p>
+<p>package 分类：</p>
+<ul>
+<li>Dart packages：使用 Dart 语言编写，为 Flutter 做功能扩展的库。</li>
+<li>plugin packages：在 Dart packages 基础上，包含 iOS 和 Android 功能调用的插件包。</li>
+</ul>
+<h4 id="创建-packages"><a href="#创建-packages" class="headerlink" title="创建 packages"></a>创建 packages</h4><p>dart package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter create --template=package test_dart_package</span><br></pre></td></tr></table></figure></p>
+<p>plugin package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter create --org com.rs.example --template=plugin -i swift -a kotlin test_flutter_package</span><br></pre></td></tr></table></figure></p>
+<p>参数说明：</p>
+<ul>
+<li>–org com.rs.example:包的组织名</li>
+<li>-i swift:包使用 Swift </li>
+<li>-a kotlin:包使用 kotlin 支持 </li>
+</ul>
+<p>工程目录说明：</p>
+<ul>
+<li>lib/test_flutter_package.dart:插件包的Dart API.</li>
+<li>android/src/main/java/com/yourcompany/test_flutter_package/TestFlutterPackagePlugin.kt:插件包API的Android实现.</li>
+<li>ios/Classes/TestFlutterPackagePlugin.m:插件包API的ios实现.</li>
+<li>example/:一个依赖于该插件的Flutter应用程序，来说明如何使用它</li>
+</ul>
+<h4 id="发布-packages"><a href="#发布-packages" class="headerlink" title="发布 packages"></a>发布 packages</h4><p>运行 dry-run 命令以查看是否都准备OK了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter packages pub publish --dry-run</span><br></pre></td></tr></table></figure></p>
+<p>运行发布命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter packages pub publish</span><br></pre></td></tr></table></figure></p>
+<p>更多请阅读 <a href="https://flutterchina.club/developing-packages/#step-1-开发dart包" target="_blank" rel="noopener">Flutter 中文网</a></p>
 <h3 id="cocoapods-引入"><a href="#cocoapods-引入" class="headerlink" title="cocoapods 引入"></a>cocoapods 引入</h3><p>完成引入后的目录结构如下：<br><img src="https://user-gold-cdn.xitu.io/2018/12/14/167ab90307245012?w=816&amp;h=80&amp;f=jpeg&amp;s=17111" alt=""></p>
 <ul>
 <li>FlutterDemo: 总的父目录</li>
@@ -283,9 +308,9 @@
 <p>具体使用中的 Route 跳转方式</p>
 <p>OC:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[flutterViewController setInitialRoute:@&quot;route1&quot;];</span><br></pre></td></tr></table></figure></p>
 <p>Swift:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutterViewController.setInitialRoute(&quot;route1&quot;)</span><br></pre></td></tr></table></figure></p>
-<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p>Flutter 中国：<a href="https://flutter.io/community/china" target="_blank" rel="noopener">https://flutter.io/community/china</a></p>
-<p>Flutter 中文社区：<br><a href="https://flutter-io.cn/" target="_blank" rel="noopener">https://flutter-io.cn/</a></p>
-<p>Flutter Github Wiki:<br><a href="https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps#experiment-integrate-flutterviewcontroller" target="_blank" rel="noopener">https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps#experiment-integrate-flutterviewcontroller</a></p>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p><a href="https://flutter.io/community/china" target="_blank" rel="noopener">Flutter 中国</a></p>
+<p><a href="https://flutter-io.cn" target="_blank" rel="noopener">Flutter 中文社区</a></p>
+<p><a href="https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps#experiment-integrate-flutterviewcontroller" target="_blank" rel="noopener">Flutter Github Wiki</a></p>
 
       
     </div>
@@ -365,7 +390,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-Flutter"><span class="nav-number">1.</span> <span class="nav-text">下载 Flutter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">2.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-flutter-doctor-命令进行安装"><span class="nav-number">3.</span> <span class="nav-text">使用 flutter doctor 命令进行安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio"><span class="nav-number">4.</span> <span class="nav-text">Android Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决-gradle-sync-太慢的问题"><span class="nav-number">4.1.</span> <span class="nav-text">解决 gradle sync 太慢的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode"><span class="nav-number">5.</span> <span class="nav-text">Xcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Code"><span class="nav-number">6.</span> <span class="nav-text">Visual Studio Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flutter-Demo"><span class="nav-number">7.</span> <span class="nav-text">Flutter Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用三方库"><span class="nav-number">8.</span> <span class="nav-text">使用三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cocoapods-引入"><span class="nav-number">9.</span> <span class="nav-text">cocoapods 引入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-module-包"><span class="nav-number">9.1.</span> <span class="nav-text">创建 module 包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pods-绑定"><span class="nav-number">9.2.</span> <span class="nav-text">Pods 绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置脚本"><span class="nav-number">9.3.</span> <span class="nav-text">设置脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Native-调用-Flutter-视图"><span class="nav-number">9.4.</span> <span class="nav-text">Native 调用 Flutter 视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关链接"><span class="nav-number">10.</span> <span class="nav-text">相关链接</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-Flutter"><span class="nav-number">1.</span> <span class="nav-text">下载 Flutter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">2.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-flutter-doctor-命令进行安装"><span class="nav-number">3.</span> <span class="nav-text">使用 flutter doctor 命令进行安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio"><span class="nav-number">4.</span> <span class="nav-text">Android Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决-gradle-sync-太慢的问题"><span class="nav-number">4.1.</span> <span class="nav-text">解决 gradle sync 太慢的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode"><span class="nav-number">5.</span> <span class="nav-text">Xcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Code"><span class="nav-number">6.</span> <span class="nav-text">Visual Studio Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flutter-Demo"><span class="nav-number">7.</span> <span class="nav-text">Flutter Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用三方库"><span class="nav-number">8.</span> <span class="nav-text">使用三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布三方库"><span class="nav-number">9.</span> <span class="nav-text">发布三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-packages"><span class="nav-number">9.1.</span> <span class="nav-text">创建 packages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布-packages"><span class="nav-number">9.2.</span> <span class="nav-text">发布 packages</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cocoapods-引入"><span class="nav-number">10.</span> <span class="nav-text">cocoapods 引入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-module-包"><span class="nav-number">10.1.</span> <span class="nav-text">创建 module 包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pods-绑定"><span class="nav-number">10.2.</span> <span class="nav-text">Pods 绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置脚本"><span class="nav-number">10.3.</span> <span class="nav-text">设置脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Native-调用-Flutter-视图"><span class="nav-number">10.4.</span> <span class="nav-text">Native 调用 Flutter 视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关链接"><span class="nav-number">11.</span> <span class="nav-text">相关链接</span></a></li></ol>
     
     </div>
   </aside>
