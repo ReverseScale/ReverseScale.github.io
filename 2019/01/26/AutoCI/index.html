@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>移动端自动化 ci review 解决方案 | Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="CI">
+  
+  
+  
+  
+  <meta name="description" content="介绍一下通过 CodeBeat 对移动端代码质量的自动化管理，顺带提及一下，第三方持续集成环境 Travis CI 的基本使用~">
+<meta name="keywords" content="CI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端自动化 CI Review 解决方案">
+<meta property="og:url" content="https://reversescale.github.io/2019/01/26/AutoCI/index.html">
+<meta property="og:site_name" content="Technology">
+<meta property="og:description" content="介绍一下通过 CodeBeat 对移动端代码质量的自动化管理，顺带提及一下，第三方持续集成环境 Travis CI 的基本使用~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEed4f.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEML90.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEKkI1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kElwee.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kElTWq.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEUieP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEU1oT.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEUROI.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEaic9.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kErStx.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEr6ER.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kE70Ff.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEsCan.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEs3RK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEgplV.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEqFFP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZptr6.png">
+<meta property="og:updated_time" content="2019-01-26T07:41:07.750Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端自动化 CI Review 解决方案">
+<meta name="twitter:description" content="介绍一下通过 CodeBeat 对移动端代码质量的自动化管理，顺带提及一下，第三方持续集成环境 Travis CI 的基本使用~">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/23/kEed4f.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Technology" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-AutoCI" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      移动端自动化 CI Review 解决方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-01-26T04:55:38.000Z" itemprop="datePublished">2019-01-26</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Summary/">Summary</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>介绍一下通过 CodeBeat 对移动端代码质量的自动化管理，顺带提及一下，第三方持续集成环境 Travis CI 的基本使用~<br><a id="more"></a></p>
+<p>之前一篇文章介绍如何通过 Jenkins + Fastlane 脚本自动打包发布测试包。</p>
+<ul>
+<li><a href="https://reversescale.github.io/2017/06/20/AutoBuildScript/">Jenkins + Fastlane 自动打包脚本</a></li>
+</ul>
+<p>这次主要介绍通过 CodeBeat 对移动端代码质量的自动化管理，顺带提及一下，第三方持续集成环境 Travis CI 的基本使用。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEed4f.png" alt="kEed4f.png"></p>
+<p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
+<h2 id="🚠-第三方-CI-时代"><a href="#🚠-第三方-CI-时代" class="headerlink" title="🚠 第三方 CI 时代"></a>🚠 第三方 CI 时代</h2><blockquote>
+<p>[🚠 第三方 CI 时代] Travis CI 是一个专门为开源项目打造的持续集成环境（付费可以支持私有项目），目前已经支持绝大部分主流语言，它的配置文件采用 yaml 格式，简洁清新独树一帜。]</p>
+</blockquote>
+<h3 id="持续集成环境能做什么？"><a href="#持续集成环境能做什么？" class="headerlink" title="持续集成环境能做什么？"></a>持续集成环境能做什么？</h3><p><img src="https://s2.ax1x.com/2019/01/23/kEML90.png" alt="kEML90.png"></p>
+<p>持续集成是涵盖代码变更后对项目进行自动运行、测试及反馈运行结果的服务。通过自动化的监管，以最大程度确保代码变更符合开发预期。</p>
+<p>不仅如此，一个完善的持续集成环境还能够清晰细化开发进度，优化迭代周期，提高项目质量。</p>
+<p>但是搭建持续集成环境及配套服务通常需要涉及多方面知识，而且后期维护也需要时间成本。</p>
+<h3 id="Travis-CI-服务"><a href="#Travis-CI-服务" class="headerlink" title="Travis CI 服务"></a>Travis CI 服务</h3><p><img src="https://s2.ax1x.com/2019/01/23/kEKkI1.png" alt="kEKkI1.png"></p>
+<p>Travis CI 提供的是持续集成服务（Continuous Integration，简称 CI）。它绑定 Github 上面的项目，只要有新的代码，就会自动抓取。然后，提供一个运行环境，执行测试，完成构建，还能部署到服务器。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kElwee.png" alt="kElwee.png"></p>
+<p>而且 Travis 能与 GitHub 的很好的结合起来，为我们提供友好的开发体验。</p>
+<p><a href="https://imgchr.com/i/kElTWq" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/23/kElTWq.md.png" alt="kElTWq.md.png"></a></p>
+<h3 id="开始集成"><a href="#开始集成" class="headerlink" title="开始集成"></a>开始集成</h3><h4 id="添加-Travis-CI-配置文件"><a href="#添加-Travis-CI-配置文件" class="headerlink" title="添加 Travis-CI 配置文件"></a>添加 Travis-CI 配置文件</h4><p>在项目根目录下新建 .travis.yml 文件，配置信息如下：</p>
+<blockquote>
+<p>在 macOS 下，以 <code>.</code> 开头的文件默认为隐藏文件，在 Finder 中使用快捷键 <code>Command + Shift + .</code> 可以显示 / 隐藏对隐藏文件的显示。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># Xcode 的大版本号，根据实际版本配置，如果是 Swift 项目要注意不同 Xcode 版本对 Swift 的支持</span><br><span class="line">osx_image: xcode10</span><br><span class="line"></span><br><span class="line"># 默认设置 objective-c 即可，Swift 项目可以设置 `swift`，但是并不影响运行</span><br><span class="line">language: objective-c</span><br><span class="line"></span><br><span class="line"># 环境变量</span><br><span class="line">  # XCODE_PROJECT：Xcode 工程文件路径</span><br><span class="line">  # SCHEME：需要执行的 Scheme</span><br><span class="line">env:</span><br><span class="line">  global:</span><br><span class="line">    - LANG=en_US.UTF-8</span><br><span class="line">    - LC_ALL=en_US.UTF-8</span><br><span class="line">    - XCODE_PROJECT=CollectionIndexTools/CollectionIndexTools.xcodeproj</span><br><span class="line">  matrix:</span><br><span class="line">    - SCHEME=&quot;CollectionIndexTools&quot;</span><br><span class="line"></span><br><span class="line"># 在 before_install 步骤中，您可以安装项目所需的其他依赖项，如 Ubuntu 包或自定义服务</span><br><span class="line">before_install:</span><br><span class="line">  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet</span><br><span class="line"></span><br><span class="line"># 需要执行的构建脚本，使用 CocoaPods 进行库管理可以加一句 `pod install`，build 命令使用 `- xcodebuild -workspace &quot;$XCODE_PROJECT&quot; -scheme &quot;$SCHEME&quot; -configuration Debug -sdk iphonesimulator clean`</span><br><span class="line">script:</span><br><span class="line">  - set -o pipefail</span><br><span class="line">  - xcodebuild -project &quot;$XCODE_PROJECT&quot; -scheme &quot;$SCHEME&quot; -configuration Debug clean build CODE_SIGN_IDENTITY=&quot;&quot; CODE_SIGNING_REQUIRED=NO | xcpretty -c</span><br><span class="line"></span><br><span class="line"># 构建通过后的自定义命令</span><br><span class="line">  # sleep 3：延时 3 秒，规避 Travis-CI 的历史 Bug</span><br><span class="line">after_success:</span><br><span class="line">  - sleep 3</span><br></pre></td></tr></table></figure>
+<p>如果是 Swift 项目，需要额外新建 .swift-version 文件配置 Swift 版本号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.2</span><br></pre></td></tr></table></figure>
+<h4 id="注册账户"><a href="#注册账户" class="headerlink" title="注册账户"></a>注册账户</h4><p>访问 <a href="https://travis-ci.org" target="_blank" rel="noopener">Travis CI 官网</a> 创建账户或者通过 Github 账户直接登录，Travis CI 对 Github 开源项目提供免费服务。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEUieP.png" alt="kEUieP.png"></p>
+<p>点击 <code>+</code> 进入 GitHub 项目同步设置列表，切换需要同步的项目。</p>
+<p><a href="https://imgchr.com/i/kEU1oT" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/23/kEU1oT.md.png" alt="kEU1oT.md.png"></a></p>
+<p>默认情况下 Travis CI 会定时同步开通 Github 绑定的项目代码。</p>
+<p><a href="https://imgchr.com/i/kEUROI" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/23/kEUROI.md.png" alt="kEUROI.md.png"></a></p>
+<p>通过 Travis CI 控制面板可以获取到项目的运行结果、log 日志和配置文件。</p>
+<p><a href="https://imgchr.com/i/kEaic9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/23/kEaic9.md.png" alt="kEaic9.md.png"></a></p>
+<p>设置完成后可以在 Github 对应项目的 Setting - Integrations &amp; services 中管理绑定状态。</p>
+<h4 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h4><p>从上面的 <code>.travis.yml</code> 配置可知，项目会分为 install、script 两个阶段。</p>
+<ul>
+<li>install 阶段：安装依赖</li>
+<li>script 阶段：运行脚本</li>
+</ul>
+<p>1)install 字段用来指定安装脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install: ./install-dependencies.sh</span><br></pre></td></tr></table></figure>
+<p>如果有多个脚本，可以写成下面的形式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">install:</span><br><span class="line">  - command1</span><br><span class="line">  - command2</span><br></pre></td></tr></table></figure>
+<p>如果不需要安装，即跳过安装阶段，就直接设为true。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install: true</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 install 阶段，如果 command1 失败了，整个构建就会停止退出进程。</p>
+</blockquote>
+<p>2)script 字段用来指定构建或测试脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script: bundle exec thor build</span><br></pre></td></tr></table></figure>
+<p>如果有多个脚本，可以写成下面的形式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">script:</span><br><span class="line">  - command1</span><br><span class="line">  - command2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>script 阶段，如果 command1 失败，command2 会继续执行。但是，整个构建阶段的状态是失败。</p>
+</blockquote>
+<p>如果 command2 需要依赖 command1 成功后才能执行需要如下设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script: command1 &amp;&amp; command2</span><br></pre></td></tr></table></figure>
+<h4 id="运行状态"><a href="#运行状态" class="headerlink" title="运行状态"></a>运行状态</h4><p>Travis 每次运行返回的四种状态：</p>
+<ul>
+<li>passed：运行成功，退出码返回<code>0</code></li>
+<li>canceled：用户取消执行</li>
+<li>errored：before_install、install、before_script 有非零退出码，运行会立即停止</li>
+<li>failed ：script 有非零状态码，会继续运行</li>
+</ul>
+<p>█◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢█</p>
+<h2 id="🤖-自动化-Review-时代"><a href="#🤖-自动化-Review-时代" class="headerlink" title="🤖 自动化 Review 时代"></a>🤖 自动化 Review 时代</h2><blockquote>
+<p>[🤖 自动化 Review 时代] CodeBeat 是一个免费为开源项目进行代码质量管理的工具（付费可以支持私有项目），无需对原有项目进行任何修改即可获取针对项目的完整质量分析，方便快捷。]</p>
+</blockquote>
+<h3 id="Codebeat"><a href="#Codebeat" class="headerlink" title="Codebeat"></a>Codebeat</h3><p><img src="https://s2.ax1x.com/2019/01/23/kErStx.png" alt="kErStx.png"></p>
+<p>Codebeat 是一个开源的自动代码审查工具，支持Ruby、Go、Swift、Java 代码等开发语言。并且支持与Github，Bitbucket和slack的集成。</p>
+<p>和 Travis CI 一样，Codebeat 会在代码仓库发生变更后，执行分析操作，对项目代码质量进行评分，并在完成后刷新项目评级 / 评分的状态或结果。</p>
+<p><a href="https://imgchr.com/i/kEr6ER" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/23/kEr6ER.md.png" alt="kEr6ER.md.png"></a></p>
+<h4 id="注册账户-1"><a href="#注册账户-1" class="headerlink" title="注册账户"></a>注册账户</h4><p>访问 <a href="https://codebeat.co/" target="_blank" rel="noopener">CodeBeat 官网</a>进行注册，具体和 Travis CI 一致，这里不多赘述。</p>
+<p>CodeBeat 服务对开源项目是免费的，所以你的私有项目无法享受到免费的持续构建服务。</p>
+<p>当然，每月支付 20 美刀成为付费用户后可以解锁无限数量私有库的功能。</p>
+<p>登录好账号后点击 <code>Add Repository</code> 可以很方便的添加关联项目来开启代码质量管理。</p>
+<p>同样关联成功会在 Github 设置页面的 Webhooks 中看到关联信息。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kE70Ff.png" alt="kE70Ff.png"></p>
+<h3 id="GPA-指数"><a href="#GPA-指数" class="headerlink" title="GPA 指数"></a>GPA 指数</h3><p>点击具体项目进入对应的评分结果页面，可以详细查看 Code Review 结果。</p>
+<p><a href="https://imgchr.com/i/kEsCan" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/23/kEsCan.md.png" alt="kEsCan.md.png"></a></p>
+<p>Codebeat 计算全局项目并给出一个 GPA 指数，范围0（最差）~ 4（最佳），大致映射到美国GPA量表。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEs3RK.png" alt="kEs3RK.png"></p>
+<blockquote>
+<p>GPA 指数的计算规则见<a href="https://hub.codebeat.co/docs/gpa-explained" target="_blank" rel="noopener">官方文档</a></p>
+</blockquote>
+<h3 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h3><p>以我的 <code>AutoAlignButton</code> 项目为例，审查报告中给 <code>LabelTagsViewController</code> 评级为 <code>D</code> 😤。</p>
+<p><a href="https://imgchr.com/i/kEgplV" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/23/kEgplV.md.png" alt="kEgplV.md.png"></a></p>
+<p>点击进入报告详情，可以看到分为三个分组：</p>
+<ul>
+<li>Complexity 代码层级评估</li>
+<li>Duplication 重复代码评估</li>
+<li>Style 代码风格评估</li>
+</ul>
+<p>可以看到我的项目中 <code>LabelTagsViewController.m</code> 和 <code>CollectionTagsViewController.m</code> 有一个 <code>- (NSMutableArray *)dataArr</code> 方法代码重复，虽然很 MMP，但是我们也是可以优化的。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEqFFP.png" alt="kEqFFP.png"></p>
+<p>对分析出的代码质量问题进行修改后直接提交，，Webhook 会通知 CodeBeat 进行刷新，以重新进行代码评分。</p>
+<p><img src="https://s2.ax1x.com/2019/01/24/kZptr6.png" alt="kZptr6.png"> </p>
+<p>当然自动化的 Review 一定会出现对你高深代码架构的误解，这时候我们可以选择手动干预它的认知🤣。</p>
+<p>来来来，让我们对报告结果进行 Mute、Report、Help 操作…</p>
+<p>当然还有其他的报告指标等待您的发现🤪。</p>
+<blockquote>
+<p>官方文档中关于<a href="https://hub.codebeat.co/docs/software-quality-metrics" target="_blank" rel="noopener">功能级指标</a>的解释</p>
+</blockquote>
+<h2 id="😬-联系"><a href="#😬-联系" class="headerlink" title="😬  联系"></a>😬  联系</h2><ul>
+<li>微信 : WhatsXie</li>
+<li>邮件 : <a href="mailto:ReverseScale@iCloud.com" target="_blank" rel="noopener">ReverseScale@iCloud.com</a></li>
+<li>博客 : <a href="https://reversescale.github.io">https://reversescale.github.io</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../../../2018/12/18/Flutter MacApp/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用 Flutter 开发 macOS App</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#🚠-第三方-CI-时代"><span class="nav-number">1.</span> <span class="nav-text">🚠 第三方 CI 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#持续集成环境能做什么？"><span class="nav-number">1.1.</span> <span class="nav-text">持续集成环境能做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Travis-CI-服务"><span class="nav-number">1.2.</span> <span class="nav-text">Travis CI 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始集成"><span class="nav-number">1.3.</span> <span class="nav-text">开始集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加-Travis-CI-配置文件"><span class="nav-number">1.3.1.</span> <span class="nav-text">添加 Travis-CI 配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册账户"><span class="nav-number">1.3.2.</span> <span class="nav-text">注册账户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行流程"><span class="nav-number">1.3.3.</span> <span class="nav-text">运行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行状态"><span class="nav-number">1.3.4.</span> <span class="nav-text">运行状态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🤖-自动化-Review-时代"><span class="nav-number">2.</span> <span class="nav-text">🤖 自动化 Review 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Codebeat"><span class="nav-number">2.1.</span> <span class="nav-text">Codebeat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注册账户-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">注册账户</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPA-指数"><span class="nav-number">2.2.</span> <span class="nav-text">GPA 指数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Review"><span class="nav-number">2.3.</span> <span class="nav-text">Review</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#😬-联系"><span class="nav-number">3.</span> <span class="nav-text">😬  联系</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 Technology All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Technology
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 Tim&#39;s Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
