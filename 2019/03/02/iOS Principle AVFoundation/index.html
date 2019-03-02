@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ios principle：avfoundation | Evolution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Principle">
+  
+  
+  
+  
+  <meta name="description" content="AVFoundation 是苹果在 iOS 和 OS X 系统中用于处理基于时间的媒体数据的框架.让我们跟随《音视频开发进阶指南》一起，一探究竟吧~">
+<meta name="keywords" content="Principle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Principle：AVFoundation">
+<meta property="og:url" content="https://reversescale.github.io/2019/03/02/iOS Principle AVFoundation/index.html">
+<meta property="og:site_name" content="Evolution">
+<meta property="og:description" content="AVFoundation 是苹果在 iOS 和 OS X 系统中用于处理基于时间的媒体数据的框架.让我们跟随《音视频开发进阶指南》一起，一探究竟吧~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/32458716.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/29213088.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/52770571.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/15152374.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/8446915.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/82257199.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/74542535.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/31816359.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/71567398.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/82754964.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/55702526.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/19645986.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/54340678.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/72651347.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/23214634.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/3981812.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/9651923.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/4005265.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/7355729.jpg">
+<meta property="og:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/67518880.jpg">
+<meta property="og:updated_time" content="2019-03-02T05:12:50.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Principle：AVFoundation">
+<meta name="twitter:description" content="AVFoundation 是苹果在 iOS 和 OS X 系统中用于处理基于时间的媒体数据的框架.让我们跟随《音视频开发进阶指南》一起，一探究竟吧~">
+<meta name="twitter:image" content="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/32458716.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Evolution" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-iOS Principle AVFoundation" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      iOS Principle：AVFoundation
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-03-02T03:56:27.000Z" itemprop="datePublished">2019-03-02</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Principle/">Principle</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>AVFoundation 是苹果在 iOS 和 OS X 系统中用于处理基于时间的媒体数据的框架.让我们跟随《音视频开发进阶指南》一起，一探究竟吧~ </p>
+<a id="more"></a>
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/iOSPrinciple_AVFoundation" target="_blank" rel="noopener">Github Demo</a></p>
+<hr>
+<blockquote>
+<p>2018.09.28更新：</p>
+</blockquote>
+<p>读书推荐《音视频开发进阶指南 基于Android与iOS平台的实践》<br><img width="215" height="240" src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/32458716.jpg"><br>从 FFmpeg 源码解析到 OpenGL ES 讲多端音视频开发，从原理到实践，逻辑清晰，非常值得学习的一本书。</p>
+<ul>
+<li>ijkPlayer 是基于 FFmpeg 框架下 ffplay 进行改造的播放器</li>
+<li>对于 OpenGL ES，则有业界著名的开源库 GPUImage</li>
+</ul>
+<h1 id="AVFoundation"><a href="#AVFoundation" class="headerlink" title="AVFoundation"></a>AVFoundation</h1><p>AVFoundation是苹果在iOS和OS X系统中用于处理基于时间的媒体数据的框架. </p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/29213088.jpg" alt=""></p>
+<p>下面简单介绍下AVFoundation内最主要的支撑框架和其提供的功能.</p>
+<ul>
+<li>CoreAudio : 处理所有音频事件.是由多个框架整合在一起的总称,为音频和MIDI内容的录制,播放和处理提供相应接口.甚至可以针对音频信号进行完全控制,并通过Audio Units来构建一些复杂的音频处理.有兴趣的可以单独了解一下这个框架.</li>
+<li>CoreMedia: 是AVFoundation所用到低层级媒体管道的一部分.提供音频样本和视频帧处理所需的低层级数据类型和接口.</li>
+<li>CoreAnimation: 动画相关框架, 封装了支持OpenGL和OpenGL ES功能的ObjC各种类. AVFoundation可以利用CoreAnimation让开发者能够在视频的编辑和播放过程中添加动画和图片效果.</li>
+</ul>
+<p>在深入了解学习<a href="https://www.jianshu.com/p/ff6814722e20" target="_blank" rel="noopener">AVFoundation</a>前,最好还要了解下相关现代数字媒体的采样和处理知识.</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/52770571.jpg" alt=""></p>
+<p>数字媒体采样: 其实就是对媒体内容进行数字化,主要有两种方式:</p>
+<p>①时间采样：用来捕捉一个信号在一个周期内的变化.如录音时的音高和声调变化. </p>
+<p>②空间采样：一般用在可视化内容的数字化过程中,对一幅图片在一定分辨率下捕捉其亮度和色度.</p>
+<h2 id="音频篇"><a href="#音频篇" class="headerlink" title="音频篇"></a>音频篇</h2><p>现实生活中，我们听到的声音都是时间连续的，我们称为这种信号叫模拟信号。模拟信号需要进行数字化以后才能在计算机中使用。数字化的过程如下：</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/15152374.jpg" alt=""></p>
+<p>采样 -&gt; 量化 -&gt; 编码</p>
+<p>通过获取间隔相同时间的某个模拟信号的值，然后对这些采样以后得到的值进行量化，然后使用一定的bit进行编码存储，整个过程结束后就会输出PCM数据。</p>
+<p>在iOS的Core Audio Services中使用的音频数据只能是线性PCM格式的音频数据，这是一种未进过压缩的音频数据格式。要理解整个过程就需要理解多个重要概念：采样频率和采样位数，比特率等。</p>
+<h3 id="采样频率"><a href="#采样频率" class="headerlink" title="采样频率"></a>采样频率</h3><p>采样频率是指单位时间内对声音模拟信号的采样次数。采样率类似于视频的帧数，比如电影的采样率是24Hz。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/8446915.jpg" alt=""></p>
+<p>当我们把采样到的一个个静止画面再以采样率同样的速度回放时，看到的就是连续的画面。同样的道理，把以44.1kHZ采样率记录的CD以同样的速率播放时，就能听到连续的声音。</p>
+<p>显然，这个采样率越高，听到的声音和看到的图像就越连贯。当然，人的听觉和视觉器官能分辨的采样率是有限的。对同一段声音，用20kHz和44.1kHz来采样，重放时，可能可以听出其中的差别，而基本上高于44.1kHZ采样的声音，比如说96kHz采样，绝大部分人已经觉察不到两种采样出来的声音的分别了。</p>
+<p>之所以使用44.1kHZ这个数值是因为经过了反复实验，人们发现这个采样精度最合适，低于这个值就会有较明显的损失，而高于这个值人的耳朵已经很难分辨，而且增大了数字音频所占用的空间。我们所使用的CD的采样标准就是44.1k。</p>
+<h3 id="采样位数"><a href="#采样位数" class="headerlink" title="采样位数"></a>采样位数</h3><p>采样位数可以理解为采集卡处理声音的解析度。这个数值越大，解析度就越高，录制和回放的声音就越真实。我们首先要知道：电脑中的声音文件是用数字0和1来表示的。连续的模拟信号按一定的采样频率经数码脉冲取样后，每一个离散的脉冲信号被以一定的量化精度量化成一串二进制编码流，这串编码流的位数即为采样位数，也称为量化精度。</p>
+<p>在电脑上录音的本质就是把模拟声音信号转换成数字信号。反之，在播放时则是把数字信号还原成模拟声音信号输出。采集卡的位数是指采集卡在采集和播放声音文件时所使用数字声音信号的二进制位数。采集卡的位数客观地反映了数字声音信号对输入声音信号描述的准确程度。</p>
+<p>例如，同一段音频信息，使用8bit描述单个采样信息，那么采样量化的范围就是0~255,如果使用16bit表示单个采样值,那么相应的采样量化的范围为0~64k。与8位采样位数相比，16位采样的动态范围的宽度更小，动态范围更宽广，声音的被记录的更加精细。一般CD使用的采样位数为16位。</p>
+<p>16位二进制数的最小值是0000000000000000，最大值是1111111111111111，对应的十进制数就是0和65535，也就是最大和最小值之间的差值是65535，也就是说，它量化的模拟量的动态范围可以差65535，也就是96.32分贝（20 * lg65535）），所以，量化精度只和动态范围有关，和频率响应没关系。动态范围定在96分贝也是有道理的，人耳的无痛苦极限声压是90分贝，96分贝的动态范围在普通应用中足够使用，所以96分贝动态范围内的模拟波，经量化后，不会产生削波失真的。</p>
+<p>所谓分贝是指两个相同的物理量（例A1和A0）之比取以10为底的对数并乘以10（或20）。N = 10lg(A1/A0) 分贝符号为”dB”，它是无量纲的。式中A0是基准量（或参考量），A是被量度量。被量度量和基准量之比取对数，这对数值称为被量度量的”级”。亦即用对数标度时，所得到的是比值，它代表被量度量比基准量高出多少“级”。</p>
+<h3 id="比特率（位速、码率）"><a href="#比特率（位速、码率）" class="headerlink" title="比特率（位速、码率）"></a>比特率（位速、码率）</h3><p>位速/比特率/码率描述的都是一个东西，是指在一个数据流中每秒钟能通过的信息量。我们可能看到过音频文件用 “128–Kbps MP3” 或 “64–Kbps WMA” 进行描述的情形。Kbps 表示 “每秒千位数”，因此数值越大表示数据越多：128–Kbps MP3 音频文件包含的数据量是 64–Kbps WMA 文件的两倍，并占用两倍的空间。需要了解的重要一点是，位速越高，信息量越大，对这些信息进行解码的处理量就越大，文件需要占用的空间也就越多。</p>
+<p>不过在这种情况下，这两种文件听起来没什么两样。原因是什么呢？有些文件格式比其他文件能够更有效地利用数据， 64–Kbps WMA 文件的音质与 128–Kbps MP3 的音质相同。</p>
+<p>从码率的计算公式中可以清楚的看出码率和采样位数的关系:</p>
+<p>码率 = 取样频率 × 量化精度 × 声道数</p>
+<p>一张CD,双声道,采样率44.1kHz，每个采样位数13bit，时长74分钟(4440秒)，则CD的容量为13<em>2</em>44100*4440约等于640MB。</p>
+<h3 id="压缩编码模式"><a href="#压缩编码模式" class="headerlink" title="压缩编码模式"></a>压缩编码模式</h3><ul>
+<li><p>VBR(Variable Bitrate)动态比特率<br>动态比特率就是没有固定的比特率，压缩软件在压缩时根据音频数据即时确定使用什么比特率。这是新发展的算法，他们将一首歌的复杂部分用高Bitrate编码，简单部分用低Bitrate编码。主意虽然不错，可惜新编码器的VBR算法很差，音质与CBR相去甚远。幸运的是， Lame完美地优化了VBR算法，使之成为MP3的最佳编码模式。这是以质量为前提兼顾文件大小的方式，推荐编码模式。</p>
+</li>
+<li><p>ABR(Average Bitrate)平均比特率<br>平均比特率是VBR的一种插值参数。Lame针对CBR不佳的文件体积比和VBR生成文件大小不定的特点独创了这种编码模式。ABR也被称为“Safe VBR”，它是在指定的平均Bitrate内，以每50帧(30帧约1秒)为一段，低频和不敏感频率使用相对低的流量，高频和大动态表现时使用高流量。</p>
+</li>
+</ul>
+<p>举例来说，当指定用192kbps ABR对一段wav文件进行编码时，Lame会将该文件的85%用192kbps固定编码，然后对剩余15%进行动态优化：复杂部分用高于192kbps 来编码、简单部分用低于192kbps来编码。与192kbps CBR相比，192kbps ABR在文件大小上相差不多，音质却提高不少。ABR编码在速度上是VBR编码的2到3倍，在128-256kbps范围内质量要好于CBR。可以做为 VBR和CBR的一种折衷选择。</p>
+<ul>
+<li>CBR(Constant Bitrate)常数比特率<br>常数比特率指文件从头到尾都是一种位速率。相对于VBR和ABR来讲，它压缩出来的文件体积很大，但音质却不会有明显的提高。</li>
+</ul>
+<h3 id="数字信号编码方式"><a href="#数字信号编码方式" class="headerlink" title="数字信号编码方式"></a>数字信号编码方式</h3><ul>
+<li><p>PCM(Pulse Code Modulation)脉冲编码调制<br>脉冲编码调制是一种将模拟语音信号变换为数字信号的编码方式。主要经过3个过程：抽样、量化和编码。抽样过程将连续时间模拟信号变为离散时间、连续幅度的抽样信号，量化过程将抽样信号变为离散时间、离散幅度的数字信号，编码过程将量化后的信号编码成为一个二进制码组输出。</p>
+</li>
+<li><p>LPCM(Line Pulse Code Modulation)线性脉冲编码调制<br>线性量化在整个量化范围内，量化间隔均相等，称为LPCM。非线性量化采用不等的量化间隔。量化间隔数由编码的二进制位数决定。例如，CD采用16bit线性量化，则量化间隔数L=65536。位数（n)越多，精度越高，信噪比SNR=6.02n+1.76(dB)也越高。但编码的二进制位数不是无限制的，需要根据所需的数据率确定。比如：CD可以达到的数据率为2×44.1×16=1411.2Kbit/s。</p>
+</li>
+</ul>
+<p>总而言之，LPCM格式中的音频数据是未压缩的线性量化后的音频数据。</p>
+<p>用iOS的官方文档中对几个关键词的解释：</p>
+<ul>
+<li>A sample is single numerical value for a single channel.</li>
+<li>A frame is a collection of time-coincident samples. For instance, a stereo sound file has two samples per frame, one for the left channel and one for the right channel.</li>
+<li>A packet is a collection of one or more contiguous frames. In linear PCM audio, a packet is always a single frame. In compressed formats, it is typically more. A packet defines the smallest meaningful set of frames for a given audio data format.</li>
+</ul>
+<h3 id="压缩过的音频格式"><a href="#压缩过的音频格式" class="headerlink" title="压缩过的音频格式"></a>压缩过的音频格式</h3><p>在常见的音频格式对PCM原始帧进行封装时也是以frame帧为单位的，我们一般将压缩后的音频数据帧称为媒体帧，对应原始的PCM数据称为原始帧。每个媒体帧又分成head头，body数据体。</p>
+<p>在帧头中，会存储这个媒体帧中body部分的码率，采样率等解码必须的信息，因此每一个媒体帧都可以独立于文件存在和播放。在body中存储着一个或者多个媒体帧，这些媒体真是若干个PCM原始帧经过特定的压缩算法压缩得到的。通常情况下，我们将单位时间的媒体帧的个数称为帧率。</p>
+<p>上文的采样率和帧率这两个概念都描述了音频媒体的“连续”性，二者的区别在于每个音频的媒体帧中会包含多个音频采样(多个PCM data)，如1个AAC帧中包含1024个采样。</p>
+<h3 id="iOS-支持的-sound-file-格式"><a href="#iOS-支持的-sound-file-格式" class="headerlink" title="iOS 支持的 sound file 格式"></a>iOS 支持的 sound file 格式</h3><table>
+<thead>
+<tr>
+<th>Format name</th>
+<th>Format filename extensions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AIFF</td>
+<td>.aif, .aiff</td>
+</tr>
+<tr>
+<td>CAF</td>
+<td>.caf</td>
+</tr>
+<tr>
+<td>MPEG-1, layer 3</td>
+<td>.mp3</td>
+</tr>
+<tr>
+<td>MPEG-2 or MPEG-4 ADTS</td>
+<td>.aac</td>
+</tr>
+<tr>
+<td>MPEG-4</td>
+<td>.m4a, .mp4</td>
+</tr>
+<tr>
+<td>WAV</td>
+<td>.wav</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>iOS中的native format是CAF file format</p>
+</blockquote>
+<h3 id="文件格式和数据格式"><a href="#文件格式和数据格式" class="headerlink" title="文件格式和数据格式"></a>文件格式和数据格式</h3><p>如果要理解每一个音频文件,就需要了解它的两个部分的内容:文件格式和数据格式.文件格式又称为音频容器,数据格式又可以认为是编码格式.</p>
+<ul>
+<li>文件格式(音频容器)</li>
+</ul>
+<p>文件格式描述的是存储在文件系统的文件的本身,而存储在文件中的音频数据是可以被编码成各种各样的格式的.比如,我们常见的CAF文件是一个文件格式(音频容器),它可以用来存储音频编码格式为MP3,LPCM或者其他的音频编码格式.</p>
+<ul>
+<li>数据格式(音频编码)</li>
+</ul>
+<p>iPhone中支持的音频格式如下:</p>
+<p>AAC: 被设计用来取代MP3音频编码的.它会压缩原来的声音,因此会减少存储空间.实际中ACC比MP3更好的压缩率.</p>
+<p>AMR: AMR是一个编码格式用于压缩语音的音频编码格式.</p>
+<p>linear PCM: 是标准的线性脉冲编码,一般是将模拟声音转化成数字信号,这是一个未压缩的音频格式.由于是未压缩的音频编码格式,因此播放时候用这种格式最是最好的选择,但是会占用过多的空间.</p>
+<p>MP3: …</p>
+<h3 id="Bit-Rates比特率"><a href="#Bit-Rates比特率" class="headerlink" title="Bit Rates比特率"></a>Bit Rates比特率</h3><p>比特率是一个和音频数据格式关系密切的概念.</p>
+<p>音频文件的比特率就是只单位时间内传送的bit数,单位是bit/s,kbit/s.更高的比特率会导致更大的文件.我们在使用有些音频数据格式例如AAC或者MP3时,需要我们去设置比特率,这个参数与音频格式在压缩过程的压缩率有关.当我们让比特率变低,那么音频质量就会更差.</p>
+<blockquote>
+<p>注释: 1kbit/s = 1000bit/s,而不是1024bit/s</p>
+</blockquote>
+<p>我们需要权衡比特率的大小和声音文件的质量,选择合适的比特率.如果我们使用的是语音声音,那么比特率可以适当低一点.</p>
+<p>下面是常见的比特率:</p>
+<ul>
+<li>32kbit/s: AM 无限电广播的质量</li>
+<li>48kbit/s: 很长的语音对话</li>
+<li>64kbit/s: 正常长度的语音对话的比特率</li>
+<li>96kbit/s: FM广播</li>
+<li>128kbit/s: MP3音乐</li>
+<li>329kbit/s: CD的比特率</li>
+<li>500kbit/s~1411kbit/s: 无损音频编码格式,比如LPCM</li>
+</ul>
+<h3 id="使用建议"><a href="#使用建议" class="headerlink" title="使用建议"></a>使用建议</h3><p>首先明确自己有哪些需求:</p>
+<ul>
+<li>如果用于播放的音频,选用LPCM,IMA4等其他的未压缩或者轻度压缩的音频格式.</li>
+<li>如果使用压缩率较高的AAC,MP3等这些iPhone直接硬件支持快速解码(解压缩).但是,硬件解码时候每次只支持一个文件.因此,如果需要同时播放多个需要解码(解压缩)的文件,就需要通过代码进行软件解码,非常慢.</li>
+</ul>
+<p>所以如何选择数据音频格式,这里有些建议:</p>
+<ul>
+<li>如果空间足够,那么最好使用的音频编码格式使用LPCM.不仅播放最快,而且可以同时播放多个音乐而不太占用CPU的资源.</li>
+<li>如果对空间有要求,最好使用ACC音频编码来进行音乐的播放,IMA4音频编码进行系统声音的编码.</li>
+</ul>
+<h2 id="常用的音视频处理"><a href="#常用的音视频处理" class="headerlink" title="常用的音视频处理"></a>常用的音视频处理</h2><p>通过代码实现常用的音视频处理示例，包括AVAudioPlayer 和 AVAudioPlayer 的剪辑、合成和压缩转码处理，AVPlayer 和 AVQueuePlayer 的演示等。</p>
+<h3 id="AVAudioPlayer"><a href="#AVAudioPlayer" class="headerlink" title="AVAudioPlayer"></a>AVAudioPlayer</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>AVAudioPlayer 是一个属于 AVFoundation.framework 的一个类，它的功能类似于一个功能强大的播放器，AVAudioPlayer 支持广泛的音频格式，主要是以下这些格式。</p>
+<ul>
+<li>AAC</li>
+<li>AMR (Adaptive multi-Rate，一种语音格式)</li>
+<li>ALAC (Apple lossless Audio Codec)</li>
+<li>iLBC (internet Low Bitrate Codec，另一种语音格式)</li>
+<li>IMA4 (IMA/ADPCM)</li>
+<li>linearPCM (uncompressed)</li>
+<li>u-law 和 a-law</li>
+<li>MP3 (MPEG-Laudio Layer 3)</li>
+</ul>
+<h4 id="AVAudioPlayer-的使用"><a href="#AVAudioPlayer-的使用" class="headerlink" title="AVAudioPlayer 的使用"></a>AVAudioPlayer 的使用</h4><p>首先，引入框架 AVFoundation 和 MediaPlayer</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;AVFoundation/AVFoundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;MediaPlayer/MediaPlayer.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>介绍一下常用方法：</p>
+<p>1）AVAudioPlayer 初始化<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initWithContentsOfURL: error:</span><br></pre></td></tr></table></figure></p>
+<p>从URL加载音频，返回 AVAudioPlayer 对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initWithData: error:</span><br></pre></td></tr></table></figure>
+<p>加载NSdata对象的音频文件，返回 AVAudioPlayer 对象</p>
+<p>2）AVAudioPlayer 方法调用<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)play</span><br></pre></td></tr></table></figure></p>
+<p>开始或恢复播放，调用该方法时，如果该音频还没有准备好，程序会转为执行 - (BOOL)prepareToPlay 方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)pause</span><br></pre></td></tr></table></figure>
+<p>暂停</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)stop</span><br></pre></td></tr></table></figure>
+<p>停止</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)playAtTime:(<span class="built_in">NSTimeInterval</span>)time <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">4</span>_0)</span><br></pre></td></tr></table></figure>
+<p>在某个时间点播放</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)prepareToPlay</span><br></pre></td></tr></table></figure>
+<p>准备开始播放</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)updateMeters</span><br></pre></td></tr></table></figure>
+<p>更新音频测量值，注意如果要更新音频测量值必须设置meteringEnabled为YES，通过音频测量值可以即时获得音频分贝等信息</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">float</span>)averagePowerForChannel:(<span class="built_in">NSUInteger</span>)channelNumber</span><br></pre></td></tr></table></figure>
+<p>获得指定声道的分贝峰值，注意如果要获得分贝峰值必须在此之前调用updateMeters方法</p>
+<p>3）使用 AVAudioPlayer 读取音频信息</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">volume</span><br></pre></td></tr></table></figure>
+<p>播放器的音频增益，值：0.0～1.0</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pan <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">4</span>_0)</span><br></pre></td></tr></table></figure>
+<p>立体声设置 设为 －1.0 则左边播放 设为 0.0 则中央播放 设为 1.0 则右边播放</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enableRate</span><br></pre></td></tr></table></figure>
+<p>是否允许改变播放速率</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rate <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_8, <span class="number">5</span>_0)</span><br></pre></td></tr></table></figure>
+<p>播放速率 0.5 (半速播放) ～ 2.0(倍速播放) 注1.0 是正常速度</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">playing</span><br></pre></td></tr></table></figure>
+<p>是否正在播放音频</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numberOfLoops</span><br></pre></td></tr></table></figure>
+<p>循环次数，如果要单曲循环，设置为负数</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numberOfChannels</span><br></pre></td></tr></table></figure>
+<p>该音频的声道次数 (只读)</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duration</span><br></pre></td></tr></table></figure>
+<p>该音频时长</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentTime</span><br></pre></td></tr></table></figure>
+<p>该音频的播放点</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deviceCurrentTime</span><br></pre></td></tr></table></figure>
+<p>输出设备播放音频的时间，注意如果播放中被暂停此时间也会继续累加</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url</span><br></pre></td></tr></table></figure>
+<p>音频文件路径，只读</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data</span><br></pre></td></tr></table></figure>
+<p>音频数据，只读</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channelAssignments</span><br></pre></td></tr></table></figure>
+<p>获得或设置播放声道</p>
+<p>4）代理方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)audioPlayerDidFinishPlaying:(<span class="built_in">AVAudioPlayer</span> *)player successfully:(<span class="built_in">BOOL</span>)flag;</span><br></pre></td></tr></table></figure>
+<p>音频播放完成</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)audioPlayerDecodeErrorDidOccur:(<span class="built_in">AVAudioPlayer</span> *)player error:(<span class="built_in">NSError</span> * __<span class="keyword">nullable</span>)error</span><br></pre></td></tr></table></figure>
+<p>音频解码发生错误</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)audioPlayerBeginInterruption:(<span class="built_in">AVAudioPlayer</span> *)player</span><br></pre></td></tr></table></figure>
+<p>如果音频被中断，比如有电话呼入，该方法就会被回调，该方法可以保存当前播放信息，以便恢复继续播放的进度</p>
+<h4 id="AVAudioPlayer-示例"><a href="#AVAudioPlayer-示例" class="headerlink" title="AVAudioPlayer 示例"></a>AVAudioPlayer 示例</h4><p>1）素材资源</p>
+<ul>
+<li>两个音频文件</li>
+<li>两张专辑图片</li>
+</ul>
+<p>2）代码实现<br>导入架包</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;AVFoundation/AVFoundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;MediaPlayer/MediaPlayer.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>必须持有一个 AVAudioPlayer 对象，若此对象不是属性，则无法播放</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> , <span class="keyword">strong</span>) <span class="built_in">AVAudioPlayer</span> *player;</span><br></pre></td></tr></table></figure>
+<p>获取制定 url 对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURL</span> *url = [[<span class="built_in">NSBundle</span> mainBundle] URLForResource:@“dog<span class="string">" withExtension:@“wav"</span>];</span><br></pre></td></tr></table></figure>
+<p>初始化 AVAudioPlayer 对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.player = [[<span class="built_in">AVAudioPlayer</span> alloc]initWithContentsOfURL:url error:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>设置代理</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.player.delegate = <span class="keyword">self</span>;</span><br></pre></td></tr></table></figure>
+<p>这样就播放器就初始化完成了</p>
+<p>开始播放按钮事件</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.player isPlaying]) &#123;</span><br><span class="line">    [<span class="keyword">self</span>.startBtn setBackgroundImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"播放"</span>] forState:<span class="number">0</span>];</span><br><span class="line">    [<span class="keyword">self</span>.player pause];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    [<span class="keyword">self</span>.startBtn setBackgroundImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"暂停"</span>] forState:<span class="number">0</span>];</span><br><span class="line">    [<span class="keyword">self</span>.player play];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (_timer == <span class="literal">nil</span>) &#123;</span><br><span class="line">    _timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">0.01</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(updateProgress) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义了一个 NSTimer 变量，因为播放器没有播放进程的委托，所以只能自定义NSTimer变量对播放器进行监控，用于显示播放进度</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)updateProgress &#123;</span><br><span class="line">    <span class="comment">//进度条显示播放进度</span></span><br><span class="line">    <span class="keyword">self</span>.progress.progress = <span class="keyword">self</span>.player.currentTime/<span class="keyword">self</span>.player.duration;</span><br><span class="line">    <span class="keyword">self</span>.info1.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"当前播放时间%f"</span>,<span class="keyword">self</span>.player.currentTime];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>停止播放按钮事件</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.player stop];</span><br><span class="line"><span class="comment">//计时器停止</span></span><br><span class="line">[_timer invalidate];</span><br><span class="line"><span class="comment">//释放定时器</span></span><br><span class="line">_timer = <span class="literal">nil</span>;</span><br></pre></td></tr></table></figure>
+<p>AVAudioPlayer 代理方法实现</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)audioPlayerDidFinishPlaying:(<span class="built_in">AVAudioPlayer</span> *)player successfully:(<span class="built_in">BOOL</span>)flag &#123;</span><br><span class="line">    <span class="keyword">if</span> (player == _player &amp;&amp; flag) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.startBtn setBackgroundImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"播放"</span>] forState:<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)audioPlayerBeginInterruption:(<span class="built_in">AVAudioPlayer</span> *)player &#123;</span><br><span class="line">    <span class="keyword">if</span> (player == _player) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"播放被中断"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在播放完成时响应回调和播放中被系统高优先级事件打断时响应回调。</p>
+<p>效果演示：</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/82257199.jpg" alt=""></p>
+<p>3）其他功能</p>
+<ul>
+<li>后台播放</li>
+</ul>
+<p>在项目里 info.plist 中设置权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;UIBackgroundModes&lt;/key&gt;</span><br><span class="line">    &lt;array&gt;</span><br><span class="line">        &lt;string&gt;audio&lt;/string&gt;</span><br><span class="line">    &lt;/array&gt;</span><br></pre></td></tr></table></figure>
+<p>代码里面也要添加后台播放支持</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置锁屏仍能继续播放</span></span><br><span class="line">[[<span class="built_in">AVAudioSession</span> sharedInstance] setCategory: <span class="built_in">AVAudioSessionCategoryPlayback</span> error:<span class="literal">nil</span>];</span><br><span class="line">[[<span class="built_in">AVAudioSession</span> sharedInstance] setActive: <span class="literal">YES</span> error: <span class="literal">nil</span>];</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">这样音乐在后台就可以播放了！</span><br><span class="line"></span><br><span class="line">![](http:<span class="comment">//ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/74683124.jpg)</span></span><br><span class="line"></span><br><span class="line">* 监听播放设备</span><br><span class="line"></span><br><span class="line">那么很多播放器都有一个功能，那就是在用户拔掉耳机的时候，暂停播放</span><br><span class="line"></span><br><span class="line">```objc </span><br><span class="line"><span class="comment">//添加通知，拔出耳机后暂停播放</span></span><br><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(routeChange:) name:<span class="built_in">AVAudioSessionRouteChangeNotification</span> object:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  一旦输出改变则执行此方法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param notification 输出改变通知对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">-(<span class="keyword">void</span>)routeChange:(<span class="built_in">NSNotification</span> *)notification&#123;</span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic=notification.userInfo;</span><br><span class="line">    <span class="keyword">int</span> changeReason= [dic[<span class="built_in">AVAudioSessionRouteChangeReasonKey</span>] intValue];</span><br><span class="line">    <span class="comment">//等于AVAudioSessionRouteChangeReasonOldDeviceUnavailable表示旧输出不可用</span></span><br><span class="line">    <span class="keyword">if</span> (changeReason==<span class="built_in">AVAudioSessionRouteChangeReasonOldDeviceUnavailable</span>) &#123;</span><br><span class="line">        <span class="built_in">AVAudioSessionRouteDescription</span> *routeDescription=dic[<span class="built_in">AVAudioSessionRouteChangePreviousRouteKey</span>];</span><br><span class="line">        <span class="built_in">AVAudioSessionPortDescription</span> *portDescription= [routeDescription.outputs firstObject];</span><br><span class="line">        <span class="comment">//原设备为耳机则暂停</span></span><br><span class="line">        <span class="keyword">if</span> ([portDescription.portType isEqualToString:<span class="string">@"Headphones"</span>]) &#123;</span><br><span class="line">            [<span class="keyword">self</span>.player pause];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就能在拔掉耳机的时候，暂停播放了！</p>
+<ul>
+<li>定制锁屏界面</li>
+</ul>
+<p>设置后台播放时显示的东西，例如歌曲名字，图片等</p>
+<p>要用到 &lt;MediaPlayer/MediaPlayer.h&gt; 这个库，刚才已经导入过</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setPlayingInfo &#123;</span><br><span class="line">    <span class="comment">//    设置后台播放时显示的东西，例如歌曲名字，图片等</span></span><br><span class="line">    <span class="built_in">MPMediaItemArtwork</span> *artWork = [[<span class="built_in">MPMediaItemArtwork</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"dog.png"</span>]];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = @&#123;<span class="built_in">MPMediaItemPropertyTitle</span>:<span class="string">@"Dog song"</span>,</span><br><span class="line">                          <span class="built_in">MPMediaItemPropertyArtist</span>:<span class="string">@"Dog"</span>,</span><br><span class="line">                          <span class="built_in">MPMediaItemPropertyArtwork</span>:artWork</span><br><span class="line">                          &#125;;</span><br><span class="line">    [[<span class="built_in">MPNowPlayingInfoCenter</span> defaultCenter] setNowPlayingInfo:dic];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，图片就在锁屏界面显示了</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/74542535.jpg" alt=""></p>
+<p>要响应锁屏界面上面的三个按钮，需要在一个继承 UIResponder 类里面接收远程控制，添加如下代码，接受远程控制和取消远程控制：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    <span class="comment">//    接受远程控制</span></span><br><span class="line">    [<span class="keyword">self</span> becomeFirstResponder];</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication] beginReceivingRemoteControlEvents];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidDisappear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    <span class="comment">//    取消远程控制</span></span><br><span class="line">    [<span class="keyword">self</span> resignFirstResponder];</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication] endReceivingRemoteControlEvents];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接收方法设置</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)remoteControlReceivedWithEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="keyword">if</span> (event.type == <span class="built_in">UIEventTypeRemoteControl</span>) &#123;  <span class="comment">//判断是否为远程控制</span></span><br><span class="line">        <span class="keyword">switch</span> (event.subtype) &#123;</span><br><span class="line">            <span class="keyword">case</span>  <span class="built_in">UIEventSubtypeRemoteControlPlay</span>:</span><br><span class="line">                <span class="keyword">if</span> (![_player isPlaying]) &#123;</span><br><span class="line">                    [_player play];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="built_in">UIEventSubtypeRemoteControlPause</span>:</span><br><span class="line">                <span class="keyword">if</span> ([_player isPlaying]) &#123;</span><br><span class="line">                    [_player pause];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="built_in">UIEventSubtypeRemoteControlNextTrack</span>:</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@"下一首"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="built_in">UIEventSubtypeRemoteControlPreviousTrack</span>:</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@"上一首 "</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AVAudioPlayer-的剪辑、合成和压缩转码"><a href="#AVAudioPlayer-的剪辑、合成和压缩转码" class="headerlink" title="AVAudioPlayer 的剪辑、合成和压缩转码"></a>AVAudioPlayer 的剪辑、合成和压缩转码</h3><h4 id="剪辑"><a href="#剪辑" class="headerlink" title="剪辑"></a>剪辑</h4><p>场景：将路径 filePath 下的音频文件从 time 截取到 time2 后在 resultPath 中输出</p>
+<p>AVURLAsset 是 AVAsset 的子类,AVAsset 类专门用于获取多媒体的相关信息,包括获取多媒体的画面、声音等信息.</p>
+<p>这里通过 AVURLAsset 子类来根据 NSURL 来初始化 AVAsset 对象.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVURLAsset</span> *videoAsset = [<span class="built_in">AVURLAsset</span> assetWithURL:[<span class="built_in">NSURL</span> fileURLWithPath:filePath]];</span><br></pre></td></tr></table></figure>
+<p>通过 AVAssetExportSession 的 exportSessionWithAsset 方法进行剪辑，需要配置输出路径、文件类型和截取时间段参数</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//音频输出会话并且是.m4a格式</span></span><br><span class="line"><span class="built_in">AVAssetExportSession</span> *exportSession = [<span class="built_in">AVAssetExportSession</span> exportSessionWithAsset:videoAsset presetName:<span class="built_in">AVAssetExportPresetAppleM4A</span>];</span><br><span class="line"><span class="comment">// 设置输出路径</span></span><br><span class="line">exportSession.outputURL = [<span class="built_in">NSURL</span> fileURLWithPath:resultPath];</span><br><span class="line"><span class="comment">// 文件类型 </span></span><br><span class="line">exportSession.outputFileType = <span class="built_in">AVFileTypeAppleM4A</span>;</span><br><span class="line"><span class="comment">// 截取时间段</span></span><br><span class="line">exportSession.timeRange = <span class="built_in">CMTimeRangeFromTimeToTime</span>(<span class="built_in">CMTimeMake</span>(time1, <span class="number">1</span>), <span class="built_in">CMTimeMake</span>(time2, <span class="number">1</span>));</span><br><span class="line">[exportSession exportAsynchronouslyWithCompletionHandler:^&#123;</span><br><span class="line">    <span class="comment">//exporeSession.status</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h4 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h4><p>场景：将路径 filePath1 和路径 filePath2 下的音频合成</p>
+<p>先来根据 URL 初始化两个 AVAsset 对象，我们将要合成这两段音频</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVURLAsset</span> *videoAsset1 = [[<span class="built_in">AVURLAsset</span> alloc] initWithURL:[<span class="built_in">NSURL</span> fileURLWithPath:filePath1] options:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">AVURLAsset</span> *videoAsset2 = [[<span class="built_in">AVURLAsset</span> alloc] initWithURL:[<span class="built_in">NSURL</span> fileURLWithPath:filePath2] options:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>创建对应的音频轨迹</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVAssetTrack</span> *assetTrack1 = [[videoAsset1 tracksWithMediaType:<span class="built_in">AVMediaTypeAudio</span>] objectAtIndex:<span class="number">0</span>];</span><br><span class="line"><span class="built_in">AVAssetTrack</span> *assetTrack2 = [[videoAsset2 tracksWithMediaType:<span class="built_in">AVMediaTypeAudio</span>] objectAtIndex:<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一般视频至少有2个轨道,一个播放声音,一个播放画面。音频只有声音通道</p>
+</blockquote>
+<p>通过 AVMutableComposition 来进行合成处理</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVMutableComposition</span> *composition = [<span class="built_in">AVMutableComposition</span> composition];</span><br><span class="line"><span class="built_in">AVMutableCompositionTrack</span> *compositionTrack = [composition addMutableTrackWithMediaType:<span class="built_in">AVMediaTypeAudio</span> preferredTrackID:kCMPersistentTrackID_Invalid];</span><br><span class="line"><span class="comment">// 把第二段录音添加到第一段后面</span></span><br><span class="line">[compositionTrack insertTimeRange:<span class="built_in">CMTimeRangeMake</span>(kCMTimeZero, videoAsset1.duration) ofTrack:assetTrack1 atTime:kCMTimeZero error:<span class="literal">nil</span>];</span><br><span class="line">[compositionTrack insertTimeRange:<span class="built_in">CMTimeRangeMake</span>(kCMTimeZero, videoAsset2.duration) ofTrack:assetTrack2 atTime:videoAsset1.duration error:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>最后将合成的音频（视频）输出</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVAssetExportSession</span> *exporeSession = [<span class="built_in">AVAssetExportSession</span> exportSessionWithAsset:composition presetName:<span class="built_in">AVAssetExportPresetAppleM4A</span>];</span><br><span class="line">exporeSession.outputFileType = <span class="built_in">AVFileTypeAppleM4A</span>;</span><br><span class="line">exporeSession.outputURL = [<span class="built_in">NSURL</span> fileURLWithPath:resultPath];</span><br><span class="line">[exporeSession exportAsynchronouslyWithCompletionHandler:^&#123;</span><br><span class="line">    <span class="comment">//exporeSession.status</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h4 id="压缩转码"><a href="#压缩转码" class="headerlink" title="压缩转码"></a>压缩转码</h4><p>压缩转码需要用到 LAME (Lame Aint an MP3 Encoder)，下载链接：<a href="https://sourceforge.net/projects/lame/files/lame/" target="_blank" rel="noopener">https://sourceforge.net/projects/lame/files/lame/</a></p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/31816359.jpg" alt=""></p>
+<p>下载解压后将文件夹命名为 lame，否则无法生成.h和.m文件</p>
+<p>控制台进入文件目录，运行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$:cd cd /Users/mac/Desktop/lame</span><br><span class="line">//创建build_lame.sh</span><br><span class="line">$:touch build_lame.sh</span><br><span class="line">//打开build_lame.sh,粘贴脚本代码</span><br><span class="line">$:open build_lame.sh</span><br><span class="line">//编译执行脚本,生成静态库,需要输入本机密码</span><br><span class="line">$:sudo sh build_lame.sh</span><br></pre></td></tr></table></figure>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/71567398.jpg" alt=""></p>
+<p>将fat-lame文件夹下的include文件夹和lib文件夹放入工程,再写一个OC的类调用lame.h</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@try</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> read, write;</span><br><span class="line">    FILE *pcm = fopen([filePath cStringUsingEncoding:<span class="number">1</span>], <span class="string">"rb"</span>);<span class="comment">//被转换的音频文件位置</span></span><br><span class="line">    fseek(pcm, <span class="number">4</span>*<span class="number">1024</span>, SEEK_CUR);</span><br><span class="line">    FILE *mp3 = fopen([resultPath cStringUsingEncoding:<span class="number">1</span>], <span class="string">"wb"</span>);<span class="comment">//生成的Mp3文件位置</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> PCM_SIZE = <span class="number">8192</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> <span class="built_in">MP3_SIZE</span> = <span class="number">8192</span>;</span><br><span class="line">    <span class="keyword">short</span> <span class="keyword">int</span> pcm_buffer[PCM_SIZE*<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> mp3_buffer[<span class="built_in">MP3_SIZE</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化lame编码器</span></span><br><span class="line">    lame_t lame = lame_init();</span><br><span class="line">    <span class="comment">// 设置lame mp3编码的采样率 / 声道数 / 比特率</span></span><br><span class="line">    lame_set_in_samplerate(lame, <span class="number">8000</span>);</span><br><span class="line">    lame_set_num_channels(lame,<span class="number">2</span>);</span><br><span class="line">    lame_set_out_samplerate(lame, <span class="number">8000</span>);</span><br><span class="line">    lame_set_brate(lame, <span class="number">8</span>);</span><br><span class="line">    <span class="comment">// MP3音频质量.0~9.其中0是最好,非常慢,9是最差.</span></span><br><span class="line">    lame_set_quality(lame, <span class="number">7</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置mp3的编码方式</span></span><br><span class="line">    lame_set_VBR(lame, vbr_default);</span><br><span class="line">    lame_init_params(lame);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        size_t size = (size_t)(<span class="number">2</span> * <span class="keyword">sizeof</span>(<span class="keyword">short</span> <span class="keyword">int</span>));</span><br><span class="line">        read = fread(pcm_buffer, size, PCM_SIZE, pcm);</span><br><span class="line">        <span class="keyword">if</span> (read == <span class="number">0</span>) &#123;</span><br><span class="line">            write = lame_encode_flush(lame, mp3_buffer, <span class="built_in">MP3_SIZE</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            write = lame_encode_buffer_interleaved(lame, pcm_buffer, read, mp3_buffer, <span class="built_in">MP3_SIZE</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        fwrite(mp3_buffer, write, <span class="number">1</span>, mp3);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">while</span> (read != <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    lame_close(lame);</span><br><span class="line">    fclose(mp3);</span><br><span class="line">    fclose(pcm);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[exception description]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@finally</span> &#123;</span><br><span class="line">    <span class="comment">// 转码完成</span></span><br><span class="line">    <span class="keyword">return</span> resultPath;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基本上可以将100K左右的录音文件压缩到10K以下</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/82754964.jpg" alt=""></p>
+<h3 id="AVPlayer"><a href="#AVPlayer" class="headerlink" title="AVPlayer"></a>AVPlayer</h3><p>AVPlayer支持播放本地、分步下载、或在线流媒体音视频，不仅可以播放音频，配合AVPlayerLayer类可实现视频播放。另外支持播放进度监听。</p>
+<p>使用AVPlayer需导入AVFoundation.h</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;AVFoundation/AVFoundation.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>支持视频格式： WMV，AVI，MKV，RMVB，RM，XVID，MP4，3GP，MPG等。</p>
+<p>支持音频格式：MP3，WMA，RM，ACC，OGG，APE，FLAC，FLV等。</p>
+<blockquote>
+<p>在开发中，单纯使用AVPlayer类是无法显示视频的，要将视频层添加至AVPlayerLayer中，这样才能将视频显示出来</p>
+</blockquote>
+<p>介绍一下常用方法：</p>
+<p>1）AVPlayer 初始化</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)playerWithURL:(<span class="built_in">NSURL</span> *)URL;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)playerWithPlayerItem:(<span class="built_in">AVPlayerItem</span> *)item;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithURL:(<span class="built_in">NSURL</span> *)URL;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithPlayerItem:(<span class="built_in">AVPlayerItem</span> *)item;</span><br></pre></td></tr></table></figure>
+<p>2）AVPlayer 方法调用<br>AVPlayer需要通过AVPlayerItem来关联需要播放的媒体。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVPlayerItem</span> *item = [[<span class="built_in">AVPlayerItem</span> alloc] initWithURL:[<span class="built_in">NSURL</span> URLWithString:urlStr]];</span><br><span class="line"><span class="built_in">AVPlayer</span> *player = [[<span class="built_in">AVPlayer</span> alloc] initWithPlayerItem:item];</span><br></pre></td></tr></table></figure>
+<p>准备播放前，通过KVO添加播放状态改变监听</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.player.currentItem addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"status"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>处理KVO回调事件：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context &#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"status"</span>]) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (<span class="keyword">self</span>.player.status) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="built_in">AVPlayerStatusUnknown</span>: &#123;</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@"未知转态"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="built_in">AVPlayerStatusReadyToPlay</span>: &#123;</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@"准备播放"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="built_in">AVPlayerStatusFailed</span>:  &#123;</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@"加载失败"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>KVO监听音乐缓冲状态：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.player.currentItem addObserver:<span class="keyword">self</span></span><br><span class="line">                          forKeyPath:<span class="string">@"loadedTimeRanges"</span></span><br><span class="line">                             options:<span class="built_in">NSKeyValueObservingOptionNew</span></span><br><span class="line">                             context:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>监听事件处理</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"loadedTimeRanges"</span>]) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSArray</span> * timeRanges = <span class="keyword">self</span>.player.currentItem.loadedTimeRanges;</span><br><span class="line">        <span class="comment">//本次缓冲的时间范围</span></span><br><span class="line">        <span class="built_in">CMTimeRange</span> timeRange = [timeRanges.firstObject <span class="built_in">CMTimeRangeValue</span>];</span><br><span class="line">        <span class="comment">//缓冲总长度</span></span><br><span class="line">        <span class="built_in">NSTimeInterval</span> totalLoadTime = <span class="built_in">CMTimeGetSeconds</span>(timeRange.start) + <span class="built_in">CMTimeGetSeconds</span>(timeRange.duration);</span><br><span class="line">        <span class="comment">//音乐的总时间</span></span><br><span class="line">        <span class="built_in">NSTimeInterval</span> duration = <span class="built_in">CMTimeGetSeconds</span>(<span class="keyword">self</span>.player.currentItem.duration);</span><br><span class="line">        <span class="comment">//计算缓冲百分比例</span></span><br><span class="line">        <span class="built_in">NSTimeInterval</span> scale = totalLoadTime/duration;</span><br><span class="line">        <span class="comment">//更新缓冲进度条</span></span><br><span class="line">        <span class="comment">//        self.loadTimeProgress.progress = scale;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开始播放后，通过KVO添加播放结束事件监听</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span></span><br><span class="line">                                         selector:<span class="keyword">@selector</span>(playFinished:)</span><br><span class="line">                                             name:<span class="built_in">AVPlayerItemDidPlayToEndTimeNotification</span></span><br><span class="line">                                           object:_player.currentItem];</span><br></pre></td></tr></table></figure>
+<p>开始播放时，通过AVPlayer的方法监听播放进度，并更新进度条（定期监听的方法）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span>.player addPeriodicTimeObserverForInterval:<span class="built_in">CMTimeMake</span>(<span class="number">1.0</span>, <span class="number">1.0</span>) queue:dispatch_get_main_queue() usingBlock:^(<span class="built_in">CMTime</span> time) &#123;</span><br><span class="line">    <span class="comment">//当前播放的时间</span></span><br><span class="line">    <span class="keyword">float</span> current = <span class="built_in">CMTimeGetSeconds</span>(time);</span><br><span class="line">    <span class="comment">//总时间</span></span><br><span class="line">    <span class="keyword">float</span> total = <span class="built_in">CMTimeGetSeconds</span>(item.duration);</span><br><span class="line">    <span class="keyword">if</span> (current) &#123;</span><br><span class="line">        <span class="keyword">float</span> progress = current / total;</span><br><span class="line">        <span class="comment">//更新播放进度条</span></span><br><span class="line">        weakSelf.playSlider.value = progress;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>用户拖动进度条，修改播放进度</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)playSliderValueChange:(<span class="built_in">UISlider</span> *)sender &#123;</span><br><span class="line">    <span class="comment">//根据值计算时间</span></span><br><span class="line">    <span class="keyword">float</span> time = sender.value * <span class="built_in">CMTimeGetSeconds</span>(<span class="keyword">self</span>.player.currentItem.duration);</span><br><span class="line">    <span class="comment">//跳转到当前指定时间</span></span><br><span class="line">    [<span class="keyword">self</span>.player seekToTime:<span class="built_in">CMTimeMake</span>(time, <span class="number">1</span>)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>演示效果：</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/55702526.jpg" alt=""></p>
+<p>3）其他用法</p>
+<ul>
+<li>控制视频的进度<br>使用懒加载的方式，将进度条添加到View上面</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UISlider</span> *)avSlider&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_avSlider) &#123;</span><br><span class="line">        _avSlider = [[<span class="built_in">UISlider</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">55</span>, <span class="keyword">self</span>.view.bounds.size.width, <span class="number">30</span>)];</span><br><span class="line">        [<span class="keyword">self</span>.view addSubview:_avSlider];</span><br><span class="line">    &#125;<span class="keyword">return</span> _avSlider;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在viewDidLoad中个slider（进度条）添加一个回调</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.avSlider addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(avSliderAction) forControlEvents:</span><br><span class="line"><span class="built_in">UIControlEventTouchUpInside</span>|<span class="built_in">UIControlEventTouchCancel</span>|<span class="built_in">UIControlEventTouchUpOutside</span>];</span><br></pre></td></tr></table></figure>
+<p>回调方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)avSliderAction &#123;</span><br><span class="line">    <span class="comment">//slider的value值为视频的时间</span></span><br><span class="line">    <span class="keyword">float</span> seconds = <span class="keyword">self</span>.avSlider.value;</span><br><span class="line">    <span class="comment">//让视频从指定的CMTime对象处播放。</span></span><br><span class="line">    <span class="built_in">CMTime</span> startTime = <span class="built_in">CMTimeMakeWithSeconds</span>(seconds, <span class="keyword">self</span>.item.currentTime.timescale);</span><br><span class="line">    <span class="comment">//让视频从指定处播放</span></span><br><span class="line">    [<span class="keyword">self</span>.myPlayer seekToTime:startTime completionHandler:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">        <span class="keyword">if</span> (finished) &#123;</span><br><span class="line">            [<span class="keyword">self</span> playAction];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>后台播放</li>
+</ul>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/19645986.jpg" alt=""></p>
+<p>首先 info.plist 文件中设置权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;UIBackgroundModes&lt;/key&gt;</span><br><span class="line">&lt;array&gt;</span><br><span class="line">    &lt;string&gt;audio&lt;/string&gt;</span><br><span class="line">&lt;/array&gt;</span><br></pre></td></tr></table></figure>
+<p>在AppDelegate.m的- (BOOL)application:didFinishLaunchingWithOptions:方法中添加代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVAudioSession</span> *session = [<span class="built_in">AVAudioSession</span> sharedInstance];</span><br><span class="line">[session setCategory:<span class="built_in">AVAudioSessionCategoryPlayback</span> error:<span class="literal">nil</span>];</span><br><span class="line">[session setActive:<span class="literal">YES</span> error:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>锁屏信息</li>
+</ul>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/54340678.jpg" alt=""></p>
+<p>Now Playing Center并不需要每一秒都去刷新（设置），它是根据你设置的PlaybackRate来计算进度条展示的进度，比如你PlaybackRate传1，那就是1秒刷新一次进度显示，当然暂停播放的时候它也会自动暂停。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)configNowPlayingCenter &#123;    </span><br><span class="line">    BASE_INFO_FUN(<span class="string">@"配置NowPlayingCenter"</span>);</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> * info = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">    <span class="comment">//音乐的标题</span></span><br><span class="line">    [info setObject:_player.currentSong.title forKey:<span class="built_in">MPMediaItemPropertyTitle</span>];</span><br><span class="line">     <span class="comment">//音乐的艺术家</span></span><br><span class="line">    [info setObject:_player.currentSong.artist forKey:<span class="built_in">MPMediaItemPropertyArtist</span>];</span><br><span class="line">     <span class="comment">//音乐的播放时间</span></span><br><span class="line">    [info setObject:@(<span class="keyword">self</span>.player.playTime.intValue) forKey:<span class="built_in">MPNowPlayingInfoPropertyElapsedPlaybackTime</span>];</span><br><span class="line">     <span class="comment">//音乐的播放速度</span></span><br><span class="line">    [info setObject:@(<span class="number">1</span>) forKey:<span class="built_in">MPNowPlayingInfoPropertyPlaybackRate</span>];</span><br><span class="line">     <span class="comment">//音乐的总时间</span></span><br><span class="line">    [info setObject:@(<span class="keyword">self</span>.player.playDuration.intValue) forKey:<span class="built_in">MPMediaItemPropertyPlaybackDuration</span>];</span><br><span class="line">     <span class="comment">//音乐的封面</span></span><br><span class="line">    <span class="built_in">MPMediaItemArtwork</span> * artwork = [[<span class="built_in">MPMediaItemArtwork</span> alloc] initWithImage:_player.coverImg];</span><br><span class="line">    [info setObject:artwork forKey:<span class="built_in">MPMediaItemPropertyArtwork</span>];</span><br><span class="line">     <span class="comment">//完成设置</span></span><br><span class="line">    [[<span class="built_in">MPNowPlayingInfoCenter</span> defaultCenter]setNowPlayingInfo:info];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那什么时候设置Now Playing Center比较合适呢？对于播放网络音乐来说，需要刷新的有几个时间点：当前播放的歌曲变化时（如切换到下一首）、当前歌曲信息变化时（如从Unknown到ReadyToPlay）、当前歌曲拖动进度时。</p>
+<ul>
+<li>耳机线控或者锁屏界面控制<br>先引入头文件</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;MediaPlayer/MPRemoteCommandCenter.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;MediaPlayer/MPRemoteCommand.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>在需要处理远程控制事件的具体控制器或其它类中调用下面这个方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)remoteControlEventHandler &#123;</span><br><span class="line">    <span class="comment">// 直接使用sharedCommandCenter来获取MPRemoteCommandCenter的shared实例</span></span><br><span class="line">    <span class="built_in">MPRemoteCommandCenter</span> *commandCenter = [<span class="built_in">MPRemoteCommandCenter</span> sharedCommandCenter];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启用播放命令 (锁屏界面和上拉快捷功能菜单处的播放按钮触发的命令)</span></span><br><span class="line">commandCenter.playCommand.enabled = <span class="literal">YES</span>;</span><br><span class="line"><span class="comment">// 为播放命令添加响应事件, 在点击后触发</span></span><br><span class="line">[commandCenter.playCommand addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(playAction:)];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 播放, 暂停, 上下曲的命令默认都是启用状态, 即enabled默认为YES</span></span><br><span class="line"><span class="comment">// 为暂停, 上一曲, 下一曲分别添加对应的响应事件</span></span><br><span class="line">[commandCenter.pauseCommand addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(pauseAction:)];</span><br><span class="line">[commandCenter.previousTrackCommand addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(previousTrackAction:)];</span><br><span class="line">[commandCenter.nextTrackCommand addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(nextTrackAction:)];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启用耳机的播放/暂停命令 (耳机上的播放按钮触发的命令)</span></span><br><span class="line">commandCenter.togglePlayPauseCommand.enabled = <span class="literal">YES</span>;</span><br><span class="line"><span class="comment">// 为耳机的按钮操作添加相关的响应事件</span></span><br><span class="line">[commandCenter.togglePlayPauseCommand addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(playOrPauseAction:)];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)playAction:(<span class="keyword">id</span>)obj &#123;</span><br><span class="line">    [[HYPlayerTool sharePlayerTool] play];</span><br><span class="line">&#125;</span><br><span class="line">-(<span class="keyword">void</span>)pauseAction:(<span class="keyword">id</span>)obj &#123;</span><br><span class="line">    [[HYPlayerTool sharePlayerTool] pause];</span><br><span class="line">&#125;</span><br><span class="line">-(<span class="keyword">void</span>)nextTrackAction:(<span class="keyword">id</span>)obj &#123;</span><br><span class="line">    [[HYPlayerTool sharePlayerTool] playNext];</span><br><span class="line">&#125;</span><br><span class="line">-(<span class="keyword">void</span>)previousTrackAction:(<span class="keyword">id</span>)obj &#123;</span><br><span class="line">    [[HYPlayerTool sharePlayerTool] playPre];</span><br><span class="line">&#125;</span><br><span class="line">-(<span class="keyword">void</span>)playOrPauseAction:(<span class="keyword">id</span>)obj &#123;</span><br><span class="line">    <span class="keyword">if</span> ([[HYPlayerTool sharePlayerTool] isPlaying]) &#123;</span><br><span class="line">        [[HYPlayerTool sharePlayerTool] pause];</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        [[HYPlayerTool sharePlayerTool] play];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AVQueuePlayer"><a href="#AVQueuePlayer" class="headerlink" title="AVQueuePlayer"></a>AVQueuePlayer</h3><p>AVPlayer只支持单个媒体资源的播放，我们可以使用AVPlayer的子类AVQueuePlayer实现列表播放。</p>
+<p>在AVPlayer的基础上，增加以下方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过给定的AVPlayerItem数组创建一个AVQueuePlayer实例</span></span><br><span class="line">+ (<span class="keyword">instancetype</span>)queuePlayerWithItems:(<span class="built_in">NSArray</span>&lt;<span class="built_in">AVPlayerItem</span> *&gt; *)items;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过给定的AVPlayerItem数组初始化AVQueuePlayer实例</span></span><br><span class="line">- (<span class="built_in">AVQueuePlayer</span> *)initWithItems:(<span class="built_in">NSArray</span>&lt;<span class="built_in">AVPlayerItem</span> *&gt; *)items;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获得当前的播放队列数组</span></span><br><span class="line">- (<span class="built_in">NSArray</span>&lt;<span class="built_in">AVPlayerItem</span> *&gt; *)items;</span><br><span class="line"></span><br><span class="line"><span class="comment">//停止播放当前音乐，并播放队列中的下一首</span></span><br><span class="line">- (<span class="keyword">void</span>)advanceToNextItem;</span><br><span class="line"></span><br><span class="line"><span class="comment">//往播放队列中插入新的AVPlayerItem</span></span><br><span class="line">- (<span class="keyword">void</span>)insertItem:(<span class="built_in">AVPlayerItem</span> *)item afterItem:(<span class="keyword">nullable</span> <span class="built_in">AVPlayerItem</span> *)afterItem;</span><br><span class="line"></span><br><span class="line"><span class="comment">//从播放队列中移除指定AVPlayerItem</span></span><br><span class="line">- (<span class="keyword">void</span>)removeItem:(<span class="built_in">AVPlayerItem</span> *)item;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清空播放队列</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAllItems;</span><br></pre></td></tr></table></figure>
+<p>官方API中没找到播放上一首的方法，所以其实直接用AVPlayer做列表播放也是可以的，通过维护一个播放列表数组，监听用户点击上一首和下一首按钮，并监听播放结束事件，调用 AVPlayer 实例的replaceCurrentItemWithPlayerItem:方法传入播放列表中的上一首或下一首。</p>
+<h3 id="AVPlayer-的缓存实现"><a href="#AVPlayer-的缓存实现" class="headerlink" title="AVPlayer 的缓存实现"></a>AVPlayer 的缓存实现</h3><p>这里主要展示通过AVAssetResourceLoader实现AVPlayer的缓存。</p>
+<p>没有任何工具能适用于所有的场景，在使用AVPlayer的过程中，我们会发现它有很多局限性，比如播放网络音乐时，往往不能控制其内部播放逻辑，比如我们会发现播放时seek会失败，数据加载完毕后不能获取到数据文件进行其他操作，因此我们需要寻找弥补其不足之处的方法，这里我们选择了AVAssetResourceLoader。</p>
+<h4 id="AVAssetResourceLoader"><a href="#AVAssetResourceLoader" class="headerlink" title="AVAssetResourceLoader"></a>AVAssetResourceLoader</h4><p>AVAssetResourceLoader 可以让我们自行掌握AVPlayer数据的加载，包括获取AVPlayer需要的数据的信息，以及可以决定传递多少数据给AVPlayer。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/72651347.jpg" alt=""></p>
+<p>实现原理：</p>
+<p>AVAssetResourceLoader 通过对 loadingRequest 的控制，间接控制 AVPlayer 数据的加载等操作。</p>
+<p>使用AVAssetResourceLoader需要实现AVAssetResourceLoaderDelegate的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)resourceLoader:(<span class="built_in">AVAssetResourceLoader</span> *)resourceLoader</span><br><span class="line">shouldWaitForLoadingOfRequestedResource:(<span class="built_in">AVAssetResourceLoadingRequest</span> *)loadingRequest;</span><br></pre></td></tr></table></figure>
+<p>要求加载资源的代理方法，这时我们需要保存loadingRequest并对其所指定的数据进行读取或下载操作，当数据读取或下载完成，我们可以对loadingRequest进行完成操作。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)resourceLoader:(<span class="built_in">AVAssetResourceLoader</span> *)resourceLoader</span><br><span class="line">didCancelLoadingRequest:(<span class="built_in">AVAssetResourceLoadingRequest</span> *)loadingRequest;</span><br></pre></td></tr></table></figure>
+<p>实现策略：</p>
+<p>通过AVAssetResourceLoader实现缓存的策略有多种，没有绝对的优与劣，只要符合我们的实际需求就可以了。</p>
+<p>下面我们以模仿企鹅音乐的来演示AVAssetResourceLoader实现缓存的过程为例子。</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/23214634.jpg" alt=""></p>
+<p>先观察并猜测企鹅音乐的缓存策略（当然它不是用AVPlayer播放）：</p>
+<p>1、开始播放，同时开始下载完整的文件，当文件下载完成时，保存到缓存文件夹中；</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/3981812.jpg" alt=""></p>
+<p>2、当seek时</p>
+<p>（1）如果seek到已下载到的部分，直接seek成功；（如下载进度60%，seek进度50%）</p>
+<p>（2）如果seek到未下载到的部分，则开始新的下载（如下载进度60%，seek进度70%）</p>
+<p>PS1：此时文件下载的范围是70%-100%</p>
+<p>PS2：之前已下载的部分就被删除了</p>
+<p>PS3：如果有别的seek操作则重复步骤2，如果此时再seek到进度40%，则会开始新的下载（范围40%-100%）</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/9651923.jpg" alt=""></p>
+<p>3、当开始新的下载之后，由于文件不完整，下载完成之后不会保存到缓存文件夹中；</p>
+<p>4、下次再播放同一歌曲时，如果在缓存文件夹中存在，则直接播放缓存文件；</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/4005265.jpg" alt=""></p>
+<p>代码实现：</p>
+<p>通过自定义scheme来创建avplayer，并给AVURLAsset指定代理（SUPlayer对象）</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVURLAsset</span> * asset = [<span class="built_in">AVURLAsset</span> URLAssetWithURL:[<span class="keyword">self</span>.url customSchemeURL] options:<span class="literal">nil</span>];</span><br><span class="line">[asset.resourceLoader setDelegate:<span class="keyword">self</span>.resourceLoader queue:dispatch_get_main_queue()];</span><br><span class="line"><span class="keyword">self</span>.currentItem = [<span class="built_in">AVPlayerItem</span> playerItemWithAsset:asset];</span><br><span class="line"><span class="keyword">self</span>.player = [<span class="built_in">AVPlayer</span> playerWithPlayerItem:<span class="keyword">self</span>.currentItem];</span><br></pre></td></tr></table></figure>
+<p>代理实现AVAssetResourceLoader的代理方法（SUResourceLoader对象）</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)resourceLoader:(<span class="built_in">AVAssetResourceLoader</span> *)resourceLoader shouldWaitForLoadingOfRequestedResource:(<span class="built_in">AVAssetResourceLoadingRequest</span> *)loadingRequest &#123;</span><br><span class="line">    [<span class="keyword">self</span> addLoadingRequest:loadingRequest];</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)resourceLoader:(<span class="built_in">AVAssetResourceLoader</span> *)resourceLoader didCancelLoadingRequest:(<span class="built_in">AVAssetResourceLoadingRequest</span> *)loadingRequest &#123;</span><br><span class="line">    [<span class="keyword">self</span> removeLoadingRequest:loadingRequest];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对loadingRequest的处理（addLoadingRequest方法）:</p>
+<p>1）将其加入到requestList中</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.requestList addObject:loadingRequest];</span><br></pre></td></tr></table></figure>
+<p>2）如果还没开始下载，则开始请求数据，否则静待数据的下载</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> newTaskWithLoadingRequest:loadingRequest cache:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
+<p>3）如果是seek之后的loadingRequest，判断请求开始的位置，如果已经缓冲到，则直接读取数据</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (loadingRequest.dataRequest.requestedOffset &gt;= <span class="keyword">self</span>.requestTask.requestOffset &amp;&amp;</span><br><span class="line">    loadingRequest.dataRequest.requestedOffset &lt;= <span class="keyword">self</span>.requestTask.requestOffset + <span class="keyword">self</span>.requestTask.cacheLength) &#123;</span><br><span class="line">    [<span class="keyword">self</span> processRequestList];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4）如果还没缓冲到，则重新请求</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.seekRequired) &#123;</span><br><span class="line">    [<span class="keyword">self</span> newTaskWithLoadingRequest:loadingRequest cache:<span class="literal">NO</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、数据请求的处理（newTaskWithLoadingRequest方法）</p>
+<p>1）先判断是否已经有下载任务，如果有，则先取消该任务</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.requestTask) &#123;</span><br><span class="line">    fileLength = <span class="keyword">self</span>.requestTask.fileLength;</span><br><span class="line">    <span class="keyword">self</span>.requestTask.cancel = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2）建立新的请求，设置代理</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.requestTask = [[SURequestTask alloc]init];</span><br><span class="line"><span class="keyword">self</span>.requestTask.requestURL = loadingRequest.request.URL;</span><br><span class="line"><span class="keyword">self</span>.requestTask.requestOffset = loadingRequest.dataRequest.requestedOffset;</span><br><span class="line"><span class="keyword">self</span>.requestTask.cache = cache;</span><br><span class="line"><span class="keyword">if</span> (fileLength &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.requestTask.fileLength = fileLength;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">self</span>.requestTask.delegate = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span>.requestTask start];</span><br><span class="line"><span class="keyword">self</span>.seekRequired = <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
+<p>5、数据响应的处理（processRequestList方法）</p>
+<p>对requestList里面的loadingRequest填充响应数据，如果已完全响应，则将其从requestList中移除</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)processRequestList &#123;</span><br><span class="line"><span class="built_in">NSMutableArray</span> * finishRequestList = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">AVAssetResourceLoadingRequest</span> * loadingRequest <span class="keyword">in</span> <span class="keyword">self</span>.requestList) &#123;</span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> finishLoadingWithLoadingRequest:loadingRequest]) &#123;</span><br><span class="line">        [finishRequestList addObject:loadingRequest];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span>.requestList removeObjectsInArray:finishRequestList];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>填充响应数据的过程如下：</p>
+<p>1）填写 contentInformationRequest的信息，注意contentLength需要填写下载的文件的总长度，contentType需要转换</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFStringRef</span> contentType = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge <span class="built_in">CFStringRef</span>)(MimeType), <span class="literal">NULL</span>);</span><br><span class="line">loadingRequest.contentInformationRequest.contentType = <span class="built_in">CFBridgingRelease</span>(contentType);</span><br><span class="line">loadingRequest.contentInformationRequest.byteRangeAccessSupported = <span class="literal">YES</span>;</span><br><span class="line">loadingRequest.contentInformationRequest.contentLength = <span class="keyword">self</span>.requestTask.fileLength;</span><br></pre></td></tr></table></figure>
+<p>2）计算可以响应的数据长度，注意数据读取的起始位置是当前avplayer当前播放的位置，结束位置是loadingRequest的结束位置或者目前文件下载到的位置</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSUInteger</span> cacheLength = <span class="keyword">self</span>.requestTask.cacheLength;</span><br><span class="line"><span class="built_in">NSUInteger</span> requestedOffset = loadingRequest.dataRequest.requestedOffset;</span><br><span class="line"><span class="keyword">if</span> (loadingRequest.dataRequest.currentOffset != <span class="number">0</span>) &#123;</span><br><span class="line">    requestedOffset = loadingRequest.dataRequest.currentOffset;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">NSUInteger</span> canReadLength = cacheLength - (requestedOffset - <span class="keyword">self</span>.requestTask.requestOffset);</span><br><span class="line"><span class="built_in">NSUInteger</span> respondLength = MIN(canReadLength, loadingRequest.dataRequest.requestedLength);</span><br></pre></td></tr></table></figure>
+<p>3）读取数据并填充到loadingRequest</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[loadingRequest.dataRequest respondWithData:[SUFileHandle readTempFileDataWithOffset:requestedOffset - <span class="keyword">self</span>.requestTask.requestOffset length:respondLength]];</span><br></pre></td></tr></table></figure>
+<p>4） 如果完全响应了所需要的数据，则完成loadingRequest，注意判断的依据是 响应数据结束的位置 &gt;= loadingRequest结束的位置</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSUInteger</span> nowendOffset = requestedOffset + canReadLength;</span><br><span class="line"><span class="built_in">NSUInteger</span> reqEndOffset = loadingRequest.dataRequest.requestedOffset + loadingRequest.dataRequest.requestedLength;</span><br><span class="line"><span class="keyword">if</span> (nowendOffset &gt;= reqEndOffset) &#123;</span><br><span class="line">    [loadingRequest finishLoading];</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
+<p>6、处理requestList的时机</p>
+<p>当有新的loadingRequest或者文件下载进度更新时，都需要处理requestList</p>
+<p>7、新的请求任务实现的过程（SURequestTask对象）</p>
+<p>1）初始化时，需要删除旧的临时文件，并创建新的空白临时文件</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        [SUFileHandle createTempFile];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2）建立新的连接，如果是seek后的请求，则指定其请求内容的范围</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)start &#123;</span><br><span class="line">    <span class="built_in">NSMutableURLRequest</span> * request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:[<span class="keyword">self</span>.requestURL originalSchemeURL] cachePolicy:<span class="built_in">NSURLRequestReloadIgnoringCacheData</span> timeoutInterval:RequestTimeout];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.requestOffset &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        [request addValue:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"bytes=%ld-%ld"</span>, <span class="keyword">self</span>.requestOffset, <span class="keyword">self</span>.fileLength - <span class="number">1</span>] forHTTPHeaderField:<span class="string">@"Range"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">self</span>.session = [<span class="built_in">NSURLSession</span> sessionWithConfiguration:[<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration] delegate:<span class="keyword">self</span> delegateQueue:[<span class="built_in">NSOperationQueue</span> mainQueue]];</span><br><span class="line">    <span class="keyword">self</span>.task = [<span class="keyword">self</span>.session dataTaskWithRequest:request];</span><br><span class="line">    [<span class="keyword">self</span>.task resume];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3）当收到数据时，将数据写入临时文件，更新下载进度，同时通知代理处理requestList</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)URLSession:(<span class="built_in">NSURLSession</span> *)session dataTask:(<span class="built_in">NSURLSessionDataTask</span> *)dataTask didReceiveData:(<span class="built_in">NSData</span> *)data &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.cancel) <span class="keyword">return</span>;</span><br><span class="line">    [SUFileHandle writeTempFileData:data];</span><br><span class="line">    <span class="keyword">self</span>.cacheLength += data.length;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(requestTaskDidUpdateCache)]) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.delegate requestTaskDidUpdateCache];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4）当下载完成时，如果满足缓存的条件，则将临时文件拷贝到缓存文件夹中</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.cache) &#123;</span><br><span class="line">    [SUFileHandle cacheTempFileWithFileName:[<span class="built_in">NSString</span> fileNameWithURL:<span class="keyword">self</span>.requestURL]];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(requestTaskDidFinishLoadingWithCache:)]) &#123;</span><br><span class="line">    [<span class="keyword">self</span>.delegate requestTaskDidFinishLoadingWithCache:<span class="keyword">self</span>.cache];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>演示效果：</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/7355729.jpg" alt=""></p>
+<p>缓存功能优化点：</p>
+<ul>
+<li><p>1.对缓存格式支持的处理：并不是所有文件格式都支持的哦，对于不支持的格式，你应该不使用缓存功能；</p>
+</li>
+<li><p>2.对缓存过程中各种错误的处理：比如下载超时、连接失败、读取数据错误等等的处理；</p>
+</li>
+<li><p>3.缓存文件的命名处理，如果缓存文件没有后缀（如.mp4），可能会导致播放失败；</p>
+</li>
+</ul>
+<h3 id="TheAmazingAudioEngine-实现音效模块"><a href="#TheAmazingAudioEngine-实现音效模块" class="headerlink" title="TheAmazingAudioEngine 实现音效模块"></a>TheAmazingAudioEngine 实现音效模块</h3><p>TheAmazingAudioEngine就是基于AudioUnit框架、AudioToolBox框架、AVFoundation框架的封装，使其更方便使用。</p>
+<h4 id="播放功能"><a href="#播放功能" class="headerlink" title="播放功能"></a>播放功能</h4><p>和官方AVAudioPalyer以及AVAudioEngine都比较类似，拿到文件路径、或者音频buffer，调用相关方法播放即可，这里举例文件的播放。</p>
+<ul>
+<li>创建AEAudioController对象；</li>
+<li>拿到音频的路径（一个NSURL对象）；</li>
+<li>根据音频路径创建AEAudioFilePlayer对象；</li>
+<li>通过AEAudioController的addChannels:方法将AEAudioFilePlayer对象add到AEAudioController对象中即可。</li>
+</ul>
+<p>范例如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *path = [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"specialPeople"</span> ofType:<span class="string">@"mp3"</span>];</span><br><span class="line"><span class="keyword">self</span>.player = [[AEAudioFilePlayer alloc] initWithURL:[<span class="built_in">NSURL</span> fileURLWithPath:path] error:&amp;error];</span><br><span class="line">[<span class="keyword">self</span>.audioController addChannels:@[<span class="keyword">self</span>.player]];</span><br></pre></td></tr></table></figure>
+<p>播放本地音频</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 歌曲名和后缀名</span></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *audioFileName   = <span class="string">@"specialPeople"</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *audioFileFormat = <span class="string">@"mp3"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSURL</span> *songURL = [[<span class="built_in">NSBundle</span> mainBundle] URLForResource:audioFileName</span><br><span class="line">withExtension:audioFileFormat];</span><br></pre></td></tr></table></figure>
+<p>如果是想拿手机中的歌曲，则通过MPMediaPickerController的委托方法mediaPicker:didPickMediaItems:方法获得，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark - MPMediaPickerControllerDelegate</span></span><br><span class="line">- (<span class="keyword">void</span>)mediaPicker:(<span class="built_in">MPMediaPickerController</span> *)mediaPicker didPickMediaItems:(<span class="built_in">MPMediaItemCollection</span> *)mediaItemCollection &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我这里要播放两首歌,所以有两个MPMediaPickerController对象,这里作一个判断</span></span><br><span class="line"><span class="keyword">if</span> (mediaPicker == _mediaCH1PickerController) &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">// mediaItemCollection.representativeItem.assetURL这一句即可拿到使用者选择歌曲的URL</span></span><br><span class="line"><span class="comment">// 备注:这里已经将播放歌曲的方法playNewSongCH1:封装到自定义的engine类中</span></span><br><span class="line">[[HNMCManager shareManager].engine playNewSongCH1:mediaItemCollection.representativeItem.assetURL];</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">[[HNMCManager shareManager].engine playNewSongCH2:mediaItemCollection.representativeItem.assetURL];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> dismissViewControllerAnimated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="音效的实现"><a href="#音效的实现" class="headerlink" title="音效的实现"></a>音效的实现</h4><p>所有音效都是基于AEAudioUnitFilter类实现的。</p>
+<p>TheAmazingAudioEngine上的音效比苹果官方的AVAudioEngine丰富且容易实现。</p>
+<p>总的步骤：</p>
+<p>创建AEAudioUnitFilter或其子类对象<br>用AEAudioController的addFilter:方法将Filter对象add到AEAudioController对象中<br>设置相关属性值，实现音效的控制</p>
+<p>1）实现高通音效</p>
+<p>该框架有现成的高通音效类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark 高通音效</span></span><br><span class="line">- (<span class="keyword">void</span>)setupFilterHighPass:(<span class="keyword">double</span>)cutoffFrequency &#123;</span><br><span class="line"><span class="comment">// 创建并添加AEAudioUnitFilter实例</span></span><br><span class="line">[<span class="keyword">self</span> addHighpassFilter];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置相关属性值，达到音效的控制</span></span><br><span class="line">_highPassFilter.cutoffFrequency = cutoffFrequency;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addHighpassFilter &#123;</span><br><span class="line"><span class="comment">// _highPassFilter是AEHighPassFilter类的实例</span></span><br><span class="line"><span class="comment">// AEHighPassFilter是AEAudioUnitFilter的子类</span></span><br><span class="line"><span class="keyword">if</span> (!_highPassFilter) &#123;</span><br><span class="line">_highPassFilter = [[AEHighPassFilter alloc] init];</span><br><span class="line">[_audioController addFilter:_highPassFilter];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">if</span> ( ![_audioController.filters containsObject:_highPassFilter] ) &#123;</span><br><span class="line">[_audioController addFilter:_highPassFilter];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实现EQ调整"><a href="#实现EQ调整" class="headerlink" title="实现EQ调整"></a>实现EQ调整</h4><p>因为本来对音频相关领域的概念、知识不太了解，实现EQ调整还颇费了一番周折。需要实现的EQ调整类似下图：</p>
+<p><img src="http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-22/67518880.jpg" alt=""></p>
+<p>可以通过AEParametricEqFilter类实现，该类也是AEAudioUnitFilter的子类，要实现10段EQ值的调整，就要创建10个AEParametricEqFilter对象，给centerFrequency属性赋值20Hz-20000Hz之间的值(取决于你要调整哪个频率的声音)。而具体音效调整，则是调整增益值(通过gain属性)，值范围：-20dB to 20dB。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark EQ音效</span></span><br><span class="line"><span class="comment">// 创建10个AEParametricEqFilter对象</span></span><br><span class="line">- (<span class="keyword">void</span>)creatEqFliters &#123;</span><br><span class="line">_eq20HzFilter  = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq50HzFilter  = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq100HzFilter = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq200HzFilter = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq500HzFilter = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq1kFilter    = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq2kFilter    = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq5kFilter    = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq10kFilter   = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eq20kFilter   = [[AEParametricEqFilter alloc] init];</span><br><span class="line">_eqFilters     = @[_eq20HzFilter, _eq50HzFilter, _eq100HzFilter, _eq200HzFilter, _eq500HzFilter, _eq1kFilter, _eq2kFilter, _eq5kFilter, _eq10kFilter, _eq20kFilter];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setupFilterEq:(<span class="built_in">NSInteger</span>)eqType value:(<span class="keyword">double</span>)gain &#123;</span><br><span class="line"><span class="keyword">switch</span> (eqType) &#123;</span><br><span class="line"><span class="keyword">case</span> EQ_20Hz: &#123;</span><br><span class="line"><span class="comment">// 设置需要调整的频率，并将传入的增益值gain赋值给gain属性，达到音效调整效果</span></span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq20HzFilter centerFrequency:<span class="number">20</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_50Hz: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq50HzFilter centerFrequency:<span class="number">50</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_100Hz: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq100HzFilter centerFrequency:<span class="number">100</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_200Hz: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq200HzFilter centerFrequency:<span class="number">200</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_500Hz: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq500HzFilter centerFrequency:<span class="number">500</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_1K: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq1kFilter centerFrequency:<span class="number">1000</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_2K: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq2kFilter centerFrequency:<span class="number">2000</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_5K: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq5kFilter centerFrequency:<span class="number">5000</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_10K: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq10kFilter centerFrequency:<span class="number">10000</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> EQ_20K: &#123;</span><br><span class="line">[<span class="keyword">self</span> setupEqFilter:_eq20kFilter centerFrequency:<span class="number">20000</span> gain:gain];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setupEqFilter:(AEParametricEqFilter *)eqFilter centerFrequency:(<span class="keyword">double</span>)centerFrequency gain:(<span class="keyword">double</span>)gain &#123;</span><br><span class="line"><span class="keyword">if</span> ( ![_audioController.filters containsObject:eqFilter] ) &#123;</span><br><span class="line"><span class="keyword">for</span> (AEParametricEqFilter *existEqFilter <span class="keyword">in</span> _eqFilters) &#123;</span><br><span class="line"><span class="keyword">if</span> (eqFilter == existEqFilter) &#123;</span><br><span class="line">[_audioController addFilter:eqFilter];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">eqFilter.centerFrequency = centerFrequency;</span><br><span class="line">eqFilter.qFactor         = <span class="number">1.0</span>;</span><br><span class="line">eqFilter.gain            = gain;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上就是应用TheAmazingAudioEngine框架进行音频播放、录制、音效实现的一次简单实践分享。</p>
+<h3 id="发掘-AVPlayer-的潜力"><a href="#发掘-AVPlayer-的潜力" class="headerlink" title="发掘 AVPlayer 的潜力"></a>发掘 AVPlayer 的潜力</h3><p>音频播放的实现级别：</p>
+<ul>
+<li>离线播放：这里并不是指应用不联网，而是指播放本地音频文件，包括先下完完成音频文件再进行播放的情况，这种使用AVFoundation里的AVAudioPlayer可以满足</li>
+<li>在线播放：使用AVFoundation的AVPlayer可以满足</li>
+<li>在线播放同时存储文件：使用AudioFileStreamer ＋ AudioQueue 可以满足</li>
+<li>在线播放且带有音效处理：使用 AudioFileStreamer ＋ AudioQueue ＋ 音效模块（系统自带或者自行开发）来满足</li>
+</ul>
+<p>未完待续，AVFoundation 体系太大，先放出一部分，其余的慢慢整理 🤣</p>
+<blockquote>
+<p>以上文章整理自：<a href="https://www.jianshu.com/p/589999e53461、https://blog.csdn.net/zahuopuboss/article/details/54862749、https://blog.csdn.net/feng2qing/article/details/67655175、https://blog.csdn.net/dolacmeng/article/details/77430108、https://www.jianshu.com/p/746cec2c3759、http://www.cocoachina.com/ios/20160726/17194.html、https://www.jianshu.com/p/c48195126040、https://www.jianshu.com/p/a7d5f43a84fb" target="_blank" rel="noopener">https://www.jianshu.com/p/589999e53461、https://blog.csdn.net/zahuopuboss/article/details/54862749、https://blog.csdn.net/feng2qing/article/details/67655175、https://blog.csdn.net/dolacmeng/article/details/77430108、https://www.jianshu.com/p/746cec2c3759、http://www.cocoachina.com/ios/20160726/17194.html、https://www.jianshu.com/p/c48195126040、https://www.jianshu.com/p/a7d5f43a84fb</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../../02/02/Career planning/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">一位 70 后程序员的 24 个职场感悟（转）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AVFoundation"><span class="nav-number">1.</span> <span class="nav-text">AVFoundation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#音频篇"><span class="nav-number">1.1.</span> <span class="nav-text">音频篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#采样频率"><span class="nav-number">1.1.1.</span> <span class="nav-text">采样频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#采样位数"><span class="nav-number">1.1.2.</span> <span class="nav-text">采样位数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比特率（位速、码率）"><span class="nav-number">1.1.3.</span> <span class="nav-text">比特率（位速、码率）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩编码模式"><span class="nav-number">1.1.4.</span> <span class="nav-text">压缩编码模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字信号编码方式"><span class="nav-number">1.1.5.</span> <span class="nav-text">数字信号编码方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩过的音频格式"><span class="nav-number">1.1.6.</span> <span class="nav-text">压缩过的音频格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-支持的-sound-file-格式"><span class="nav-number">1.1.7.</span> <span class="nav-text">iOS 支持的 sound file 格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件格式和数据格式"><span class="nav-number">1.1.8.</span> <span class="nav-text">文件格式和数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bit-Rates比特率"><span class="nav-number">1.1.9.</span> <span class="nav-text">Bit Rates比特率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用建议"><span class="nav-number">1.1.10.</span> <span class="nav-text">使用建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的音视频处理"><span class="nav-number">1.2.</span> <span class="nav-text">常用的音视频处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AVAudioPlayer"><span class="nav-number">1.2.1.</span> <span class="nav-text">AVAudioPlayer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AVAudioPlayer-的使用"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">AVAudioPlayer 的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AVAudioPlayer-示例"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">AVAudioPlayer 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVAudioPlayer-的剪辑、合成和压缩转码"><span class="nav-number">1.2.2.</span> <span class="nav-text">AVAudioPlayer 的剪辑、合成和压缩转码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#剪辑"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">剪辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合成"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">合成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩转码"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">压缩转码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVPlayer"><span class="nav-number">1.2.3.</span> <span class="nav-text">AVPlayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVQueuePlayer"><span class="nav-number">1.2.4.</span> <span class="nav-text">AVQueuePlayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVPlayer-的缓存实现"><span class="nav-number">1.2.5.</span> <span class="nav-text">AVPlayer 的缓存实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AVAssetResourceLoader"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">AVAssetResourceLoader</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TheAmazingAudioEngine-实现音效模块"><span class="nav-number">1.2.6.</span> <span class="nav-text">TheAmazingAudioEngine 实现音效模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#播放功能"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">播放功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#音效的实现"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">音效的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现EQ调整"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">实现EQ调整</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发掘-AVPlayer-的潜力"><span class="nav-number">1.2.7.</span> <span class="nav-text">发掘 AVPlayer 的潜力</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 Evolution All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Evolution
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 Tim&#39;s Technology Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
