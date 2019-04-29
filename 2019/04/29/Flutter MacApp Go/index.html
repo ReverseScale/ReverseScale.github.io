@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>使用 flutter 开发 macos app（二） | Evolution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Flutter">
+  
+  
+  
+  
+  <meta name="description" content="之前一篇博客介绍了借助 Feather 平台在 MacOS 和 Windows 上运行我们的 Flutter 应用程序，并且可以直接发布在其平台上，但实际使用下来发现 Feather 极不稳定，因此就继续探索别的方法，进而整理了这篇文章~">
+<meta name="keywords" content="Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Flutter 开发 macOS App（二）">
+<meta property="og:url" content="https://reversescale.github.io/2019/04/29/Flutter MacApp Go/index.html">
+<meta property="og:site_name" content="Evolution">
+<meta property="og:description" content="之前一篇博客介绍了借助 Feather 平台在 MacOS 和 Windows 上运行我们的 Flutter 应用程序，并且可以直接发布在其平台上，但实际使用下来发现 Feather 极不稳定，因此就继续探索别的方法，进而整理了这篇文章~">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/28/EQuSAI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/28/EQc1zV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/28/EQ293t.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/28/EQ2kDS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/28/EQ2ZNj.png">
+<meta property="og:updated_time" content="2019-04-29T00:59:33.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Flutter 开发 macOS App（二）">
+<meta name="twitter:description" content="之前一篇博客介绍了借助 Feather 平台在 MacOS 和 Windows 上运行我们的 Flutter 应用程序，并且可以直接发布在其平台上，但实际使用下来发现 Feather 极不稳定，因此就继续探索别的方法，进而整理了这篇文章~">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/28/EQuSAI.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Evolution" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/docccc.png">
+  <link rel="apple-touch-icon" href="/css/images/docccc.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="../../../../css/style.css">
+
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="../../../../css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="88px" height="88px" alt="Hike News" src="/css/images/docccc.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Flutter MacApp Go" style="width: 75%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      使用 Flutter 开发 macOS App（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="" class="article-date">
+	  <time datetime="2019-04-29T01:29:16.000Z" itemprop="datePublished">2019-04-29</time>
+	</a>
+
+      
+    <a class="article-category-link" href="../../../../categories/Project/">Project</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前一篇博客介绍了借助 Feather 平台在 MacOS 和 Windows 上运行我们的 Flutter 应用程序，并且可以直接发布在其平台上，但实际使用下来发现 Feather 极不稳定，因此就继续探索别的方法，进而整理了这篇文章~</p>
+<a id="more"></a>
+<hr>
+<p>👨🏻‍💻 <a href="https://github.com/ReverseScale/FlutterDemo" target="_blank" rel="noopener">Github Demo</a></p>
+<p>使用 Google 框架构建智能手机和台式机的应用程序。</p>
+<p><img width="356" height="116" src="https://s2.ax1x.com/2019/04/28/EQuSAI.png"></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>如果您正在为智能手机开发应用程序，可能您已经听说过新的开发框架，Google 的 Flutter。它是一个框架，允许您使用 Dart 语言（也来自 Google）开发一套代码的跨平台应用程序，并为Android 和 iOS 平台发布它们。</p>
+<p>该框架现已达到 v1.4.9 版本，并且自从今年 5 月发布的 beta 3 版本以来，谷歌已经宣布准备好用于生产。此外，还可以使用 Flutter 为桌面环境（Windows，macOS 和 Linux）构建应用程序，这是本文将要讨论的主题。</p>
+<p>目前通过两个仍在开发中的项目提供对桌面平台的支持。其中一个甚至是谷歌开发的，但有迹象表明该公司不支持它。可以在以下 Github 存储库中找到这些项目：</p>
+<ul>
+<li>【官方】Google 开源的 Flutter 嵌入桌面的 API 实现：<a href="https://github.com/google/flutter-desktop-embedding" target="_blank" rel="noopener">flutter-desktop-embedding</a></li>
+<li>【推荐】Go 语言实现工具：<a href="https://github.com/go-flutter-desktop/hover" target="_blank" rel="noopener">hover</a> </li>
+</ul>
+<p>这两个项目都归类为 Custom Flutter Engine Embedders，也就是说，它们是 Flutter API 的实现，因此在此框架中开发的项目可以在 Flutter 项目（Android，Fuchsia 和 iOS）正式支持的操作系统之外运行。</p>
+<p><img width="356" height="116" src="https://s2.ax1x.com/2019/04/28/EQc1zV.png"></p>
+<p>他们通过 GLFW 库使用 OpenGL（除了 Google 项目的 macOS 版本），它提供了一个 API，用于在桌面平台上创建窗口以及处理键盘和鼠标输入等功能。因此，正在开发的应用程序运行的平台必须安装 OpenGL 驱动程序。</p>
+<h2 id="安装-Flutter"><a href="#安装-Flutter" class="headerlink" title="安装 Flutter"></a>安装 Flutter</h2><p>要安装 Flutter，请根据您的操作系统，按照官方安装页面上列出的步骤进行操作。<a href="https://flutter.io/get-started/install/" target="_blank" rel="noopener">单击此处</a>访问安装页面。将需要在本文后面运行项目。不要忘记在您的 PATH 环境变量中包含 Flutter。</p>
+<blockquote>
+<p>也可以查看我之前的<a href="https://github.com/ReverseScale/FlutterDemo" target="_blank" rel="noopener">博客文章</a>进行安装。</p>
+</blockquote>
+<h3 id="方法一：Flutter-的桌面嵌入（Google）"><a href="#方法一：Flutter-的桌面嵌入（Google）" class="headerlink" title="方法一：Flutter 的桌面嵌入（Google）"></a>方法一：Flutter 的桌面嵌入（Google）</h3><p>该项目目前存在一些限制，这些限制在存储库文档的“<a href="https://github.com/google/flutter-desktop-embedding/blob/master/README.md#caveats" target="_blank" rel="noopener">注意事项</a>”部分中指出。</p>
+<p>与将在本文后面介绍的第二个项目不同，该项目没有二进制文件，可以快速运行示例项目或设置自己的 Flutter 项目以在桌面平台上运行它。</p>
+<p>您需要在操作系统中编译此项目的源代码，然后将生成的库包含到将成为应用程序一部分的可执行文件中。将来，此过程将简化，如当前存储库文档中所述。</p>
+<p>要通过此项目编译项目源代码并使用 Flutter 创建桌面应用程序，请按照<a href="https://github.com/google/flutter-desktop-embedding/blob/master/README.md" target="_blank" rel="noopener">此处</a>的说明进行操作。</p>
+<h3 id="方法二：Go-Flutter-桌面嵌入器（Drakirus）"><a href="#方法二：Go-Flutter-桌面嵌入器（Drakirus）" class="headerlink" title="方法二：Go Flutter 桌面嵌入器（Drakirus）"></a>方法二：Go Flutter 桌面嵌入器（Drakirus）</h3><p>第二个项目是通过 Google 的 Go（Golang）编程语言开发的。</p>
+<p>在项目存储库中有下载版本，您可以通过已编译的可执行文件测试桌面应用程序的示例。此外，创建新的 Flutter 桌面应用程序非常简单。</p>
+<p>以下各项说明如何在项目存储库中运行现有示例项目，以及如何运行在 Flutter 中开发的自己的项目，现在作为桌面应用程序。</p>
+<h4 id="执行示例项目："><a href="#执行示例项目：" class="headerlink" title="执行示例项目："></a>执行示例项目：</h4><p>1.在<a href="https://github.com/Drakirus/go-flutter-desktop-embedder/releases" target="_blank" rel="noopener">此处访问</a>项目版本。<br>2.根据您的平台，在 Linux，Windows 和 MacOS 的 vpr.2.1-alpha 版本的预建二进制文件示例部分中下载示例文件。<br>3.将下载的文件解压缩到您选择的位置。<br>4.在未压缩文件集的根目录中运行stocks可执行文件（macOS 和 Linux）或 socks.exe（Windows）。它将像您使用的任何其他操作系统应用程序一样运行（下图中的示例）。</p>
+<h4 id="效果演示"><a href="#效果演示" class="headerlink" title="效果演示"></a>效果演示</h4><p>在 Windows 10 桌面环境中运行的 Flutter 中开发的示例应用程序：<br><img src="https://s2.ax1x.com/2019/04/28/EQ293t.png" alt="Windows 10 下运行截图"></p>
+<p>在 Flutter 中开发的示例应用程序在 macOS Mojave 桌面环境中运行：<br><img src="https://s2.ax1x.com/2019/04/28/EQ2kDS.png" alt="macOS Mojave 下运行截图"></p>
+<p>在 Flutter 中开发的示例应用程序在 Ubuntu Budgie 18.04 桌面环境中运行：<br><img src="https://s2.ax1x.com/2019/04/28/EQ2ZNj.png" alt="Ubuntu Budgie 下运行截图"></p>
+<blockquote>
+<p>注意：在以下指南中，桌面应用程序的 macOS 版本以黑屏开始，但应用程序在最大化屏幕后正常加载。一旦我找到解决这个问题的方法，我就会更新这篇文章。</p>
+</blockquote>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="使用预编译文件"><a href="#使用预编译文件" class="headerlink" title="使用预编译文件"></a>使用预编译文件</h4><ol>
+<li>在此处下载适用于您的操作系统的预编译文件。</li>
+<li>将内容解压缩到您选择的目录中。</li>
+<li>通过根据环境和应用程序的信息更改参数的值来编辑模板目录的 config.json 文件。 FlutterPath： Flutter 安装的目录。 FlutterProjectPath：您的项目（在Flutter中开发）目录。IconPath：桌面应用程序图标文件的路径（可以保留默认值）。ScreenHeight：桌面应用程序的初始屏幕高度。ScreenWidth：桌面应用程序的初始屏幕宽度。如果您使用的是 Windows，请在目录路径中使用双反斜杠（\）而不是简单的反斜杠（\）。</li>
+<li>运行扑桌面模板的可执行文件，在 MacOS 或 Linux，或扑桌面 -template.exe 可执行文件，在 Windows 和应用程序将启动。它将像您使用的任何其他操作系统应用程序一样运行。</li>
+</ol>
+<h4 id="编译-Go-桌面项目"><a href="#编译-Go-桌面项目" class="headerlink" title="编译 Go 桌面项目"></a>编译 Go 桌面项目</h4><ol>
+<li>下载并通过其下载页面下载安装围棋编程语言在这里（用于安装并提供了下载页面上的 PATH 环境变量的工具配置说明）。</li>
+<li>如果您的计算机上没有安装 GCC，则需要安装它以从 Go 中的桌面项目编译一些代码文件。对于 Windows，我建议使用 tdm64-gcc。对于 macOS，使用 Xcode Command Line Tools 提供的那个。对于 Linux，可能您已经在系统上安装了 GCC。</li>
+<li>如果您没有在系统中安装 Git，请在此处下载并安装 Git。</li>
+<li>通常通过 <code>flutter create</code> 命令或 IDE 创建Flutter 项目。</li>
+<li>在 Flutter 项目的 main.dart 文件中包含以下导入：<code>import &#39;package:flutter/foundation.dart&#39; show debugDefaultTargetPlatformOverride</code>;</li>
+<li>在 Flutter 项目的 main.dart 文件的 main 方法开头（在调用 runApp 方法之前）中包含以下代码（此代码是必需的，因为 Flutter 项目不正式支持桌面平台）： <code>debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia</code>;</li>
+<li>在终端中，flutter build bundle 在 Flutter 项目的目录中运行该命令（将使用将在以下步骤中下载和配置的模板在 Flutter 中运行应用程序所需的文件创建目录）。</li>
+<li>同样在终端中，运行 <code>go get -u github.com/go-gl/glfw/v3.2/glfw</code> 命令以下载 Go 语言的 GLFW 库（如果出现问题，请查看本文末尾的“ 故障排除”项）。在安装之前，您必须验证此链接中是否包含所有依赖项。</li>
+<li>在 Go here 下载桌面项目（当前正在运行并支持 Windows，macOS 和 Linux 的版本）。</li>
+<li>将下载文件的内容解压缩到操作系统上的任何目录。</li>
+<li>将从 <code>go-flutter-desktop-embedder-0.2.1-alpha</code> 中提取的目录重命名为 <code>go-flutter-desktop-embedder</code>。</li>
+<li>将提取的（现在重命名的）目录复制到 src\github.com\Drakirus 目录（或 Windows 上的 src/github.com/Drakirus），该目录必须在 GOPATH 中创建（GOPATH 是一个环境变量，指示安装的位置为Go语言下载的库;在 Windows 和 macOS 上，通常是用户个人文件夹中的 go 目录）。</li>
+<li>下载或复制需要此演练模板库在<a href="https://github.com/marceloneppel/flutter-desktop-template" target="_blank" rel="noopener">这里</a>（它会被用来制造更容易，而不必在 Go 语言编程运行应用程序）。如果您已选择下载文件而不是克隆存储库，请将下载的文件解压缩到您首选的目录中。</li>
+<li>使用 <a href="https://storage.googleapis.com/flutter_infra/flutter/74625aed323d04f2add0410e84038d250f51b616/linux-x64/linux-x64-embedder" target="_blank" rel="noopener">Linux</a>， 链接下载 Flutter 库（模板操作所需）。 <a href="https://storage.googleapis.com/flutter_infra/flutter/74625aed323d04f2add0410e84038d250f51b616/windows-x64/windows-x64-embedder.zip" target="_blank" rel="noopener">Windows</a> 上的 （替换粗体文本，这是测试版 v0.9.4，使用与您在项目中使用的 Flutter 版本对应，通过查看文件可以获得什么在 Flutter 安装路径中的 bin\internal\engine.version）。</li>
+<li>解压缩下载的文件并将 Linux 上的 libflutter_engine.so 文件，FlutterEmbedder.framework（FlutterEmbedder.framework.zip 文件的内容，文件名为FlutterEmbedder.framework，目录名为FlutterEmbedder.framework）复制到 macOS 上，或者将 Windows 上的 flutter_engine.dll 复制到目录模板中，main.go 文件所在的位置，以及之前复制到 GOPATH 的 go-flutter-desktop-embedder 目录。</li>
+<li>在终端上，转到 go-flutter-desktop-embedder 目录并 <code>export CGO_LDFLAGS=&quot;-L${PWD}&quot;</code> 在 Linux 上运行命令，<code>set CGO_LDFLAGS=-L%cd%</code> 在 Windows 上运行命令或 <code>export CGO_LDFLAGS=&quot;-F${PWD} -Wl,-rpath,@executable_path&quot;</code>在 macOS 上运行命令。保持终端开放。</li>
+<li>在同一终端上，<code>go install</code> 在 go-flutter-desktop-embedder 目录中运行命令。仍然保持终端开放。</li>
+<li>通过根据环境和应用程序的信息更改参数的值来编辑模板目录的 config.json 文件。FlutterPath： Flutter 安装的目录。FlutterProjectPath：您的项目（在 Flutter 中开发）目录。IconPath：桌面应用程序图标文件的路径（可以保留默认值）。ScreenHeight：桌面应用程序的初始屏幕高度。ScreenWidth：桌面应用程序的初始屏幕宽度。如果您使用的是 Windows，请在目录路径中使用双反斜杠（\）而不是简单的反斜杠（\）。</li>
+<li>仍然在同一个终端中，重复步骤 16 并执行 <code>go build</code> 命令，但现在在解压缩模板的目录中，main.go 文件所在的位置。在 Windows 上，使用该 <code>go build -ldflags -H=windowsgui</code> 命令而不是 <code>go build</code> 在运行时终端不与应用程序一起显示。在 macOS 上，可能需要根据平台标准打包目录，以便终端不与应用程序一起显示。</li>
+<li>可执行文件将被创建（这将具有相同的名称作为项目目录，扑桌面模板在 Linux 和 Mac 或 Hover，桌面 template.exe 在 Windows 上，如果模板目录是 Hover 桌面模板）。<br>21.运行创建的可执行文件，应用程序将启动。它将像您使用的任何其他操作系统应用程序一样运行。</li>
+</ol>
+<ul>
+<li>当对 Flutter 项目进行任何更改时，请重复步骤 7（在项目目录中运行 <code>flutter build bundle</code> 命令）。</li>
+<li>项目中使用的 Flutter 版本应与步骤 14 中下载的版本相同。</li>
+<li>每当您对模板的 config.json 文件进行任何更改时，请重复步骤 16 和 19。</li>
+</ul>
+<h3 id="打包应用程序以进行分发"><a href="#打包应用程序以进行分发" class="headerlink" title="打包应用程序以进行分发"></a>打包应用程序以进行分发</h3><p>要分发在 Flutter 中开发的桌面应用程序，以便它可以在未安装 Flutter 的计算机上运行，请在运行上述指南之后按照以下步骤运行您自己的项目。</p>
+<ol>
+<li>确保使用的是当前版本的模板，版本为 v1.1.0。</li>
+<li>创建一个目录来存储运行应用程序所需的所有文件。在以下步骤中，此目录将被称为应用程序目录。</li>
+<li>在应用程序目录中包含 flutter-desktop-template 可执行文件（在 Linux 和 macOS 上）或 flutter-desktop-template.exe（在 Windows 上）。根据应用程序的名称重命名可执行文件。</li>
+<li>还包括应用程序目录中的 Flutter 库。这个库是 libflutter_engine.so Linux 上的文件时，FlutterEmbedder.framework 在 MacOS 目录，或 flutter_engine.dll 上的 Windows 文件。</li>
+<li>将 config.json 文件复制到应用程序目录。通过将 FlutterPath 和 FlutterProjectPath 的值更改为空白来编辑此文件（将值保留为空）。</li>
+<li>在应用程序目录中包含带有图标图像的 assets 目录。如果已选择其他映像，请将该映像复制到应用程序目录，并在 config.json 文件的 IconPath 值中更正其路径。</li>
+<li>将 flutter_assets 目录复制到应用程序目录，该目录位于 Flutter 项目的构建目录中。</li>
+<li>最后，复制位于 bin\cache\artifacts\engine\windows-x64 (在 Windows 平台), bin/cache/artifacts/engine/linux-x64 (在 Linux 平台) 或者 bin/cache/artifacts/engine/darwin-x64 (在 macOS 平台) 上的 icudtl.dat 文件从您的 Flutter 安装到应用程序目录的路径。</li>
+<li>在 macOS 上，可能需要根据平台标准打包目录，以便终端不与应用程序一起显示。</li>
+</ol>
+<p>现在，您可以分发应用程序并将其安装在环境中，而无需同时安装 Flutter。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>本文中介绍的两个项目允许使用 Flutter 框架开发的应用程序在桌面环境中运行。</p>
+<ul>
+<li>第一个是谷歌自己开发的，但不提供支持。</li>
+<li>第二个方法既可以更轻松地运行基于 Flutter 和桌面应用程序构建的应用程序，也可以更加熟悉使用谷歌制作的 Go（Golang）编程语言的开发人员。</li>
+</ul>
+<p>对于应该为桌面和移动环境开发应用程序以便可以重用代码的情况，本文中介绍的两个项目都是很好的解决方案。</p>
+<p>翻译整理自：<a href="https://medium.com/flutter-community/flutter-from-mobile-to-desktop-93635e8de64e" target="_blank" rel="noopener">https://medium.com/flutter-community/flutter-from-mobile-to-desktop-93635e8de64e</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="../../../../js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-14/6067039.jpg',
+  alipayImage: 'http://ghexoblogimages.oss-cn-beijing.aliyuncs.com/18-11-16/6997594.jpg'
+});
+</script>
+      
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80MTA5OC8xNzYyMw==">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../../03/02/iOS Principle AVFoundation/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS Principle：AVFoundation</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Flutter"><span class="nav-number">2.</span> <span class="nav-text">安装 Flutter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一：Flutter-的桌面嵌入（Google）"><span class="nav-number">2.1.</span> <span class="nav-text">方法一：Flutter 的桌面嵌入（Google）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二：Go-Flutter-桌面嵌入器（Drakirus）"><span class="nav-number">2.2.</span> <span class="nav-text">方法二：Go Flutter 桌面嵌入器（Drakirus）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行示例项目："><span class="nav-number">2.2.1.</span> <span class="nav-text">执行示例项目：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#效果演示"><span class="nav-number">2.2.2.</span> <span class="nav-text">效果演示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作步骤"><span class="nav-number">2.3.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用预编译文件"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用预编译文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译-Go-桌面项目"><span class="nav-number">2.3.2.</span> <span class="nav-text">编译 Go 桌面项目</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包应用程序以进行分发"><span class="nav-number">2.4.</span> <span class="nav-text">打包应用程序以进行分发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2019 Evolution All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="../../../../tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/scripts.js"></script>
+
+
+
+
+  <script src="../../../../js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Evolution
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 Tim&#39;s Technology Blog All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
