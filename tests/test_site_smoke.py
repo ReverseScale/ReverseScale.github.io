@@ -23,6 +23,15 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn("/roost-site/", html)
         self.assertIn("/babel-site/", html)
 
+    def test_main_site_declares_tab_icon(self) -> None:
+        html = read("index.html")
+        self.assertTrue((ROOT / "icon.svg").exists())
+        icon = read("icon.svg")
+
+        self.assertIn('<link rel="icon" href="/icon.svg" type="image/svg+xml" />', html)
+        self.assertIn("ReverseScale tab icon", icon)
+        self.assertIn("<svg", icon)
+
     def test_app_links_research_workspace_without_restoring_notes_module(self) -> None:
         source = read("src/app.js") + read("src/site-data.js")
         self.assertIn("Research", source)

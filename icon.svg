@@ -1,0 +1,32 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- ReverseScale tab icon. Matches the modern main-site brand mark. -->
+  <defs>
+    <linearGradient id="rsBadge" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#18181B" />
+      <stop offset="0.58" stop-color="#047857" />
+      <stop offset="1" stop-color="#0369A1" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#rsBadge)" />
+  <path
+    d="M9 22 V10 H16.4
+       C18.8 10 20.2 11.25 20.2 13.15
+       C20.2 14.6 19.35 15.62 17.86 16.04
+       L21.5 22
+       M12.4 15.6 H16.05
+       C17.04 15.6 17.66 15.12 17.66 14.2
+       C17.66 13.3 17.04 12.82 16.05 12.82
+       H12.4 V22
+       M22.65 10.6
+       C21.7 10.1 20.72 9.86 19.7 9.86
+       C17.95 9.86 16.82 10.58 16.82 11.75
+       C16.82 12.78 17.66 13.26 19.42 13.76
+       C21.62 14.38 23.18 15.28 23.18 17.48
+       C23.18 20.22 20.94 22.2 17.64 22.2
+       C15.76 22.2 14.18 21.76 12.9 20.92"
+    stroke="#FFFFFF"
+    stroke-width="2.35"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
