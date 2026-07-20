@@ -46,7 +46,7 @@ const projectMicroVisual = (project) => {
 };
 
 const heroProjectCard = (project, index) => `
-  <a class="hero-project hero-project--${project.tone}" href="${project.href}" aria-label="Explore ${escapeHtml(project.name)}">
+  <a class="hero-project hero-project--${project.tone}" href="${project.siteHref}" aria-label="Explore ${escapeHtml(project.name)}">
     <span class="hero-project__index">0${index + 1}</span>
     <span class="hero-project__copy">
       <strong>${escapeHtml(project.name)}</strong>
@@ -58,7 +58,7 @@ const heroProjectCard = (project, index) => `
 `;
 
 const projectCard = (project) => `
-  <a class="project-card project-card--${project.tone}" href="${project.href}">
+  <a class="project-card project-card--${project.tone}" href="${project.siteHref}">
     ${projectMicroVisual(project)}
     <span class="project-card__meta">${escapeHtml(project.status)}</span>
     <span class="project-card__name">${escapeHtml(project.name)}</span>

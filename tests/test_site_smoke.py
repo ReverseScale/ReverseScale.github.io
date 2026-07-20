@@ -141,15 +141,24 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn('siteHref: "/babel-site/"', data_source)
         self.assertIn('siteHref: "/bakery-site/"', data_source)
 
-    def test_home_links_all_product_runtimes(self) -> None:
-        source = read("src/site-data.js") + read("src/app.js") + read("index.html")
+    def test_home_project_cards_and_fallback_navigation_link_product_sites(self) -> None:
+        app_source = read("src/app.js")
+        html = read("index.html")
+
+        self.assertEqual(app_source.count('href="${project.siteHref}"'), 2)
+        for product_path in ("roost", "babel", "bakery"):
+            self.assertIn(f'href="/{product_path}-site/"', html)
+            self.assertNotIn(
+                f'href="https://tims.tail5d10b9.ts.net/{product_path}/"',
+                html,
+            )
+
+    def test_project_data_keeps_product_runtime_urls(self) -> None:
+        source = read("src/site-data.js")
+
         self.assertIn('export const runtimeBaseURL = "https://tims.tail5d10b9.ts.net"', source)
         for product_path in ("roost", "babel", "bakery"):
             self.assertIn(f'`${{runtimeBaseURL}}/{product_path}/`', source)
-            self.assertIn(
-                f'href="https://tims.tail5d10b9.ts.net/{product_path}/"',
-                source,
-            )
 
     def test_bakery_is_a_first_class_home_project(self) -> None:
         app_source = read("src/app.js")
