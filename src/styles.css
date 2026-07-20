@@ -740,7 +740,17 @@ h1 {
     font-size: 12px;
   }
 
-  .site-nav .nav-external {
+  .site-nav .nav-research {
+    display: none;
+  }
+
+  .site-nav .nav-github {
+    display: block;
+    border: 0;
+    background: transparent;
+  }
+
+  .hero-work {
     display: none;
   }
 
@@ -772,7 +782,7 @@ h1 {
   }
 
   .section {
-    padding: 76px 0;
+    padding: 56px 0;
   }
 
   .principle-grid {
@@ -782,13 +792,13 @@ h1 {
   .principle-card,
   .principle-card + .principle-card {
     min-height: 0;
-    padding: 20px 0 32px;
+    padding: 16px 0 24px;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
 
   .principle-card h3 {
-    margin-top: 36px;
+    margin-top: 24px;
   }
 
   .research-brief,

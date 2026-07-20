@@ -10,6 +10,24 @@ def read(path: str) -> str:
 
 
 class SiteSmokeTest(unittest.TestCase):
+    def test_mobile_navigation_keeps_github_and_removes_duplicate_project_preview(self) -> None:
+        app_source = read("src/app.js")
+        styles = read("src/styles.css")
+
+        self.assertIn('class="nav-research"', app_source)
+        self.assertIn('class="nav-github nav-external"', app_source)
+        self.assertIn(".site-nav .nav-research", styles)
+        self.assertIn(".site-nav .nav-github", styles)
+        self.assertIn(".hero-work {\n    display: none;\n  }", styles)
+        self.assertIn(".section {\n    padding: 56px 0;\n  }", styles)
+
+    def test_project_label_and_footer_year_do_not_go_stale(self) -> None:
+        app_source = read("src/app.js")
+
+        self.assertIn("3 projects", app_source)
+        self.assertIn("new Date().getFullYear()", app_source)
+        self.assertNotIn("© 2026", app_source)
+
     def test_about_page_has_dedicated_personal_content(self) -> None:
         app_source = read("src/app.js")
         about_html = read("about/index.html")

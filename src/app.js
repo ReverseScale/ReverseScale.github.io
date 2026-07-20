@@ -91,9 +91,9 @@ function siteHeader() {
       </a>
       <nav>
         <a href="/#work">Work</a>
-        <a href="${profile.research.href}" target="_blank" rel="noreferrer">Research</a>
+        <a class="nav-research" href="${profile.research.href}" target="_blank" rel="noreferrer">Research</a>
         <a href="/about/">About</a>
-        <a class="nav-external" href="${profile.github.href}" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a class="nav-github nav-external" href="${profile.github.href}" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
   `;
@@ -113,7 +113,7 @@ function renderHome() {
         </div>
       </div>
       <div class="hero-work" aria-label="Selected projects">
-        <p><span>Selected work</span><span>2026</span></p>
+        <p><span>Selected work</span><span>3 projects</span></p>
         ${projectLinks.map(heroProjectCard).join("")}
       </div>
     </section>
@@ -219,12 +219,13 @@ class ReverseScaleHome extends HTMLElement {
   connectedCallback() {
     const page = this.getAttribute("page") || "home";
     const content = page === "about" ? renderAbout() : page === "404" ? renderNotFound() : renderHome();
+    const currentYear = new Date().getFullYear();
 
     this.innerHTML = `
       <main class="site-shell">
         ${content}
         <footer class="site-footer">
-          <span>© 2026 ${escapeHtml(profile.name)}</span>
+          <span>© ${currentYear} ${escapeHtml(profile.name)}</span>
           <span>ReverseScale is the home of my independent projects.</span>
         </footer>
       </main>
