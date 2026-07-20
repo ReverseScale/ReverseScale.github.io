@@ -126,10 +126,20 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertNotIn("Tim's Technology Blog", html)
 
     def test_home_links_current_project_sites(self) -> None:
-        html = read("index.html")
-        self.assertIn("/roost-site/", html)
-        self.assertIn("/babel-site/", html)
-        self.assertIn("/bakery-site/", html)
+        data_source = read("src/site-data.js")
+        self.assertIn('siteHref: "/roost-site/"', data_source)
+        self.assertIn('siteHref: "/babel-site/"', data_source)
+        self.assertIn('siteHref: "/bakery-site/"', data_source)
+
+    def test_home_links_all_product_runtimes(self) -> None:
+        source = read("src/site-data.js") + read("src/app.js") + read("index.html")
+        self.assertIn('export const runtimeBaseURL = "https://tims.tail5d10b9.ts.net"', source)
+        for product_path in ("roost", "babel", "bakery"):
+            self.assertIn(f'`${{runtimeBaseURL}}/{product_path}/`', source)
+            self.assertIn(
+                f'href="https://tims.tail5d10b9.ts.net/{product_path}/"',
+                source,
+            )
 
     def test_bakery_is_a_first_class_home_project(self) -> None:
         app_source = read("src/app.js")
@@ -138,7 +148,8 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn("projectLinks.map(heroProjectCard)", app_source)
         self.assertIn("projectLinks.map(projectCard)", app_source)
         self.assertIn('name: "Bakery"', data_source)
-        self.assertIn('href: "/bakery-site/"', data_source)
+        self.assertIn('href: `${runtimeBaseURL}/bakery/`', data_source)
+        self.assertIn('siteHref: "/bakery-site/"', data_source)
         self.assertIn('label: "Mobile build and delivery"', data_source)
         self.assertIn('status: "Build & distribution"', data_source)
         self.assertIn('tone: "amber"', data_source)

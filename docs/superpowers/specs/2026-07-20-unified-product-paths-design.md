@@ -54,13 +54,13 @@ Internet
    v
 Tailscale Funnel :443
    |-- /              -> Roost :8080，仅用于跳转到 /roost/
-   |-- /roost/*       -> Roost :8080
+   |-- /roost/*       -> Roost :8080/roost
    |-- /babel/api/*   -> Babel API :4000
-   |-- /babel/*       -> Babel Web :3000
-   `-- /bakery/*      -> Bakery :60006
+   |-- /babel/*       -> Babel public Web :3002/babel
+   `-- /bakery/*      -> Bakery :60006/bakery
 ```
 
-不增加第四个常驻反向代理进程。实施的第一个网络验证步骤必须使用可回滚的临时处理器确认当前 Tailscale 版本对 mount path 的实际转发语义，包括后端看到的路径、Host、scheme 和转发头。若实际语义与应用 base path 需求不符，停止公网配置，回到设计评审，不以响应正文重写绕过。
+不增加第四个常驻反向代理进程。实测当前 Tailscale `--set-path` 会剥离匹配前缀；当目标 URL 自带路径时，该路径会重新加到转发请求上。因此 Roost、Babel Web 与 Bakery 的目标 URL 显式带各自前缀，Babel API 则利用剥离语义直接转发到既有根路由。Host 保持公开主机，`X-Forwarded-Proto=https`。
 
 ## Roost 设计
 
@@ -103,7 +103,7 @@ Next.js Web 配置 `basePath=/babel`。内部链接、静态资源、Server Acti
 
 - 浏览器根据当前 origin 生成 `https://tims.tail5d10b9.ts.net/babel/api`。
 - 服务端本地执行仍可直连 `http://127.0.0.1:4000`，避免不必要的公网回环。
-- API 的外部入口边界统一处理 `/babel/api` 前缀，内部路由保持现状。
+- Funnel 剥离 `/babel/api` 后转发到现有 API 根路由，API 进程无需重复挂载前缀。
 - Cookie path、CORS、CSRF/Origin 校验和登录回调必须覆盖规范 origin 与 base path。
 
 ### 兼容入口
@@ -118,7 +118,7 @@ Next.js Web 配置 `basePath=/babel`。内部链接、静态资源、Server Acti
 
 该配置驱动：
 
-- Django `FORCE_SCRIPT_NAME`、`STATIC_URL` 和需要的 Cookie path。
+- Django 入口中间件、`STATIC_URL` 和需要的 Cookie path。
 - Django 重定向、OAuth callback、分享、下载、manifest 和证书引导 URL。
 - Vite 构建资源 base 与模板中的静态资源地址。
 - React 当前路由解析。

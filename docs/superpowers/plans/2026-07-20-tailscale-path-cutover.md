@@ -22,7 +22,6 @@
 
 **Files:**
 - Create: the directory printed by `mktemp -d /private/tmp/reversescale-unified-paths.XXXXXX`
-- Create: `$BASELINE_DIR/serve-config.json`
 - Create: `$BASELINE_DIR/serve-status.json`
 - Create: `$BASELINE_DIR/funnel-status.json`
 - Create: `$BASELINE_DIR/health.txt`
@@ -39,10 +38,8 @@ Expected: a narrow temporary directory path, never a workspace or home directory
 - [ ] **Step 2: Save and validate JSON snapshots**
 
 ```bash
-/Applications/Tailscale.app/Contents/MacOS/Tailscale serve get-config "$BASELINE_DIR/serve-config.json"
 /Applications/Tailscale.app/Contents/MacOS/Tailscale serve status --json > "$BASELINE_DIR/serve-status.json"
 /Applications/Tailscale.app/Contents/MacOS/Tailscale funnel status --json > "$BASELINE_DIR/funnel-status.json"
-python3 -m json.tool "$BASELINE_DIR/serve-config.json" >/dev/null
 python3 -m json.tool "$BASELINE_DIR/serve-status.json" >/dev/null
 python3 -m json.tool "$BASELINE_DIR/funnel-status.json" >/dev/null
 ```
@@ -113,7 +110,7 @@ Expected: current root, `8443` and `10000` handlers remain present.
 
 Run: `curl --fail --silent --show-error https://tims.tail5d10b9.ts.net/__path_probe/child`
 
-Expected: response path is `/__path_probe/child` and forwarding data is sufficient for the applications' HTTPS/origin handling. If the mount prefix is stripped, Host/scheme are unusable, or the result differs from this contract, remove the probe and stop for design review exactly as required by the approved design; do not add product handlers.
+Expected: response path is `/child`，证明匹配前缀会被剥离；Host 保持公开主机且 `X-Forwarded-Proto=https`。再把目标设为 `http://127.0.0.1:18081/origin-prefix`，确认外部子路径转发为 `/origin-prefix/child`。
 
 - [ ] **Step 4: Remove only the probe handler and verify cleanup**
 
@@ -131,7 +128,7 @@ Expected: probe disappears; all pre-existing handlers are byte-for-byte equivale
 
 - [ ] **Step 1: Add `/roost` and run Roost acceptance**
 
-After Task 2 proves that the incoming path is retained, run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=443 --set-path=/roost http://127.0.0.1:8080`. Verify Console login, health/ready, admin API, patch check and signed CDN Range download.
+After Task 2 proves target-path restoration, run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=443 --set-path=/roost http://127.0.0.1:8080/roost`. Verify Console login, health/ready, admin API, patch check and signed CDN Range download.
 
 - [ ] **Step 2: Add `/babel/api` before `/babel`**
 
@@ -139,11 +136,11 @@ Run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=4
 
 - [ ] **Step 3: Add `/babel` and run Babel acceptance**
 
-Run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=443 --set-path=/babel http://127.0.0.1:3000`. Verify login/project pages, SSR, static chunks and image routes; confirm no browser request targets root or `:4000`.
+Run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=443 --set-path=/babel http://127.0.0.1:3002/babel`. Verify login/project pages, SSR, static chunks and image routes; confirm no browser request targets root or `:4000`.
 
 - [ ] **Step 4: Add `/bakery` and run Bakery acceptance**
 
-Run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=443 --set-path=/bakery http://127.0.0.1:60006`. Verify login as the existing local administrator, dashboard, package types, static resources, share flow and Range download. Never print the password in logs.
+Run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=443 --set-path=/bakery http://127.0.0.1:60006/bakery`. Verify login as the existing local administrator, dashboard, package types, static resources, share flow and Range download. Never print the password in logs.
 
 - [ ] **Step 5: Save the pre-root-switch Funnel JSON**
 
@@ -160,7 +157,7 @@ Expected: new paths coexist with the original root, `8443` and `10000`.
 
 - [ ] **Step 1: Change root only after all prefixed checks pass**
 
-Keep the existing root handler on Roost. Make Roost's exact root route return `308 Location: /roost/`, then verify `curl -I https://tims.tail5d10b9.ts.net/` reports that location. If any cutover check fails, restore the complete pre-change state with `/Applications/Tailscale.app/Contents/MacOS/Tailscale serve set-config "$BASELINE_DIR/serve-config.json"` and re-run the legacy health matrix.
+Keep the existing root handler on Roost. Make Roost's exact public-host root route return `308 Location: /roost/`, then verify `curl -I https://tims.tail5d10b9.ts.net/` reports that location. 当前版本无法用 `serve get-config` 导出这些节点处理器；回滚时依据保存的 status JSON，用已记录的 `funnel --set-path ...` 命令逐项恢复原 root、8443 和 10000 处理器，再运行旧入口健康矩阵。
 
 - [ ] **Step 2: Run final public matrix**
 

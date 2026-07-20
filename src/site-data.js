@@ -18,11 +18,14 @@ export const profile = Object.freeze({
   },
 });
 
+export const runtimeBaseURL = "https://tims.tail5d10b9.ts.net";
+
 export const projectLinks = [
   {
     name: "Roost",
     label: "Mobile release operations",
-    href: "/roost-site/",
+    href: `${runtimeBaseURL}/roost/`,
+    siteHref: "/roost-site/",
     status: "Flutter delivery",
     tone: "emerald",
     visual: "package",
@@ -33,7 +36,8 @@ export const projectLinks = [
   {
     name: "Babel",
     label: "Localization workflow",
-    href: "/babel-site/",
+    href: `${runtimeBaseURL}/babel/`,
+    siteHref: "/babel-site/",
     status: "String operations",
     tone: "sky",
     visual: "strings",
@@ -44,7 +48,8 @@ export const projectLinks = [
   {
     name: "Bakery",
     label: "Mobile build and delivery",
-    href: "/bakery-site/",
+    href: `${runtimeBaseURL}/bakery/`,
+    siteHref: "/bakery-site/",
     status: "Build & distribution",
     tone: "amber",
     visual: "pipeline",

@@ -4,7 +4,7 @@
 
 **Goal:** 让 Babel Web 在 `/babel` 下运行，并通过同源 `/babel/api` 访问 API，同时保留本地端口和旧公网端口。
 
-**Architecture:** Next.js 使用原生 `basePath`；Web 的 API URL 解析集中到 `api-session.ts`。Express 在入口挂载可选 API base path，tRPC 路由内部不改名。
+**Architecture:** Next.js 使用原生 `basePath`，公开构建独立监听 3002；Web 的 API URL 解析集中到 `api-session.ts`。Tailscale 剥离 `/babel/api` 后转发到原有 4000 根路由，因此 API 无需改变挂载点，旧 10000 入口天然保持兼容。
 
 **Tech Stack:** Next.js 15、Express、tRPC、TypeScript、Vitest、Playwright。
 
@@ -82,7 +82,7 @@ git add apps/web/next.config.ts apps/web/app/lib/auth/api-session.ts apps/web/te
 git commit -m "feat: publish Babel Web under the babel path"
 ```
 
-### Task 2: Mount the API at a Configurable Public Prefix
+### Task 2: Preserve the API Root and Let Tailscale Strip the Prefix
 
 **Files:**
 - Modify: `/Users/tim/Workspace/babel/apps/api/src/config.ts`
@@ -92,36 +92,20 @@ git commit -m "feat: publish Babel Web under the babel path"
 - Modify: `/Users/tim/Workspace/babel/apps/api/README.md`
 
 **Interfaces:**
-- Consumes: `BABEL_API_BASE_PATH` env, normalized as `"" | "/babel/api"`.
-- Produces: Express app mounted under the prefix while `/healthz` remains available in both configured and legacy modes.
+- Consumes: Tailscale `/babel/api` path handler.
+- Produces: external `/babel/api/*` mapped to the unchanged local `:4000/*` routes.
 
-- [ ] **Step 1: Write failing Supertest coverage**
+- [ ] **Step 1: Preserve existing API tests and verify local health**
 
-```ts
-it('mounts API routes under the configured public prefix', async () => {
-  const app = createApp(testLog, { publicBasePath: '/babel/api' });
-  await request(app).get('/babel/api/healthz').expect(200);
-  await request(app).get('/healthz').expect(404);
-});
-```
+Run: `pnpm --filter @babel/api test && curl --fail http://127.0.0.1:4000/healthz`
 
-Also assert invalid values (`babel`, `/babel/api/`) fail configuration parsing and empty value keeps `/healthz`.
+- [ ] **Step 2: Configure the public path handler**
 
-- [ ] **Step 2: Run the focused API test and verify failure**
+Run: `/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg --https=443 --set-path=/babel/api http://127.0.0.1:4000`
 
-Run: `pnpm --filter @babel/api test -- health.test.ts`
+- [ ] **Step 3: Verify the public API without changing Express routes**
 
-Expected: FAIL because `createApp` does not accept `publicBasePath`.
-
-- [ ] **Step 3: Implement one mount boundary**
-
-```ts
-const router = express.Router();
-// existing middleware and routes attach to router
-app.use(config.publicBasePath || '/', router);
-```
-
-Normalize once in config; do not prefix every tRPC/router definition. Configure public CORS origin as `https://tims.tail5d10b9.ts.net`.
+Run: `curl --fail https://tims.tail5d10b9.ts.net/babel/api/healthz`
 
 - [ ] **Step 4: Run API and integration verification**
 
