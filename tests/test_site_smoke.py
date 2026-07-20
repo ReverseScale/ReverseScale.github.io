@@ -10,6 +10,16 @@ def read(path: str) -> str:
 
 
 class SiteSmokeTest(unittest.TestCase):
+    def test_home_declares_canonical_person_metadata(self) -> None:
+        html = read("index.html")
+
+        self.assertIn('<link rel="canonical" href="https://reversescale.github.io/" />', html)
+        self.assertIn('type="application/ld+json"', html)
+        self.assertIn('"@type": "Person"', html)
+        self.assertIn('"name": "Tim"', html)
+        self.assertIn('"url": "https://reversescale.github.io/"', html)
+        self.assertIn('"https://github.com/ReverseScale"', html)
+
     def test_mobile_navigation_keeps_github_and_removes_duplicate_project_preview(self) -> None:
         app_source = read("src/app.js")
         styles = read("src/styles.css")
