@@ -10,6 +10,31 @@ def read(path: str) -> str:
 
 
 class SiteSmokeTest(unittest.TestCase):
+    def test_about_page_has_dedicated_personal_content(self) -> None:
+        app_source = read("src/app.js")
+        about_html = read("about/index.html")
+
+        self.assertIn("function renderAbout", app_source)
+        self.assertIn("What I build and why.", app_source)
+        self.assertIn("ReverseScale is the namespace", app_source)
+        self.assertIn('<rs-home page="about"></rs-home>', about_html)
+        self.assertIn("About Tim", about_html)
+
+    def test_404_uses_tim_shell_and_clear_return_action(self) -> None:
+        app_source = read("src/app.js")
+        html = read("404.html")
+
+        self.assertIn("function renderNotFound", app_source)
+        self.assertIn("This page wandered off the release path.", app_source)
+        self.assertIn("Back to Tim’s work", app_source)
+        self.assertIn("Not found | Tim", html)
+
+    def test_personal_site_does_not_invent_avatar_or_email(self) -> None:
+        source = read("src/app.js") + read("src/site-data.js")
+
+        self.assertNotIn("avatar", source.lower())
+        self.assertNotIn("mailto:", source)
+
     def test_home_presents_tim_personal_identity_and_navigation(self) -> None:
         app_source = read("src/app.js")
         html = read("index.html")
@@ -113,7 +138,7 @@ class SiteSmokeTest(unittest.TestCase):
         icon = read("icon.svg")
 
         self.assertIn('<link rel="icon" href="/icon.svg" type="image/svg+xml" />', html)
-        self.assertIn("ReverseScale tab icon", icon)
+        self.assertIn("Tim tab icon", icon)
         self.assertIn("<svg", icon)
 
     def test_app_links_research_workspace_without_restoring_notes_module(self) -> None:
@@ -141,9 +166,9 @@ class SiteSmokeTest(unittest.TestCase):
 
     def test_404_uses_same_modern_shell(self) -> None:
         html = read("404.html")
-        self.assertIn("ReverseScale", html)
+        self.assertIn("Not found | Tim", html)
         self.assertIn("src/app.js", html)
-        self.assertIn("rs-home", html)
+        self.assertIn('<rs-home page="404">', html)
 
     def test_modern_shell_does_not_reuse_legacy_visual_assets(self) -> None:
         for path in ["index.html", "404.html", "about/index.html", "archives/index.html"]:

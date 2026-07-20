@@ -165,11 +165,64 @@ function renderHome() {
   `;
 }
 
+function renderAbout() {
+  return `
+    ${siteHeader()}
+    <section class="page-hero" aria-labelledby="about-page-title">
+      <p class="eyebrow">About Tim</p>
+      <h1 id="about-page-title">What I build and why.</h1>
+      <p>${escapeHtml(profile.description)}</p>
+    </section>
+
+    <section class="section about-story" aria-labelledby="story-title">
+      <div>
+        <p class="eyebrow">The work</p>
+        <h2 id="story-title">Tools shaped by the path from code to release.</h2>
+      </div>
+      <div class="prose">
+        <p>${escapeHtml(profile.story)}</p>
+        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible.</p>
+        <p>ReverseScale is the namespace that connects these independent projects, not a company layer placed between the work and the person making it.</p>
+      </div>
+    </section>
+
+    <section class="section about-links" aria-labelledby="elsewhere-title">
+      <div>
+        <p class="eyebrow">Elsewhere</p>
+        <h2 id="elsewhere-title">Code and research.</h2>
+      </div>
+      <div class="link-stack">
+        <a href="${profile.github.href}" target="_blank" rel="noreferrer">
+          <span><strong>GitHub</strong><small>Projects and public code</small></span><span aria-hidden="true">↗</span>
+        </a>
+        <a href="${profile.research.href}" target="_blank" rel="noreferrer">
+          <span><strong>Research</strong><small>Notes and longer-form thinking in Notion</small></span><span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+  `;
+}
+
+function renderNotFound() {
+  return `
+    ${siteHeader()}
+    <section class="not-found" aria-labelledby="not-found-title">
+      <p class="eyebrow">404 / Not found</p>
+      <h1 id="not-found-title">This page wandered off the release path.</h1>
+      <p>The route may have changed, or the project may now live on its own site.</p>
+      <a class="button button--primary" href="/">Back to Tim’s work <span aria-hidden="true">→</span></a>
+    </section>
+  `;
+}
+
 class ReverseScaleHome extends HTMLElement {
   connectedCallback() {
+    const page = this.getAttribute("page") || "home";
+    const content = page === "about" ? renderAbout() : page === "404" ? renderNotFound() : renderHome();
+
     this.innerHTML = `
       <main class="site-shell">
-        ${renderHome()}
+        ${content}
         <footer class="site-footer">
           <span>© 2026 ${escapeHtml(profile.name)}</span>
           <span>ReverseScale is the home of my independent projects.</span>
