@@ -10,6 +10,39 @@ def read(path: str) -> str:
 
 
 class SiteSmokeTest(unittest.TestCase):
+    def test_home_presents_tim_personal_identity_and_navigation(self) -> None:
+        app_source = read("src/app.js")
+        html = read("index.html")
+
+        self.assertIn("I build tools for mobile teams.", app_source)
+        self.assertIn('aria-label="Tim home"', app_source)
+        self.assertIn('href="/#work"', app_source)
+        self.assertIn('href="/about/"', app_source)
+        self.assertIn("https://github.com/ReverseScale", app_source + read("src/site-data.js"))
+        self.assertIn("Tim — Independent software developer", html)
+
+    def test_home_renders_distinct_project_micro_visuals(self) -> None:
+        app_source = read("src/app.js")
+        styles = read("src/styles.css")
+
+        self.assertIn("projectMicroVisual", app_source)
+        self.assertIn('project.visual === "package"', app_source)
+        self.assertIn('project.visual === "strings"', app_source)
+        self.assertIn('project.visual === "pipeline"', app_source)
+        self.assertIn("micro-visual--package", styles)
+        self.assertIn("micro-visual--strings", styles)
+        self.assertIn("micro-visual--pipeline", styles)
+
+    def test_home_keeps_work_research_and_about_without_article_feed(self) -> None:
+        app_source = read("src/app.js")
+
+        self.assertIn('id="work"', app_source)
+        self.assertIn('id="about"', app_source)
+        self.assertIn('id="research"', app_source)
+        self.assertIn("Notes and research live in Notion.", app_source + read("src/site-data.js"))
+        self.assertNotIn("article-library", app_source)
+        self.assertNotIn("renderArticlePage", app_source)
+
     def test_personal_profile_and_project_visual_contract(self) -> None:
         data_source = read("src/site-data.js")
 
@@ -49,12 +82,14 @@ class SiteSmokeTest(unittest.TestCase):
         app_source = read("src/app.js")
         data_source = read("src/site-data.js")
 
-        self.assertIn('<a href="/bakery-site/">Bakery</a>', app_source)
-        self.assertIn('href="/bakery-site/">Explore Bakery</a>', app_source)
+        self.assertIn("projectLinks.map(heroProjectCard)", app_source)
+        self.assertIn("projectLinks.map(projectCard)", app_source)
         self.assertIn('name: "Bakery"', data_source)
+        self.assertIn('href: "/bakery-site/"', data_source)
         self.assertIn('label: "Mobile build and delivery"', data_source)
         self.assertIn('status: "Build & distribution"', data_source)
         self.assertIn('tone: "amber"', data_source)
+        self.assertIn('visual: "pipeline"', data_source)
         self.assertIn("CI integration", data_source)
         self.assertIn("Pipeline visibility", data_source)
         self.assertIn("Artifact distribution", data_source)
@@ -92,8 +127,8 @@ class SiteSmokeTest(unittest.TestCase):
         content_source = source + read("src/site-data.js")
         self.assertIn('customElements.define("rs-home"', source)
         self.assertIn("projectLinks", source)
-        self.assertIn("self-hosted product infrastructure", content_source)
-        self.assertIn("Mobile release operations", content_source)
+        self.assertIn("Independent software developer", content_source)
+        self.assertIn("mobile engineering, delivery workflows, and developer tools", content_source)
 
     def test_home_does_not_include_notes_module(self) -> None:
         source = read("src/app.js")

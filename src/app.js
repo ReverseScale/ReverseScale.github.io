@@ -1,16 +1,65 @@
-import { currentFocus, operatingPrinciples, projectLinks, proofPoints, researchLink } from "./site-data.js";
+import { profile, projectLinks, workingPrinciples } from "./site-data.js";
 
 const escapeHtml = (value) =>
-  String(value).replace(/[&<>"']/g, (char) => ({
+  String(value).replace(/[&<>"']/g, (character) => ({
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
     '"': "&quot;",
     "'": "&#39;",
-  })[char]);
+  })[character]);
+
+const projectMicroVisual = (project) => {
+  if (project.visual === "package") {
+    return `
+      <span class="micro-visual micro-visual--package" aria-hidden="true">
+        <span class="package-file"><i></i><i></i><i></i></span>
+        <span class="package-arrow">↓</span>
+        <span class="package-device"><i></i></span>
+      </span>
+    `;
+  }
+
+  if (project.visual === "strings") {
+    return `
+      <span class="micro-visual micro-visual--strings" aria-hidden="true">
+        <span><b>title</b><i>Welcome back</i></span>
+        <span><b>cta</b><i>Continue</i></span>
+        <span><b>status</b><i>Ready</i></span>
+      </span>
+    `;
+  }
+
+  if (project.visual === "pipeline") {
+    return `
+      <span class="micro-visual micro-visual--pipeline" aria-hidden="true">
+        <span><i></i><b>Build</b></span>
+        <em></em>
+        <span><i></i><b>Sign</b></span>
+        <em></em>
+        <span><i></i><b>Ship</b></span>
+      </span>
+    `;
+  }
+
+  return "";
+};
+
+const heroProjectCard = (project, index) => `
+  <a class="hero-project hero-project--${project.tone}" href="${project.href}" aria-label="Explore ${escapeHtml(project.name)}">
+    <span class="hero-project__index">0${index + 1}</span>
+    <span class="hero-project__copy">
+      <strong>${escapeHtml(project.name)}</strong>
+      <small>${escapeHtml(project.label)}</small>
+    </span>
+    ${projectMicroVisual(project)}
+    <span class="hero-project__arrow" aria-hidden="true">↗</span>
+  </a>
+`;
 
 const projectCard = (project) => `
   <a class="project-card project-card--${project.tone}" href="${project.href}">
+    ${projectMicroVisual(project)}
     <span class="project-card__meta">${escapeHtml(project.status)}</span>
     <span class="project-card__name">${escapeHtml(project.name)}</span>
     <span class="project-card__label">${escapeHtml(project.label)}</span>
@@ -18,148 +67,112 @@ const projectCard = (project) => `
     <span class="project-card__points">
       ${project.points.map((point) => `<span>${escapeHtml(point)}</span>`).join("")}
     </span>
+    <span class="project-card__link">Open project <span aria-hidden="true">↗</span></span>
   </a>
 `;
 
-const proofCard = (item) => `
-  <article class="proof-card">
-    <strong>${escapeHtml(item.value)}</strong>
-    <span>${escapeHtml(item.label)}</span>
-    <p>${escapeHtml(item.body)}</p>
-  </article>
-`;
-
-const principleCard = (item) => `
+const principleCard = (principle, index) => `
   <article class="principle-card">
-    <h3>${escapeHtml(item.title)}</h3>
-    <p>${escapeHtml(item.body)}</p>
-  </article>
-`;
-
-const focusCard = (item) => `
-  <article class="focus-card">
-    <span></span>
-    <div>
-      <h3>${escapeHtml(item.title)}</h3>
-      <p>${escapeHtml(item.body)}</p>
-    </div>
+    <span>0${index + 1}</span>
+    <h3>${escapeHtml(principle.title)}</h3>
+    <p>${escapeHtml(principle.body)}</p>
   </article>
 `;
 
 function siteHeader() {
   return `
-    <header class="site-nav" aria-label="Primary">
-      <a class="brand" href="/" aria-label="ReverseScale home">
-        <span class="brand-mark" aria-hidden="true">RS</span>
+    <header class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="Tim home">
+        <span class="brand-mark" aria-hidden="true">${escapeHtml(profile.mark)}</span>
         <span>
-          <strong>ReverseScale</strong>
-          <small>self-hosted product infrastructure</small>
+          <strong>${escapeHtml(profile.name)}</strong>
+          <small>${escapeHtml(profile.role)}</small>
         </span>
       </a>
       <nav>
-        <a href="/roost-site/">Roost</a>
-        <a href="/babel-site/">Babel</a>
-        <a href="/bakery-site/">Bakery</a>
-        <a class="nav-external" href="${researchLink.href}" target="_blank" rel="noreferrer">${escapeHtml(researchLink.label)}</a>
+        <a href="/#work">Work</a>
+        <a href="${profile.research.href}" target="_blank" rel="noreferrer">Research</a>
+        <a href="/about/">About</a>
+        <a class="nav-external" href="${profile.github.href}" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
   `;
 }
 
-function renderHome({ notFound = false } = {}) {
+function renderHome() {
   return `
     ${siteHeader()}
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__copy">
-        <p class="eyebrow">${notFound ? "Page not found" : "ReverseScale"}</p>
-        <h1 id="hero-title">${notFound ? "This route is not part of the current public surface." : "Self-hosted tools for shipping mobile products with more control."}</h1>
-        <p class="hero__lede">
-          ReverseScale builds practical systems for app delivery, localization, release operations, and engineering workflows.
-          Roost handles Flutter patch delivery; Babel handles localization as code; Bakery connects mobile builds, artifacts, and distribution.
-        </p>
+        <p class="eyebrow">${escapeHtml(profile.role)}</p>
+        <h1 id="hero-title">I build tools for mobile teams.</h1>
+        <p class="hero__lede">${escapeHtml(profile.description)}</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="/roost-site/">Explore Roost</a>
-          <a class="button button--secondary" href="/babel-site/">Explore Babel</a>
-          <a class="button button--secondary" href="/bakery-site/">Explore Bakery</a>
+          <a class="button button--primary" href="#work">See my work <span aria-hidden="true">↓</span></a>
+          <a class="button button--secondary" href="/about/">About me</a>
         </div>
       </div>
-      <div class="hero-visual" aria-label="ReverseScale project map">
-        <div class="visual-panel visual-panel--main">
-          <div class="panel-row panel-row--header">
-            <span>ReverseScale</span>
-            <strong>mobile product systems</strong>
-          </div>
-          <div class="flow">
-            <span class="node node--root">Team</span>
-            <span class="line"></span>
-            <span class="node node--green">Release</span>
-            <span class="line"></span>
-            <span class="node node--blue">Strings</span>
-            <span class="line"></span>
-            <span class="node node--amber">Builds</span>
-          </div>
-          <div class="metric-grid">
-            <span><strong>Control</strong><small>self-hosted systems</small></span>
-            <span><strong>Review</strong><small>traceable changes</small></span>
-            <span><strong>Operate</strong><small>visible release state</small></span>
-          </div>
-        </div>
+      <div class="hero-work" aria-label="Selected projects">
+        <p><span>Selected work</span><span>2026</span></p>
+        ${projectLinks.map(heroProjectCard).join("")}
       </div>
     </section>
 
-    <section class="section" aria-labelledby="projects-title">
-      <div class="section__intro">
-        <p class="eyebrow">Products</p>
-        <h2 id="projects-title">Core modules on the main site.</h2>
-        <p>
-          The public homepage stays focused on current systems.
-          <a class="text-link" href="${researchLink.href}" target="_blank" rel="noreferrer">${escapeHtml(researchLink.summary)}</a>
-        </p>
+    <section class="section work-section" id="work" aria-labelledby="work-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Selected work</p>
+          <h2 id="work-title">Three tools, one practical thread.</h2>
+        </div>
+        <p>Projects built around the difficult space between code, review, build, and release.</p>
       </div>
       <div class="project-grid">
         ${projectLinks.map(projectCard).join("")}
       </div>
     </section>
 
-    <section class="proof-strip" aria-label="Site facts">
-      ${proofPoints.map(proofCard).join("")}
-    </section>
-
-    <section class="section section--split" aria-labelledby="principles-title">
-      <div class="section__intro">
-        <p class="eyebrow">What connects them</p>
-        <h2 id="principles-title">Infrastructure that keeps product operations inspectable.</h2>
-        <p>Roost, Babel, and Bakery solve different problems, but they follow the same operating model.</p>
+    <section class="section principles-section" aria-labelledby="principles-title">
+      <div class="section-heading section-heading--compact">
+        <div>
+          <p class="eyebrow">How I work</p>
+          <h2 id="principles-title">Software should make its state understandable.</h2>
+        </div>
       </div>
       <div class="principle-grid">
-        ${operatingPrinciples.map(principleCard).join("")}
+        ${workingPrinciples.map(principleCard).join("")}
       </div>
     </section>
 
-    <section class="section" aria-labelledby="focus-title">
-      <div class="section__intro">
-        <p class="eyebrow">Current focus</p>
-        <h2 id="focus-title">Where ReverseScale is spending design energy.</h2>
-        <p>These are the active themes behind the public project sites.</p>
+    <section class="section about-brief" id="about" aria-labelledby="about-title">
+      <p class="eyebrow">About</p>
+      <div>
+        <h2 id="about-title">Independent by choice, product-minded by habit.</h2>
+        <div>
+          <p>${escapeHtml(profile.story)}</p>
+          <a class="text-link" href="/about/">More about me <span aria-hidden="true">→</span></a>
+        </div>
       </div>
-      <div class="focus-grid">
-        ${currentFocus.map(focusCard).join("")}
+    </section>
+
+    <section class="section research-brief" id="research" aria-labelledby="research-title">
+      <div>
+        <p class="eyebrow">Research & notes</p>
+        <h2 id="research-title">Writing lives in Notion.</h2>
+        <p>${escapeHtml(profile.research.summary)} Project-specific documentation stays with each project.</p>
       </div>
+      <a class="button button--secondary" href="${profile.research.href}" target="_blank" rel="noreferrer">Open Research <span aria-hidden="true">↗</span></a>
     </section>
   `;
 }
 
 class ReverseScaleHome extends HTMLElement {
   connectedCallback() {
-    const page = this.getAttribute("page") || "home";
-    const notFound = page === "404";
-
     this.innerHTML = `
       <main class="site-shell">
-        ${renderHome({ notFound })}
+        ${renderHome()}
         <footer class="site-footer">
-          <span>ReverseScale</span>
-          <span>Self-hosted product infrastructure for mobile teams.</span>
+          <span>© 2026 ${escapeHtml(profile.name)}</span>
+          <span>ReverseScale is the home of my independent projects.</span>
         </footer>
       </main>
     `;
