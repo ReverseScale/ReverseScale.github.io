@@ -22,6 +22,34 @@ class SiteSmokeTest(unittest.TestCase):
         html = read("index.html")
         self.assertIn("/roost-site/", html)
         self.assertIn("/babel-site/", html)
+        self.assertIn("/bakery-site/", html)
+
+    def test_bakery_is_a_first_class_home_project(self) -> None:
+        app_source = read("src/app.js")
+        data_source = read("src/site-data.js")
+
+        self.assertIn('<a href="/bakery-site/">Bakery</a>', app_source)
+        self.assertIn('href="/bakery-site/">Explore Bakery</a>', app_source)
+        self.assertIn('name: "Bakery"', data_source)
+        self.assertIn('label: "Mobile build and delivery"', data_source)
+        self.assertIn('status: "Build & distribution"', data_source)
+        self.assertIn('tone: "amber"', data_source)
+        self.assertIn("CI integration", data_source)
+        self.assertIn("Pipeline visibility", data_source)
+        self.assertIn("Artifact distribution", data_source)
+
+    def test_bakery_project_uses_three_column_responsive_layout(self) -> None:
+        styles = read("src/styles.css")
+
+        self.assertIn("grid-template-columns: repeat(3, minmax(0, 1fr));", styles)
+        self.assertIn(".project-card--amber", styles)
+        self.assertIn("border-top: 4px solid var(--amber);", styles)
+
+    def test_home_metadata_covers_mobile_build_and_distribution(self) -> None:
+        html = read("index.html")
+
+        self.assertIn("mobile build", html)
+        self.assertIn("app distribution", html)
 
     def test_main_site_declares_tab_icon(self) -> None:
         html = read("index.html")

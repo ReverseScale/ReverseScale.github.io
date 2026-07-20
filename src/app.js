@@ -59,6 +59,7 @@ function siteHeader() {
       <nav>
         <a href="/roost-site/">Roost</a>
         <a href="/babel-site/">Babel</a>
+        <a href="/bakery-site/">Bakery</a>
         <a class="nav-external" href="${researchLink.href}" target="_blank" rel="noreferrer">${escapeHtml(researchLink.label)}</a>
       </nav>
     </header>
@@ -74,11 +75,12 @@ function renderHome({ notFound = false } = {}) {
         <h1 id="hero-title">${notFound ? "This route is not part of the current public surface." : "Self-hosted tools for shipping mobile products with more control."}</h1>
         <p class="hero__lede">
           ReverseScale builds practical systems for app delivery, localization, release operations, and engineering workflows.
-          Roost handles Flutter patch delivery; Babel handles localization as code.
+          Roost handles Flutter patch delivery; Babel handles localization as code; Bakery connects mobile builds, artifacts, and distribution.
         </p>
         <div class="hero__actions">
           <a class="button button--primary" href="/roost-site/">Explore Roost</a>
           <a class="button button--secondary" href="/babel-site/">Explore Babel</a>
+          <a class="button button--secondary" href="/bakery-site/">Explore Bakery</a>
         </div>
       </div>
       <div class="hero-visual" aria-label="ReverseScale project map">
@@ -93,6 +95,8 @@ function renderHome({ notFound = false } = {}) {
             <span class="node node--green">Release</span>
             <span class="line"></span>
             <span class="node node--blue">Strings</span>
+            <span class="line"></span>
+            <span class="node node--amber">Builds</span>
           </div>
           <div class="metric-grid">
             <span><strong>Control</strong><small>self-hosted systems</small></span>
@@ -125,7 +129,7 @@ function renderHome({ notFound = false } = {}) {
       <div class="section__intro">
         <p class="eyebrow">What connects them</p>
         <h2 id="principles-title">Infrastructure that keeps product operations inspectable.</h2>
-        <p>Roost and Babel solve different problems, but they follow the same operating model.</p>
+        <p>Roost, Babel, and Bakery solve different problems, but they follow the same operating model.</p>
       </div>
       <div class="principle-grid">
         ${operatingPrinciples.map(principleCard).join("")}

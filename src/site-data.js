@@ -19,6 +19,16 @@ export const projectLinks = [
       "Localization as code for product teams that need traceable strings, review workflows, project structure, and AI-assisted operations.",
     points: ["Git-backed strings", "Review workflow", "AI-assisted changes"],
   },
+  {
+    name: "Bakery",
+    label: "Mobile build and delivery",
+    href: "/bakery-site/",
+    status: "Build & distribution",
+    tone: "amber",
+    summary:
+      "Self-hosted mobile delivery that connects CI triggers, live pipeline visibility, versioned artifacts, and app distribution in one workspace.",
+    points: ["CI integration", "Pipeline visibility", "Artifact distribution"],
+  },
 ];
 
 export const researchLink = {
@@ -31,28 +41,28 @@ export const proofPoints = [
   {
     value: "Mobile",
     label: "Release operations as the center",
-    body: "Roost focuses on app delivery and rollout control; Babel handles the string workflow that ships with product changes.",
+    body: "Roost controls Flutter patch rollout, Babel manages localization as code, and Bakery connects mobile builds to installable artifacts.",
   },
   {
     value: "Self-hosted",
     label: "Control stays with the team",
-    body: "The tools are shaped around infrastructure that can run close to the code, artifacts, reviewers, and operators.",
+    body: "The tools are shaped around infrastructure that can run close to the code, build systems, artifacts, reviewers, and operators.",
   },
   {
     value: "Traceable",
     label: "Decisions should leave evidence",
-    body: "Release bases, patch tasks, strings, reviews, and promotions should be inspectable instead of living in chat or terminal history.",
+    body: "Release bases, build stages, artifacts, strings, reviews, and promotions should be inspectable instead of living in chat or terminal history.",
   },
 ];
 
 export const operatingPrinciples = [
   {
     title: "Operator-focused workflows",
-    body: "The products are designed for repeated release work: clear states, review gates, explicit inputs, and visible outcomes.",
+    body: "The products are designed for repeated delivery work: clear states, review gates, explicit inputs, visible pipelines, and inspectable outcomes.",
   },
   {
     title: "Source-controlled product work",
-    body: "Code, strings, release artifacts, and docs should stay connected to the source of truth instead of becoming disconnected admin chores.",
+    body: "Code, strings, build context, release artifacts, and docs should stay connected to the source of truth instead of becoming disconnected admin chores.",
   },
   {
     title: "AI where it reduces toil",
@@ -63,7 +73,7 @@ export const operatingPrinciples = [
 export const currentFocus = [
   {
     title: "Mobile release operations",
-    body: "Patch generation, internal validation, worker coordination, promotion, rollback, and evidence for Flutter releases.",
+    body: "Build orchestration, pipeline visibility, patch generation, artifact distribution, promotion, rollback, and release evidence.",
   },
   {
     title: "Localization workflow",
