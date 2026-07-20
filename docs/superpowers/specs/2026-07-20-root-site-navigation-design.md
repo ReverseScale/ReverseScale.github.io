@@ -52,7 +52,7 @@ ReverseScale 首页继续保留每个项目的两类 URL：
 
 ## 运行与持久化
 
-根跳转服务只监听 `127.0.0.1`，不直接暴露局域网端口；TLS 和外部访问继续由 Tailscale Funnel 提供。服务需要使用现有本机服务管理方式持久运行，并具备最小化日志，至少可观察启动失败和请求状态。
+根跳转服务固定监听 `127.0.0.1:8090`，不直接暴露局域网端口；TLS 和外部访问继续由 Tailscale Funnel 提供。服务由 launchd label `com.reversescale.root-redirect` 持久运行，标准输出和错误日志分别位于 `/tmp/com.reversescale.root-redirect.out.log` 与 `/tmp/com.reversescale.root-redirect.err.log`，用于观察启动失败和请求状态。
 
 Tailscale 配置仅替换 `/` 的目标，其他路径和旧端口配置必须在变更前后进行快照对比。回滚时将根处理器重新指向 Roost 的 `http://127.0.0.1:8080`，不会影响产品数据。
 
