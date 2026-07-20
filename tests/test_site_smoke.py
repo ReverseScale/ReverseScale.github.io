@@ -10,6 +10,27 @@ def read(path: str) -> str:
 
 
 class SiteSmokeTest(unittest.TestCase):
+    def test_personal_profile_and_project_visual_contract(self) -> None:
+        data_source = read("src/site-data.js")
+
+        self.assertIn("export const profile", data_source)
+        self.assertIn('name: "Tim"', data_source)
+        self.assertIn('mark: "T"', data_source)
+        self.assertIn('role: "Independent software developer"', data_source)
+        self.assertIn("mobile engineering, delivery workflows, and developer tools", data_source)
+        self.assertIn("https://github.com/ReverseScale", data_source)
+        self.assertIn('visual: "package"', data_source)
+        self.assertIn('visual: "strings"', data_source)
+        self.assertIn('visual: "pipeline"', data_source)
+        self.assertIn("export const workingPrinciples", data_source)
+
+    def test_project_data_does_not_expose_private_source_links(self) -> None:
+        data_source = read("src/site-data.js")
+
+        self.assertNotIn("https://github.com/ReverseScale/roost", data_source)
+        self.assertNotIn("https://github.com/ReverseScale/label", data_source)
+        self.assertNotIn("https://github.com/ReverseScale/bakery", data_source)
+
     def test_home_shell_uses_modern_reverse_scale_entrypoint(self) -> None:
         html = read("index.html")
         self.assertIn("ReverseScale", html)
