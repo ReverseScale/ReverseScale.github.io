@@ -67,12 +67,22 @@ class SiteSmokeTest(unittest.TestCase):
         app_source = read("src/app.js")
         html = read("index.html")
 
-        self.assertIn("I build tools for mobile teams.", app_source)
+        self.assertIn("Tools for mobile", app_source)
+        self.assertIn("software, from code", app_source)
+        self.assertIn("to release.", app_source)
         self.assertIn('aria-label="Tim home"', app_source)
         self.assertIn('href="/#work"', app_source)
         self.assertIn('href="/about/"', app_source)
         self.assertIn("https://github.com/ReverseScale", app_source + read("src/site-data.js"))
         self.assertIn("Tim — Independent software developer", html)
+
+    def test_long_home_title_uses_desktop_breaks_without_forcing_mobile_lines(self) -> None:
+        app_source = read("src/app.js")
+        styles = read("src/styles.css")
+
+        self.assertEqual(app_source.count('class="desktop-title-break"'), 2)
+        self.assertIn(".hero h1 {\n  font-size: clamp(52px, 5vw, 68px);\n}", styles)
+        self.assertIn(".desktop-title-break {\n    display: none;\n  }", styles)
 
     def test_home_renders_distinct_project_micro_visuals(self) -> None:
         app_source = read("src/app.js")

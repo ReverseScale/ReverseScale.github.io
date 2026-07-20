@@ -105,7 +105,7 @@ function renderHome() {
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__copy">
         <p class="eyebrow">${escapeHtml(profile.role)}</p>
-        <h1 id="hero-title">I build tools for mobile teams.</h1>
+        <h1 id="hero-title">Tools for mobile<br class="desktop-title-break" /> software, from code<br class="desktop-title-break" /> to release.</h1>
         <p class="hero__lede">${escapeHtml(profile.description)}</p>
         <div class="hero__actions">
           <a class="button button--primary" href="#work">See my work <span aria-hidden="true">↓</span></a>
