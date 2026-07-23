@@ -604,6 +604,199 @@ h1 {
   font-weight: 750;
 }
 
+.architecture-brief {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
+  gap: clamp(48px, 8vw, 104px);
+  align-items: center;
+}
+
+.architecture-brief__copy h2 {
+  max-width: 620px;
+  margin-bottom: 22px;
+  font-size: clamp(26px, 2.8vw, 36px);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+}
+
+.architecture-brief__copy > p:not(.eyebrow) {
+  max-width: 540px;
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.architecture-preview {
+  position: relative;
+  display: flex;
+  min-height: 430px;
+  flex-direction: column;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid #30343c;
+  border-radius: 12px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    #0d0f13;
+  background-size: 24px 24px;
+  color: #f6f7f8;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.architecture-preview::before {
+  position: absolute;
+  inset: 14% 16%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(101, 217, 255, 0.16), transparent 65%);
+  content: "";
+  filter: blur(12px);
+  pointer-events: none;
+  animation: architecture-preview-glow 4.8s ease-in-out infinite alternate;
+}
+
+.architecture-preview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 56px rgba(23, 23, 20, 0.09);
+}
+
+.architecture-preview__meta,
+.architecture-preview__link {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #9298a3;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.architecture-preview__diagram {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(100%, 480px);
+  flex: 1;
+  align-content: center;
+  justify-items: center;
+  gap: 14px;
+  margin: auto;
+}
+
+.architecture-preview__diagram::after {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #65d9ff;
+  box-shadow: 0 0 14px #65d9ff;
+  content: "";
+  transform: translateX(-50%);
+  animation: architecture-preview-flow 2.8s ease-in-out infinite;
+}
+
+.architecture-preview__diagram i {
+  display: grid;
+  min-height: 52px;
+  place-items: center;
+  border: 1px solid rgba(23, 104, 147, 0.45);
+  border-radius: 8px;
+  background: rgba(18, 21, 27, 0.94);
+  color: #65d9ff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 750;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+
+.architecture-preview__shell {
+  width: 44%;
+}
+
+.architecture-preview__router {
+  width: 34%;
+  min-height: 42px !important;
+  color: #a993ff !important;
+  border-color: rgba(169, 147, 255, 0.45) !important;
+}
+
+.architecture-preview__features {
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.architecture-preview__features::before,
+.architecture-preview__features::after {
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 22px;
+  background: rgba(101, 217, 255, 0.48);
+  content: "";
+}
+
+.architecture-preview__features::before {
+  bottom: 100%;
+}
+
+.architecture-preview__features::after {
+  top: 100%;
+}
+
+.architecture-preview__features i {
+  color: #60e6ad;
+  border-color: rgba(96, 230, 173, 0.4);
+}
+
+.architecture-preview__core {
+  width: 58%;
+}
+
+.architecture-preview__link {
+  justify-content: flex-start;
+  color: #f6f7f8;
+  font-weight: 750;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@keyframes architecture-preview-glow {
+  from {
+    opacity: 0.56;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes architecture-preview-flow {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 230px);
+  }
+}
+
 .principle-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -716,6 +909,7 @@ h1 {
   }
 
   .section-heading,
+  .architecture-brief,
   .about-brief > div,
   .about-story,
   .about-links {
@@ -740,8 +934,8 @@ h1 {
   }
 
   .site-nav nav a {
-    padding: 9px 8px;
-    font-size: 12px;
+    padding: 8px 5px;
+    font-size: 11px;
   }
 
   .site-nav .nav-research {
@@ -818,6 +1012,11 @@ h1 {
     align-items: flex-start;
     flex-direction: column;
   }
+
+  .architecture-preview {
+    min-height: 360px;
+    padding: 18px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -826,7 +1025,13 @@ h1 {
   }
 
   .hero-project,
-  .project-card {
+  .project-card,
+  .architecture-preview {
     transition: none;
+  }
+
+  .architecture-preview::before,
+  .architecture-preview__diagram::after {
+    animation: none;
   }
 }
