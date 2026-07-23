@@ -241,11 +241,24 @@ class SiteSmokeTest(unittest.TestCase):
 
         self.assertIn('href="/app-architecture/"', app_source)
         self.assertIn('id="architecture"', app_source)
-        self.assertIn("进入交互解说", app_source)
+        self.assertIn("Open the interactive explainer", app_source)
         self.assertIn("<app-architecture-explainer>", html)
         self.assertIn("../src/app-architecture.js", html)
         self.assertIn("../src/app-architecture.css", html)
         self.assertNotIn("App Architecture", data_source)
+
+    def test_homepage_architecture_entry_matches_the_english_site_language(self) -> None:
+        app_source = read("src/app.js")
+        root_html = read("index.html")
+
+        self.assertIn(">Architecture</a>", app_source)
+        self.assertIn(">App Architecture</a>", root_html)
+        self.assertIn("How an app moves from chaos to order.", app_source)
+        self.assertIn("Interactive explainer", app_source)
+        self.assertIn("Monolith → Shared Components → Business Modules → App Assembly → Scale", app_source)
+        self.assertNotIn(">架构</a>", app_source)
+        self.assertNotIn("架构解说", app_source)
+        self.assertNotIn("进入交互解说", app_source)
 
     def test_architecture_explainer_is_written_in_simplified_chinese(self) -> None:
         source = read("src/app-architecture.js") + read("app-architecture/index.html")

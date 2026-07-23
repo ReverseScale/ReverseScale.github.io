@@ -91,7 +91,7 @@ function siteHeader() {
       </a>
       <nav>
         <a href="/#work">Work</a>
-        <a href="/app-architecture/">架构</a>
+        <a href="/app-architecture/">Architecture</a>
         <a class="nav-research" href="${profile.research.href}" target="_blank" rel="noreferrer">Research</a>
         <a href="/about/">About</a>
         <a class="nav-github nav-external" href="${profile.github.href}" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
@@ -134,22 +134,22 @@ function renderHome() {
 
     <section class="section architecture-brief" id="architecture" aria-labelledby="architecture-title">
       <div class="architecture-brief__copy">
-        <p class="eyebrow">架构解说</p>
-        <h2 id="architecture-title">看一个 App 如何从混乱走向秩序。</h2>
-        <p>沿横向 Pipeline 追踪交付，再从 App Runtime 深入组件、业务模块与 App 壳，理解多技术栈、动态配置、热更新和数据闭环如何协同。</p>
-        <a class="button button--primary" href="/app-architecture/">进入交互解说 <span aria-hidden="true">→</span></a>
+        <p class="eyebrow">Architecture explainer</p>
+        <h2 id="architecture-title">How an app moves from chaos to order.</h2>
+        <p>Follow the delivery pipeline from code to device, then open App Runtime to see how shared components, business modules, the app shell, multiple technology stacks, dynamic delivery, and observability work together.</p>
+        <a class="button button--primary" href="/app-architecture/">Open the interactive explainer <span aria-hidden="true">→</span></a>
       </div>
-      <a class="architecture-preview" href="/app-architecture/" aria-label="打开 App 架构交互解说">
-        <span class="architecture-preview__meta"><span>交互式解说</span><span>5 个阶段</span></span>
+      <a class="architecture-preview" href="/app-architecture/" aria-label="Open the App architecture interactive explainer">
+        <span class="architecture-preview__meta"><span>Interactive explainer</span><span>5 stages</span></span>
         <span class="architecture-preview__diagram" aria-hidden="true">
-          <i class="architecture-preview__shell">App 壳</i>
+          <i class="architecture-preview__shell">App Shell</i>
           <i class="architecture-preview__router">Router</i>
           <span class="architecture-preview__features">
-            <i>首页模块</i><i>目录模块</i><i>结算模块</i>
+            <i>Home Module</i><i>Catalog Module</i><i>Checkout Module</i>
           </span>
-          <i class="architecture-preview__core">UI 组件 · 功能组件</i>
+          <i class="architecture-preview__core">UI Components · Utility Components</i>
         </span>
-        <span class="architecture-preview__link">单体 → 通用组件 → 业务模块 → App 组装 → 大型 App</span>
+        <span class="architecture-preview__link">Monolith → Shared Components → Business Modules → App Assembly → Scale</span>
       </a>
     </section>
 
