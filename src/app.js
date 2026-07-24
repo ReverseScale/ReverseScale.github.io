@@ -136,11 +136,11 @@ function renderHome() {
       <div class="architecture-brief__copy">
         <p class="eyebrow">Architecture explainer</p>
         <h2 id="architecture-title">How an app moves from chaos to order.</h2>
-        <p>Follow the delivery pipeline from code to device, then open App Runtime to see how shared components, business modules, the app shell, multiple technology stacks, dynamic delivery, and observability work together.</p>
+        <p>Play through eight architecture levels—from shared capabilities and business ownership to module contracts, runtime governance, and recovery—then explore the independent delivery pipeline.</p>
         <a class="button button--primary" href="/app-architecture/">Open the interactive explainer <span aria-hidden="true">→</span></a>
       </div>
       <a class="architecture-preview" href="/app-architecture/" aria-label="Open the App architecture interactive explainer">
-        <span class="architecture-preview__meta"><span>Interactive explainer</span><span>5 stages</span></span>
+        <span class="architecture-preview__meta"><span>Interactive explainer</span><span>8 levels · 34 decisions</span></span>
         <span class="architecture-preview__diagram" aria-hidden="true">
           <i class="architecture-preview__shell">App Shell</i>
           <i class="architecture-preview__router">Router</i>

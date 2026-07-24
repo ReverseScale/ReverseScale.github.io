@@ -25,6 +25,7 @@ app-architecture-explainer {
 
 .architecture-page .site-nav,
 .architecture-hero,
+.architecture-game,
 .architecture-system,
 .architecture-capabilities,
 .architecture-principles,
@@ -198,6 +199,474 @@ app-architecture-explainer {
   color: var(--architecture-muted);
   font-size: 14px;
   line-height: 1.8;
+}
+
+.architecture-game {
+  padding: 96px 0 132px;
+  border-top: 1px solid var(--architecture-line);
+}
+
+.architecture-game__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  gap: clamp(48px, 8vw, 108px);
+  align-items: end;
+  margin-bottom: 56px;
+}
+
+.architecture-game__header h2 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(26px, 2.6vw, 34px);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+}
+
+.architecture-game__header > p {
+  max-width: 530px;
+  margin: 0;
+  color: var(--architecture-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.architecture-game__shell {
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: 218px minmax(0, 1fr);
+  border: 1px solid var(--architecture-line);
+  border-radius: 24px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+    #090b0f;
+  background-size: 28px 28px;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.24);
+}
+
+.architecture-game__levels {
+  display: grid;
+  align-content: start;
+  border-right: 1px solid var(--architecture-line);
+  background: rgba(7, 8, 11, 0.9);
+}
+
+.architecture-game__levels button {
+  position: relative;
+  display: grid;
+  min-height: 118px;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 5px 10px;
+  align-content: center;
+  padding: 20px 18px;
+  border: 0;
+  border-bottom: 1px solid var(--architecture-line);
+  background: transparent;
+  color: var(--architecture-muted);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.architecture-game__levels button:last-child {
+  border-bottom: 0;
+}
+
+.architecture-game__levels button[aria-current="step"] {
+  background:
+    linear-gradient(90deg, rgba(101, 217, 255, 0.14), transparent 82%),
+    rgba(255, 255, 255, 0.025);
+  color: var(--architecture-ink);
+  box-shadow: inset 2px 0 0 var(--architecture-accent);
+}
+
+.architecture-game__levels button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.architecture-game__levels span {
+  grid-row: 1 / 3;
+  color: var(--architecture-accent);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 10px;
+}
+
+.architecture-game__levels strong {
+  font-size: 12px;
+}
+
+.architecture-game__levels small {
+  color: #656d78;
+  font-size: 8px;
+}
+
+.architecture-game__workspace {
+  min-width: 0;
+}
+
+.architecture-game__hud {
+  display: grid;
+  min-height: 58px;
+  grid-template-columns: auto repeat(3, minmax(120px, 1fr)) auto;
+  gap: 18px;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--architecture-line);
+  background: rgba(8, 10, 14, 0.82);
+}
+
+.architecture-game__hud > span,
+.architecture-game__hud > strong {
+  color: #8e97a3;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.architecture-game__hud > strong {
+  color: var(--architecture-accent);
+  font-size: 13px;
+}
+
+.architecture-game__hud div {
+  display: grid;
+  grid-template-columns: auto minmax(48px, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.architecture-game__hud small {
+  color: #6f7782;
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.architecture-game__hud i {
+  position: relative;
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.architecture-game__hud i::after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--metric-value, 0%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, #65d9ff, #60e6ad);
+  content: "";
+  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.architecture-game__hud div:first-of-type i::after {
+  background: linear-gradient(90deg, #ff7373, #ffbd65);
+}
+
+.architecture-game__mission {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
+  gap: 28px;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--architecture-line);
+  background:
+    linear-gradient(110deg, rgba(169, 147, 255, 0.1), transparent 52%),
+    rgba(12, 14, 19, 0.92);
+}
+
+.architecture-game__mission span,
+.architecture-game__mission aside strong {
+  color: #a993ff;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.architecture-game__mission h3 {
+  margin: 6px 0 8px;
+  font-size: clamp(18px, 1.7vw, 23px);
+}
+
+.architecture-game__mission p {
+  margin: 0;
+  color: #8c949f;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.architecture-game__mission aside {
+  padding: 14px 16px;
+  border: 1px solid rgba(169, 147, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(169, 147, 255, 0.045);
+}
+
+.architecture-game__mission aside p {
+  margin-top: 5px;
+}
+
+.architecture-game__board {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.78fr) minmax(0, 1.72fr);
+  gap: 18px;
+  min-height: 430px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at 18% 40%, rgba(255, 115, 115, 0.08), transparent 24%),
+    radial-gradient(circle at 78% 52%, rgba(96, 230, 173, 0.06), transparent 31%);
+}
+
+.architecture-game__tray {
+  min-width: 0;
+  padding: 14px;
+  border: 1px dashed rgba(255, 115, 115, 0.3);
+  border-radius: 16px;
+  background: rgba(255, 115, 115, 0.025);
+}
+
+.architecture-game__tray header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 8px;
+  margin-bottom: 14px;
+  padding: 2px 4px 12px;
+  border-bottom: 1px solid rgba(255, 115, 115, 0.12);
+}
+
+.architecture-game__tray header span {
+  grid-column: 1 / -1;
+  color: #ff8585;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.architecture-game__tray header strong {
+  font-size: 11px;
+}
+
+.architecture-game__tray header small {
+  color: #747d88;
+  font-size: 8px;
+}
+
+.architecture-game__tray > div {
+  display: grid;
+  gap: 9px;
+}
+
+.architecture-game__piece {
+  display: grid;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  background:
+    linear-gradient(130deg, rgba(255, 115, 115, 0.08), transparent 60%),
+    rgba(20, 22, 28, 0.96);
+  color: var(--architecture-ink);
+  cursor: grab;
+  font: inherit;
+  text-align: left;
+  transform: rotate(calc((var(--piece-index) - 1.5) * 0.45deg));
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.architecture-game__piece:hover,
+.architecture-game__piece.is-selected {
+  border-color: rgba(101, 217, 255, 0.55);
+  background:
+    linear-gradient(130deg, rgba(101, 217, 255, 0.13), transparent 60%),
+    rgba(20, 22, 28, 0.98);
+  transform: translateY(-2px) rotate(0);
+}
+
+.architecture-game__piece.is-dragging {
+  opacity: 0.42;
+}
+
+.architecture-game__piece strong {
+  overflow-wrap: anywhere;
+  font-size: 10px;
+}
+
+.architecture-game__piece small {
+  color: #737c87;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.architecture-game__zones {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.architecture-game__zone {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 176px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 18px;
+  border: 1px dashed rgba(101, 217, 255, 0.28);
+  border-radius: 15px;
+  background:
+    linear-gradient(145deg, rgba(101, 217, 255, 0.055), transparent 58%),
+    rgba(12, 16, 20, 0.86);
+  color: var(--architecture-ink);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.architecture-game__zone:hover,
+.architecture-game__zone.is-drag-over {
+  border-color: rgba(96, 230, 173, 0.68);
+  background:
+    linear-gradient(145deg, rgba(96, 230, 173, 0.12), transparent 58%),
+    rgba(12, 18, 20, 0.94);
+  transform: translateY(-2px);
+}
+
+.architecture-game__zone > span:first-child {
+  color: #60e6ad;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.architecture-game__zone > strong {
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+}
+
+.architecture-game__zone > small {
+  margin-top: 5px;
+  color: #77818c;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.architecture-game__placed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.architecture-game__placed i {
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid rgba(96, 230, 173, 0.22);
+  border-radius: 7px;
+  background: rgba(96, 230, 173, 0.07);
+  color: #a8cdbd;
+  font-size: 7px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.architecture-game__empty {
+  margin: 28px 4px;
+  color: #68717c;
+  font-size: 9px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.architecture-game__complete {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17px 18px;
+  border: 1px solid rgba(96, 230, 173, 0.24);
+  border-radius: 14px;
+  background: rgba(96, 230, 173, 0.055);
+}
+
+.architecture-game__complete div {
+  display: grid;
+  gap: 4px;
+}
+
+.architecture-game__complete div span {
+  color: #60e6ad;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.architecture-game__complete div strong {
+  font-size: 11px;
+}
+
+.architecture-game__complete button {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(96, 230, 173, 0.32);
+  border-radius: 9px;
+  background: rgba(96, 230, 173, 0.1);
+  color: #dff8ed;
+  cursor: pointer;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 760;
+  white-space: nowrap;
+}
+
+.architecture-game__feedback {
+  min-height: 42px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--architecture-line);
+  background: rgba(8, 10, 14, 0.86);
+  color: #8c949f;
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+.architecture-game__feedback[data-tone="success"] {
+  color: #82dcb2;
+}
+
+.architecture-game__feedback[data-tone="error"] {
+  color: #ff9696;
+}
+
+.architecture-game button:focus-visible {
+  outline: 2px solid var(--architecture-accent);
+  outline-offset: -3px;
 }
 
 .architecture-coordinate {
@@ -1029,6 +1498,24 @@ button.pipeline-node {
 
 .architecture-node.has-parts {
   justify-content: flex-start;
+}
+
+.architecture-node:not(.has-parts) {
+  padding-block: 8px;
+}
+
+.architecture-node__badge,
+.architecture-node > span:not(.architecture-node__parts),
+.architecture-node > small {
+  flex-shrink: 0;
+}
+
+.architecture-node:not(.has-parts) .architecture-node__badge {
+  margin-bottom: 4px;
+}
+
+.architecture-node:not(.has-parts) > small {
+  margin-top: 4px;
 }
 
 [data-stage-id="scale"] .architecture-node {
@@ -2943,5 +3430,1040 @@ button.pipeline-node {
     min-width: 128px;
     min-height: 58px;
     padding: 0 14px;
+  }
+}
+
+/* Standalone architecture game ------------------------------------------- */
+
+@media (max-width: 980px) {
+  .architecture-game__header {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .architecture-game__shell {
+    grid-template-columns: 1fr;
+  }
+
+  .architecture-game__levels {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-right: 0;
+    border-bottom: 1px solid var(--architecture-line);
+  }
+
+  .architecture-game__levels button {
+    min-height: 92px;
+    border-right: 1px solid var(--architecture-line);
+    border-bottom: 0;
+  }
+
+  .architecture-game__levels button:last-child {
+    border-right: 0;
+  }
+
+  .architecture-game__levels button[aria-current="step"] {
+    box-shadow: inset 0 -2px 0 var(--architecture-accent);
+  }
+
+  .architecture-game__hud {
+    grid-template-columns: auto repeat(3, minmax(100px, 1fr)) auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .architecture-game {
+    padding: 76px 0 92px;
+  }
+
+  .architecture-game__header {
+    margin-bottom: 38px;
+  }
+
+  .architecture-game__header h2 {
+    font-size: clamp(23px, 6.4vw, 27px);
+  }
+
+  .architecture-game__shell {
+    border-radius: 16px;
+  }
+
+  .architecture-game__levels {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .architecture-game__levels button {
+    min-width: 148px;
+    min-height: 78px;
+    padding: 14px;
+  }
+
+  .architecture-game__hud {
+    grid-template-columns: 1fr auto;
+    gap: 10px 16px;
+    padding: 14px;
+  }
+
+  .architecture-game__hud > span {
+    grid-column: 1;
+  }
+
+  .architecture-game__hud > strong {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .architecture-game__hud div {
+    grid-column: 1 / -1;
+  }
+
+  .architecture-game__mission {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 22px 18px;
+  }
+
+  .architecture-game__board {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .architecture-game__piece {
+    transform: none;
+  }
+
+  .architecture-game__zones {
+    grid-template-columns: 1fr;
+  }
+
+  .architecture-game__zone {
+    min-height: 148px;
+  }
+
+  .architecture-game__complete {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .architecture-game__feedback {
+    padding-inline: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .architecture-game__piece,
+  .architecture-game__zone,
+  .architecture-game__hud i::after {
+    transition: none !important;
+  }
+}
+
+/* Refactor game interaction pass ----------------------------------------- */
+
+.architecture-hero {
+  min-height: auto;
+  padding: clamp(54px, 7vh, 76px) 0 64px;
+}
+
+.architecture-hero h1 {
+  max-width: 1040px;
+  margin-bottom: 30px;
+}
+
+.architecture-hero__footer {
+  align-items: start;
+}
+
+.architecture-scroll-cue {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  display: inline-flex;
+  width: fit-content;
+  min-height: 46px;
+  margin-top: 30px;
+  padding: 0 18px;
+  border: 1px solid rgba(101, 217, 255, 0.42);
+  border-radius: 12px;
+  background:
+    linear-gradient(120deg, rgba(101, 217, 255, 0.17), rgba(169, 147, 255, 0.08)),
+    rgba(13, 18, 23, 0.92);
+  color: #e9faff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 760;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.architecture-scroll-cue:hover {
+  border-color: rgba(101, 217, 255, 0.78);
+  box-shadow: 0 12px 34px rgba(44, 172, 217, 0.16);
+  transform: translateY(-2px);
+}
+
+.architecture-scroll-cue i {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  place-items: center;
+  color: var(--architecture-accent);
+  font-size: 15px;
+  font-style: normal;
+  transition: transform 180ms ease;
+}
+
+.architecture-scroll-cue:hover i {
+  transform: translateX(3px);
+}
+
+.architecture-scroll-cue i::after {
+  display: none;
+}
+
+.architecture-hero__glow {
+  top: -18%;
+  width: min(43vw, 590px);
+  opacity: 0.62;
+}
+
+.architecture-game {
+  scroll-margin-top: 20px;
+  padding: 44px 0 120px;
+}
+
+.architecture-game__header {
+  align-items: start;
+  margin-bottom: 30px;
+}
+
+.architecture-game__guide {
+  display: grid;
+  gap: 15px;
+}
+
+.architecture-game__guide > p {
+  margin: 0;
+  color: var(--architecture-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.architecture-game__guide ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.architecture-game__guide li {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  min-height: 31px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #929aa5;
+  font-size: 10px;
+}
+
+.architecture-game__guide li span {
+  color: var(--architecture-accent);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.architecture-game__shell {
+  transition:
+    border-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.architecture-game__shell.has-selection {
+  border-color: rgba(101, 217, 255, 0.3);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(101, 217, 255, 0.06),
+    0 0 52px rgba(47, 166, 207, 0.08);
+}
+
+.architecture-game__levels strong {
+  font-size: 13px;
+}
+
+.architecture-game__levels small {
+  font-size: 10px;
+}
+
+.architecture-game__hud {
+  grid-template-columns:
+    auto
+    repeat(3, minmax(94px, 1fr))
+    auto
+    auto
+    auto;
+  gap: 12px;
+}
+
+.architecture-game__hud > strong {
+  display: grid;
+  gap: 1px;
+  justify-items: end;
+  line-height: 1.1;
+}
+
+.architecture-game__hud > strong small {
+  color: #69727d;
+  font-size: 7px;
+  letter-spacing: 0.07em;
+}
+
+.architecture-game__hud > strong span {
+  color: var(--architecture-accent);
+  font-size: 14px;
+}
+
+.architecture-game__hud .architecture-game__counter {
+  display: flex;
+  gap: 7px;
+  min-width: 58px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.architecture-game__counter b {
+  color: #dfe5eb;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 11px;
+}
+
+.architecture-game__mission aside {
+  position: relative;
+  padding-right: 98px;
+}
+
+.architecture-game__mission aside button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid rgba(169, 147, 255, 0.2);
+  border-radius: 7px;
+  background: rgba(169, 147, 255, 0.07);
+  color: #aaa3ca;
+  cursor: pointer;
+  font: inherit;
+  font-size: 9px;
+}
+
+.architecture-game__feedback {
+  position: relative;
+  min-height: 48px;
+  padding: 14px 20px 14px 48px;
+  border-top: 0;
+  border-bottom: 1px solid var(--architecture-line);
+  background: rgba(8, 10, 14, 0.92);
+  font-size: 11px;
+}
+
+.architecture-game__feedback::before {
+  position: absolute;
+  top: 50%;
+  left: 21px;
+  display: grid;
+  width: 16px;
+  height: 16px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: "i";
+  place-items: center;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 9px;
+  transform: translateY(-50%);
+}
+
+.architecture-game__feedback[data-tone="success"]::before {
+  content: "✓";
+}
+
+.architecture-game__feedback[data-tone="error"]::before {
+  content: "!";
+}
+
+.architecture-game__piece {
+  padding: 15px;
+  touch-action: manipulation;
+}
+
+.architecture-game__piece strong {
+  font-size: 12px;
+}
+
+.architecture-game__piece small {
+  font-size: 10px;
+}
+
+.architecture-game__piece.is-selected {
+  border-color: #65d9ff;
+  box-shadow:
+    0 0 0 2px rgba(101, 217, 255, 0.11),
+    0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.architecture-game__piece.is-selected::after {
+  margin-top: 4px;
+  color: #65d9ff;
+  content: "已拿起 · 请选择目标边界 →";
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.architecture-game__piece.is-accepted {
+  border-color: rgba(96, 230, 173, 0.82);
+  opacity: 0;
+  transform: translate(18px, -2px) scale(0.94);
+}
+
+.architecture-game__piece.is-rejected,
+.architecture-game__zone.is-rejected {
+  animation: architecture-game-reject 360ms ease;
+}
+
+.architecture-game__zone {
+  min-height: 178px;
+  touch-action: manipulation;
+}
+
+.architecture-game__zone > small {
+  font-size: 10px;
+}
+
+.architecture-game__zone.is-awaiting-piece {
+  border-color: rgba(101, 217, 255, 0.47);
+  animation: architecture-game-target-pulse 1.5s ease-in-out infinite;
+}
+
+.architecture-game__zone.is-accepting {
+  border-color: rgba(96, 230, 173, 0.9);
+  background:
+    linear-gradient(145deg, rgba(96, 230, 173, 0.2), transparent 58%),
+    rgba(12, 23, 20, 0.96);
+  transform: scale(1.012);
+}
+
+.architecture-game__placed i {
+  font-size: 9px;
+  animation: architecture-game-piece-land 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.architecture-game__complete {
+  position: relative;
+  overflow: hidden;
+}
+
+.architecture-game__complete::after {
+  position: absolute;
+  top: -28px;
+  right: 9%;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: #65d9ff;
+  box-shadow:
+    34px 19px #60e6ad,
+    68px -3px #ffbd65,
+    102px 25px #a993ff,
+    136px 5px #65d9ff;
+  content: "";
+  opacity: 0;
+  transform: rotate(15deg);
+  animation: architecture-game-celebrate 900ms 160ms ease-out;
+}
+
+@keyframes architecture-game-reject {
+  0%,
+  100% {
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(0);
+  }
+  25% {
+    border-color: rgba(255, 115, 115, 0.9);
+    transform: translateX(-5px);
+  }
+  55% {
+    border-color: rgba(255, 115, 115, 0.9);
+    transform: translateX(5px);
+  }
+  78% {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes architecture-game-target-pulse {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(101, 217, 255, 0);
+  }
+  50% {
+    box-shadow: inset 0 0 28px rgba(101, 217, 255, 0.07);
+  }
+}
+
+@keyframes architecture-game-piece-land {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes architecture-game-celebrate {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(15deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(88px) rotate(145deg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .architecture-game__hud {
+    grid-template-columns: auto repeat(3, minmax(78px, 1fr)) auto auto;
+  }
+
+  .architecture-game__hud > strong {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 980px) {
+  .architecture-hero {
+    padding: 62px 0 70px;
+  }
+
+  .architecture-scroll-cue {
+    display: inline-flex;
+  }
+
+  .architecture-game__hud {
+    grid-template-columns: auto repeat(3, minmax(84px, 1fr)) auto auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .architecture-hero {
+    padding: 50px 0 54px;
+  }
+
+  .architecture-hero h1 {
+    margin-bottom: 26px;
+  }
+
+  .architecture-scroll-cue {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .architecture-game {
+    padding-top: 34px;
+  }
+
+  .architecture-game__guide ol {
+    display: grid;
+  }
+
+  .architecture-game__guide li {
+    width: fit-content;
+  }
+
+  .architecture-game__hud {
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .architecture-game__hud > span {
+    grid-column: 1;
+  }
+
+  .architecture-game__hud > strong {
+    grid-column: 2 / -1;
+    grid-row: 1;
+  }
+
+  .architecture-game__hud div:not(.architecture-game__counter) {
+    grid-column: 1 / -1;
+  }
+
+  .architecture-game__hud .architecture-game__counter {
+    grid-column: auto;
+  }
+
+  .architecture-game__mission aside {
+    padding-right: 16px;
+    padding-bottom: 52px;
+  }
+
+  .architecture-game__mission aside button {
+    top: auto;
+    right: auto;
+    bottom: 12px;
+    left: 16px;
+  }
+
+  .architecture-game__feedback {
+    padding-inline: 43px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .architecture-game__piece.is-rejected,
+  .architecture-game__zone.is-rejected,
+  .architecture-game__zone.is-awaiting-piece,
+  .architecture-game__placed i,
+  .architecture-game__complete::after {
+    animation: none !important;
+  }
+}
+
+/* Data-driven architecture topology -------------------------------------- */
+
+.architecture-game__zones {
+  position: relative;
+  isolation: isolate;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-auto-rows: minmax(132px, auto);
+  gap: 12px;
+  padding: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(101, 217, 255, 0.13);
+  border-radius: 16px;
+  background:
+    linear-gradient(rgba(101, 217, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(101, 217, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(101, 217, 255, 0.055), transparent 58%),
+    rgba(7, 11, 15, 0.78);
+  background-size: 24px 24px, 24px 24px, auto, auto;
+}
+
+.architecture-game__zones::before {
+  position: absolute;
+  z-index: -1;
+  inset: 70px 26px 26px;
+  background-repeat: no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.architecture-game__topology-header {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-width: 0;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 14px;
+  align-items: center;
+  padding: 3px 4px 10px;
+  border-bottom: 1px solid rgba(101, 217, 255, 0.11);
+}
+
+.architecture-game__topology-header > span {
+  grid-column: 1 / -1;
+  color: var(--architecture-accent);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.architecture-game__topology-header > strong {
+  min-width: 0;
+  color: #dce5eb;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.architecture-game__topology-header > small {
+  color: #69727d;
+  font-size: 9px;
+}
+
+.architecture-game__zone {
+  z-index: 1;
+  min-height: 132px;
+  padding: 15px;
+  overflow: hidden;
+  border-style: solid;
+  border-color: rgba(101, 217, 255, 0.25);
+  border-radius: 12px;
+  background:
+    linear-gradient(145deg, rgba(101, 217, 255, 0.075), transparent 58%),
+    rgba(10, 15, 20, 0.96);
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.architecture-game__zone::before {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(101, 217, 255, 0.72);
+  border-radius: 50%;
+  background: #101820;
+  box-shadow: 0 0 12px rgba(101, 217, 255, 0.5);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.architecture-game__zone.has-pieces {
+  border-color: rgba(96, 230, 173, 0.43);
+  background:
+    linear-gradient(145deg, rgba(96, 230, 173, 0.11), transparent 58%),
+    rgba(10, 18, 18, 0.97);
+}
+
+.architecture-game__zone.has-pieces::before {
+  border-color: #60e6ad;
+  background: #60e6ad;
+  box-shadow: 0 0 14px rgba(96, 230, 173, 0.62);
+}
+
+.architecture-game__zone-type {
+  color: #65d9ff !important;
+}
+
+.architecture-game__zone-capacity {
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  color: #65717d;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 8px;
+}
+
+.architecture-game__zone > strong {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.architecture-game__blueprint {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 100%;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(101, 217, 255, 0.1);
+}
+
+.architecture-game__blueprint i {
+  padding: 4px 6px;
+  border: 1px solid rgba(101, 217, 255, 0.14);
+  border-radius: 5px;
+  background: rgba(101, 217, 255, 0.045);
+  color: #6f8490;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 7px;
+  font-style: normal;
+}
+
+.architecture-game__placed {
+  gap: 5px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.architecture-game__placed:empty {
+  display: none;
+}
+
+.architecture-game__placed i {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 5px 7px;
+}
+
+.architecture-game__placed i span {
+  color: #60e6ad;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 8px;
+}
+
+.architecture-game__zones[data-architecture-layout="shared-capabilities"]::before {
+  background:
+    linear-gradient(rgba(101, 217, 255, 0.34), rgba(101, 217, 255, 0.34)) 50% 42% / 1px 38% no-repeat,
+    linear-gradient(90deg, rgba(101, 217, 255, 0.34), rgba(101, 217, 255, 0.34)) 50% 72% / 68% 1px no-repeat;
+}
+
+[data-architecture-layout="shared-capabilities"] [data-zone-role="business"] {
+  grid-column: 2 / 6;
+  grid-row: 2;
+}
+
+[data-architecture-layout="shared-capabilities"] [data-zone-role="shared-ui"] {
+  grid-column: 1 / 4;
+  grid-row: 3;
+}
+
+[data-architecture-layout="shared-capabilities"] [data-zone-role="shared-platform"] {
+  grid-column: 4 / 7;
+  grid-row: 3;
+}
+
+.architecture-game__zones[data-architecture-layout="business-modules"]::before {
+  background:
+    linear-gradient(90deg, rgba(96, 230, 173, 0.3), rgba(96, 230, 173, 0.3)) 50% 50% / 72% 1px no-repeat;
+}
+
+[data-architecture-layout="business-modules"] .architecture-game__zone {
+  grid-row: 2;
+  border-color: rgba(96, 230, 173, 0.28);
+}
+
+[data-architecture-layout="business-modules"] [data-zone-role="home"] {
+  grid-column: 1 / 3;
+}
+
+[data-architecture-layout="business-modules"] [data-zone-role="catalog"] {
+  grid-column: 3 / 5;
+}
+
+[data-architecture-layout="business-modules"] [data-zone-role="checkout"] {
+  grid-column: 5 / 7;
+}
+
+.architecture-game__zones[data-architecture-layout="app-assembly"]::before {
+  background:
+    linear-gradient(rgba(169, 147, 255, 0.38), rgba(101, 217, 255, 0.35)) 50% 18% / 1px 65% no-repeat,
+    linear-gradient(90deg, rgba(101, 217, 255, 0.34), rgba(101, 217, 255, 0.34)) 50% 76% / 66% 1px no-repeat;
+}
+
+[data-architecture-layout="app-assembly"] [data-zone-role="shell"] {
+  grid-column: 2 / 6;
+  grid-row: 2;
+  border-color: rgba(255, 189, 101, 0.35);
+}
+
+[data-architecture-layout="app-assembly"] [data-zone-role="router"] {
+  grid-column: 3 / 5;
+  grid-row: 3;
+  border-color: rgba(169, 147, 255, 0.4);
+}
+
+[data-architecture-layout="app-assembly"] [data-zone-role="modules"] {
+  grid-column: 1 / 4;
+  grid-row: 4;
+  border-color: rgba(96, 230, 173, 0.32);
+}
+
+[data-architecture-layout="app-assembly"] [data-zone-role="components"] {
+  grid-column: 4 / 7;
+  grid-row: 4;
+}
+
+.architecture-game__zones[data-architecture-layout="runtime-platform"]::before {
+  background:
+    linear-gradient(rgba(101, 217, 255, 0.3), rgba(101, 217, 255, 0.3)) 50% 50% / 1px 72% no-repeat,
+    linear-gradient(90deg, rgba(101, 217, 255, 0.3), rgba(101, 217, 255, 0.3)) 50% 50% / 72% 1px no-repeat;
+}
+
+[data-architecture-layout="runtime-platform"] [data-zone-role="delivery"],
+[data-architecture-layout="runtime-platform"] [data-zone-role="configuration"] {
+  grid-column: 1 / 4;
+}
+
+[data-architecture-layout="runtime-platform"] [data-zone-role="resources"],
+[data-architecture-layout="runtime-platform"] [data-zone-role="telemetry"] {
+  grid-column: 4 / 7;
+}
+
+[data-architecture-layout="runtime-platform"] [data-zone-role="delivery"],
+[data-architecture-layout="runtime-platform"] [data-zone-role="resources"] {
+  grid-row: 2;
+}
+
+[data-architecture-layout="runtime-platform"] [data-zone-role="configuration"],
+[data-architecture-layout="runtime-platform"] [data-zone-role="telemetry"] {
+  grid-row: 3;
+}
+
+.architecture-game__zones[data-architecture-layout="data-ownership"]::before,
+.architecture-game__zones[data-architecture-layout="module-contracts"]::before {
+  background:
+    linear-gradient(rgba(96, 230, 173, 0.28), rgba(96, 230, 173, 0.28)) 50% 50% / 1px 72% no-repeat,
+    linear-gradient(90deg, rgba(96, 230, 173, 0.28), rgba(96, 230, 173, 0.28)) 50% 50% / 72% 1px no-repeat;
+}
+
+[data-architecture-layout="data-ownership"] [data-zone-role="home-data"],
+[data-architecture-layout="data-ownership"] [data-zone-role="checkout-data"],
+[data-architecture-layout="module-contracts"] [data-zone-role="public-api"],
+[data-architecture-layout="module-contracts"] [data-zone-role="domain-event"] {
+  grid-column: 1 / 4;
+}
+
+[data-architecture-layout="data-ownership"] [data-zone-role="catalog-data"],
+[data-architecture-layout="data-ownership"] [data-zone-role="platform-data"],
+[data-architecture-layout="module-contracts"] [data-zone-role="route-contract"],
+[data-architecture-layout="module-contracts"] [data-zone-role="internal"] {
+  grid-column: 4 / 7;
+}
+
+[data-architecture-layout="data-ownership"] [data-zone-role="home-data"],
+[data-architecture-layout="data-ownership"] [data-zone-role="catalog-data"],
+[data-architecture-layout="module-contracts"] [data-zone-role="public-api"],
+[data-architecture-layout="module-contracts"] [data-zone-role="route-contract"] {
+  grid-row: 2;
+}
+
+[data-architecture-layout="data-ownership"] [data-zone-role="checkout-data"],
+[data-architecture-layout="data-ownership"] [data-zone-role="platform-data"],
+[data-architecture-layout="module-contracts"] [data-zone-role="domain-event"],
+[data-architecture-layout="module-contracts"] [data-zone-role="internal"] {
+  grid-row: 3;
+}
+
+[data-architecture-layout="data-ownership"] [data-zone-role$="-data"] {
+  border-color: rgba(96, 230, 173, 0.3);
+}
+
+[data-architecture-layout="module-contracts"] .architecture-game__zone {
+  border-color: rgba(169, 147, 255, 0.32);
+}
+
+.architecture-game__zones[data-architecture-layout="dependency-direction"]::before {
+  background:
+    linear-gradient(rgba(169, 147, 255, 0.4), rgba(101, 217, 255, 0.32)) 50% 12% / 1px 78% no-repeat,
+    linear-gradient(90deg, rgba(101, 217, 255, 0.32), rgba(101, 217, 255, 0.32)) 50% 54% / 70% 1px no-repeat;
+}
+
+[data-architecture-layout="dependency-direction"] [data-zone-role="domain-contract"] {
+  grid-column: 2 / 6;
+  grid-row: 2;
+  border-color: rgba(169, 147, 255, 0.4);
+}
+
+[data-architecture-layout="dependency-direction"] [data-zone-role="feature-domain"] {
+  grid-column: 1 / 4;
+  grid-row: 3;
+}
+
+[data-architecture-layout="dependency-direction"] [data-zone-role="adapter"] {
+  grid-column: 4 / 7;
+  grid-row: 3;
+}
+
+[data-architecture-layout="dependency-direction"] [data-zone-role="violation"] {
+  grid-column: 2 / 6;
+  grid-row: 4;
+  border-color: rgba(255, 115, 115, 0.42);
+  background:
+    linear-gradient(145deg, rgba(255, 115, 115, 0.1), transparent 58%),
+    rgba(19, 12, 16, 0.96);
+}
+
+[data-architecture-layout="dependency-direction"] [data-zone-role="violation"]::before {
+  border-color: rgba(255, 115, 115, 0.8);
+  box-shadow: 0 0 12px rgba(255, 115, 115, 0.5);
+}
+
+.architecture-game__zones[data-architecture-layout="resilience-layers"]::before {
+  background:
+    linear-gradient(rgba(96, 230, 173, 0.38), rgba(101, 217, 255, 0.32)) 50% 16% / 1px 72% no-repeat,
+    linear-gradient(90deg, rgba(255, 189, 101, 0.34), rgba(169, 147, 255, 0.34)) 50% 20% / 72% 1px no-repeat;
+}
+
+[data-architecture-layout="resilience-layers"] [data-zone-role="kill-switch"] {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  border-color: rgba(255, 189, 101, 0.4);
+}
+
+[data-architecture-layout="resilience-layers"] [data-zone-role="recovery-signal"] {
+  grid-column: 5 / 7;
+  grid-row: 2;
+  border-color: rgba(169, 147, 255, 0.4);
+}
+
+[data-architecture-layout="resilience-layers"] [data-zone-role="last-known-good"] {
+  grid-column: 2 / 6;
+  grid-row: 3;
+  border-color: rgba(101, 217, 255, 0.4);
+}
+
+[data-architecture-layout="resilience-layers"] [data-zone-role="baseline"] {
+  grid-column: 2 / 6;
+  grid-row: 4;
+  border-color: rgba(96, 230, 173, 0.42);
+}
+
+@media (min-width: 981px) {
+  .architecture-game__levels button {
+    min-height: 86px;
+    padding-block: 14px;
+  }
+}
+
+@media (max-width: 760px) {
+  .architecture-game__zones {
+    grid-template-columns: 24px minmax(0, 1fr);
+    grid-auto-rows: auto;
+    padding: 12px;
+  }
+
+  .architecture-game__zones::before,
+  .architecture-game__zones[data-architecture-layout]::before {
+    inset: 76px auto 24px 25px;
+    width: 1px;
+    background: linear-gradient(rgba(101, 217, 255, 0.4), rgba(96, 230, 173, 0.32));
+  }
+
+  .architecture-game__topology-header {
+    grid-template-columns: 1fr;
+  }
+
+  .architecture-game__topology-header > small {
+    margin-top: 3px;
+  }
+
+  .architecture-game__zones[data-architecture-layout] .architecture-game__zone {
+    min-height: 148px;
+    grid-column: 2 / -1;
+    grid-row: auto;
+  }
+
+  .architecture-game__zone::before {
+    top: 22px;
+    left: -18px;
   }
 }
