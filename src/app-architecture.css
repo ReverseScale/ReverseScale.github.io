@@ -2720,15 +2720,33 @@ button.pipeline-node {
 }
 
 .pipeline-axis__viewport {
+  --pipeline-selection-inset: 32px;
   position: relative;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 14px 4px 16px;
+  padding: 22px var(--pipeline-selection-inset) 24px;
   overscroll-behavior-x: contain;
+  scroll-padding-inline: var(--pipeline-selection-inset);
   scroll-snap-type: x proximity;
   scrollbar-color: rgba(101, 217, 255, 0.24) transparent;
   scrollbar-width: thin;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent);
   mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+}
+
+.pipeline-axis__viewport.is-at-start {
+  -webkit-mask-image: linear-gradient(to right, #000, #000 calc(100% - 28px), transparent);
+  mask-image: linear-gradient(to right, #000, #000 calc(100% - 28px), transparent);
+}
+
+.pipeline-axis__viewport.is-at-end {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 28px, #000);
+  mask-image: linear-gradient(to right, transparent, #000 28px, #000);
+}
+
+.pipeline-axis__viewport.is-at-start.is-at-end {
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .pipeline-axis__viewport::before,
@@ -4465,5 +4483,223 @@ button.pipeline-node {
   .architecture-game__zone::before {
     top: 22px;
     left: -18px;
+  }
+}
+
+/* Pipeline detail hierarchy: emphasize the input-action-output flow. */
+
+.pipeline-detail__section-heading {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 22px 24px 0;
+}
+
+.pipeline-detail__section-heading div,
+.pipeline-detail__section-heading h4,
+.pipeline-detail__section-heading p {
+  margin: 0;
+}
+
+.pipeline-detail__section-kicker {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--architecture-accent);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.pipeline-detail__section-heading h4 {
+  color: #f2f5f8;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.pipeline-detail__section-heading > p {
+  max-width: 420px;
+  color: #78818d;
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: right;
+}
+
+.pipeline-detail__flow {
+  display: block;
+  padding: 0;
+  background:
+    linear-gradient(180deg, rgba(101, 217, 255, 0.025), transparent 58%),
+    rgba(8, 11, 15, 0.22);
+}
+
+.pipeline-detail__flow-track {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1.12fr) 48px minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  padding: 18px 24px 26px;
+}
+
+.pipeline-detail__flow .pipeline-detail__flow-card {
+  min-width: 0;
+  min-height: 212px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.035), transparent 58%),
+    rgba(13, 17, 22, 0.92);
+}
+
+.pipeline-detail__flow .pipeline-detail__flow-card[data-detail-kind="action"] {
+  border-color: rgba(101, 217, 255, 0.34);
+  background:
+    linear-gradient(145deg, rgba(101, 217, 255, 0.1), transparent 62%),
+    rgba(11, 19, 25, 0.96);
+  box-shadow: inset 0 1px 0 rgba(101, 217, 255, 0.08);
+}
+
+.pipeline-detail__flow-card > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pipeline-detail__flow-sequence {
+  color: #8a939e;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.pipeline-detail__flow-icon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid rgba(101, 217, 255, 0.18);
+  border-radius: 9px;
+  background: rgba(101, 217, 255, 0.06);
+  color: var(--architecture-accent);
+}
+
+.pipeline-detail__flow-icon .architecture-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.pipeline-detail__flow-card h5 {
+  margin: 17px 0 5px;
+  color: #edf1f5;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.pipeline-detail__card-description {
+  margin: 0;
+  padding-left: 0;
+  color: #747d88;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.pipeline-detail__card-description::before {
+  display: none;
+}
+
+.pipeline-detail__flow .pipeline-detail__flow-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  list-style: none;
+}
+
+.pipeline-detail__flow .pipeline-detail__flow-card li {
+  position: relative;
+  margin: 0;
+  padding-left: 14px;
+  color: #a0a8b2;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.pipeline-detail__flow .pipeline-detail__flow-card li::before {
+  top: 0.58em;
+  width: 5px;
+  height: 5px;
+}
+
+.pipeline-detail__flow-track > .pipeline-detail__arrow {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  border-color: rgba(101, 217, 255, 0.3);
+  background: rgba(8, 13, 18, 0.9);
+  font-size: 15px;
+}
+
+.pipeline-detail__flow-track > .pipeline-detail__arrow::before {
+  position: absolute;
+  right: 30px;
+  left: -10px;
+  z-index: -1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(101, 217, 255, 0.3));
+  content: "";
+}
+
+.pipeline-detail__ai p {
+  font-size: 10px;
+}
+
+@media (max-width: 980px) {
+  .pipeline-detail__flow-track {
+    grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr) 34px minmax(0, 1fr);
+    gap: 6px;
+    padding: 16px 18px 22px;
+  }
+
+  .pipeline-detail__flow .pipeline-detail__flow-card {
+    min-height: 238px;
+    padding: 17px;
+  }
+
+}
+
+@media (max-width: 760px) {
+  .pipeline-detail__section-heading {
+    display: grid;
+    gap: 8px;
+    align-items: start;
+    padding: 18px 16px 0;
+  }
+
+  .pipeline-detail__section-heading > p {
+    max-width: none;
+    text-align: left;
+  }
+
+  .pipeline-detail__flow-track {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 14px 16px 20px;
+  }
+
+  .pipeline-detail__flow .pipeline-detail__flow-card {
+    min-height: 0;
+  }
+
+  .pipeline-detail__flow-track > .pipeline-detail__arrow {
+    transform: rotate(90deg);
+  }
+
+  .pipeline-detail__flow-track > .pipeline-detail__arrow::before {
+    display: none;
   }
 }
