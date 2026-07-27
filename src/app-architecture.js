@@ -5,7 +5,7 @@ const DIAGRAM_HEIGHT = 620;
 const MAX_GROUP_SLOTS = 4;
 const MAX_NODE_SLOTS = 7;
 const REDUCED_MOTION_MEDIA_QUERY = "(prefers-reduced-motion: reduce)";
-const INITIAL_PIPELINE_STAGE_ID = "app-runtime";
+const INITIAL_PIPELINE_STAGE_ID = "preflight";
 
 // Group labels occupy the top band of each boundary. Child nodes start below
 // that band so the diagram remains readable across font metrics and browsers.
@@ -187,68 +187,39 @@ const architectureStages = Object.freeze([
 
 const pipelineStages = Object.freeze([
   {
-    id: "source-change",
-    sequence: "01",
-    title: "代码变更",
-    detail: "把业务意图整理成可追踪、可验证的变更集合。",
-    tags: ["Source", "Manifest", "Schema"],
-    icon: "code",
-    inputs: ["需求与验收标准", "代码 / 资源 / i18n", "Route、Config、Event Schema"],
-    actions: ["生成 Change Manifest", "标记模块与资源所有者", "建立版本和依赖影响图"],
-    outputs: ["不可变 Revision", "结构化变更清单", "后续阶段的追踪 ID"],
-    gates: ["变更范围可解释", "Schema 版本明确", "敏感权限有 Owner"],
-    failure: "缺少归属、版本或迁移说明时阻断合并，不让不完整语义流入流水线。",
-    signals: ["变更前置时间", "返工率", "跨模块影响范围"],
-  },
-  {
     id: "preflight",
-    sequence: "02",
+    sequence: "01",
     title: "变更预检",
-    detail: "在昂贵构建前验证边界、契约、风险与测试范围。",
-    tags: ["AI 辅助", "静态检查", "契约校验"],
+    detail: "在花费构建资源前，先发现边界、契约与风险问题。",
     icon: "scan",
-    inputs: ["Revision 与 Change Manifest", "架构规则", "历史缺陷与测试覆盖"],
+    inputs: ["Change Set 与验收标准", "架构规则与 Schema", "历史缺陷与测试覆盖"],
     actions: ["Lint / SAST / 依赖扫描", "路由、Manifest、Schema 校验", "AI 生成影响证据与测试建议"],
     outputs: ["预检报告", "风险分级", "确定性的测试计划"],
     gates: ["规则检查必须通过", "高风险变更需要 Review", "AI 建议不替代断言"],
     failure: "带文件、规则和责任人的证据返回开发者；只对基础设施瞬态错误自动重试。",
     signals: ["预检命中率", "误报率", "缺陷前移比例"],
+    ai: ["变更影响分析", "测试范围建议"],
   },
   {
-    id: "multi-stack-build",
-    sequence: "03",
-    title: "多技术栈构建",
-    detail: "用锁定工具链并行生产 Native、跨平台与资源制品。",
-    tags: ["可重复构建", "并行测试", "资源编译"],
+    id: "build-verify",
+    sequence: "02",
+    title: "构建与验证",
+    detail: "产出候选制品，并用测试与预算证明它可以晋级。",
     icon: "build",
-    inputs: ["通过预检的 Revision", "锁文件与 Toolchain", "模块构建矩阵"],
-    actions: ["Native / Flutter / RN 并行构建", "资源与 i18n 编译", "单元、集成和契约测试"],
-    outputs: ["候选模块制品", "资源包", "Build Metadata 与测试报告"],
-    gates: ["锁定依赖可复现", "测试矩阵完整", "产物与源码可追溯"],
-    failure: "隔离失败技术栈；代码失败直接终止，Runner 或缓存故障才进入有界重试。",
-    signals: ["构建时长", "缓存命中率", "Flaky Test 与队列等待"],
-  },
-  {
-    id: "quality-gate",
-    sequence: "04",
-    title: "质量与包大小 Gate",
-    detail: "以确定性预算决定候选制品是否具备晋级资格。",
-    tags: ["总量预算", "模块增量", "热更增量", "趋势", "依赖与资源归因"],
+    inputs: ["通过预检的 Revision", "锁文件与 Toolchain", "构建矩阵和质量预算"],
+    actions: ["Native / Flutter / RN 与资源并行构建", "单元 / 集成 / 契约 / E2E 测试", "性能、安全、SBOM 与包体归因"],
+    outputs: ["不可变候选制品", "Build Metadata 与测试报告", "Admission Decision 与归因报告"],
+    gates: ["锁定依赖可复现且测试矩阵完整", "总量预算、模块增量与热更增量达标", "性能基线满足且高危漏洞为零"],
+    failure: "代码或质量失败直接终止；Runner、网络或缓存瞬态故障才进入有界重试，例外必须带 Owner 和失效时间。",
+    signals: ["构建与测试时长", "缓存命中率与 Flaky Test", "包体、性能与安全趋势"],
+    ai: ["失败诊断", "依赖与资源归因"],
     tone: "gate",
-    icon: "gate",
-    inputs: ["候选制品与测试报告", "性能基线", "安全与大小预算"],
-    actions: ["E2E / 性能 / 安全验证", "SBOM 与供应链审计", "包体、模块、热更增量归因"],
-    outputs: ["Admission Decision", "Size Diff 与归因报告", "带期限的例外记录"],
-    gates: ["总包与模块增量预算", "启动 / 内存 / 稳定性基线", "高危漏洞为零"],
-    failure: "默认拒绝晋级；例外必须有 Owner、业务原因、补偿措施和自动失效时间。",
-    signals: ["Gate 失败分布", "包体增长趋势", "性能与安全债务"],
   },
   {
-    id: "artifact-registry",
-    sequence: "05",
-    title: "签名与制品库",
-    detail: "把通过门禁的候选物固化为可验证、不可变的发布制品。",
-    tags: ["签名", "SBOM", "兼容矩阵"],
+    id: "sign-publish",
+    sequence: "03",
+    title: "签名与发布",
+    detail: "把通过验证的候选物固化为可信、不可变的发布制品。",
     icon: "artifact",
     inputs: ["通过 Gate 的候选制品", "签名身份与策略", "版本和兼容性元数据"],
     actions: ["签名 / Notarization", "生成 Checksum 与 Provenance", "登记 SBOM、兼容矩阵和渠道"],
@@ -256,13 +227,13 @@ const pipelineStages = Object.freeze([
     gates: ["签名身份有效", "版本单调且唯一", "元数据与二进制一致"],
     failure: "签名异常立即隔离制品并停止晋级；密钥风险触发吊销和重新签名流程。",
     signals: ["签名耗时", "制品完整性", "Registry 可用性"],
+    ai: ["供应链证据关联", "异常元数据提示"],
   },
   {
     id: "progressive-delivery",
-    sequence: "06",
+    sequence: "04",
     title: "渐进式发布",
-    detail: "只提升已签名制品，并按渠道与人群逐步扩大暴露。",
-    tags: ["灰度", "Kill Switch", "原子激活"],
+    detail: "先小范围验证健康，再按渠道与人群逐步扩大覆盖。",
     icon: "delivery",
     inputs: ["已签名制品", "目标渠道与 Cohort", "放量策略和健康阈值"],
     actions: ["商店 / OTA / 资源 / 配置分通道投放", "分阶段扩大 Cohort", "持续评估健康和业务指标"],
@@ -270,46 +241,31 @@ const pipelineStages = Object.freeze([
     gates: ["人工授权与策略审批", "健康指标满足阈值", "Kill Switch 可用"],
     failure: "自动暂停继续放量，按制品类型执行回滚、熔断或回到 Last Known Good。",
     signals: ["采用率", "Crash / ANR", "核心业务指标与回滚耗时"],
-  },
-  {
-    id: "app-runtime",
-    sequence: "07",
-    title: "App Runtime",
-    detail: "在设备上验签、装配并运行模块、资源、路由与平台能力。",
-    tags: ["运行激活", "设备内装配"],
-    tone: "app",
-    icon: "app",
-    inputs: ["兼容的模块与资源制品", "内置稳定基线", "远端配置与用户 Locale"],
-    actions: ["验签并原子激活", "App 壳注册模块与 Router", "初始化资源、配置和 Telemetry"],
-    outputs: ["可运行 App", "已注册能力图", "Runtime 版本与状态快照"],
-    gates: ["签名和兼容性校验", "启动关键路径有降级", "动态内容不越过业务边界"],
-    failure: "加载失败回退到内置资源或 Last Known Good，单个动态模块不能拖垮 App 启动。",
-    signals: ["冷启动", "模块加载成功率", "路由失败与资源回退"],
-  },
-  {
-    id: "telemetry-feedback",
-    sequence: "08",
-    title: "Telemetry 反馈",
-    detail: "把设备现场转成可行动证据，闭环下一次发布决策。",
-    tags: ["健康度", "业务指标", "发布决策"],
-    icon: "telemetry",
-    inputs: ["Crash / ANR / Log", "埋点与性能指标", "版本、Cohort 与实验上下文"],
-    actions: ["Schema 校验与隐私脱敏", "采样、聚合和跨信号关联", "告警与发布影响分析"],
-    outputs: ["Dashboard 与 Alert", "发布健康结论", "下一轮变更证据"],
-    gates: ["用户同意与最小采集", "事件 Schema 合法", "数据新鲜度与质量达标"],
-    failure: "本地有界缓冲或丢弃非关键数据；观测链故障不能阻断核心业务运行。",
-    signals: ["采集覆盖率", "数据延迟", "告警准确率与决策耗时"],
+    ai: ["发布风险提示", "跨信号异常关联"],
   },
 ]);
 
-const aiDeliveryCapabilities = Object.freeze([
-  "变更影响分析",
-  "测试建议",
-  "体积归因",
-  "失败诊断",
-  "发布风险",
-  "异常关联",
-]);
+const pipelineContexts = Object.freeze({
+  source: {
+    eyebrow: "未编号入口",
+    title: "Change Set",
+    detail: "业务意图、代码、资源与 Schema 先形成可追踪的不可变 Revision。",
+    icon: "code",
+  },
+  runtime: {
+    eyebrow: "交付目标",
+    title: "App Runtime",
+    detail: "设备验签并原子激活制品；失败时回到内置基线或 Last Known Good。",
+    icon: "app",
+  },
+  feedback: {
+    eyebrow: "持续反馈平面",
+    title: "Telemetry & Recovery",
+    detail: "Crash、性能和业务信号持续驱动放量、暂停、回滚与下一次变更预检。",
+    facts: ["发布健康", "异常关联", "恢复证据"],
+    icon: "telemetry",
+  },
+});
 
 const architectureGameLevels = Object.freeze([
   {
@@ -755,8 +711,6 @@ const architectureIcon = (name) => {
 
 const renderPipelineStages = () => pipelineStages.map((stage, index) => {
   const isSelected = stage.id === INITIAL_PIPELINE_STAGE_ID;
-  const visibleTags = stage.tags.slice(0, 2);
-  const remainingTagCount = Math.max(stage.tags.length - visibleTags.length, 0);
 
   return `
     <li
@@ -778,16 +732,46 @@ const renderPipelineStages = () => pipelineStages.map((stage, index) => {
         <span class="pipeline-node__content">
           <span class="pipeline-node__sequence">${escapeHtml(stage.sequence)}</span>
           <strong>${escapeHtml(stage.title)}</strong>
-          <small>${escapeHtml(stage.detail)}</small>
-          <span class="pipeline-node__tags">
-            ${visibleTags.map((tag) => `<i>${escapeHtml(tag)}</i>`).join("")}
-            ${remainingTagCount ? `<i>+${remainingTagCount}</i>` : ""}
-          </span>
         </span>
+        <small class="pipeline-node__summary">${escapeHtml(stage.detail)}</small>
       </button>
     </li>
   `;
 }).join("");
+
+const renderPipelineEndpoint = (contextId) => {
+  const context = pipelineContexts[contextId];
+  return `
+    <article
+      class="pipeline-endpoint pipeline-endpoint--${escapeHtml(contextId)}"
+      data-pipeline-context="${escapeHtml(contextId)}"
+    >
+      <div class="pipeline-endpoint__head">
+        <span class="pipeline-endpoint__icon">${architectureIcon(context.icon)}</span>
+        <span>
+          <small>${escapeHtml(context.eyebrow)}</small>
+          <strong>${escapeHtml(context.title)}</strong>
+        </span>
+      </div>
+      <p>${escapeHtml(context.detail)}</p>
+    </article>
+  `;
+};
+
+const renderPipelineFeedback = () => {
+  const context = pipelineContexts.feedback;
+  return `
+    <aside class="pipeline-feedback-strip" data-pipeline-context="feedback">
+      <span class="pipeline-feedback-strip__icon">${architectureIcon(context.icon)}</span>
+      <div>
+        <small>${escapeHtml(context.eyebrow)}</small>
+        <strong>${escapeHtml(context.title)}</strong>
+        <p>${escapeHtml(context.detail)}</p>
+      </div>
+      <ul>${context.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
+    </aside>
+  `;
+};
 
 const renderDetailList = (items) => `
   <ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
@@ -797,46 +781,47 @@ const renderPipelineDetail = (stage) => `
   <header class="pipeline-detail__header">
     <span class="pipeline-detail__icon">${architectureIcon(stage.icon)}</span>
     <div>
-      <p>${escapeHtml(stage.sequence)} · Pipeline Node</p>
+      <p>${escapeHtml(stage.sequence)} · Pipeline Stage</p>
       <h3>${escapeHtml(stage.title)}</h3>
       <span>${escapeHtml(stage.detail)}</span>
     </div>
-    <span class="pipeline-detail__state">已选择</span>
+    <span class="pipeline-detail__state">当前阶段</span>
   </header>
-  <div class="pipeline-detail__flow" aria-label="${escapeHtml(stage.title)} 主处理链">
-    <article data-detail-kind="input">
-      <span>${architectureIcon("code")} 输入</span>
-      ${renderDetailList(stage.inputs)}
-    </article>
-    <span class="pipeline-detail__arrow" aria-hidden="true">→</span>
-    <article data-detail-kind="action">
+  <div class="pipeline-detail__io" aria-label="${escapeHtml(stage.title)} 输入与产出">
+    <div>
+      <span>输入</span>
+      <p>${stage.inputs.map((item) => escapeHtml(item)).join(" · ")}</p>
+    </div>
+    <i aria-hidden="true">→</i>
+    <div>
+      <span>产出</span>
+      <p>${stage.outputs.map((item) => escapeHtml(item)).join(" · ")}</p>
+    </div>
+  </div>
+  <div class="pipeline-detail__core">
+    <article>
       <span>${architectureIcon("build")} 关键动作</span>
       ${renderDetailList(stage.actions)}
     </article>
-    <span class="pipeline-detail__arrow" aria-hidden="true">→</span>
-    <article data-detail-kind="output">
-      <span>${architectureIcon("artifact")} 输出</span>
-      ${renderDetailList(stage.outputs)}
-    </article>
-  </div>
-  <div class="pipeline-detail__safety" aria-label="${escapeHtml(stage.title)} 安全与反馈">
-    <article data-detail-kind="gate">
-      <span>${architectureIcon("gate")} 确定性门禁</span>
+    <article>
+      <span>${architectureIcon("gate")} 放行条件</span>
       ${renderDetailList(stage.gates)}
     </article>
-    <article data-detail-kind="failure">
+  </div>
+  <div class="pipeline-detail__governance">
+    <article>
       <span>${architectureIcon("scan")} 失败策略</span>
       <p>${escapeHtml(stage.failure)}</p>
     </article>
-    <article data-detail-kind="signal">
+    <article>
       <span>${architectureIcon("telemetry")} 可观测信号</span>
       ${renderDetailList(stage.signals)}
     </article>
+    <aside class="pipeline-detail__ai">
+      <span class="pipeline-ai-note__icon">${architectureIcon("spark")}</span>
+      <p><strong>AI 只提供证据</strong>${stage.ai.map((capability) => escapeHtml(capability)).join(" · ")}；最终决定权仍由测试、预算、策略、签名与人工授权持有。</p>
+    </aside>
   </div>
-  <aside class="pipeline-detail__ai">
-    <span class="pipeline-ai-note__icon">${architectureIcon("spark")}</span>
-    <p><strong>AI 提供证据，不接管门禁。</strong>${aiDeliveryCapabilities.join(" · ")}；测试、预算、策略、签名与人工授权保留最终决定权。</p>
-  </aside>
 `;
 
 const renderArchitectureGameLevelTabs = (
@@ -956,7 +941,7 @@ class AppArchitectureExplainer extends HTMLElement {
           <div class="architecture-hero__footer">
             <p>先在八关重构游戏里整理组件、业务模块、数据所有权、依赖、契约与恢复路径，再沿独立的 Delivery Pipeline 追踪一次变更如何抵达设备。</p>
             <div class="architecture-hero__meta" aria-label="解说信息">
-              <span>${architectureGameLevels.length} 个重构关卡</span><span>${totalArchitectureGamePieces} 个架构决策</span><span>${pipelineStages.length} 个交付节点</span>
+              <span>${architectureGameLevels.length} 个重构关卡</span><span>${totalArchitectureGamePieces} 个架构决策</span><span>${pipelineStages.length} 个核心交付阶段</span>
             </div>
           </div>
           <button class="architecture-scroll-cue" type="button" data-game-start>
@@ -973,7 +958,7 @@ class AppArchitectureExplainer extends HTMLElement {
               <p class="eyebrow">Delivery Pipeline · 独立视角</p>
               <h2 id="architecture-system-title">一次变更，如何安全地抵达设备。</h2>
             </div>
-            <p>Pipeline 只描述交付生命周期，不承担 App 内部结构的展示。选择任一节点，查看它的输入、关键动作、输出、门禁、失败策略与可观测信号。</p>
+            <p>Pipeline 只描述可执行的交付阶段。Change Set 是入口，App Runtime 是目标，Telemetry & Recovery 持续反向反馈；选择任一阶段查看完整职责。</p>
           </header>
 
           <div class="architecture-coordinate">
@@ -982,20 +967,21 @@ class AppArchitectureExplainer extends HTMLElement {
                 <span>→</span>
                 <div>
                   <p id="pipeline-axis-title">Delivery Pipeline</p>
-                  <small>从左到右 · 选择节点查看完整职责</small>
+                  <small>四个核心阶段 · 选择阶段查看完整职责</small>
                 </div>
-                <span class="pipeline-axis__hint">← 横向浏览 →</span>
               </div>
 
-              <div class="pipeline-axis__viewport">
-                <div class="pipeline-axis__track" aria-hidden="true">
-                  <span></span><i></i>
-                </div>
-                <ol class="pipeline-axis__nodes" role="tablist" aria-label="Delivery Pipeline 节点">
+              <div class="pipeline-journey">
+                ${renderPipelineEndpoint("source")}
+                <span class="pipeline-journey__connector" aria-hidden="true">→</span>
+                <ol class="pipeline-stage-list" role="tablist" aria-label="Delivery Pipeline 核心阶段">
                   ${renderPipelineStages()}
                 </ol>
+                <span class="pipeline-journey__connector" aria-hidden="true">→</span>
+                ${renderPipelineEndpoint("runtime")}
               </div>
 
+              ${renderPipelineFeedback()}
             </section>
 
             <div class="pipeline-workspace">
@@ -1076,7 +1062,6 @@ class AppArchitectureExplainer extends HTMLElement {
     this.bindEvents();
     this.renderGame();
     this.setupCoordinateObserver();
-    this.setupPipelineViewport();
   }
 
   disconnectedCallback() {
@@ -1086,7 +1071,6 @@ class AppArchitectureExplainer extends HTMLElement {
   cacheElements() {
     this.coordinate = this.querySelector(".architecture-coordinate");
     this.pipelineTabs = [...this.querySelectorAll("[data-pipeline-select]")];
-    this.pipelineViewport = this.querySelector(".pipeline-axis__viewport");
     this.pipelineDetail = this.querySelector(".pipeline-detail");
     this.gameLevels = this.querySelector(".architecture-game__levels");
     this.gameMission = this.querySelector(".architecture-game__mission");
@@ -1268,10 +1252,6 @@ class AppArchitectureExplainer extends HTMLElement {
     this.coordinateObserver.observe(this.coordinate);
   }
 
-  setupPipelineViewport() {
-    requestAnimationFrame(() => this.centerPipelineStage(INITIAL_PIPELINE_STAGE_ID, "auto"));
-  }
-
   selectPipelineStage(stageId) {
     const stage = pipelineStages.find((pipelineStage) => pipelineStage.id === stageId);
     if (!stage) {
@@ -1293,18 +1273,6 @@ class AppArchitectureExplainer extends HTMLElement {
       duration: this.prefersReducedMotion ? 1 : 360,
       easing: "cubic-bezier(0.22, 1, 0.36, 1)",
     });
-    this.centerPipelineStage(stageId, this.prefersReducedMotion ? "auto" : "smooth");
-  }
-
-  centerPipelineStage(stageId, behavior) {
-    const tab = this.pipelineTabs.find((pipelineTab) => pipelineTab.dataset.pipelineSelect === stageId);
-    if (!tab) {
-      return;
-    }
-    const pipelineNode = tab.closest("[data-pipeline-node]");
-    const targetScrollLeft = pipelineNode.offsetLeft
-      - (this.pipelineViewport.clientWidth - pipelineNode.offsetWidth) / 2;
-    this.pipelineViewport.scrollTo({ left: Math.max(targetScrollLeft, 0), behavior });
   }
 
   activeGameLevel() {
