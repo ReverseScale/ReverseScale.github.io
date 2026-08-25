@@ -69,7 +69,7 @@ const projectMicroVisual = (project) => {
       <span class="micro-visual micro-visual--agent-room" aria-hidden="true">
         <span class="agent-room-source">RULE</span>
         <em><i></i></em>
-        <span class="agent-room-agents"><i>S</i><i>G</i></span>
+        <span class="agent-room-agents"><i>P</i><i>E</i></span>
         <span class="agent-room-result">✓</span>
       </span>
     `;

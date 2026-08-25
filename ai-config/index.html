@@ -5,19 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="AI Config is a versioned macOS AI environment and local multi-agent runtime for deliberate, auditable collaboration across Codex and Grok."
+      content="AI Config is a versioned personal AI environment that routes durable roles across interchangeable coding runners, isolated workspaces, and evidence gates."
     />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="AI Config — Deliberate multi-agent collaboration" />
+    <meta property="og:title" content="AI Config — Configure once. Route work deliberately." />
     <meta
       property="og:description"
-      content="A project case study about reproducible AI tooling, bounded agent rooms, explicit permissions, and auditable handoffs."
+      content="A reproducible AI workspace for layered instructions, pluggable runners, bounded agent rooms, isolated execution, and evidence-backed handoffs."
     />
     <meta property="og:url" content="https://reversescale.github.io/ai-config/" />
-    <title>AI Config — Deliberate multi-agent collaboration | Tim</title>
+    <meta property="og:image" content="https://reversescale.github.io/icon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI Config — Configure once. Route work deliberately." />
+    <meta
+      name="twitter:description"
+      content="A reproducible AI workspace for layered instructions, pluggable runners, bounded agent rooms, isolated execution, and evidence-backed handoffs."
+    />
+    <meta name="twitter:image" content="https://reversescale.github.io/icon.svg" />
+    <title>AI Config — Configure once. Route work deliberately. | Tim</title>
     <link rel="canonical" href="https://reversescale.github.io/ai-config/" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../src/ai-config.css" />
+    <script type="module" src="../src/ai-config.js"></script>
   </head>
   <body>
     <div class="config-shell">
@@ -28,6 +37,7 @@
         </a>
         <nav aria-label="AI Config sections">
           <a href="#system">System</a>
+          <a href="#capabilities">Capabilities</a>
           <a href="#workflow">Workflow</a>
           <a href="#guardrails">Guardrails</a>
           <a class="config-nav__back" href="/">All work <span aria-hidden="true">↗</span></a>
@@ -38,34 +48,53 @@
         <section class="config-hero" id="system" aria-labelledby="config-title">
           <div class="config-hero__copy">
             <p class="config-kicker"><i></i> Personal AI infrastructure</p>
-            <h1 id="config-title">One AI environment. <em>Deliberate collaboration.</em></h1>
+            <h1 id="config-title">Configure once. <em>Route work deliberately.</em></h1>
             <p class="config-hero__lede">
-              AI Config turns a personal macOS setup into a versioned, inspectable system—and turns
-              multi-agent work into bounded Rooms with named roles, explicit dependencies, and evidence-backed outcomes.
+              AI Config turns a personal macOS setup into a versioned operating layer for AI work.
+              Roles, permissions, context, tools, and acceptance rules stay durable while coding runners remain replaceable.
             </p>
+            <div class="config-hero__facts" aria-label="AI Config operating principles">
+              <span><b>01</b> Layered context</span>
+              <span><b>02</b> Pluggable runners</span>
+              <span><b>03</b> Evidence gates</span>
+            </div>
             <div class="config-hero__actions">
-              <a class="config-button config-button--primary" href="#workflow">See the workflow <span aria-hidden="true">↓</span></a>
+              <a class="config-button config-button--primary" href="#capabilities">Open the workspace <span aria-hidden="true">↓</span></a>
               <a class="config-button" href="https://github.com/ReverseScale/ai-config">View source <span aria-hidden="true">↗</span></a>
             </div>
           </div>
 
-          <div class="room-map" aria-label="A rule flows through a bounded room to planning, implementation, acceptance, and an auditable result">
+          <div class="room-map" aria-label="A bounded room assigns stable roles to interchangeable AI coding runners">
             <div class="room-map__header">
-              <span>ROOM / LOCAL</span>
-              <span class="room-map__status"><i></i> bounded</span>
+              <span>ROOM / CAPABILITY ROUTER</span>
+              <span class="room-map__status"><i></i> policy active</span>
             </div>
             <div class="room-map__rule">
               <span>RULE</span>
-              <div><b>roles</b><b>permissions</b><b>dependencies</b></div>
+              <div><b>role contract</b><b>authority</b><b>dependencies</b><b>acceptance</b></div>
             </div>
             <div class="room-map__line" aria-hidden="true"><i></i></div>
+            <div class="room-map__binding">
+              <span>EXAMPLE BINDINGS</span>
+              <small>roles stay stable · runners can change</small>
+            </div>
             <div class="room-map__agents">
-              <article><span>S</span><div><b>Sol</b><small>plan · accept</small></div></article>
-              <article><span>G</span><div><b>Grok</b><small>implement · test</small></div></article>
+              <article data-runner-role="planning" data-runner="gpt-sol">
+                <span data-runner-mark>GS</span>
+                <div><small>Plan & accept</small><b data-runner-name>GPT-5.6 Sol</b><em data-runner-scope>reason · review</em></div>
+              </article>
+              <article data-runner-role="execution" data-runner="claude-code">
+                <span data-runner-mark>CC</span>
+                <div><small>Implement & test</small><b data-runner-name>Claude Code</b><em data-runner-scope>edit · tools · test</em></div>
+              </article>
+            </div>
+            <div class="room-map__presets" aria-label="Runner binding examples">
+              <button type="button" data-route-preset="default" aria-pressed="true">Default routing</button>
+              <button type="button" data-route-preset="swapped" aria-pressed="false">Swap runners ↔</button>
             </div>
             <div class="room-map__result">
               <span>✓</span>
-              <div><b>Auditable outcome</b><small>task state · artifact · handoff</small></div>
+              <div><b>Same contract. Different runner.</b><small>task state · diff · tests · handoff</small></div>
             </div>
           </div>
         </section>
@@ -76,32 +105,95 @@
             <h2 id="why-title">AI tooling should feel like infrastructure, not folklore.</h2>
           </div>
           <p>
-            Personal setup often drifts across machines. Multi-agent work often hides ownership and completion in chat.
-            AI Config gives both problems one answer: version the durable configuration, then make collaboration state explicit.
+            Personal setup drifts across machines; long sessions accumulate conflicting instructions; multi-agent work hides
+            ownership in chat. AI Config versions the durable parts and exposes the collaboration state that must remain reviewable.
           </p>
+          <aside class="decision-rule">
+            <span>DECISION RULE</span>
+            <p>Bind work by capability and authority—not by provider name. Keep ambiguous work with the supervisor; dispatch only bounded tasks.</p>
+          </aside>
+        </section>
+
+        <section class="config-section" id="capabilities" aria-labelledby="capabilities-title">
+          <div class="config-section__heading config-section__heading--split">
+            <div>
+              <p class="config-eyebrow">A real configuration surface</p>
+              <h2 id="capabilities-title">More than dotfiles. An operating model.</h2>
+            </div>
+            <p>The repository makes each layer inspectable: what loads, which tools exist, where context comes from, and what proof closes a task.</p>
+          </div>
+
+          <div class="config-workspace" aria-label="AI Config workspace showing configuration files and six system capabilities">
+            <div class="config-workspace__bar">
+              <span><i></i><i></i><i></i></span>
+              <b>ai-config / profiles / engineering.yaml</b>
+              <small>versioned · local-first</small>
+            </div>
+            <div class="config-workspace__body">
+              <div class="config-tree" aria-label="Configuration file tree">
+                <p>CONFIG EXPLORER</p>
+                <span>⌄ profiles</span>
+                <b class="is-active">&nbsp;&nbsp;engineering.yaml</b>
+                <span>⌄ instructions</span>
+                <b>&nbsp;&nbsp;AGENTS.md</b>
+                <span>⌄ capabilities</span>
+                <b>&nbsp;&nbsp;skills.yaml</b>
+                <b>&nbsp;&nbsp;mcp.yaml</b>
+                <span>⌄ policies</span>
+                <b>&nbsp;&nbsp;authority.yaml</b>
+              </div>
+              <div class="config-editor" aria-label="Example redacted AI profile">
+                <div><i>01</i><code><strong>profile:</strong> engineering</code></div>
+                <div><i>02</i><code><strong>instructions:</strong> layered</code></div>
+                <div><i>03</i><code><strong>runners:</strong> capability_routed</code></div>
+                <div><i>04</i><code><strong>workspace:</strong> isolated</code></div>
+                <div><i>05</i><code><strong>completion:</strong> evidence_required</code></div>
+                <div><i>06</i><code><strong>secrets:</strong> external_reference</code></div>
+                <p><span>✓</span> schema valid · sensitive values excluded</p>
+              </div>
+              <ol class="capability-list">
+                <li data-capability="bootstrap"><span>01</span><div><b>Reproducible bootstrap</b><small>packages · shell · hooks · health checks</small></div></li>
+                <li data-capability="instructions"><span>02</span><div><b>Layered instructions</b><small>global · project · task · user override</small></div></li>
+                <li data-capability="capabilities"><span>03</span><div><b>Capability catalog</b><small>Skills · MCP · tools · runner adapters</small></div></li>
+                <li data-capability="continuity"><span>04</span><div><b>Context continuity</b><small>goals · plans · summaries · durable memory</small></div></li>
+                <li data-capability="isolation"><span>05</span><div><b>Isolated execution</b><small>worktree · branch · lease · scoped writes</small></div></li>
+                <li data-capability="evidence"><span>06</span><div><b>Evidence & cleanup</b><small>diff · tests · preview · release resources</small></div></li>
+              </ol>
+            </div>
+          </div>
         </section>
 
         <section class="config-section" id="workflow" aria-labelledby="workflow-title">
           <div class="config-section__heading">
-            <p class="config-eyebrow">A constrained handoff</p>
-            <h2 id="workflow-title">Plan → Implement → Accept</h2>
-            <p>Every stage has one owner, a clear permission boundary, and a result the next stage can inspect.</p>
+            <p class="config-eyebrow">From prompt to proof</p>
+            <h2 id="workflow-title">Intent → Route → Execute → Verify → Return</h2>
+            <p>The human supplies the goal and authority. The system returns bounded work, visible state, reviewable artifacts, and released resources.</p>
           </div>
           <ol class="workflow-track">
             <li>
               <span class="workflow-track__number">01</span>
-              <div class="workflow-track__agent">S</div>
-              <div><p>Plan</p><h3>Turn intent into a bounded task graph.</h3><small>Read-only · dependencies declared</small></div>
+              <div class="workflow-track__agent">H</div>
+              <div><p>Human / intent</p><h3>State the goal, constraints, and completion boundary.</h3><small>Input · authority · sensitive-action limits</small></div>
             </li>
             <li>
               <span class="workflow-track__number">02</span>
-              <div class="workflow-track__agent workflow-track__agent--coral">G</div>
-              <div><p>Implement</p><h3>Change only the assigned workspace.</h3><small>Workspace write · tests · artifact</small></div>
+              <div class="workflow-track__agent">R</div>
+              <div><p>Supervisor / route</p><h3>Resolve instructions, dependencies, and the least authority.</h3><small>Role contract · runner adapter · task graph</small></div>
             </li>
             <li>
               <span class="workflow-track__number">03</span>
-              <div class="workflow-track__agent">S</div>
-              <div><p>Accept</p><h3>Verify the outcome against the original goal.</h3><small>Read-only · evidence before completion</small></div>
+              <div class="workflow-track__agent workflow-track__agent--coral">AI</div>
+              <div><p>Runner / execute</p><h3>Work inside an isolated context and stream task state.</h3><small>Tools · edits · tests · artifacts</small></div>
+            </li>
+            <li>
+              <span class="workflow-track__number">04</span>
+              <div class="workflow-track__agent">V</div>
+              <div><p>Verifier / accept</p><h3>Compare evidence with the original contract.</h3><small>Diff · checks · preview · unresolved boundary</small></div>
+            </li>
+            <li>
+              <span class="workflow-track__number">05</span>
+              <div class="workflow-track__agent workflow-track__agent--quiet">↵</div>
+              <div><p>System / return</p><h3>Handoff the result, then release temporary state.</h3><small>Summary · cleanup · lease release · continuity</small></div>
             </li>
           </ol>
         </section>
@@ -126,9 +218,14 @@
               <p>Each agent receives a named role and the smallest workspace access its task requires.</p>
             </article>
             <article>
-              <span>03 / EVIDENCE</span>
+              <span>03 / ISOLATION</span>
+              <h3>Protected workspaces</h3>
+              <p>Branches, worktrees, devices, and leases keep concurrent tasks from contaminating one another.</p>
+            </article>
+            <article>
+              <span>04 / EVIDENCE</span>
               <h3>Auditable outcomes</h3>
-              <p>Tasks, leases, artifacts, and handoffs make progress inspectable beyond a chat transcript.</p>
+              <p>Diffs, tests, previews, task state, and handoffs make completion inspectable beyond a chat transcript.</p>
             </article>
           </div>
         </section>
@@ -138,21 +235,22 @@
             <p class="config-eyebrow">System boundary</p>
             <h2 id="architecture-title">Local-first by design.</h2>
             <p>
-              A Supervisor owns Room state. Drivers resume model sessions. A strict workflow defines who can act,
-              what they depend on, and what must exist before work is complete.
+              A Supervisor owns Room state. Adapters resume compatible coding sessions. Policy defines who can act,
+              what they can touch, and which evidence must exist before a result returns to the human.
             </p>
           </div>
           <div class="layer-stack" aria-label="AI Config system layers">
-            <span><b>Natural language</b><small>intent</small></span>
-            <span><b>Workflow rule</b><small>roles · DAG · policy</small></span>
-            <span><b>Room supervisor</b><small>tasks · leases · audit</small></span>
-            <span><b>Managed workspaces</b><small>Codex · Grok</small></span>
+            <span><b>Human intent</b><small>goal · constraints · authority</small></span>
+            <span><b>Instruction resolver</b><small>global · project · task</small></span>
+            <span><b>Room supervisor</b><small>roles · DAG · leases · audit</small></span>
+            <span><b>Capability adapters</b><small>Skills · MCP · hooks · tools</small></span>
+            <span><b>Replaceable runners</b><small>GPT-5.6 Sol · Claude Code · next</small></span>
           </div>
         </section>
 
         <section class="config-cta">
           <p class="config-eyebrow">Open source</p>
-          <h2>Make the environment reproducible.<br />Make the collaboration legible.</h2>
+          <h2>Keep the operating model stable.<br />Let the runners evolve.</h2>
           <a class="config-button config-button--primary" href="https://github.com/ReverseScale/ai-config">
             Explore AI Config on GitHub <span aria-hidden="true">↗</span>
           </a>

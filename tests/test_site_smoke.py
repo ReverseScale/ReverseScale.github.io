@@ -141,13 +141,14 @@ class SiteSmokeTest(unittest.TestCase):
                     "tone": "coral",
                     "visual": "agent-room",
                     "summary": (
-                        "A versioned macOS AI environment and local multi-agent runtime "
-                        "for safe, repeatable collaboration across Codex and Grok."
+                        "A versioned personal AI environment that layers instructions, "
+                        "routes replaceable coding runners, isolates execution, and requires "
+                        "evidence before handoff."
                     ),
                     "points": [
-                        "Config as code",
-                        "Bounded agent rooms",
-                        "Auditable handoffs",
+                        "Layered configuration",
+                        "Pluggable runner routing",
+                        "Isolated evidence loops",
                     ],
                 },
             },
@@ -164,12 +165,12 @@ class SiteSmokeTest(unittest.TestCase):
         parser.feed(html)
         page_text = parser.text()
 
-        self.assertIn("One AI environment. Deliberate collaboration.", page_text)
+        self.assertIn("Configure once. Route work deliberately.", page_text)
+        self.assertIn('id="capabilities"', html)
         self.assertIn('id="workflow"', html)
         self.assertIn('id="guardrails"', html)
-        self.assertIn("Plan", page_text)
-        self.assertIn("Implement", page_text)
-        self.assertIn("Accept", page_text)
+        for stage in ("Intent", "Route", "Execute", "Verify", "Return"):
+            self.assertIn(stage, page_text)
         self.assertIn("Versioned configuration", page_text)
         self.assertIn("Explicit permissions", page_text)
         self.assertIn("Auditable outcomes", page_text)

@@ -78,8 +78,8 @@ export const projectLinks = [
     tone: "coral",
     visual: "agent-room",
     summary:
-      "A versioned macOS AI environment and local multi-agent runtime for safe, repeatable collaboration across Codex and Grok.",
-    points: ["Config as code", "Bounded agent rooms", "Auditable handoffs"],
+      "A versioned personal AI environment that layers instructions, routes replaceable coding runners, isolates execution, and requires evidence before handoff.",
+    points: ["Layered configuration", "Pluggable runner routing", "Isolated evidence loops"],
   },
   {
     name: "AI Designer",
