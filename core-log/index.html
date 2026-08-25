@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Core Log is a portable C/C++ logging runtime that turns application events into safe, correlated, durable local evidence."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Core Log — Portable native logging runtime" />
+    <meta
+      property="og:description"
+      content="A systems case study in portable adapters, governed asynchronous writes, trace context, rotation, recovery, and offline diagnosis."
+    />
+    <meta property="og:url" content="https://reversescale.github.io/core-log/" />
+    <title>Core Log — Portable native logging runtime | Tim</title>
+    <link rel="canonical" href="https://reversescale.github.io/core-log/" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/core-log.css" />
+    <script type="module" src="../src/core-log.js"></script>
+  </head>
+  <body>
+    <header class="core-nav">
+      <a class="core-brand" href="/" aria-label="Back to Tim's work">
+        <span class="core-brand__mark" aria-hidden="true">CL</span>
+        <span><strong>Core Log</strong><small>Native evidence runtime</small></span>
+      </a>
+      <nav aria-label="Core Log navigation">
+        <a href="#mechanism">Mechanism</a>
+        <a href="#diagnosis">Diagnosis</a>
+        <a href="#reliability">Reliability</a>
+        <a href="/">All projects <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="core-hero" aria-labelledby="core-title">
+        <div class="core-hero__copy">
+          <p class="eyebrow"><span></span> Portable native logging infrastructure</p>
+          <h1 id="core-title">Every event becomes <em>trustworthy evidence.</em></h1>
+          <p class="core-hero__lede">
+            A portable C/C++ runtime governs what an application records, carries the
+            right execution context, and keeps local evidence writable—even when the
+            platform adapter changes.
+          </p>
+          <div class="core-actions">
+            <a class="core-button core-button--primary" href="#mechanism">Follow one event <span aria-hidden="true">↓</span></a>
+            <a class="core-button" href="#portability">See the portable boundary</a>
+          </div>
+          <dl class="core-facts">
+            <div><dt>C/C++</dt><dd>portable core</dd></div>
+            <div><dt>C ABI</dt><dd>adapter boundary</dd></div>
+            <div><dt>Local</dt><dd>durable evidence</dd></div>
+          </dl>
+        </div>
+
+        <div class="event-machine" aria-label="A sample application event moving through the native logging runtime">
+          <div class="event-machine__bar">
+            <span><i></i><i></i><i></i></span>
+            <b>runtime / evidence-047</b>
+            <em>writing</em>
+          </div>
+          <div class="event-machine__event">
+            <span>incoming event</span>
+            <code>camera.pairing.failed</code>
+            <p><b>device</b>•••• 52A9 <b>trace</b>7fb2…2e1c</p>
+          </div>
+          <ol class="event-machine__path">
+            <li class="is-done"><span>01</span><b>Filter</b><small>level accepted</small></li>
+            <li class="is-done"><span>02</span><b>Sanitize</b><small>identifier masked</small></li>
+            <li class="is-active"><span>03</span><b>Correlate</b><small>trace attached</small></li>
+            <li><span>04</span><b>Persist</b><small>bounded append</small></li>
+          </ol>
+          <div class="event-machine__result">
+            <span>evidence contract</span>
+            <b><i></i> safe · correlated · recoverable</b>
+          </div>
+        </div>
+      </section>
+
+      <section class="core-section mechanism-section" id="mechanism" aria-labelledby="mechanism-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> System mechanism</p>
+          <h2 id="mechanism-title">The platform is an edge.<br />The evidence contract is the product.</h2>
+          <p>One reading path connects replaceable adapters, governed preparation, bounded persistence, and offline diagnosis.</p>
+        </div>
+        <iframe
+          class="mechanism-figure"
+          src="write-path-figure.html"
+          title="Portable native evidence pipeline"
+          loading="eager"
+        ></iframe>
+      </section>
+
+      <section class="core-section pipeline-section" aria-labelledby="pipeline-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Governed write path</p>
+          <h2 id="pipeline-title">Sanitize before persistence.</h2>
+          <p>Select a stage to inspect its input, guarantee, and failure semantics. The interaction is deliberately manual: every transition should explain something.</p>
+        </div>
+
+        <core-log-pipeline class="pipeline-workbench">
+          <div class="pipeline-stage-list" role="tablist" aria-label="Native evidence pipeline stages">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-pipeline-stage="accept"><span>01</span><i class="stage-glyph stage-glyph--accept" aria-hidden="true"></i><b>Accept</b><small>own event</small></button>
+            <button type="button" role="tab" aria-selected="false" data-pipeline-stage="filter"><span>02</span><i class="stage-glyph stage-glyph--filter" aria-hidden="true"></i><b>Filter</b><small>bound work</small></button>
+            <button type="button" role="tab" aria-selected="false" data-pipeline-stage="sanitize"><span>03</span><i class="stage-glyph stage-glyph--sanitize" aria-hidden="true"></i><b>Sanitize</b><small>protect data</small></button>
+            <button type="button" role="tab" aria-selected="false" data-pipeline-stage="correlate"><span>04</span><i class="stage-glyph stage-glyph--correlate" aria-hidden="true"></i><b>Correlate</b><small>attach trace</small></button>
+            <button type="button" role="tab" aria-selected="false" data-pipeline-stage="encode"><span>05</span><i class="stage-glyph stage-glyph--encode" aria-hidden="true"></i><b>Encode</b><small>shape record</small></button>
+            <button type="button" role="tab" aria-selected="false" data-pipeline-stage="persist"><span>06</span><i class="stage-glyph stage-glyph--persist" aria-hidden="true"></i><b>Persist</b><small>commit evidence</small></button>
+          </div>
+
+          <article class="pipeline-inspector" data-pipeline-inspector role="tabpanel" aria-live="polite">
+            <div class="pipeline-inspector__status">
+              <span><i></i> native core</span>
+              <b><span data-stage-index>01</span> / <span data-stage-verb>Capture</span></b>
+            </div>
+            <h3 data-stage-name>Accept</h3>
+            <p data-stage-summary>Normalize one event at the stable native boundary.</p>
+            <dl>
+              <div><dt>Input</dt><dd data-stage-input>Message · level · tag · thread · namespace</dd></div>
+              <div><dt>Guarantee</dt><dd data-stage-guarantee>Platform-specific values become one owned event shape.</dd></div>
+              <div><dt>Failure semantics</dt><dd data-stage-failure>Invalid handles and stopped runtimes return explicit errors.</dd></div>
+            </dl>
+            <footer><span>observable signal</span><b data-stage-signal>Event owned</b></footer>
+          </article>
+        </core-log-pipeline>
+      </section>
+
+      <section class="core-section diagnosis-section" id="diagnosis" aria-labelledby="diagnosis-title">
+        <div class="diagnosis-copy">
+          <p class="eyebrow"><span></span> Aggregation & diagnosis plane</p>
+          <h2 id="diagnosis-title">One incident.<br />Three logging surfaces.</h2>
+          <p>
+            A companion logging platform aggregates App logs, Service logs, and IoT logs.
+            Encrypted records enter a controlled decryption boundary, then become one
+            correlated incident timeline for search and diagnosis.
+          </p>
+          <ul class="diagnosis-contracts">
+            <li><span>01</span><b>Controlled decryption</b><small>Decrypt inside the diagnostic boundary—not in the browser or source system.</small></li>
+            <li><span>02</span><b>Cross-layer diagnosis</b><small>Follow one trace across UI action, service decision, and physical-device state.</small></li>
+            <li><span>03</span><b>Mixed-source evidence</b><small>Preserve source, time, schema, and access context throughout investigation.</small></li>
+          </ul>
+        </div>
+
+        <diagnosis-timeline class="diagnosis-console">
+          <div class="diagnosis-console__bar">
+            <span>incident / pairing-047</span>
+            <b><i></i> correlated</b>
+          </div>
+          <div class="diagnosis-console__topology" aria-label="Logs from the App, service, and IoT layers converge into the diagnosis platform">
+            <button class="is-active" type="button" aria-pressed="true" data-diagnosis-signal="app"><span>APP</span><b>App logs</b><small>trace 7fb2</small></button>
+            <button type="button" aria-pressed="false" data-diagnosis-signal="service"><span>API</span><b>Service logs</b><small>span 91d4</small></button>
+            <button type="button" aria-pressed="false" data-diagnosis-signal="iot"><span>IOT</span><b>IoT logs</b><small>device 52A9</small></button>
+            <div class="diagnosis-core"><span>secure boundary</span><b>Decrypt</b><i></i><b>Correlate</b><i></i><b>Diagnose</b></div>
+          </div>
+          <article class="diagnosis-inspector" data-diagnosis-inspector aria-live="polite">
+            <div><span data-diagnosis-time>10:42:18.214</span><b data-diagnosis-source>App logs</b></div>
+            <code data-diagnosis-event>pairing.submit</code>
+            <p data-diagnosis-detail>The App accepted the pairing request and attached trace 7fb2…2e1c.</p>
+            <footer><span>Evidence</span><b data-diagnosis-evidence>UI action · network request · device alias</b></footer>
+          </article>
+        </diagnosis-timeline>
+      </section>
+
+      <section class="core-section trace-section" aria-labelledby="trace-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Correlation model</p>
+          <h2 id="trace-title">Trace the work,<br />not just the error.</h2>
+          <p>A timestamp says when a line appeared. Trace and Span context explain which operation produced it, which boundary it crossed, and what followed.</p>
+        </div>
+        <div class="trace-map" aria-label="One trace connecting application, service, and IoT spans">
+          <div class="trace-map__header"><span>trace 7fb2…2e1c</span><b>pair camera</b><small>2.31 s</small></div>
+          <div class="trace-lane"><span>App</span><i style="--start: 2; --size: 24">Open pairing</i><i style="--start: 31; --size: 26">Submit profile</i></div>
+          <div class="trace-lane"><span>Service</span><i style="--start: 35; --size: 30">Exchange credential</i></div>
+          <div class="trace-lane"><span>IoT</span><i class="trace-span--failure" style="--start: 59; --size: 34">Join rejected</i></div>
+          <div class="trace-map__marker" aria-hidden="true"><i></i><span>root cause</span></div>
+        </div>
+      </section>
+
+      <section class="core-section reliability-section" id="reliability" aria-labelledby="reliability-title">
+        <div class="reliability-copy">
+          <p class="eyebrow"><span></span> Storage lifecycle</p>
+          <h2 id="reliability-title">Rotate without losing the write path.</h2>
+          <p>File lifecycle is part of correctness. The runtime prepares a new mapped file, switches the active state, cleans the old mapping, and exposes both success and failure.</p>
+        </div>
+        <div class="rotation-sequence" aria-label="Atomic file rotation and recovery sequence">
+          <article><span>01</span><i class="rotation-glyph rotation-glyph--preflight" aria-hidden="true"></i><b>Preflight</b><small>Size policy reached</small></article>
+          <i aria-hidden="true"></i>
+          <article><span>02</span><i class="rotation-glyph rotation-glyph--prepare" aria-hidden="true"></i><b>Prepare</b><small>Create and map next file</small></article>
+          <i aria-hidden="true"></i>
+          <article class="rotation-sequence__active"><span>03</span><i class="rotation-glyph rotation-glyph--switch" aria-hidden="true"></i><b>Switch</b><small>Update active state</small></article>
+          <i aria-hidden="true"></i>
+          <article><span>04</span><i class="rotation-glyph rotation-glyph--retire" aria-hidden="true"></i><b>Retire</b><small>Flush and close old file</small></article>
+          <div class="rotation-recovery"><span>if rotation fails</span><b>Recover the current mapping</b><small>Report failure when recovery cannot restore a safe writer.</small></div>
+        </div>
+      </section>
+
+      <section class="core-section tooling-section" aria-labelledby="tooling-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Evidence after the device</p>
+          <h2 id="tooling-title">A log file is only useful if the investigation can read it.</h2>
+          <p>Structured and text records can move through streaming parsers into human-readable or machine-queryable outputs.</p>
+        </div>
+        <div class="tooling-flow">
+          <article class="tooling-file"><span>DEVICE</span><b>session.fblog</b><small>structured · encrypted</small></article>
+          <div class="tooling-transform"><span>controlled decrypt</span><i></i><b>Streaming parser</b><i></i><span>trace aware</span></div>
+          <div class="tooling-outputs">
+            <article><span>TXT</span><b>Operator view</b></article>
+            <article><span>JSON</span><b>Search & tooling</b></article>
+            <article><span>CSV</span><b>Export & analysis</b></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="core-section portability-section" id="portability" aria-labelledby="portability-title">
+        <div>
+          <p class="eyebrow"><span></span> Architecture boundary</p>
+          <h2 id="portability-title">Portable core.<br />Replaceable edges.</h2>
+        </div>
+        <p>
+          Native apps and Flutter are current adapters. HarmonyOS is an extension path:
+          ArkTS and N-API can join through the same stable native contract without moving
+          sanitization, tracing, rotation, or file semantics into the platform layer.
+        </p>
+        <div class="adapter-ledger" aria-label="Current and potential platform adapters">
+          <article><span>Current</span><i class="adapter-glyph adapter-glyph--native" aria-hidden="true"></i><b>Native mobile</b><small>JNI · Objective-C++</small></article>
+          <article><span>Current</span><i class="adapter-glyph adapter-glyph--flutter" aria-hidden="true"></i><b>Flutter</b><small>FFI · plugin bridge</small></article>
+          <article class="adapter-ledger__future"><span>Extension path</span><i class="adapter-glyph adapter-glyph--harmony" aria-hidden="true"></i><b>HarmonyOS</b><small>ArkTS · N-API</small></article>
+          <article class="adapter-ledger__future"><span>Extension path</span><i class="adapter-glyph adapter-glyph--other" aria-hidden="true"></i><b>Other runtimes</b><small>Stable C ABI</small></article>
+        </div>
+      </section>
+
+      <section class="core-section closing-section" aria-labelledby="closing-title">
+        <p class="eyebrow"><span></span> Engineering position</p>
+        <h2 id="closing-title">Logging is not printing.<br />It is evidence design.</h2>
+        <p>One portable runtime governs capture. One diagnosis plane reconnects the system. Together they make failures explainable across software and physical devices.</p>
+        <a class="core-button core-button--primary" href="#mechanism">Review the system <span aria-hidden="true">↑</span></a>
+      </section>
+    </main>
+
+    <footer class="core-footer">
+      <span>Core Log · a systems case study by Tim</span>
+      <a href="/">Return to selected work <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

@@ -53,6 +53,18 @@ const projectMicroVisual = (project) => {
     `;
   }
 
+  if (project.visual === "log-runtime") {
+    return `
+      <span class="micro-visual micro-visual--log-runtime" aria-hidden="true">
+        <span class="log-runtime-sources"><i>APP</i><i>API</i><i>IOT</i></span>
+        <em><i></i></em>
+        <span class="log-runtime-core">C</span>
+        <em><i></i></em>
+        <span class="log-runtime-evidence"><i></i><i></i><i></i></span>
+      </span>
+    `;
+  }
+
   if (project.visual === "design-system") {
     return `
       <span class="micro-visual micro-visual--design-system" aria-hidden="true">

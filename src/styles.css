@@ -17,6 +17,8 @@
   --rose-soft: #f1dfe4;
   --coral: #bd4e3b;
   --coral-soft: #f3dfda;
+  --oxide: #a7442d;
+  --oxide-soft: #f0ddd5;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
   background: var(--paper);
   color: var(--ink);
@@ -565,6 +567,10 @@ h1 {
   border-top: 4px solid var(--coral);
 }
 
+.project-card--oxide {
+  border-top: 4px solid var(--oxide);
+}
+
 .micro-visual--device-flow {
   display: grid;
   grid-template-columns: 34px minmax(38px, 1fr) 72px 24px;
@@ -646,6 +652,74 @@ h1 {
 @keyframes device-flow-pulse {
   from { transform: translateX(-5px); }
   to { transform: translateX(84px); }
+}
+
+.micro-visual--log-runtime {
+  display: grid;
+  grid-template-columns: 38px minmax(20px, 1fr) 34px minmax(20px, 1fr) 44px;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 11px;
+  background: var(--oxide-soft);
+  color: var(--oxide);
+}
+
+.log-runtime-sources {
+  display: grid;
+  gap: 3px;
+}
+
+.log-runtime-sources i {
+  display: block;
+  padding: 2px 3px;
+  border: 1px solid color-mix(in srgb, var(--oxide) 48%, transparent);
+  background: rgba(251, 250, 247, .72);
+  font: 700 6px ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-style: normal;
+  text-align: center;
+}
+
+.micro-visual--log-runtime > em {
+  position: relative;
+  height: 1px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--oxide) 32%, transparent);
+}
+
+.micro-visual--log-runtime > em i {
+  position: absolute;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: log-runtime-pulse 2s linear infinite;
+}
+
+.log-runtime-core {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--oxide);
+  color: var(--surface);
+  font: 800 11px ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+.log-runtime-evidence {
+  display: grid;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid currentColor;
+  background: rgba(251, 250, 247, .72);
+}
+
+.log-runtime-evidence i { height: 2px; background: currentColor; opacity: .55; }
+
+@keyframes log-runtime-pulse {
+  from { transform: translateX(-5px); }
+  to { transform: translateX(58px); }
 }
 
 .micro-visual--design-system {
@@ -1292,6 +1366,7 @@ h1 {
   .architecture-preview::before,
   .architecture-preview__diagram::after,
   .micro-visual--device-flow > em i,
+  .micro-visual--log-runtime > em i,
   .micro-visual--design-system > em i,
   .micro-visual--agent-room > em i {
     animation: none;

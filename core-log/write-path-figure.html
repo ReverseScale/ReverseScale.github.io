@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Figure: Portable native evidence pipeline</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f5f0e7;
+        --ink: #1b1b18;
+        --muted: #6f6b63;
+        --rule: #cfc7b9;
+        --panel: #fffdf8;
+        --accent: #d34c2f;
+        --accent-soft: #f4d9cd;
+        --signal: #1e6f5c;
+        --signal-soft: #d8ebe4;
+      }
+
+      * { box-sizing: border-box; }
+
+      html,
+      body {
+        min-width: 320px;
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .figure-sheet { padding: 0; }
+      .paper-figure { margin: 0; }
+      svg { display: block; width: 100%; height: auto; }
+      .panel { fill: var(--panel); stroke: var(--rule); stroke-width: 1.5; }
+      .panel-mark { fill: var(--accent); font: 700 18px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .panel-title { fill: var(--ink); font: 700 24px Inter, ui-sans-serif, system-ui, sans-serif; }
+      .panel-note { fill: var(--muted); font: 500 14px Inter, ui-sans-serif, system-ui, sans-serif; }
+      .node { fill: #fff; stroke: #aaa297; stroke-width: 1.5; }
+      .node--core { fill: var(--ink); stroke: var(--ink); }
+      .node--safe { fill: var(--signal-soft); stroke: var(--signal); }
+      .node--evidence { fill: var(--accent-soft); stroke: var(--accent); }
+      .node-label { fill: var(--ink); font: 650 15px Inter, ui-sans-serif, system-ui, sans-serif; }
+      .node-label--light { fill: #fffdf8; }
+      .node-meta { fill: var(--muted); font: 600 11px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .06em; }
+      .node-meta--light { fill: #d7d3ca; }
+      .connector { fill: none; stroke: #8c857a; stroke-width: 2; marker-end: url(#arrow); }
+      .connector--accent { stroke: var(--accent); marker-end: url(#arrow-accent); }
+      .connector--signal { stroke: var(--signal); marker-end: url(#arrow-signal); }
+      .label-mask { fill: var(--panel); }
+      .connector-label { fill: var(--muted); font: 650 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; }
+      .boundary { fill: none; stroke: #a9a196; stroke-width: 1.5; stroke-dasharray: 7 7; }
+      .boundary-label { fill: var(--muted); font: 650 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; }
+      .legend-rule { stroke: var(--rule); }
+      .legend-text { fill: var(--muted); font: 600 12px Inter, ui-sans-serif, system-ui, sans-serif; }
+
+      @media (max-width: 760px) {
+        .panel-title { font-size: 20px; }
+        .panel-note { font-size: 12px; }
+        .node-label { font-size: 13px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="figure-sheet" aria-label="Paper figure source">
+      <figure class="paper-figure" aria-label="A portable native logging core turns events from replaceable platform adapters into safe and durable local evidence">
+        <svg viewBox="0 0 1400 560" role="img" aria-label="Portable native evidence pipeline with platform adapters, safety stages, and durable evidence outputs">
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#8c857a" /></marker>
+            <marker id="arrow-accent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#d34c2f" /></marker>
+            <marker id="arrow-signal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#1e6f5c" /></marker>
+          </defs>
+
+          <rect class="panel" x="16" y="16" width="328" height="464" rx="4" />
+          <rect class="panel" x="360" y="16" width="664" height="464" rx="4" />
+          <rect class="panel" x="1040" y="16" width="344" height="464" rx="4" />
+
+          <g data-figure-panel="A" data-source="C1">
+            <text class="panel-mark" x="40" y="52">A</text>
+            <text class="panel-title" x="72" y="52">Platform adapters</text>
+            <text class="panel-note" x="40" y="82">Replace the edge. Keep the contract.</text>
+
+            <path class="connector" d="M154 170H184" />
+            <path class="connector" d="M154 238H184" />
+            <path class="connector" d="M154 306H184" />
+            <path class="connector" d="M154 374H184" />
+
+            <rect class="node" x="40" y="142" width="114" height="56" rx="4" />
+            <text class="node-label" x="58" y="166">Native app</text>
+            <text class="node-meta" x="58" y="184">CURRENT</text>
+
+            <rect class="node" x="40" y="210" width="114" height="56" rx="4" />
+            <text class="node-label" x="58" y="234">Flutter</text>
+            <text class="node-meta" x="58" y="252">CURRENT</text>
+
+            <rect class="node" x="40" y="278" width="114" height="56" rx="4" />
+            <text class="node-label" x="58" y="302">ArkTS</text>
+            <text class="node-meta" x="58" y="320">EXTENSION</text>
+
+            <rect class="node" x="40" y="346" width="114" height="56" rx="4" />
+            <text class="node-label" x="58" y="370">Other VM</text>
+            <text class="node-meta" x="58" y="388">EXTENSION</text>
+
+            <rect class="node node--core" x="184" y="142" width="128" height="260" rx="4" />
+            <text class="node-meta node-meta--light" x="202" y="170">STABLE ABI</text>
+            <text class="node-label node-label--light" x="202" y="214">C boundary</text>
+            <line x1="202" y1="234" x2="294" y2="234" stroke="#595852" />
+            <text class="node-meta node-meta--light" x="202" y="264">PATHS</text>
+            <text class="node-meta node-meta--light" x="202" y="292">LIFECYCLE</text>
+            <text class="node-meta node-meta--light" x="202" y="320">TYPES</text>
+            <text class="node-meta node-meta--light" x="202" y="348">CALLBACKS</text>
+            <text class="node-meta node-meta--light" x="202" y="376">THREADS</text>
+          </g>
+
+          <g data-figure-panel="B" data-source="C2">
+            <text class="panel-mark" x="384" y="52">B</text>
+            <text class="panel-title" x="416" y="52">Native evidence pipeline</text>
+            <text class="panel-note" x="384" y="82">Safety and context happen before persistence.</text>
+
+            <rect class="boundary" x="384" y="118" width="616" height="290" rx="4" />
+            <text class="boundary-label" x="400" y="140">PORTABLE C/C++ CORE</text>
+
+            <path class="connector" d="M504 216H528" />
+            <path class="connector--signal connector" d="M648 216H672" />
+            <path class="connector" d="M792 216H816" />
+            <path class="connector--accent connector" d="M936 216H960" />
+            <path class="connector" d="M552 306H624" />
+            <path class="connector" d="M760 306H816" />
+            <path class="connector--accent connector" d="M936 306H960" />
+
+            <rect class="label-mask" x="515" y="190" width="42" height="16" />
+            <text class="connector-label" x="519" y="201">PASS</text>
+            <rect class="label-mask" x="650" y="190" width="56" height="16" />
+            <text class="connector-label" x="654" y="201">SAFE</text>
+            <rect class="label-mask" x="785" y="190" width="62" height="16" />
+            <text class="connector-label" x="789" y="201">CONTEXT</text>
+
+            <rect class="node" x="400" y="174" width="104" height="84" rx="4" />
+            <text class="node-meta" x="416" y="197">01</text>
+            <text class="node-label" x="416" y="220">Filter</text>
+            <text class="node-meta" x="416" y="240">LEVEL</text>
+
+            <rect class="node node--safe" x="528" y="174" width="120" height="84" rx="4" />
+            <text class="node-meta" x="544" y="197">02</text>
+            <text class="node-label" x="544" y="220">Sanitize</text>
+            <text class="node-meta" x="544" y="240">FAIL CLOSED</text>
+
+            <rect class="node" x="672" y="174" width="120" height="84" rx="4" />
+            <text class="node-meta" x="688" y="197">03</text>
+            <text class="node-label" x="688" y="220">Enrich</text>
+            <text class="node-meta" x="688" y="240">TRACE / SPAN</text>
+
+            <rect class="node" x="816" y="174" width="120" height="84" rx="4" />
+            <text class="node-meta" x="832" y="197">04</text>
+            <text class="node-label" x="832" y="220">Serialize</text>
+            <text class="node-meta" x="832" y="240">BINARY / TEXT</text>
+
+            <rect class="node node--evidence" x="400" y="278" width="152" height="56" rx="4" />
+            <text class="node-label" x="416" y="302">Prepare queue</text>
+            <text class="node-meta" x="416" y="321">BOUNDED</text>
+
+            <rect class="node" x="624" y="278" width="136" height="56" rx="4" />
+            <text class="node-label" x="640" y="302">I/O queue</text>
+            <text class="node-meta" x="640" y="321">BATCHED</text>
+
+            <rect class="node" x="816" y="278" width="120" height="56" rx="4" />
+            <text class="node-label" x="832" y="302">Encrypt</text>
+            <text class="node-meta" x="832" y="321">OPTIONAL</text>
+
+            <rect class="node node--core" x="960" y="174" width="24" height="160" rx="3" />
+            <text class="node-meta" transform="translate(979 323) rotate(-90)" text-anchor="start">PERSISTENCE BOUNDARY</text>
+
+            <text class="panel-note" x="400" y="372">Overflow is explicit · malformed sensitive content is redacted · hooks receive governed data</text>
+          </g>
+
+          <g data-figure-panel="C" data-source="C3">
+            <text class="panel-mark" x="1064" y="52">C</text>
+            <text class="panel-title" x="1096" y="52">Durable evidence</text>
+            <text class="panel-note" x="1064" y="82">Local first. Recoverable by design.</text>
+
+            <path class="connector--accent connector" d="M1146 194V224" />
+            <path class="connector" d="M1146 280V310" />
+            <path class="connector--signal connector" d="M1146 366V396" />
+
+            <rect class="node node--evidence" x="1064" y="138" width="164" height="56" rx="4" />
+            <text class="node-label" x="1080" y="162">mmap-backed file</text>
+            <text class="node-meta" x="1080" y="181">BOUNDED APPEND</text>
+
+            <rect class="node" x="1064" y="224" width="164" height="56" rx="4" />
+            <text class="node-label" x="1080" y="248">Atomic rotation</text>
+            <text class="node-meta" x="1080" y="267">RECOVERY PATH</text>
+
+            <rect class="node" x="1064" y="310" width="164" height="56" rx="4" />
+            <text class="node-label" x="1080" y="334">Retention policy</text>
+            <text class="node-meta" x="1080" y="353">SIZE / AGE</text>
+
+            <rect class="node node--safe" x="1064" y="396" width="164" height="56" rx="4" />
+            <text class="node-label" x="1080" y="420">Offline parser</text>
+            <text class="node-meta" x="1080" y="439">TEXT / JSON / CSV</text>
+
+            <path d="M1260 138H1356V452H1260" fill="none" stroke="#cfc7b9" stroke-width="1.5" />
+            <text class="boundary-label" x="1278" y="160">ONE</text>
+            <text class="boundary-label" x="1278" y="178">EVIDENCE</text>
+            <text class="boundary-label" x="1278" y="196">LIFECYCLE</text>
+          </g>
+
+          <line class="legend-rule" x1="16" y1="504" x2="1384" y2="504" />
+          <circle cx="40" cy="532" r="6" fill="#d34c2f" />
+          <text class="legend-text" x="56" y="536">durability boundary</text>
+          <circle cx="220" cy="532" r="6" fill="#1e6f5c" />
+          <text class="legend-text" x="236" y="536">safety guarantee</text>
+          <rect x="394" y="526" width="16" height="12" fill="none" stroke="#a9a196" stroke-dasharray="4 3" />
+          <text class="legend-text" x="422" y="536">portable native core</text>
+          <text class="legend-text" x="1384" y="536" text-anchor="end">Adapters can change without rewriting evidence semantics.</text>
+        </svg>
+      </figure>
+    </main>
+  </body>
+</html>

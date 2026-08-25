@@ -70,6 +70,18 @@ export const projectLinks = [
     points: ["AI test orchestration", "App & IoT device farm", "CI/CD feedback loop"],
   },
   {
+    name: "Core Log",
+    label: "Portable native logging infrastructure",
+    href: "/core-log/",
+    siteHref: "/core-log/",
+    status: "Runtime & diagnosis",
+    tone: "oxide",
+    visual: "log-runtime",
+    summary:
+      "A portable C/C++ logging runtime and cross-layer diagnosis plane that turn App, service, and IoT events into governed, correlated, durable evidence.",
+    points: ["Native core", "Cross-layer correlation", "Secure diagnosis"],
+  },
+  {
     name: "AI Config",
     label: "Personal AI environment & collaboration",
     href: "https://github.com/ReverseScale/ai-config",

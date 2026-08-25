@@ -1,0 +1,62 @@
+{
+  "story_spine": "A portable native logging core turns an application event into safe, correlated, durable evidence while platform adapters remain replaceable.",
+  "figure_role": "Main mechanism figure",
+  "selected_context": [
+    {
+      "id": "C1",
+      "source": "User direction",
+      "content": "The project should be positioned as a C/C++-based portable logging runtime whose platform adapters can expand beyond the currently implemented mobile stacks, including a future HarmonyOS adapter."
+    },
+    {
+      "id": "C2",
+      "source": "Core API and asynchronous write-path inspection",
+      "content": "The native core applies level filtering, configurable sanitization, trace context, hooks, serialization, optional encryption, queued I/O, flush semantics, and explicit queue overflow behavior."
+    },
+    {
+      "id": "C3",
+      "source": "Storage sink and lifecycle inspection",
+      "content": "Structured binary logs use an mmap-backed append path with bounded writes, file growth, atomic rotation, recovery, retention, and offline parsing support."
+    }
+  ],
+  "panels": [
+    {
+      "id": "A",
+      "purpose": "Show replaceable application and platform adapters converging on one portable native contract.",
+      "context_ids": ["C1"],
+      "claims": [
+        {
+          "text": "Platform adapters are integration surfaces, not the product boundary.",
+          "context_ids": ["C1"]
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "purpose": "Expose the safety and correlation work performed before persistence.",
+      "context_ids": ["C2"],
+      "claims": [
+        {
+          "text": "An event is filtered, sanitized, enriched, and serialized before it reaches storage.",
+          "context_ids": ["C2"]
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "purpose": "Show durable local evidence and the recovery path after the write pipeline.",
+      "context_ids": ["C3"],
+      "claims": [
+        {
+          "text": "The result is bounded local evidence that can rotate, recover, and be parsed offline.",
+          "context_ids": ["C3"]
+        }
+      ]
+    }
+  ],
+  "caption_suggestion": "The runtime keeps platform integration replaceable while a shared native pipeline turns events into sanitized, trace-correlated, encrypted, and recoverable local evidence.",
+  "caption_outside_figure": true,
+  "open_assumptions": [
+    "HarmonyOS is presented as an extension path, not as an already shipped adapter.",
+    "mmap-backed append is described without claiming literal zero-copy behavior or unmeasured throughput."
+  ]
+}
