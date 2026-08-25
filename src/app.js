@@ -42,6 +42,17 @@ const projectMicroVisual = (project) => {
     `;
   }
 
+  if (project.visual === "device-flow") {
+    return `
+      <span class="micro-visual micro-visual--device-flow" aria-hidden="true">
+        <span class="device-flow-ai">AI</span>
+        <em><i></i></em>
+        <span class="device-flow-fleet"><i></i><i></i><i></i></span>
+        <span class="device-flow-signal">✓</span>
+      </span>
+    `;
+  }
+
   return "";
 };
 
@@ -114,7 +125,7 @@ function renderHome() {
         </div>
       </div>
       <div class="hero-work" aria-label="Selected projects">
-        <p><span>Selected work</span><span>3 projects</span></p>
+        <p><span>Selected work</span><span>${projectLinks.length} projects</span></p>
         ${projectLinks.map(heroProjectCard).join("")}
       </div>
     </section>
@@ -123,7 +134,7 @@ function renderHome() {
       <div class="section-heading">
         <div>
           <p class="eyebrow">Selected work</p>
-          <h2 id="work-title">Three tools, one practical thread.</h2>
+          <h2 id="work-title">Four tools, one practical thread.</h2>
         </div>
         <p>Projects built around the difficult space between code, review, build, and release.</p>
       </div>
@@ -203,7 +214,7 @@ function renderAbout() {
       </div>
       <div class="prose">
         <p>${escapeHtml(profile.story)}</p>
-        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible.</p>
+        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible. MobileLab connects AI-assisted quality workflows with App and IoT device infrastructure.</p>
         <p>ReverseScale is the namespace that connects these independent projects, not a company layer placed between the work and the person making it.</p>
       </div>
     </section>

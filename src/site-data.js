@@ -57,6 +57,18 @@ export const projectLinks = [
       "Self-hosted mobile delivery that connects CI triggers, live pipeline visibility, versioned artifacts, and app distribution in one workspace.",
     points: ["CI integration", "Pipeline visibility", "Artifact distribution"],
   },
+  {
+    name: "MobileLab",
+    label: "App & IoT quality infrastructure",
+    href: "/mobile-lab/",
+    siteHref: "/mobile-lab/",
+    status: "Quality & efficiency",
+    tone: "violet",
+    visual: "device-flow",
+    summary:
+      "AI-assisted quality infrastructure that connects CI/CD with an App and IoT device farm, balancing stronger release evidence with efficient hardware use.",
+    points: ["AI test orchestration", "App & IoT device farm", "CI/CD feedback loop"],
+  },
 ];
 
 export const workingPrinciples = [

@@ -11,6 +11,8 @@
   --blue-soft: #dce9f0;
   --amber: #a95b16;
   --amber-soft: #f1e2d2;
+  --violet: #6d4bc3;
+  --violet-soft: #e8e0f5;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
   background: var(--paper);
   color: var(--ink);
@@ -518,7 +520,7 @@ h1 {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -545,6 +547,89 @@ h1 {
 
 .project-card--amber {
   border-top: 4px solid var(--amber);
+}
+
+.project-card--violet {
+  border-top: 4px solid var(--violet);
+}
+
+.micro-visual--device-flow {
+  display: grid;
+  grid-template-columns: 34px minmax(38px, 1fr) 72px 24px;
+  align-items: center;
+  gap: 8px;
+  color: var(--violet);
+}
+
+.device-flow-ai {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.micro-visual--device-flow > em {
+  position: relative;
+  height: 1px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--violet) 28%, transparent);
+}
+
+.micro-visual--device-flow > em i {
+  position: absolute;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: device-flow-pulse 1.9s linear infinite;
+}
+
+.device-flow-fleet {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 6px;
+}
+
+.device-flow-fleet i {
+  display: block;
+  width: 15px;
+  height: 27px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+}
+
+.device-flow-fleet i:nth-child(2) {
+  width: 22px;
+  height: 20px;
+  border-radius: 50% 50% 4px 4px;
+}
+
+.device-flow-fleet i:nth-child(3) {
+  height: 23px;
+  border-radius: 3px;
+}
+
+.device-flow-signal {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--violet-soft);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+@keyframes device-flow-pulse {
+  from { transform: translateX(-5px); }
+  to { transform: translateX(84px); }
 }
 
 .project-card .micro-visual {
@@ -1031,7 +1116,8 @@ h1 {
   }
 
   .architecture-preview::before,
-  .architecture-preview__diagram::after {
+  .architecture-preview__diagram::after,
+  .micro-visual--device-flow > em i {
     animation: none;
   }
 }

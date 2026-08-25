@@ -34,7 +34,7 @@ class SiteSmokeTest(unittest.TestCase):
     def test_project_label_and_footer_year_do_not_go_stale(self) -> None:
         app_source = read("src/app.js")
 
-        self.assertIn("3 projects", app_source)
+        self.assertIn("${projectLinks.length} projects", app_source)
         self.assertIn("new Date().getFullYear()", app_source)
         self.assertNotIn("© 2026", app_source)
 
@@ -92,9 +92,11 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn('project.visual === "package"', app_source)
         self.assertIn('project.visual === "strings"', app_source)
         self.assertIn('project.visual === "pipeline"', app_source)
+        self.assertIn('project.visual === "device-flow"', app_source)
         self.assertIn("micro-visual--package", styles)
         self.assertIn("micro-visual--strings", styles)
         self.assertIn("micro-visual--pipeline", styles)
+        self.assertIn("micro-visual--device-flow", styles)
 
     def test_home_keeps_work_research_and_about_without_article_feed(self) -> None:
         app_source = read("src/app.js")
@@ -177,11 +179,12 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn("Pipeline visibility", data_source)
         self.assertIn("Artifact distribution", data_source)
 
-    def test_bakery_project_uses_three_column_responsive_layout(self) -> None:
+    def test_projects_use_two_column_responsive_layout(self) -> None:
         styles = read("src/styles.css")
 
-        self.assertIn("grid-template-columns: repeat(3, minmax(0, 1fr));", styles)
+        self.assertIn("grid-template-columns: repeat(2, minmax(0, 1fr));", styles)
         self.assertIn(".project-card--amber", styles)
+        self.assertIn(".project-card--violet", styles)
         self.assertIn("border-top: 4px solid var(--amber);", styles)
 
     def test_home_metadata_covers_mobile_build_and_distribution(self) -> None:
