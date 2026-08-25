@@ -225,7 +225,7 @@ function renderAbout() {
       </div>
       <div class="prose">
         <p>${escapeHtml(profile.story)}</p>
-        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible. MobileLab connects AI-assisted quality workflows with App and IoT device infrastructure. AI Config makes personal AI environments and multi-agent collaboration reproducible.</p>
+        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible. Mobile Lab connects AI-assisted quality workflows with App and IoT device infrastructure. AI Config makes personal AI environments and multi-agent collaboration reproducible.</p>
         <p>ReverseScale is the namespace that connects these independent projects, not a company layer placed between the work and the person making it.</p>
       </div>
     </section>

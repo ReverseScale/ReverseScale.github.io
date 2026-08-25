@@ -67,9 +67,9 @@ class MobileLabStory extends HTMLElement {
     this.innerHTML = `
       <main class="lab-shell">
         <header class="lab-nav">
-          <a class="lab-brand" href="/" aria-label="T MobileLab — Back to Tim’s work">
+          <a class="lab-brand" href="/" aria-label="T Mobile Lab — Back to Tim’s work">
             <span aria-hidden="true">T</span>
-            <strong>MobileLab</strong>
+            <strong>Mobile Lab</strong>
           </a>
           <nav aria-label="Project navigation">
             <a href="#explore">Explore</a>
@@ -85,7 +85,7 @@ class MobileLabStory extends HTMLElement {
             <p class="lab-kicker"><span>AI-assisted quality infrastructure</span><i></i><span>App + IoT</span></p>
             <h1 id="lab-title">Quality, at<br />device-farm <em>efficiency.</em></h1>
             <p class="lab-hero__lede">
-              MobileLab connects CI/CD, a LangGraph-based automation engine, and a shared farm of App and IoT devices. Every change gets the right test depth, the right hardware, and evidence a release decision can explain.
+              Mobile Lab connects CI/CD, a LangGraph-based automation engine, and a shared farm of App and IoT devices. Every change gets the right test depth, the right hardware, and evidence a release decision can explain.
             </p>
             <div class="lab-hero__actions">
               <a class="lab-button lab-button--primary" href="#system">Explore the system <span aria-hidden="true">↓</span></a>
@@ -309,7 +309,7 @@ class MobileLabStory extends HTMLElement {
         </section>
 
         <footer class="lab-footer">
-          <span>MobileLab · A ReverseScale project</span>
+          <span>Mobile Lab · A ReverseScale project</span>
           <span>Concept, system design, and implementation by Tim</span>
         </footer>
       </main>

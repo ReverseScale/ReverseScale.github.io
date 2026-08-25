@@ -14,11 +14,28 @@ def read(path: str) -> str:
 class MobileLabProjectTest(unittest.TestCase):
     def test_mobilelab_is_a_first_class_quality_project(self) -> None:
         source = read("src/site-data.js") + read("src/app.js") + read("index.html")
+        script = """
+          import { projectLinks } from './src/site-data.js';
+          const project = projectLinks.find((item) => item.siteHref === '/mobile-lab/');
+          console.log(JSON.stringify({ name: project?.name, siteHref: project?.siteHref }));
+        """
+        result = subprocess.run(
+            ["node", "--input-type=module", "-e", script],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
 
-        self.assertIn('name: "MobileLab"', source)
+        self.assertEqual(json.loads(result.stdout), {
+            "name": "Mobile Lab",
+            "siteHref": "/mobile-lab/",
+        })
         self.assertIn('siteHref: "/mobile-lab/"', source)
         self.assertIn('visual: "device-flow"', source)
-        self.assertIn('href="/mobile-lab/"', source)
+        self.assertIn('<a href="/mobile-lab/">Mobile Lab</a>', source)
+        self.assertIn('<title>Mobile Lab — Quality at device-farm efficiency | Tim</title>', read("mobile-lab/index.html"))
+        self.assertIn('<strong>Mobile Lab</strong>', read("src/mobile-lab.js"))
         self.assertIn("AI test orchestration", source)
         self.assertIn("App & IoT device farm", source)
         self.assertTrue((ROOT / "mobile-lab" / "index.html").is_file())

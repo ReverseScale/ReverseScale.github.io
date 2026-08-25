@@ -58,7 +58,7 @@ export const projectLinks = [
     points: ["CI integration", "Pipeline visibility", "Artifact distribution"],
   },
   {
-    name: "MobileLab",
+    name: "Mobile Lab",
     label: "App & IoT quality infrastructure",
     href: "/mobile-lab/",
     siteHref: "/mobile-lab/",
