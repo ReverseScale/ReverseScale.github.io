@@ -267,6 +267,18 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn(".project-card--violet", styles)
         self.assertIn("border-top: 4px solid var(--amber);", styles)
 
+    def test_home_project_indices_use_one_neutral_color(self) -> None:
+        styles = read("src/styles.css")
+
+        self.assertIn(
+            ".hero-project__index {\n"
+            "  align-self: start;\n"
+            "  padding-top: 25px;\n"
+            "  color: var(--muted);",
+            styles,
+        )
+        self.assertNotIn(".hero-project--coral .hero-project__index", styles)
+
     def test_home_metadata_covers_mobile_build_and_distribution(self) -> None:
         html = read("index.html")
 

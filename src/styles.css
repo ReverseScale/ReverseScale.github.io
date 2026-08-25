@@ -559,10 +559,6 @@ h1 {
   border-top: 4px solid var(--coral);
 }
 
-.hero-project--coral .hero-project__index {
-  color: var(--coral);
-}
-
 .micro-visual--device-flow {
   display: grid;
   grid-template-columns: 34px minmax(38px, 1fr) 72px 24px;
