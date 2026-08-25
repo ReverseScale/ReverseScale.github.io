@@ -568,6 +568,8 @@ h1 {
   grid-template-columns: 34px minmax(38px, 1fr) 72px 24px;
   align-items: center;
   gap: 8px;
+  padding: 9px 12px;
+  background: var(--violet-soft);
   color: var(--violet);
 }
 
@@ -578,6 +580,7 @@ h1 {
   place-items: center;
   border: 1px solid currentColor;
   border-radius: 50%;
+  background: rgba(251, 250, 247, 0.72);
   font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
   font-size: 9px;
   font-weight: 800;
@@ -613,6 +616,7 @@ h1 {
   height: 27px;
   border: 1px solid currentColor;
   border-radius: 4px;
+  background: rgba(251, 250, 247, 0.72);
 }
 
 .device-flow-fleet i:nth-child(2) {
@@ -632,7 +636,7 @@ h1 {
   height: 22px;
   place-items: center;
   border-radius: 50%;
-  background: var(--violet-soft);
+  background: rgba(251, 250, 247, 0.82);
   font-size: 11px;
   font-weight: 900;
 }

@@ -23,6 +23,19 @@ class MobileLabProjectTest(unittest.TestCase):
         self.assertIn("App & IoT device farm", source)
         self.assertTrue((ROOT / "mobile-lab" / "index.html").is_file())
 
+    def test_mobilelab_home_visual_uses_the_same_tinted_surface_contract(self) -> None:
+        styles = read("src/styles.css")
+        visual_block = styles.split(".micro-visual--device-flow {", 1)[1].split("}", 1)[0]
+        ai_block = styles.split(".device-flow-ai {", 1)[1].split("}", 1)[0]
+        fleet_block = styles.split(".device-flow-fleet i {", 1)[1].split("}", 1)[0]
+        signal_block = styles.split(".device-flow-signal {", 1)[1].split("}", 1)[0]
+
+        self.assertIn("background: var(--violet-soft);", visual_block)
+        self.assertIn("padding: 9px 12px;", visual_block)
+        self.assertIn("background: rgba(251, 250, 247, 0.72);", ai_block)
+        self.assertIn("background: rgba(251, 250, 247, 0.72);", fleet_block)
+        self.assertIn("background: rgba(251, 250, 247, 0.82);", signal_block)
+
     def test_mobilelab_models_the_full_quality_loop(self) -> None:
         script = """
           import { flowStages, isTerminalFlowStage } from './src/mobile-lab-flow.mjs';
