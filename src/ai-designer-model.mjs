@@ -54,22 +54,98 @@ export const pipelineStages = Object.freeze([
 export const foundationLanes = Object.freeze([
   {
     id: "tokens",
+    index: "01",
     title: "Tokens",
     detail: "Color, spacing, typography, radius, shadow, theme, and interaction states.",
-    output: "Typed theme APIs",
+    packageName: "design_tokens",
+    version: "0.1.0",
+    output: "ThemeExtension APIs",
+    samples: [
+      { id: "rose", symbol: "", label: "rose.500" },
+      { id: "plum", symbol: "", label: "plum.600" },
+      { id: "mint", symbol: "", label: "green.100" },
+      { id: "ink", symbol: "", label: "neutral.950" },
+    ],
+    facts: [
+      { label: "tokens", value: "560" },
+      { label: "themes", value: "02" },
+      { label: "snapshot", value: "pinned" },
+    ],
   },
   {
     id: "icons",
+    index: "02",
     title: "Icons",
     detail: "Curated product symbols and stable icon identities from released libraries.",
-    output: "Typed icon catalog",
+    packageName: "design_icons",
+    version: "0.1.0",
+    output: "AppIcons catalog",
+    samples: [
+      { id: "add", symbol: "+", label: "add" },
+      { id: "check", symbol: "✓", label: "check" },
+      { id: "arrow", symbol: "↗", label: "open" },
+      { id: "menu", symbol: "•••", label: "more" },
+    ],
+    facts: [
+      { label: "symbols", value: "285" },
+      { label: "style", value: "mono" },
+      { label: "snapshot", value: "pinned" },
+    ],
   },
   {
     id: "assets",
+    index: "03",
     title: "Assets",
     detail: "Fonts, brand marks, illustrations, image variants, and auditable licenses.",
-    output: "Typed asset catalog",
+    packageName: "design_assets",
+    version: "0.1.0",
+    output: "DesignAssets catalog",
+    samples: [
+      { id: "type", symbol: "Aa", label: "Work Sans" },
+      { id: "image", symbol: "IMG", label: "2× image" },
+      { id: "mark", symbol: "T", label: "brand mark" },
+      { id: "license", symbol: "OFL", label: "license" },
+    ],
+    facts: [
+      { label: "families", value: "01" },
+      { label: "images", value: "01" },
+      { label: "license", value: "OFL" },
+    ],
   },
+]);
+
+export const foundationConsumers = Object.freeze([
+  {
+    id: "production",
+    index: "01",
+    eyebrow: "Production",
+    title: "Flutter components",
+    detail: "Stable product APIs",
+    meta: "design_components · 0.1.0",
+  },
+  {
+    id: "widgetbook",
+    index: "02",
+    eyebrow: "Review",
+    title: "Widgetbook",
+    detail: "Interactive use cases",
+    meta: "4 components · 8 use cases",
+  },
+  {
+    id: "golden",
+    index: "03",
+    eyebrow: "Evidence",
+    title: "Golden Review",
+    detail: "Expected · Actual · Diff",
+    meta: "16 baselines · fixed matrix",
+  },
+]);
+
+export const componentContractFields = Object.freeze([
+  { label: "variants", value: "primary · secondary · destructive" },
+  { label: "states", value: "default · loading · disabled" },
+  { label: "semantics", value: "button · label · 48dp target" },
+  { label: "evidence", value: "widget test · use case · golden" },
 ]);
 
 export const componentStates = Object.freeze([

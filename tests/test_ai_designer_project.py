@@ -69,7 +69,10 @@ class AIDesignerProjectTest(unittest.TestCase):
           import {
             pipelineStages,
             componentStates,
+            componentContractFields,
             createComponentPreview,
+            foundationConsumers,
+            foundationLanes,
             operatingCapabilities,
             previewThemes,
             previewViewports,
@@ -87,6 +90,12 @@ class AIDesignerProjectTest(unittest.TestCase):
             visited,
             wrapped: preview.next().id,
             capabilities: operatingCapabilities.map((item) => item.id),
+            foundationPackages: foundationLanes.map((lane) => lane.packageName),
+            foundationDetailsComplete: foundationLanes.every((lane) => lane.version && lane.samples.length >= 4 && lane.facts.length >= 3),
+            foundationEvidence: foundationLanes.map((lane) => ({ version: lane.version, facts: lane.facts.map((fact) => fact.value) })),
+            consumers: foundationConsumers.map((consumer) => consumer.id),
+            consumerEvidence: foundationConsumers.map((consumer) => consumer.meta),
+            contractFields: componentContractFields.map((field) => field.label),
             themes: previewThemes.map((theme) => theme.id),
             viewports: previewViewports.map((viewport) => viewport.id),
             artifacts: reviewArtifacts.map((artifact) => artifact.id),
@@ -108,6 +117,20 @@ class AIDesignerProjectTest(unittest.TestCase):
                 "visited": ["default", "loading", "disabled", "approved"],
                 "wrapped": "default",
                 "capabilities": ["cookbook", "release", "packages", "review"],
+                "foundationPackages": ["design_tokens", "design_icons", "design_assets"],
+                "foundationDetailsComplete": True,
+                "foundationEvidence": [
+                    {"version": "0.1.0", "facts": ["560", "02", "pinned"]},
+                    {"version": "0.1.0", "facts": ["285", "mono", "pinned"]},
+                    {"version": "0.1.0", "facts": ["01", "01", "OFL"]},
+                ],
+                "consumers": ["production", "widgetbook", "golden"],
+                "consumerEvidence": [
+                    "design_components · 0.1.0",
+                    "4 components · 8 use cases",
+                    "16 baselines · fixed matrix",
+                ],
+                "contractFields": ["variants", "states", "semantics", "evidence"],
                 "themes": ["light", "dark"],
                 "viewports": ["desktop", "compact"],
                 "artifacts": ["button", "textfield", "badge", "empty"],
@@ -127,6 +150,12 @@ class AIDesignerProjectTest(unittest.TestCase):
         self.assertIn("renderSectionHeading", components)
         self.assertIn("renderCapabilityCard", components)
         self.assertIn("renderEvidenceArtifact", components)
+        self.assertIn("renderFoundationLane", components)
+        self.assertIn("renderFoundationConsumer", components)
+        self.assertIn("renderContractField", components)
+        self.assertIn("foundation-lane__preview", components)
+        self.assertIn("consumer-preview--widgetbook", components)
+        self.assertIn("consumer-preview--golden", components)
         for token_family in ("--ds-color-", "--ds-space-", "--ds-radius-", "--ds-type-", "--ds-motion-"):
             self.assertIn(token_family, tokens)
         self.assertIn("@font-face", tokens)

@@ -37,6 +37,10 @@ AI Designer 的价值不只是一个项目卡片名称，而是多个边界共�
 - `src/ai-designer.js` 只负责页面组合和交互状态挂载，不重复转义、卡片或控制器模板。
 - 页面字体使用项目中已审计的 Work Sans Variable 本地资产，并保留 OFL 原文。
 
+Architecture 不能退化成留白过大的说明卡。每条 Foundations lane 必须同时呈现 package 名、版本、代表性样本、内容计数和公共导出；Component contract 必须呈现组件 identity、schema 字段、依赖版本和 hash；Flutter、Widgetbook、Golden Review 三个下游消费者必须用各自的微型产品界面表达职责。上述结构由模型数据和独立 renderer 组合，避免在页面模板中复制卡片标记。
+
+Architecture 中的数量和版本必须来自仓库已提交的生成信息与固定制品，不能用拟真数字装饰界面。当前展示基于 `TokenBuildInfo`、`IconBuildInfo`、`DesignAssetBuildInfo`、`ComponentBuildInfo`、Widgetbook Use Case 源文件和 Linux Golden baseline：4 个 `0.1.0` package、560 tokens、285 icons、1 个字体族、1 个图片资产、4 个组件、8 个 Use Case 和 16 张基线。
+
 ## 真实素材与能力叙事
 
 高质量素材优先使用项目自产、可以追溯到固定渲染器的 Flutter Golden 基线，不用通用图库冒充产品能力。页面展示 `DesignButton`、`DesignTextField`、`DesignStatusBadge` 和 `DesignEmptyState` 的真实 Use Case，并明确它们是静态审查制品，不把图片描述成可交互 Widgetbook。
@@ -56,5 +60,6 @@ AI Designer 的价值不只是一个项目卡片名称，而是多个边界共�
 
 - 首页数据、项目数量、无 JavaScript 导航和独立页面入口一致。
 - 模型测试确认五阶段顺序与组件状态循环。
+- Architecture 模型测试确认三条 foundation package、四类 contract field 和三个下游消费者都有完整结构数据。
 - 页面包含 canonical、语义导航、按钮状态、`aria-live` 更新、移动端布局和 reduced-motion 降级。
 - Python smoke suite、JavaScript 语法检查、页面 HTTP 检查及敏感信息扫描通过。

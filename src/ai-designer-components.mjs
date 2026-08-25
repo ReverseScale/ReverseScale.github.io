@@ -23,14 +23,85 @@ export const renderPipelineStage = (stage, index) => `
   </button>
 `;
 
+const renderFoundationSample = (laneId, sample) => `
+  <span class="foundation-sample foundation-sample--${escapeHtml(laneId)}-${escapeHtml(sample.id)}">
+    <i aria-hidden="true">${escapeHtml(sample.symbol)}</i>
+    <small>${escapeHtml(sample.label)}</small>
+  </span>
+`;
+
+const renderFoundationFact = (fact) => `
+  <span class="foundation-fact">
+    <small>${escapeHtml(fact.label)}</small>
+    <strong>${escapeHtml(fact.value)}</strong>
+  </span>
+`;
+
 export const renderFoundationLane = (lane) => `
   <article class="foundation-lane foundation-lane--${escapeHtml(lane.id)}">
-    <span class="foundation-lane__mark" aria-hidden="true"><i></i><i></i><i></i></span>
-    <div>
+    <header class="foundation-lane__header">
+      <span>${escapeHtml(lane.index)} · foundation</span>
+      <i>v${escapeHtml(lane.version)}</i>
+    </header>
+    <div class="foundation-lane__title">
       <p>${escapeHtml(lane.title)}</p>
-      <span>${escapeHtml(lane.detail)}</span>
+      <code>${escapeHtml(lane.packageName)}</code>
     </div>
-    <strong>${escapeHtml(lane.output)}</strong>
+    <div class="foundation-lane__preview" aria-label="${escapeHtml(lane.title)} package samples">
+      ${lane.samples.map((sample) => renderFoundationSample(lane.id, sample)).join("")}
+    </div>
+    <p class="foundation-lane__detail">${escapeHtml(lane.detail)}</p>
+    <div class="foundation-lane__facts">
+      ${lane.facts.map(renderFoundationFact).join("")}
+    </div>
+    <footer>
+      <span>public export</span>
+      <strong>${escapeHtml(lane.output)}</strong>
+      <i aria-hidden="true">↗</i>
+    </footer>
+  </article>
+`;
+
+export const renderContractField = (field) => `
+  <p>
+    <span>${escapeHtml(field.label)}</span>
+    <b>${escapeHtml(field.value)}</b>
+  </p>
+`;
+
+const consumerPreviews = Object.freeze({
+  production: `
+    <div class="consumer-preview consumer-preview--production" aria-hidden="true">
+      <span class="consumer-preview__caption">DesignButton / primary</span>
+      <strong><i>✓</i> Review changes</strong>
+      <small>enabled · 48dp · label</small>
+    </div>
+  `,
+  widgetbook: `
+    <div class="consumer-preview consumer-preview--widgetbook" aria-hidden="true">
+      <span class="consumer-preview__chrome"><i></i><i></i><i></i><b>Widgetbook</b></span>
+      <span class="consumer-preview__sidebar"><i></i><i></i><i></i><i></i></span>
+      <span class="consumer-preview__canvas"><b>Button</b><i>Primary</i><small>theme · viewport · state</small></span>
+    </div>
+  `,
+  golden: `
+    <div class="consumer-preview consumer-preview--golden" aria-hidden="true">
+      <span><small>Expected</small><i></i></span>
+      <span><small>Actual</small><i></i></span>
+      <span><small>Diff</small><i></i><b>2</b></span>
+    </div>
+  `,
+});
+
+export const renderFoundationConsumer = (consumer) => `
+  <article class="foundation-consumer foundation-consumer--${escapeHtml(consumer.id)}">
+    <header><span>${escapeHtml(consumer.index)}</span><small>${escapeHtml(consumer.eyebrow)}</small></header>
+    ${consumerPreviews[consumer.id] ?? ""}
+    <div class="foundation-consumer__copy">
+      <strong>${escapeHtml(consumer.title)}</strong>
+      <small>${escapeHtml(consumer.detail)}</small>
+    </div>
+    <footer>${escapeHtml(consumer.meta)}</footer>
   </article>
 `;
 

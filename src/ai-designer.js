@@ -1,6 +1,8 @@
 import {
   componentStates,
+  componentContractFields,
   createComponentPreview,
+  foundationConsumers,
   foundationLanes,
   operatingCapabilities,
   pipelineStages,
@@ -12,7 +14,9 @@ import {
   createAIDesignerPage,
   escapeHtml,
   renderCapabilityCard,
+  renderContractField,
   renderEvidenceArtifact,
+  renderFoundationConsumer,
   renderFoundationLane,
   renderModeButton,
   renderPipelineStage,
@@ -123,7 +127,11 @@ const pageTemplate = () => createAIDesignerPage({
       </div>
       <div class="foundation-map">
         <div class="foundation-map__header">
-          <div><span>Release manifest</span><strong>Foundations BOM</strong></div>
+          <div>
+            <span>Release manifest</span>
+            <strong>Foundations BOM</strong>
+            <small><i>release 0.1.0</i><i>3 snapshots</i><i>4 packages</i></small>
+          </div>
           <div class="foundation-map__checks"><span><i></i> snapshot pinned</span><span><i></i> inputs verified</span><span><i></i> drift clean</span></div>
         </div>
         <div class="foundation-lanes">
@@ -132,22 +140,38 @@ const pageTemplate = () => createAIDesignerPage({
         <div class="foundation-join" aria-hidden="true"><i></i><span>typed public APIs</span><i></i></div>
         <article class="component-contract">
           <div class="component-contract__header">
-            <span>component-spec.json</span>
-            <span>validated</span>
+            <span><i>04</i> component-spec.json</span>
+            <span><i></i> validated</span>
           </div>
-          <div class="component-contract__body">
-            <p><span>variants</span><b>primary · secondary</b></p>
-            <p><span>states</span><b>default · loading · disabled</b></p>
-            <p><span>semantics</span><b>label · role · minimum target</b></p>
-            <p><span>evidence</span><b>widget test · use case · golden</b></p>
+          <div class="component-contract__content">
+            <div class="component-contract__identity">
+              <small>component</small>
+              <strong>DesignButton</strong>
+              <code>design_button / primary</code>
+              <div><span>schema 1.2.0</span><span>stable</span></div>
+            </div>
+            <div class="component-contract__body">
+              ${componentContractFields.map(renderContractField).join("")}
+            </div>
           </div>
+          <footer class="component-contract__footer">
+            <span><i>DEP</i> tokens@0.1.0</span>
+            <span><i>DEP</i> icons@0.1.0</span>
+            <span><i>DEP</i> assets@0.1.0</span>
+            <span><i>SHA</i> d682…44d</span>
+          </footer>
         </article>
-        <div class="foundation-arrow" aria-hidden="true">↓</div>
-        <div class="foundation-consumers">
-          <article><span>Production</span><strong>Flutter components</strong><small>Stable product APIs</small></article>
-          <article><span>Review</span><strong>Widgetbook</strong><small>Interactive use cases</small></article>
-          <article><span>Evidence</span><strong>Golden Review</strong><small>Expected · Actual · Diff</small></article>
+        <div class="foundation-flow" aria-hidden="true">
+          <i></i><span>contract accepted</span><i></i>
         </div>
+        <div class="foundation-consumers">
+          ${foundationConsumers.map(renderFoundationConsumer).join("")}
+        </div>
+        <div class="foundation-map__legend">
+          <span><i></i> immutable input</span>
+          <span><i></i> generated + committed</span>
+          <span><i></i> human approval required</span>
+          </div>
       </div>
     </section>
 
@@ -207,7 +231,7 @@ const pageTemplate = () => createAIDesignerPage({
               <span class="preview-badge"><i></i><b data-preview-badge>${escapeHtml(componentStates[0].badge)}</b></span>
               <label>
                 <span>Review name</span>
-                <span class="preview-field">Foundations release 1.4</span>
+                <span class="preview-field">Foundations release 0.1.0</span>
               </label>
               <button class="preview-button" type="button" data-preview-button>${escapeHtml(componentStates[0].button)}</button>
               <div class="preview-empty">
