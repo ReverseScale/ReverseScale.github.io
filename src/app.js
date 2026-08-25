@@ -53,6 +53,17 @@ const projectMicroVisual = (project) => {
     `;
   }
 
+  if (project.visual === "agent-room") {
+    return `
+      <span class="micro-visual micro-visual--agent-room" aria-hidden="true">
+        <span class="agent-room-source">RULE</span>
+        <em><i></i></em>
+        <span class="agent-room-agents"><i>S</i><i>G</i></span>
+        <span class="agent-room-result">✓</span>
+      </span>
+    `;
+  }
+
   return "";
 };
 
@@ -134,7 +145,7 @@ function renderHome() {
       <div class="section-heading">
         <div>
           <p class="eyebrow">Selected work</p>
-          <h2 id="work-title">Four tools, one practical thread.</h2>
+          <h2 id="work-title">Independent systems, one practical thread.</h2>
         </div>
         <p>Projects built around the difficult space between code, review, build, and release.</p>
       </div>
@@ -214,7 +225,7 @@ function renderAbout() {
       </div>
       <div class="prose">
         <p>${escapeHtml(profile.story)}</p>
-        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible. MobileLab connects AI-assisted quality workflows with App and IoT device infrastructure.</p>
+        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible. MobileLab connects AI-assisted quality workflows with App and IoT device infrastructure. AI Config makes personal AI environments and multi-agent collaboration reproducible.</p>
         <p>ReverseScale is the namespace that connects these independent projects, not a company layer placed between the work and the person making it.</p>
       </div>
     </section>

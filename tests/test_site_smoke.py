@@ -1,4 +1,7 @@
+from html.parser import HTMLParser
 from pathlib import Path
+import json
+import subprocess
 import unittest
 
 
@@ -7,6 +10,19 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def read(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
+
+
+class PageTextParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.parts: list[str] = []
+
+    def handle_data(self, data: str) -> None:
+        if data.strip():
+            self.parts.append(data.strip())
+
+    def text(self) -> str:
+        return " ".join(" ".join(self.parts).split())
 
 
 class SiteSmokeTest(unittest.TestCase):
@@ -97,6 +113,70 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn("micro-visual--strings", styles)
         self.assertIn("micro-visual--pipeline", styles)
         self.assertIn("micro-visual--device-flow", styles)
+
+    def test_ai_config_is_a_first_class_project_with_a_local_case_study(self) -> None:
+        script = """
+          import { projectLinks } from './src/site-data.js';
+          const matches = projectLinks.filter((item) => item.name === 'AI Config');
+          console.log(JSON.stringify({ matchCount: matches.length, project: matches[0] }));
+        """
+        result = subprocess.run(
+            ["node", "--input-type=module", "-e", script],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(
+            json.loads(result.stdout),
+            {
+                "matchCount": 1,
+                "project": {
+                    "name": "AI Config",
+                    "label": "Personal AI environment & collaboration",
+                    "href": "https://github.com/ReverseScale/ai-config",
+                    "siteHref": "/ai-config/",
+                    "status": "AI workspace",
+                    "tone": "coral",
+                    "visual": "agent-room",
+                    "summary": (
+                        "A versioned macOS AI environment and local multi-agent runtime "
+                        "for safe, repeatable collaboration across Codex and Grok."
+                    ),
+                    "points": [
+                        "Config as code",
+                        "Bounded agent rooms",
+                        "Auditable handoffs",
+                    ],
+                },
+            },
+        )
+
+        self.assertIn('project.visual === "agent-room"', read("src/app.js"))
+        self.assertIn("micro-visual--agent-room", read("src/styles.css"))
+        self.assertIn('href="/ai-config/"', read("index.html"))
+        self.assertTrue((ROOT / "ai-config" / "index.html").is_file())
+
+    def test_ai_config_case_study_explains_workflow_and_safety_boundaries(self) -> None:
+        html = read("ai-config/index.html")
+        parser = PageTextParser()
+        parser.feed(html)
+        page_text = parser.text()
+
+        self.assertIn("One AI environment. Deliberate collaboration.", page_text)
+        self.assertIn('id="workflow"', html)
+        self.assertIn('id="guardrails"', html)
+        self.assertIn("Plan", page_text)
+        self.assertIn("Implement", page_text)
+        self.assertIn("Accept", page_text)
+        self.assertIn("Versioned configuration", page_text)
+        self.assertIn("Explicit permissions", page_text)
+        self.assertIn("Auditable outcomes", page_text)
+        self.assertIn("https://github.com/ReverseScale/ai-config", html)
+        self.assertIn('href="../src/ai-config.css"', html)
+        self.assertNotIn("capability token", html.lower())
+        self.assertNotIn("password", html.lower())
 
     def test_home_keeps_work_research_and_about_without_article_feed(self) -> None:
         app_source = read("src/app.js")

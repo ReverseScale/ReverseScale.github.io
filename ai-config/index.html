@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="AI Config is a versioned macOS AI environment and local multi-agent runtime for deliberate, auditable collaboration across Codex and Grok."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="AI Config — Deliberate multi-agent collaboration" />
+    <meta
+      property="og:description"
+      content="A project case study about reproducible AI tooling, bounded agent rooms, explicit permissions, and auditable handoffs."
+    />
+    <meta property="og:url" content="https://reversescale.github.io/ai-config/" />
+    <title>AI Config — Deliberate multi-agent collaboration | Tim</title>
+    <link rel="canonical" href="https://reversescale.github.io/ai-config/" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/ai-config.css" />
+  </head>
+  <body>
+    <div class="config-shell">
+      <header class="config-nav">
+        <a class="config-brand" href="/" aria-label="Back to Tim’s work">
+          <span>AC</span>
+          <strong>AI Config</strong>
+        </a>
+        <nav aria-label="AI Config sections">
+          <a href="#system">System</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#guardrails">Guardrails</a>
+          <a class="config-nav__back" href="/">All work <span aria-hidden="true">↗</span></a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="config-hero" id="system" aria-labelledby="config-title">
+          <div class="config-hero__copy">
+            <p class="config-kicker"><i></i> Personal AI infrastructure</p>
+            <h1 id="config-title">One AI environment. <em>Deliberate collaboration.</em></h1>
+            <p class="config-hero__lede">
+              AI Config turns a personal macOS setup into a versioned, inspectable system—and turns
+              multi-agent work into bounded Rooms with named roles, explicit dependencies, and evidence-backed outcomes.
+            </p>
+            <div class="config-hero__actions">
+              <a class="config-button config-button--primary" href="#workflow">See the workflow <span aria-hidden="true">↓</span></a>
+              <a class="config-button" href="https://github.com/ReverseScale/ai-config">View source <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <div class="room-map" aria-label="A rule flows through a bounded room to planning, implementation, acceptance, and an auditable result">
+            <div class="room-map__header">
+              <span>ROOM / LOCAL</span>
+              <span class="room-map__status"><i></i> bounded</span>
+            </div>
+            <div class="room-map__rule">
+              <span>RULE</span>
+              <div><b>roles</b><b>permissions</b><b>dependencies</b></div>
+            </div>
+            <div class="room-map__line" aria-hidden="true"><i></i></div>
+            <div class="room-map__agents">
+              <article><span>S</span><div><b>Sol</b><small>plan · accept</small></div></article>
+              <article><span>G</span><div><b>Grok</b><small>implement · test</small></div></article>
+            </div>
+            <div class="room-map__result">
+              <span>✓</span>
+              <div><b>Auditable outcome</b><small>task state · artifact · handoff</small></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="config-section config-section--intro" aria-labelledby="why-title">
+          <div>
+            <p class="config-eyebrow">Why it exists</p>
+            <h2 id="why-title">AI tooling should feel like infrastructure, not folklore.</h2>
+          </div>
+          <p>
+            Personal setup often drifts across machines. Multi-agent work often hides ownership and completion in chat.
+            AI Config gives both problems one answer: version the durable configuration, then make collaboration state explicit.
+          </p>
+        </section>
+
+        <section class="config-section" id="workflow" aria-labelledby="workflow-title">
+          <div class="config-section__heading">
+            <p class="config-eyebrow">A constrained handoff</p>
+            <h2 id="workflow-title">Plan → Implement → Accept</h2>
+            <p>Every stage has one owner, a clear permission boundary, and a result the next stage can inspect.</p>
+          </div>
+          <ol class="workflow-track">
+            <li>
+              <span class="workflow-track__number">01</span>
+              <div class="workflow-track__agent">S</div>
+              <div><p>Plan</p><h3>Turn intent into a bounded task graph.</h3><small>Read-only · dependencies declared</small></div>
+            </li>
+            <li>
+              <span class="workflow-track__number">02</span>
+              <div class="workflow-track__agent workflow-track__agent--coral">G</div>
+              <div><p>Implement</p><h3>Change only the assigned workspace.</h3><small>Workspace write · tests · artifact</small></div>
+            </li>
+            <li>
+              <span class="workflow-track__number">03</span>
+              <div class="workflow-track__agent">S</div>
+              <div><p>Accept</p><h3>Verify the outcome against the original goal.</h3><small>Read-only · evidence before completion</small></div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="config-section" id="guardrails" aria-labelledby="guardrails-title">
+          <div class="config-section__heading config-section__heading--split">
+            <div>
+              <p class="config-eyebrow">Built-in guardrails</p>
+              <h2 id="guardrails-title">Autonomy with an edge.</h2>
+            </div>
+            <p>Coordination is useful only when its authority, state, and completion boundary stay visible.</p>
+          </div>
+          <div class="guardrail-grid">
+            <article>
+              <span>01 / SOURCE</span>
+              <h3>Versioned configuration</h3>
+              <p>Hooks, Skills, MCP definitions, and machine setup share one reviewable source of truth.</p>
+            </article>
+            <article>
+              <span>02 / AUTHORITY</span>
+              <h3>Explicit permissions</h3>
+              <p>Each agent receives a named role and the smallest workspace access its task requires.</p>
+            </article>
+            <article>
+              <span>03 / EVIDENCE</span>
+              <h3>Auditable outcomes</h3>
+              <p>Tasks, leases, artifacts, and handoffs make progress inspectable beyond a chat transcript.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="config-section config-architecture" aria-labelledby="architecture-title">
+          <div>
+            <p class="config-eyebrow">System boundary</p>
+            <h2 id="architecture-title">Local-first by design.</h2>
+            <p>
+              A Supervisor owns Room state. Drivers resume model sessions. A strict workflow defines who can act,
+              what they depend on, and what must exist before work is complete.
+            </p>
+          </div>
+          <div class="layer-stack" aria-label="AI Config system layers">
+            <span><b>Natural language</b><small>intent</small></span>
+            <span><b>Workflow rule</b><small>roles · DAG · policy</small></span>
+            <span><b>Room supervisor</b><small>tasks · leases · audit</small></span>
+            <span><b>Managed workspaces</b><small>Codex · Grok</small></span>
+          </div>
+        </section>
+
+        <section class="config-cta">
+          <p class="config-eyebrow">Open source</p>
+          <h2>Make the environment reproducible.<br />Make the collaboration legible.</h2>
+          <a class="config-button config-button--primary" href="https://github.com/ReverseScale/ai-config">
+            Explore AI Config on GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </section>
+      </main>
+
+      <footer class="config-footer">
+        <span>AI Config · A ReverseScale project</span>
+        <a href="/">Back to Tim’s work <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+  </body>
+</html>

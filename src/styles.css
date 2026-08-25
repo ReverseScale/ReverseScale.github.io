@@ -13,6 +13,8 @@
   --amber-soft: #f1e2d2;
   --violet: #6d4bc3;
   --violet-soft: #e8e0f5;
+  --coral: #bd4e3b;
+  --coral-soft: #f3dfda;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
   background: var(--paper);
   color: var(--ink);
@@ -553,6 +555,14 @@ h1 {
   border-top: 4px solid var(--violet);
 }
 
+.project-card--coral {
+  border-top: 4px solid var(--coral);
+}
+
+.hero-project--coral .hero-project__index {
+  color: var(--coral);
+}
+
 .micro-visual--device-flow {
   display: grid;
   grid-template-columns: 34px minmax(38px, 1fr) 72px 24px;
@@ -630,6 +640,79 @@ h1 {
 @keyframes device-flow-pulse {
   from { transform: translateX(-5px); }
   to { transform: translateX(84px); }
+}
+
+.micro-visual--agent-room {
+  display: grid;
+  grid-template-columns: 42px minmax(34px, 1fr) 62px 24px;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: var(--coral-soft);
+  color: var(--coral);
+}
+
+.agent-room-source {
+  display: grid;
+  min-height: 30px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: rgba(251, 250, 247, 0.72);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.micro-visual--agent-room > em {
+  position: relative;
+  height: 1px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--coral) 32%, transparent);
+}
+
+.micro-visual--agent-room > em i {
+  position: absolute;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: agent-room-pulse 2.1s linear infinite;
+}
+
+.agent-room-agents {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.agent-room-agents i,
+.agent-room-result {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: rgba(251, 250, 247, 0.78);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.agent-room-result {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: rgba(189, 78, 59, 0.14);
+}
+
+@keyframes agent-room-pulse {
+  from { transform: translateX(-5px); }
+  to { transform: translateX(70px); }
 }
 
 .project-card .micro-visual {
@@ -1117,7 +1200,8 @@ h1 {
 
   .architecture-preview::before,
   .architecture-preview__diagram::after,
-  .micro-visual--device-flow > em i {
+  .micro-visual--device-flow > em i,
+  .micro-visual--agent-room > em i {
     animation: none;
   }
 }

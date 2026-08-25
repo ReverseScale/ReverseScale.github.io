@@ -69,6 +69,18 @@ export const projectLinks = [
       "AI-assisted quality infrastructure that connects CI/CD with an App and IoT device farm, balancing stronger release evidence with efficient hardware use.",
     points: ["AI test orchestration", "App & IoT device farm", "CI/CD feedback loop"],
   },
+  {
+    name: "AI Config",
+    label: "Personal AI environment & collaboration",
+    href: "https://github.com/ReverseScale/ai-config",
+    siteHref: "/ai-config/",
+    status: "AI workspace",
+    tone: "coral",
+    visual: "agent-room",
+    summary:
+      "A versioned macOS AI environment and local multi-agent runtime for safe, repeatable collaboration across Codex and Grok.",
+    points: ["Config as code", "Bounded agent rooms", "Auditable handoffs"],
+  },
 ];
 
 export const workingPrinciples = [
