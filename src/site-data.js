@@ -2,11 +2,11 @@ export const profile = Object.freeze({
   name: "Tim",
   mark: "T",
   role: "Independent software developer",
-  focus: "Mobile engineering, delivery workflows, and developer tools.",
+  focus: "Mobile engineering, delivery workflows, and developer tools, with design systems.",
   description:
-    "I’m Tim, an independent software developer focused on mobile engineering, delivery workflows, and developer tools.",
+    "I’m Tim, an independent software developer focused on mobile engineering, delivery workflows, and developer tools, with design systems as another practical focus.",
   story:
-    "I build practical, self-hosted software around the work between code and release. These projects grow from real engineering problems: shipping mobile changes, keeping product strings reviewable, and making build artifacts easier to understand and deliver.",
+    "I build practical, self-hosted software around the work between design, code, and release. These projects grow from real engineering problems: translating design intent, shipping mobile changes, keeping product strings reviewable, and making build artifacts easier to understand and deliver.",
   github: {
     label: "GitHub",
     href: "https://github.com/ReverseScale",
@@ -80,6 +80,18 @@ export const projectLinks = [
     summary:
       "A versioned macOS AI environment and local multi-agent runtime for safe, repeatable collaboration across Codex and Grok.",
     points: ["Config as code", "Bounded agent rooms", "Auditable handoffs"],
+  },
+  {
+    name: "AI Designer",
+    label: "Penpot to Flutter design systems",
+    href: "/ai-designer/",
+    siteHref: "/ai-designer/",
+    status: "Design infrastructure",
+    tone: "rose",
+    visual: "design-system",
+    summary:
+      "A snapshot-first design system workflow that turns Penpot intent into typed Flutter foundations, contract-driven components, and reviewable visual evidence.",
+    points: ["Snapshot-first foundations", "Contract-driven components", "Visual review evidence"],
   },
 ];
 

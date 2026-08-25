@@ -1,0 +1,148 @@
+@font-face {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/ai-designer/fonts/WorkSans-Variable.ttf") format("truetype");
+}
+
+:root {
+  /* Primitive color tokens. Components consume semantic aliases below. */
+  --ds-color-neutral-000: #ffffff;
+  --ds-color-neutral-025: #fffdf9;
+  --ds-color-neutral-050: #f8f4f1;
+  --ds-color-neutral-075: #f4f0ea;
+  --ds-color-neutral-100: #f3f0f2;
+  --ds-color-neutral-150: #eee8ef;
+  --ds-color-neutral-200: #ebe5eb;
+  --ds-color-neutral-250: #d9d0d5;
+  --ds-color-neutral-300: #d6cfd5;
+  --ds-color-neutral-350: #cfc7d1;
+  --ds-color-neutral-400: #a99fab;
+  --ds-color-neutral-450: #9a939a;
+  --ds-color-neutral-500: #827b83;
+  --ds-color-neutral-600: #706974;
+  --ds-color-neutral-700: #5c5360;
+  --ds-color-neutral-750: #4f4852;
+  --ds-color-neutral-800: #3d3741;
+  --ds-color-neutral-850: #2a2630;
+  --ds-color-neutral-900: #231f28;
+  --ds-color-neutral-925: #211e26;
+  --ds-color-neutral-950: #1b1820;
+  --ds-color-rose-100: #f2dfe5;
+  --ds-color-rose-300: #e3a9ba;
+  --ds-color-rose-400: #ff8aac;
+  --ds-color-rose-500: #a33f5b;
+  --ds-color-rose-600: #8a526d;
+  --ds-color-rose-700: #74253e;
+  --ds-color-rose-050: #ffdce7;
+  --ds-color-plum-100: #e9e1ef;
+  --ds-color-plum-600: #4c365d;
+  --ds-color-green-100: #dceae5;
+  --ds-color-green-400: #9ed3c2;
+  --ds-color-green-700: #27705b;
+
+  /* Semantic surface, content, border and feedback tokens. */
+  --ds-color-surface-canvas: var(--ds-color-neutral-075);
+  --ds-color-surface-base: var(--ds-color-neutral-025);
+  --ds-color-surface-subtle: var(--ds-color-neutral-050);
+  --ds-color-surface-preview: #f7f3f7;
+  --ds-color-surface-inverse: var(--ds-color-neutral-950);
+  --ds-color-surface-inverse-subtle: var(--ds-color-neutral-925);
+  --ds-color-content-primary: var(--ds-color-neutral-950);
+  --ds-color-content-secondary: var(--ds-color-neutral-600);
+  --ds-color-content-inverse: var(--ds-color-neutral-000);
+  --ds-color-content-inverse-secondary: #c6bdc8;
+  --ds-color-content-inverse-tertiary: #d1c8d2;
+  --ds-color-content-inverse-strong: #f8f4f8;
+  --ds-color-content-inverse-soft: #f4eef5;
+  --ds-color-border-default: var(--ds-color-neutral-250);
+  --ds-color-border-field: var(--ds-color-neutral-350);
+  --ds-color-accent-primary: var(--ds-color-rose-500);
+  --ds-color-accent-strong: var(--ds-color-rose-700);
+  --ds-color-accent-soft: var(--ds-color-rose-100);
+  --ds-color-accent-plum: var(--ds-color-plum-600);
+  --ds-color-accent-plum-soft: var(--ds-color-plum-100);
+  --ds-color-feedback-success: var(--ds-color-green-700);
+  --ds-color-feedback-success-soft: var(--ds-color-green-100);
+
+  /* Alpha tokens keep opacity decisions out of component rules. */
+  --ds-alpha-grid-dark: rgba(27, 24, 32, 0.025);
+  --ds-alpha-grid-plum: rgba(76, 54, 93, 0.035);
+  --ds-alpha-grid-light: rgba(255, 255, 255, 0.035);
+  --ds-alpha-surface-66: rgba(255, 253, 249, 0.66);
+  --ds-alpha-surface-72: rgba(255, 253, 249, 0.72);
+  --ds-alpha-surface-76: rgba(255, 253, 249, 0.76);
+  --ds-alpha-surface-84: rgba(255, 253, 249, 0.84);
+  --ds-alpha-white-10: rgba(255, 255, 255, 0.1);
+  --ds-alpha-white-12: rgba(255, 255, 255, 0.12);
+  --ds-alpha-white-13: rgba(255, 255, 255, 0.13);
+  --ds-alpha-white-16: rgba(255, 255, 255, 0.16);
+  --ds-alpha-white-18: rgba(255, 255, 255, 0.18);
+  --ds-alpha-rose-06: rgba(227, 169, 186, 0.06);
+  --ds-alpha-rose-07: rgba(163, 63, 91, 0.07);
+  --ds-alpha-rose-10: rgba(163, 63, 91, 0.1);
+  --ds-alpha-rose-11: rgba(163, 63, 91, 0.11);
+  --ds-alpha-rose-22: rgba(163, 63, 91, 0.22);
+  --ds-alpha-rose-24: rgba(227, 169, 186, 0.24);
+  --ds-alpha-rose-30: rgba(163, 63, 91, 0.3);
+  --ds-alpha-rose-34: rgba(163, 63, 91, 0.34);
+  --ds-alpha-rose-40: rgba(163, 63, 91, 0.4);
+  --ds-alpha-rose-soft-42: rgba(242, 223, 229, 0.42);
+  --ds-alpha-plum-06: rgba(76, 54, 93, 0.06);
+  --ds-alpha-plum-08: rgba(76, 54, 93, 0.08);
+  --ds-alpha-plum-12: rgba(76, 54, 93, 0.12);
+  --ds-alpha-plum-15: rgba(76, 54, 93, 0.15);
+  --ds-alpha-green-09: rgba(39, 112, 91, 0.09);
+  --ds-alpha-green-10: rgba(39, 112, 91, 0.1);
+  --ds-alpha-green-36: rgba(39, 112, 91, 0.36);
+  --ds-alpha-green-65: rgba(158, 211, 194, 0.65);
+  --ds-alpha-shadow-soft: rgba(52, 34, 47, 0.1);
+  --ds-alpha-shadow-raised: rgba(52, 34, 47, 0.11);
+  --ds-alpha-shadow-dark: rgba(10, 8, 12, 0.28);
+
+  /* Layout, radius, typography, elevation and motion scales. */
+  --ds-space-0: 0;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+  --ds-space-12: 48px;
+  --ds-space-16: 64px;
+  --ds-space-24: 96px;
+  --ds-radius-sm: 8px;
+  --ds-radius-md: 12px;
+  --ds-radius-lg: 18px;
+  --ds-radius-xl: 20px;
+  --ds-radius-full: 999px;
+  --ds-type-family-sans: "Work Sans", Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ds-type-family-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --ds-type-family-display: "Work Sans", Inter, ui-sans-serif, sans-serif;
+  --ds-type-weight-regular: 430;
+  --ds-type-weight-medium: 560;
+  --ds-type-weight-bold: 760;
+  --ds-elevation-raised: 0 24px 70px var(--ds-alpha-shadow-raised);
+  --ds-elevation-preview: 0 20px 50px var(--ds-alpha-plum-12);
+  --ds-motion-fast: 160ms;
+  --ds-motion-standard: 180ms;
+  --ds-motion-ease: ease;
+
+  /* Compatibility aliases expose the original component vocabulary. */
+  --designer-paper: var(--ds-color-surface-canvas);
+  --designer-surface: var(--ds-color-surface-base);
+  --designer-ink: var(--ds-color-content-primary);
+  --designer-muted: var(--ds-color-content-secondary);
+  --designer-line: var(--ds-color-border-default);
+  --designer-rose: var(--ds-color-accent-primary);
+  --designer-rose-dark: var(--ds-color-accent-strong);
+  --designer-rose-soft: var(--ds-color-accent-soft);
+  --designer-plum: var(--ds-color-accent-plum);
+  --designer-lilac: var(--ds-color-accent-plum-soft);
+  --designer-mint: var(--ds-color-feedback-success-soft);
+  --designer-green: var(--ds-color-feedback-success);
+  --designer-shadow: var(--ds-elevation-raised);
+}

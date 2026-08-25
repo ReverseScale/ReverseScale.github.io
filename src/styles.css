@@ -13,6 +13,8 @@
   --amber-soft: #f1e2d2;
   --violet: #6d4bc3;
   --violet-soft: #e8e0f5;
+  --rose: #a6425d;
+  --rose-soft: #f1dfe4;
   --coral: #bd4e3b;
   --coral-soft: #f3dfda;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
@@ -555,6 +557,10 @@ h1 {
   border-top: 4px solid var(--violet);
 }
 
+.project-card--rose {
+  border-top: 4px solid var(--rose);
+}
+
 .project-card--coral {
   border-top: 4px solid var(--coral);
 }
@@ -640,6 +646,91 @@ h1 {
 @keyframes device-flow-pulse {
   from { transform: translateX(-5px); }
   to { transform: translateX(84px); }
+}
+
+.micro-visual--design-system {
+  display: grid;
+  grid-template-columns: 48px minmax(28px, 1fr) 48px 24px;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  background: var(--rose-soft);
+  color: var(--rose);
+}
+
+.design-system-source {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 3px;
+}
+
+.design-system-source i {
+  display: block;
+  width: 11px;
+  border: 1px solid currentColor;
+  border-radius: 3px 3px 1px 1px;
+  background: rgba(251, 250, 247, 0.72);
+}
+
+.design-system-source i:nth-child(1) { height: 25px; }
+.design-system-source i:nth-child(2) { height: 36px; }
+.design-system-source i:nth-child(3) { height: 29px; }
+
+.micro-visual--design-system > em {
+  position: relative;
+  height: 1px;
+  background: color-mix(in srgb, var(--rose) 28%, transparent);
+}
+
+.micro-visual--design-system > em i {
+  position: absolute;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: design-system-pulse 2.2s ease-in-out infinite;
+}
+
+.design-system-component {
+  position: relative;
+  display: grid;
+  width: 48px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  background: rgba(251, 250, 247, 0.82);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 9px;
+}
+
+.design-system-component i {
+  position: absolute;
+  top: -5px;
+  left: 7px;
+  width: 16px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.28;
+}
+
+.design-system-review {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(251, 250, 247, 0.82);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+@keyframes design-system-pulse {
+  0%, 100% { left: -2px; opacity: 0.35; }
+  50% { left: calc(100% - 3px); opacity: 1; }
 }
 
 .micro-visual--agent-room {
@@ -1201,6 +1292,7 @@ h1 {
   .architecture-preview::before,
   .architecture-preview__diagram::after,
   .micro-visual--device-flow > em i,
+  .micro-visual--design-system > em i,
   .micro-visual--agent-room > em i {
     animation: none;
   }
