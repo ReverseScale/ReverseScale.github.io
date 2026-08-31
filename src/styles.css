@@ -19,6 +19,8 @@
   --coral-soft: #f3dfda;
   --oxide: #a7442d;
   --oxide-soft: #f0ddd5;
+  --cobalt: #2859bd;
+  --cobalt-soft: #e0e8f7;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
   background: var(--paper);
   color: var(--ink);
@@ -571,6 +573,10 @@ h1 {
   border-top: 4px solid var(--oxide);
 }
 
+.project-card--cobalt {
+  border-top: 4px solid var(--cobalt);
+}
+
 .micro-visual--device-flow {
   display: grid;
   grid-template-columns: 34px minmax(38px, 1fr) 72px 24px;
@@ -878,6 +884,38 @@ h1 {
 @keyframes agent-room-pulse {
   from { transform: translateX(-5px); }
   to { transform: translateX(70px); }
+}
+
+.micro-visual--learning-loop {
+  display: grid;
+  grid-template-columns: 46px 20px 52px 20px 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px 12px;
+  background: var(--cobalt-soft);
+  color: var(--cobalt);
+}
+
+.learning-loop-node {
+  display: grid;
+  min-height: 34px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgba(251, 250, 247, 0.78);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.micro-visual--learning-loop > em {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px;
+  font-style: normal;
+  text-align: center;
 }
 
 .project-card .micro-visual {

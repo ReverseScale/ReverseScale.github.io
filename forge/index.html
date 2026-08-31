@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Forge is an agent-driven developer training system that turns technical goals, project context, and answer history into focused practice and a reusable ability map."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Forge — Personalized developer training" />
+    <meta
+      property="og:description"
+      content="A visual case study of adaptive questions, multi-turn coaching, and durable learning memory for developers."
+    />
+    <meta property="og:url" content="https://reversescale.github.io/forge/" />
+    <title>Forge — Personalized developer training | Tim</title>
+    <link rel="canonical" href="https://reversescale.github.io/forge/" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/forge.css" />
+    <script type="module" src="../src/forge.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="forge-nav">
+        <a class="forge-brand" href="/" aria-label="Back to Tim's work">
+          <span class="forge-brand__mark" aria-hidden="true">F</span>
+          <span><strong>Forge</strong><small>by Tim</small></span>
+        </a>
+        <nav aria-label="Forge navigation">
+          <a href="#story">Why</a>
+          <a href="#capabilities">Features</a>
+          <a href="#loop">Learning loop</a>
+          <a href="#architecture">Architecture</a>
+          <a class="nav-back" href="/">All projects <span aria-hidden="true">↗</span></a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="forge-hero" aria-labelledby="forge-title">
+          <div class="hero-orbit hero-orbit--one" aria-hidden="true"></div>
+          <div class="hero-orbit hero-orbit--two" aria-hidden="true"></div>
+
+          <div class="forge-hero__copy">
+            <p class="eyebrow"><span></span> Agent-driven deliberate practice</p>
+            <h1 id="forge-title" aria-label="Turn real project work into deliberate practice.">Turn real project work into <em>deliberate practice.</em></h1>
+            <p class="forge-hero__lede">
+              Forge studies the technical work already in front of you, challenges the
+              fuzzy parts of your reasoning, and remembers enough to make the next
+              session meaningfully harder—not merely different.
+            </p>
+            <div class="forge-actions">
+              <a class="button button--light" href="#capabilities">Explore the product <span aria-hidden="true">↓</span></a>
+              <a class="button button--ghost" href="#architecture">See the system</a>
+            </div>
+            <dl class="hero-facts">
+              <div><dt>04</dt><dd>specialist agents</dd></div>
+              <div><dt>12</dt><dd>reusable tools</dd></div>
+              <div><dt>02</dt><dd>practice surfaces</dd></div>
+            </dl>
+          </div>
+
+          <div class="mentor-workspace" aria-label="Illustration of an adaptive Forge mentoring session">
+            <div class="workspace-topbar">
+              <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span>forge / session-042</span>
+              <span class="workspace-status"><i></i> adaptive</span>
+            </div>
+            <div class="workspace-context">
+              <span>Direction</span>
+              <strong>Agent tool design</strong>
+              <span>Project signal</span>
+              <strong>Retries · traces · failure semantics</strong>
+            </div>
+            <div class="workspace-dialogue">
+              <article class="dialogue-turn dialogue-turn--mentor">
+                <span>Forge · question 03</span>
+                <p>When should an agent retry a failed tool call—and when should it change its plan?</p>
+              </article>
+              <article class="dialogue-turn dialogue-turn--answer">
+                <span>Your answer</span>
+                <p>Retry transient failures with backoff. Replan when the tool reports a permanent error.</p>
+              </article>
+              <article class="dialogue-turn dialogue-turn--probe">
+                <span>Follow-up · boundary check</span>
+                <p>What if transport succeeds, but the result is semantically unusable?</p>
+              </article>
+            </div>
+            <div class="workspace-insight">
+              <div>
+                <span>Weakness signal</span>
+                <strong>Meaning-level recovery</strong>
+              </div>
+              <div class="mastery-meter">
+                <span><b>Ability memory</b><b>0.68</b></span>
+                <i><b></b></i>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="capability-ribbon" aria-label="Forge capabilities">
+          <p><span>Context</span><strong>Real project signals</strong></p>
+          <i aria-hidden="true">→</i>
+          <p><span>Practice</span><strong>Adaptive questions</strong></p>
+          <i aria-hidden="true">→</i>
+          <p><span>Coaching</span><strong>Multi-turn probing</strong></p>
+          <i aria-hidden="true">→</i>
+          <p><span>Memory</span><strong>Ability + narrative</strong></p>
+        </section>
+
+        <section class="forge-section story-section" id="story" aria-labelledby="story-title">
+          <div class="section-index" aria-hidden="true">01 / WHY</div>
+          <div class="story-heading">
+            <p class="eyebrow eyebrow--ink">The gap</p>
+            <h2 id="story-title">Most learning tools forget the work that made the question matter.</h2>
+          </div>
+          <div class="story-copy">
+            <p class="story-copy__lead">
+              Generic courses know the topic. Your project knows the pressure. Forge connects both.
+            </p>
+            <p>
+              A useful technical question is rarely isolated from the codebase, the constraints,
+              or the decisions that exposed the gap. Forge keeps those signals close, then uses
+              the conversation itself to build a durable picture of what you understand.
+            </p>
+            <div class="story-principles">
+              <article><span>01</span><strong>Ground the challenge</strong><p>Use active technical direction and project context as the seed.</p></article>
+              <article><span>02</span><strong>Probe the boundary</strong><p>Test failure semantics, tradeoffs, and transfer—not recall.</p></article>
+              <article><span>03</span><strong>Preserve the change</strong><p>Carry the new evidence into ability memory and spaced review.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="forge-section product-section" id="capabilities" aria-labelledby="capabilities-title">
+          <div class="section-index" aria-hidden="true">02 / PRODUCT</div>
+          <div class="product-heading">
+            <div>
+              <p class="eyebrow eyebrow--ink">What you can do</p>
+              <h2 id="capabilities-title">A training workspace that adapts to the work you are doing now.</h2>
+            </div>
+            <p>
+              Choose what matters, bring in the project that gives it context, then practice through a
+              coached session. Forge carries the evidence forward instead of resetting after every answer.
+            </p>
+          </div>
+
+          <div class="product-grid" aria-label="Forge product capabilities">
+            <article class="product-card product-card--wide" data-product-capability="directions">
+              <div class="product-card__meta"><span>01</span><b>Curriculum</b></div>
+              <h3>Weighted learning directions</h3>
+              <p>Define the technical areas that matter now and give each one a weight. Forge resolves concrete subtopics from those priorities, due reviews, and weaker ability signals.</p>
+              <div class="direction-visual" aria-label="Example weighted learning directions">
+                <span><b>Agent systems</b><i><em></em></i><small>High</small></span>
+                <span><b>Distributed state</b><i><em></em></i><small>Med</small></span>
+                <span><b>API design</b><i><em></em></i><small>Low</small></span>
+              </div>
+            </article>
+
+            <article class="product-card product-card--context" data-product-capability="context">
+              <div class="product-card__meta"><span>02</span><b>Context</b></div>
+              <h3>Project-grounded questions</h3>
+              <p>Add an optional project directory. Forge indexes it in the background, retrieves the most relevant code and documentation, and uses those signals without blocking setup.</p>
+              <div class="context-visual" aria-label="Project indexing status">
+                <span><i></i> project / agent-runtime</span>
+                <strong>Ready for retrieval</strong>
+                <small>Chunked · embedded · user scoped</small>
+              </div>
+            </article>
+
+            <article class="product-card" data-product-capability="modes">
+              <div class="product-card__meta"><span>03</span><b>Session</b></div>
+              <h3>Deep or quick sessions</h3>
+              <p>Use Quick for one focused answer, or Deep when you want the mentor to probe assumptions and transfer.</p>
+              <ul class="feature-facts">
+                <li><strong>Quick</strong><span>Close after the first answer</span></li>
+                <li><strong>Deep</strong><span>Up to four follow-up rounds</span></li>
+              </ul>
+            </article>
+
+            <article class="product-card product-card--coach" data-product-capability="coaching">
+              <div class="product-card__meta"><span>04</span><b>Coaching</b></div>
+              <h3>Hints and teacher reactions</h3>
+              <p>Ask for a nudge when you are stuck. After every answer, Forge reacts like a mentor before deciding whether to probe deeper or close.</p>
+              <div class="coach-visual">
+                <span>Three hints per session</span>
+                <p>“Good boundary. Now account for a successful call with an unusable result.”</p>
+              </div>
+            </article>
+
+            <article class="product-card product-card--wide" data-product-capability="ability">
+              <div class="product-card__meta"><span>05</span><b>Memory</b></div>
+              <h3>Ability snapshot and spaced review</h3>
+              <p>See mastery, confidence, review due date, last practice, and a plain-language weakness narrative. Sort by weakest or due soonest so the next session starts with evidence.</p>
+              <div class="ability-visual" aria-label="Example ability snapshot">
+                <div><span>Semantic recovery</span><strong>68%</strong><i><b></b></i></div>
+                <p><span>Next review</span><strong>In 2 days</strong></p>
+                <p><span>Observed edge</span><strong>Transport success ≠ task success</strong></p>
+              </div>
+            </article>
+
+            <article class="product-card" data-product-capability="question-bank">
+              <div class="product-card__meta"><span>06</span><b>Quality</b></div>
+              <h3>A quality-controlled question bank</h3>
+              <p>Generated questions are checked for semantic duplicates and self-critiqued before reuse. Your Useful, Meh, or Broken feedback helps promote them from candidate to standard to core.</p>
+              <div class="tier-visual" aria-label="Question quality tiers"><span>Candidate</span><i>→</i><span>Standard</span><i>→</i><strong>Core</strong></div>
+            </article>
+
+            <article class="product-card" data-product-capability="surfaces">
+              <div class="product-card__meta"><span>07</span><b>Access</b></div>
+              <h3>Web and MCP practice surfaces</h3>
+              <p>Start from the browser dashboard or stay inside a coding assistant. Both use the same session lifecycle and learning memory.</p>
+              <div class="surface-visual"><span><b>Web</b> Dashboard + session UI</span><span><b>MCP</b> next_question · answer · report</span></div>
+            </article>
+
+            <article class="product-card product-card--settings" data-product-capability="settings">
+              <div class="product-card__meta"><span>08</span><b>Runtime</b></div>
+              <h3>Runtime model settings</h3>
+              <p>Choose OpenAI or Anthropic and select the model at runtime. Keys stay masked in local browser storage, with a live connection check before practice starts.</p>
+              <div class="settings-visual"><span>Provider <strong>OpenAI</strong></span><span>Connection <strong><i></i> Verified</strong></span></div>
+            </article>
+
+            <article class="product-card product-card--instrumentation" data-product-capability="token-accounting">
+              <div class="product-card__meta"><span>09</span><b>Instrumentation</b></div>
+              <div class="instrumentation-copy">
+                <div>
+                  <h3>Per-agent token accounting</h3>
+                  <p>The orchestrator normalizes provider usage, attributes input and output tokens to the active Agent run, and resets the counter at every handoff.</p>
+                </div>
+                <p>Cost evidence stays separate from operational evidence, so a slow or failed run is not mistaken for an expensive one—and either signal can evolve independently.</p>
+              </div>
+              <div class="instrumentation-visual" aria-label="Separated token accounting and run monitoring">
+                <article>
+                  <span>Usage accounting</span>
+                  <strong>Input tokens · output tokens</strong>
+                  <small>Attributed per Agent handoff</small>
+                </article>
+                <i aria-hidden="true"></i>
+                <article>
+                  <span>Run monitoring</span>
+                  <strong>Latency · status · error</strong>
+                  <small>Recorded on the same run boundary</small>
+                </article>
+              </div>
+            </article>
+          </div>
+
+          <div class="session-journey" aria-labelledby="journey-title">
+            <div class="session-journey__heading">
+              <p class="eyebrow eyebrow--ink">One session, end to end</p>
+              <h3 id="journey-title">From intention to durable evidence.</h3>
+            </div>
+            <ol>
+              <li><span>01</span><strong>Set direction</strong><p>Choose a weighted technical area.</p></li>
+              <li><span>02</span><strong>Add context</strong><p>Optionally index a real project.</p></li>
+              <li><span>03</span><strong>Practice</strong><p>Answer a generated or reused question.</p></li>
+              <li><span>04</span><strong>Get coached</strong><p>Receive a reaction, hint, or follow-up.</p></li>
+              <li><span>05</span><strong>Close the loop</strong><p>Review scores, strengths, improvements, and the next step.</p></li>
+            </ol>
+          </div>
+
+          <div class="delivery-scope" aria-label="Forge delivery scope">
+            <article data-scope="available">
+              <span><i></i> Available now</span>
+              <h3>The complete deliberate-practice loop</h3>
+              <p>Deep and Quick sessions · project retrieval · hints · teacher reactions · mentor summaries · ability snapshots · question feedback · Web + MCP access · per-agent token accounting in the orchestrator</p>
+            </article>
+            <article data-scope="planned">
+              <span>Planned next</span>
+              <h3>Broader evaluation and collaboration</h3>
+              <ul>
+                <li>Sandbox-backed coding evaluation</li>
+                <li>Ability radar and timeline</li>
+                <li>Git activity question seeds</li>
+                <li>Multi-user OAuth and team sharing</li>
+                <li>Web and MCP usage dashboard with threshold alerts</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="forge-section loop-section" id="loop" aria-labelledby="loop-title">
+          <div class="section-index" aria-hidden="true">03 / LOOP</div>
+          <div class="section-heading section-heading--loop">
+            <div>
+              <p class="eyebrow eyebrow--ink">Learning orchestration</p>
+              <h2 id="loop-title">Four agents.<br />One evolving learner.</h2>
+            </div>
+            <div class="section-heading__aside">
+              <p>Each agent owns one decision boundary. Select a stage to inspect its input, judgment, tools, and handoff.</p>
+            </div>
+          </div>
+
+          <forge-learning-loop
+            class="learning-loop"
+            data-active-stage="curriculum"
+            aria-label="Explore the four-agent learning loop"
+          >
+            <div class="loop-toolbar">
+              <span>Session lifecycle</span>
+              <button type="button" data-loop-play aria-pressed="false">Play loop</button>
+            </div>
+
+            <div class="loop-stage-list" role="tablist" aria-label="Agent stages">
+              <button type="button" role="tab" data-agent-stage="curriculum" aria-selected="true">
+                <span>01</span><strong>Curriculum</strong><small>Choose</small>
+              </button>
+              <button type="button" role="tab" data-agent-stage="generator" aria-selected="false" tabindex="-1">
+                <span>02</span><strong>Generator</strong><small>Frame</small>
+              </button>
+              <button type="button" role="tab" data-agent-stage="interrogator" aria-selected="false" tabindex="-1">
+                <span>03</span><strong>Interrogator</strong><small>Probe</small>
+              </button>
+              <button type="button" role="tab" data-agent-stage="curator" aria-selected="false" tabindex="-1">
+                <span>04</span><strong>Curator</strong><small>Remember</small>
+              </button>
+            </div>
+
+            <div class="loop-inspector" data-agent-inspector role="tabpanel" aria-live="polite">
+              <div class="inspector-identity">
+                <span class="inspector-index" data-stage-index>01</span>
+                <div><p data-stage-verb>Choose</p><h3 data-stage-name>Curriculum</h3></div>
+                <span class="inspector-signal"><i></i><b data-stage-signal>Priority resolved</b></span>
+              </div>
+              <p class="inspector-summary" data-stage-summary>Decides what is worth practicing now.</p>
+              <div class="contract-grid">
+                <article><span>Input</span><p data-stage-input>Ability history · SRS due topics · active project context</p></article>
+                <article><span>Decision</span><p data-stage-decision>Select the highest-value weakness and set the right difficulty.</p></article>
+                <article><span>Tool call</span><code data-stage-tool>ability_query · history_query · narrative_search</code></article>
+                <article><span>Handoff</span><p data-stage-output>A focused learning directive for one concrete technical edge.</p></article>
+              </div>
+              <div class="loop-return-line"><span>Ability memory</span><i></i><strong>Feeds the next cycle</strong></div>
+            </div>
+          </forge-learning-loop>
+        </section>
+
+        <section class="forge-section architecture-section" id="architecture" aria-labelledby="architecture-title">
+          <div class="section-index section-index--light" aria-hidden="true">04 / SYSTEM</div>
+          <div class="section-heading section-heading--dark">
+            <div>
+              <p class="eyebrow">System architecture</p>
+              <h2 id="architecture-title">One learning model.<br />Two places to practice.</h2>
+            </div>
+            <p>The browser and coding assistant share the same orchestration, tools, isolation boundary, and durable learning history.</p>
+          </div>
+
+          <div class="architecture-board">
+            <div class="architecture-legend">
+              <span><i class="legend-surface"></i> Practice surface</span>
+              <span><i class="legend-core"></i> Agent runtime</span>
+              <span><i class="legend-memory"></i> Durable memory</span>
+            </div>
+            <div class="architecture-row architecture-row--surface">
+              <span class="row-label">Experience</span>
+              <article><small>Web</small><strong>Next.js</strong><p>Dashboard · setup · mentoring sessions</p></article>
+              <article><small>Workspace</small><strong>MCP</strong><p>Practice without leaving the coding flow</p></article>
+            </div>
+            <div class="architecture-flow" aria-hidden="true"><i></i><b>shared contract</b><i></i></div>
+            <div class="architecture-row architecture-row--core">
+              <span class="row-label">Intelligence</span>
+              <article><small>Control plane</small><strong>FastAPI orchestrator</strong><p>Authentication · routing · agent lifecycle</p></article>
+              <article><small>Capabilities</small><strong>Tool registry</strong><p>Search · evaluate · write · schedule</p></article>
+            </div>
+            <div class="architecture-flow" aria-hidden="true"><i></i><b>scoped state</b><i></i></div>
+            <div class="architecture-row architecture-row--memory">
+              <span class="row-label">Memory</span>
+              <article><small>Structured + semantic</small><strong>PostgreSQL + pgvector</strong><p>Questions · sessions · ability · retrieval</p></article>
+              <article><small>Trust boundary</small><strong>Row-Level Security</strong><p>User-scoped data from request to storage</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="forge-section outcome-section" aria-labelledby="outcome-title">
+          <div class="section-index" aria-hidden="true">05 / BOUNDARY</div>
+          <div class="outcome-heading">
+            <p class="eyebrow eyebrow--ink">Deliberate boundaries</p>
+            <h2 id="outcome-title">A practice system,<br />not a leaderboard.</h2>
+            <p>Forge optimizes for useful reflection and stronger transfer into real engineering work—not streaks, volume, or public ranking.</p>
+          </div>
+          <div class="outcome-grid">
+            <article class="outcome-card outcome-card--does">
+              <span>Forge does</span>
+              <h3>Make learning specific.</h3>
+              <ul>
+                <li>Use real work as the learning seed</li>
+                <li>Challenge vague but plausible reasoning</li>
+                <li>Build durable personal learning history</li>
+              </ul>
+            </article>
+            <article class="outcome-card">
+              <span>Forge does not</span>
+              <h3>Turn growth into theater.</h3>
+              <ul>
+                <li>Replace project-level code review</li>
+                <li>Prescribe one universal curriculum</li>
+                <li>Optimize for question volume or ranking</li>
+              </ul>
+            </article>
+            <div class="mvp-note">
+              <span>MVP / implemented</span>
+              <p>The end-to-end backend, REST API, Next.js interface, MCP surface, four-agent topology, and isolated learning data model are implemented.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="closing-section" aria-labelledby="closing-title">
+          <p class="eyebrow">The compounding effect</p>
+          <h2 id="closing-title">Every session should leave the next question better informed.</h2>
+          <a class="button button--light" href="#loop">Replay the loop <span aria-hidden="true">↑</span></a>
+        </section>
+      </main>
+
+      <footer class="forge-footer">
+        <span>Forge · A ReverseScale project</span>
+        <a href="/">Back to Tim’s work <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+
+    <noscript>
+      <p class="noscript-note">Forge remains readable without JavaScript. Enable it to explore the interactive agent handoff.</p>
+    </noscript>
+  </body>
+</html>

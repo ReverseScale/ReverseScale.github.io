@@ -87,6 +87,18 @@ const projectMicroVisual = (project) => {
     `;
   }
 
+  if (project.visual === "learning-loop") {
+    return `
+      <span class="micro-visual micro-visual--learning-loop" aria-hidden="true">
+        <span class="learning-loop-node">Ask</span>
+        <em>→</em>
+        <span class="learning-loop-node">Probe</span>
+        <em>→</em>
+        <span class="learning-loop-node">Learn</span>
+      </span>
+    `;
+  }
+
   return "";
 };
 
@@ -248,7 +260,7 @@ function renderAbout() {
       </div>
       <div class="prose">
         <p>${escapeHtml(profile.story)}</p>
-        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible. Mobile Lab connects AI-assisted quality workflows with App and IoT device infrastructure. AI Designer turns design intent into typed Flutter foundations and reviewable evidence. AI Config makes personal AI environments and multi-agent collaboration reproducible.</p>
+        <p>Roost explores offline-friendly Flutter delivery. Babel keeps product strings close to code and review. Bakery makes mobile build pipelines and their artifacts visible. Mobile Lab connects AI-assisted quality workflows with App and IoT device infrastructure. AI Designer turns design intent into typed Flutter foundations and reviewable evidence. AI Config makes personal AI environments and multi-agent collaboration reproducible. Forge turns real project context and learning history into adaptive questions, deeper follow-ups, and a durable ability map.</p>
         <p>ReverseScale is the namespace that connects these independent projects, not a company layer placed between the work and the person making it.</p>
       </div>
     </section>

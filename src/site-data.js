@@ -105,6 +105,18 @@ export const projectLinks = [
       "A snapshot-first design system workflow that turns Penpot intent into typed Flutter foundations, contract-driven components, and reviewable visual evidence.",
     points: ["Snapshot-first foundations", "Contract-driven components", "Visual review evidence"],
   },
+  {
+    name: "Forge",
+    label: "Personalized developer training",
+    href: "/forge/",
+    siteHref: "/forge/",
+    status: "Agent learning system",
+    tone: "cobalt",
+    visual: "learning-loop",
+    summary:
+      "An agent-driven training loop that turns technical goals, project context, and answer history into focused questions, deeper follow-ups, and a reusable ability map.",
+    points: ["Adaptive questions", "Multi-turn coaching", "Ability memory"],
+  },
 ];
 
 export const workingPrinciples = [
