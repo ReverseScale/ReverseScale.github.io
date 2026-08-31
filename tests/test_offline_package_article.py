@@ -114,7 +114,7 @@ class OfflinePackageArticleTest(unittest.TestCase):
         self.assertEqual(parser.fallback_step_count, 3)
         self.assertEqual(
             parser.links["查看原始研究笔记"],
-            "https://app.notion.com/0277da40f7194b75b01627c975b19487",
+            "https://app.notion.com/p/timsappworkspace/0277da40f7194b75b01627c975b19487?source=copy_link",
         )
 
     def test_article_exposes_shareable_metadata_and_primary_references_without_javascript(self) -> None:
