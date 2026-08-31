@@ -12,6 +12,17 @@ def read(path: str) -> str:
 
 
 class MobileLabProjectTest(unittest.TestCase):
+    def test_mobile_lab_docs_use_the_public_name_and_record_implemented_status(self) -> None:
+        plan = read("docs/superpowers/plans/2026-08-25-mobile-lab-quality-story-expansion.md")
+        design = read("docs/superpowers/specs/2026-08-25-mobile-lab-quality-story-expansion-design.md")
+
+        self.assertIn("# Mobile Lab Quality Story Expansion Implementation Plan", plan)
+        self.assertIn("**状态：** 已实现", plan)
+        self.assertIn("# Mobile Lab 质量自动化故事扩展设计", design)
+        self.assertIn("状态：已实现并纳入公开项目页", design)
+        self.assertNotIn("公开项目名只能使用 `MobileLab`", plan)
+        self.assertNotIn("公开项目名继续使用 `MobileLab`", design)
+
     def test_mobilelab_is_a_first_class_quality_project(self) -> None:
         source = read("src/site-data.js") + read("src/app.js") + read("index.html")
         script = """
