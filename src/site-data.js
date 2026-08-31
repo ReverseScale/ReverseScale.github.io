@@ -15,6 +15,12 @@ export const profile = Object.freeze({
     label: "Research",
     href: "https://app.notion.com/p/timsappworkspace/Research-and-Insight-5fda3475a090427da9ac9b5c59964381?source=copy_link",
     summary: "Notes and research live in Notion.",
+    featured: {
+      title: "从能聊到可靠：一套 IM 系统的演进路线",
+      href: "/im-system-evolution/",
+      label: "IM systems · 18 min read",
+      summary: "协议、消息可靠性、心跳重连、客户端状态与服务端架构的一条完整演进路径。",
+    },
   },
 });
 

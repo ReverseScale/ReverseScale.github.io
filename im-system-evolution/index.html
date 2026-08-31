@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="从第一条消息出发，系统梳理 IM 的协议封装、消息可靠性、心跳重连、客户端状态、服务端拆分与可运维性。"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="从能聊到可靠：一套 IM 系统的演进路线" />
+    <meta
+      property="og:description"
+      content="IM 的难点不是把消息发出去，而是让消息在弱网、多端、离线和故障中仍然可信。"
+    />
+    <meta property="og:url" content="https://reversescale.github.io/im-system-evolution/" />
+    <title>从能聊到可靠：一套 IM 系统的演进路线 | Tim</title>
+    <link rel="canonical" href="https://reversescale.github.io/im-system-evolution/" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/im-system-article.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "从能聊到可靠：一套 IM 系统的演进路线",
+        "description": "从第一条消息出发，系统梳理 IM 的协议封装、消息可靠性、心跳重连、客户端状态、服务端拆分与可运维性。",
+        "datePublished": "2026-08-31",
+        "dateModified": "2026-08-31",
+        "inLanguage": "zh-CN",
+        "author": {
+          "@type": "Person",
+          "name": "Tim",
+          "url": "https://reversescale.github.io/"
+        },
+        "mainEntityOfPage": "https://reversescale.github.io/im-system-evolution/"
+      }
+    </script>
+  </head>
+  <body>
+    <header class="article-nav">
+      <a class="article-brand" href="/" aria-label="返回 Tim 的首页">
+        <span aria-hidden="true">T</span>
+        <strong>Tim</strong>
+      </a>
+      <nav aria-label="文章导航">
+        <a href="#roadmap">演进路线</a>
+        <a href="#reliability">可靠性</a>
+        <a href="#service-architecture">架构</a>
+        <a href="/">所有项目 <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="im-article">
+        <header class="article-hero">
+          <div class="article-hero__copy">
+            <p class="eyebrow">Research note · IM systems</p>
+            <h1>从能聊到可靠：<br />一套 IM 系统的演进路线</h1>
+            <p class="article-hero__lede">
+              IM 的难点从来不是把一句话从 A 发给 B，而是当网络抖动、进程退出、设备切换、服务扩容时，
+              这句话仍然只出现一次、顺序正确、状态可解释，并最终抵达该抵达的人。
+            </p>
+            <div class="article-meta">
+              <span>Tim</span>
+              <time datetime="2026-08-31">2026-08-31</time>
+              <span>约 18 分钟</span>
+            </div>
+          </div>
+
+          <div class="hero-terminal" aria-label="一条消息从客户端到接收方的可靠传递摘要">
+            <div class="hero-terminal__bar">
+              <span><i></i><i></i><i></i></span>
+              <b>message / 0042</b>
+              <em>delivered</em>
+            </div>
+            <ol>
+              <li class="is-done"><span>01</span><b>Persist local</b><small>pending</small></li>
+              <li class="is-done"><span>02</span><b>Send frame</b><small>seq 042</small></li>
+              <li class="is-active"><span>03</span><b>Server ACK</b><small>committed</small></li>
+              <li><span>04</span><b>Sync peer</b><small>cursor +1</small></li>
+            </ol>
+            <footer><span>delivery contract</span><b><i></i> 可确认 · 可重试 · 可去重</b></footer>
+          </div>
+        </header>
+
+        <div class="article-shell">
+          <aside class="article-toc" aria-label="文章目录">
+            <p>阅读路径</p>
+            <ol>
+              <li><a href="#roadmap"><span>01</span>演进路线</a></li>
+              <li><a href="#protocol"><span>02</span>协议边界</a></li>
+              <li><a href="#reliability"><span>03</span>消息可靠性</a></li>
+              <li><a href="#connection"><span>04</span>连接治理</a></li>
+              <li><a href="#client-state"><span>05</span>客户端状态</a></li>
+              <li><a href="#service-architecture"><span>06</span>服务端架构</a></li>
+              <li><a href="#operations"><span>07</span>可运维性</a></li>
+              <li><a href="#principles"><span>08</span>设计原则</a></li>
+            </ol>
+          </aside>
+
+          <div class="article-body">
+            <section class="article-intro">
+              <p class="section-kicker">问题定义</p>
+              <p class="lead-paragraph">
+                一个简单 IM 可以只有一条长连接和一个消息转发器；一个可信 IM 却需要同时回答四个问题：
+                <strong>消息是什么、是否送达、连接是否可用、状态如何恢复。</strong>
+                后续所有复杂度，本质上都从这四个问题展开。
+              </p>
+              <blockquote>
+                网络层的“可靠传输”不等于业务层的“可靠消息”。TCP 可以把字节送到进程，
+                但无法保证进程已落库、用户已看见，或下一台设备知道这条消息存在。
+              </blockquote>
+            </section>
+
+            <section class="article-section" aria-labelledby="roadmap">
+              <div class="section-heading">
+                <p class="section-kicker">01 · Evolution</p>
+                <h2 id="roadmap">先建立演进地图</h2>
+                <p>不要一开始就把所有能力塞进系统。每一阶段只解决上一阶段暴露出的真实问题。</p>
+              </div>
+
+              <div class="evolution-grid">
+                <div>
+                  <span>v1.0</span>
+                  <h3>能收发</h3>
+                  <p>接入用户、发送文本、维护会话列表。核心是建立连接、定义消息帧并完成转发。</p>
+                  <small>Socket · Protobuf · local DB</small>
+                </div>
+                <div>
+                  <span>v2.0</span>
+                  <h3>可恢复</h3>
+                  <p>补齐 ACK、序列号、心跳、重连、离线拉取，让消息在弱网和进程切换后可恢复。</p>
+                  <small>ACK · Seq ID · heartbeat</small>
+                </div>
+                <div>
+                  <span>v3.0</span>
+                  <h3>可扩展</h3>
+                  <p>拆分登录、消息、路由、存储与推送服务，支撑群聊、多端同步、检索和媒体消息。</p>
+                  <small>routing · queue · sharding</small>
+                </div>
+                <div>
+                  <span>v4.0</span>
+                  <h3>可替换</h3>
+                  <p>把传输、加密、协议和业务封装成稳定边界，让客户端能力可插拔、可跨平台。</p>
+                  <small>TCP · TLS · WebSocket · C ABI</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="article-section" aria-labelledby="protocol">
+              <div class="section-heading">
+                <p class="section-kicker">02 · Protocol</p>
+                <h2 id="protocol">协议不是格式，而是边界</h2>
+                <p>一个消息帧应让接收方在读取正文之前，就能判断长度、版本、用途与顺序。</p>
+              </div>
+
+              <div class="protocol-layout">
+                <div class="frame-figure" aria-label="IM 消息帧由固定头部和可变正文组成">
+                  <div class="frame-head">
+                    <span><b>length</b><small>4 bytes</small></span>
+                    <span><b>version</b><small>2</small></span>
+                    <span><b>service</b><small>2</small></span>
+                    <span><b>command</b><small>2</small></span>
+                    <span><b>seq</b><small>2</small></span>
+                    <span><b>flags</b><small>4</small></span>
+                  </div>
+                  <div class="frame-body"><span>Protobuf body</span><small>variable length</small></div>
+                  <footer>fixed header / 16 bytes <span>+</span> typed payload</footer>
+                </div>
+
+                <div class="protocol-copy">
+                  <h3>先解决字节边界</h3>
+                  <p>
+                    TCP 是字节流，没有“消息包”概念。一次发送可能被拆成多次读取，多次发送也可能在一次读取中合并。
+                    因此接收端必须持续缓冲，并依据固定头部中的 <code>length</code> 字段切出完整帧。
+                  </p>
+                  <h3>再解决语义边界</h3>
+                  <p>
+                    <code>service_id</code> 决定消息属于登录、聊天还是群组服务，<code>command_id</code>
+                    决定正文如何反序列化，<code>seq_num</code> 把请求、响应和重试关联起来。
+                  </p>
+                </div>
+              </div>
+
+              <pre class="code-block" aria-label="IM 固定消息头示例"><code><span>typedef struct</span> {
+  uint32_t length;      <i>// header + body</i>
+  uint16_t version;     <i>// protocol evolution</i>
+  uint16_t flags;       <i>// compression / encryption</i>
+  uint16_t service_id;  <i>// service boundary</i>
+  uint16_t command_id;  <i>// message semantics</i>
+  uint16_t seq_num;     <i>// request correlation</i>
+  uint16_t reserved;
+} PduHeader;</code></pre>
+
+              <div class="decision-note">
+                <b>选型原则</b>
+                <p>
+                  原生 TCP 提供最大控制力；WebSocket 更容易穿过代理并复用 Web 基础设施；MQTT 适合主题订阅与设备场景。
+                  选择哪个传输层，不应改变上层的消息身份、确认与同步语义。
+                </p>
+              </div>
+            </section>
+
+            <section class="article-section" aria-labelledby="reliability">
+              <div class="section-heading">
+                <p class="section-kicker">03 · Reliability</p>
+                <h2 id="reliability">送达不是一个布尔值</h2>
+                <p>“已发送”至少包含本地接受、服务端提交、接收端同步三个不同事实。</p>
+              </div>
+
+              <div class="delivery-ledger">
+                <div><span>客户端</span><b>Local ID</b><p>先落本地库，状态记为 pending；UI 不等待网络才出现。</p></div>
+                <em>→</em>
+                <div><span>接入层</span><b>Request ID</b><p>同一次重试沿用同一幂等键，避免重复写入。</p></div>
+                <em>→</em>
+                <div><span>消息层</span><b>Message ID</b><p>持久化成功后生成全局身份，再返回 server ACK。</p></div>
+                <em>→</em>
+                <div><span>接收端</span><b>Sequence</b><p>按会话序列消费；发现空洞就触发补拉。</p></div>
+              </div>
+
+              <div class="two-column-copy">
+                <div>
+                  <h3>ACK 证明哪一步完成？</h3>
+                  <p>
+                    ACK 必须绑定明确语义。网络写入成功只证明字节进入套接字缓冲区；服务端 ACK 应在消息进入可靠存储后返回；
+                    若产品需要“已送达”或“已读”，则由接收端分别产生新的回执事件。
+                  </p>
+                </div>
+                <div>
+                  <h3>重试为什么会制造重复？</h3>
+                  <p>
+                    客户端超时并不代表服务端失败。原请求可能已经落库，只是 ACK 丢了。
+                    重试必须携带稳定的客户端消息 ID，服务端以此执行幂等写入，接收端再按服务端消息 ID 去重。
+                  </p>
+                </div>
+              </div>
+
+              <div class="reliability-rule">
+                <span>可靠消息公式</span>
+                <strong>持久化 + 明确 ACK + 幂等重试 + 序列补洞</strong>
+                <p>缺少任何一项，都只能得到“通常能到”的系统，而不是“故障后可解释”的系统。</p>
+              </div>
+            </section>
+
+            <section class="article-section" aria-labelledby="connection">
+              <div class="section-heading">
+                <p class="section-kicker">04 · Connection</p>
+                <h2 id="connection">连接治理：检测、退避与恢复</h2>
+                <p>心跳不是为了制造流量，而是为了缩短“连接已经失效但双方尚未察觉”的时间。</p>
+              </div>
+
+              <figure class="state-machine" aria-label="IM 连接状态机">
+                <div class="state-machine__row">
+                  <span class="state state--idle">Idle</span><i>connect</i>
+                  <span class="state state--connecting">Connecting</span><i>auth ok</i>
+                  <span class="state state--online">Online</span>
+                </div>
+                <div class="state-machine__return">
+                  <span>network change / heartbeat timeout</span>
+                  <b>↓</b>
+                  <span class="state state--backoff">Backoff</span>
+                  <b>↺</b>
+                  <span>reconnect + resume cursor</span>
+                </div>
+                <figcaption>连接恢复只负责重新建立通道；业务恢复还要提交游标并补齐离线消息。</figcaption>
+              </figure>
+
+              <div class="connection-rules">
+                <div><span>01</span><h3>心跳自适应</h3><p>前台与后台、Wi-Fi 与蜂窝网络使用不同间隔；服务端基于最后活跃时间回收幽灵连接。</p></div>
+                <div><span>02</span><h3>重连带抖动</h3><p>指数退避叠加随机抖动，避免服务恢复时所有客户端同时发起连接形成惊群。</p></div>
+                <div><span>03</span><h3>恢复靠游标</h3><p>连接成功不等于状态恢复。鉴权后提交最后消费序列，由服务端补发缺失消息。</p></div>
+              </div>
+
+              <p class="inline-callout">
+                <strong>网络切换是新连接。</strong> IP、路由和 NAT 映射都可能变化。与其试图证明旧连接仍然有效，
+                不如快速废弃它，建立新连接，再用业务游标恢复状态。
+              </p>
+            </section>
+
+            <section class="article-section" aria-labelledby="client-state">
+              <div class="section-heading">
+                <p class="section-kicker">05 · Client state</p>
+                <h2 id="client-state">客户端不是服务端的投影</h2>
+                <p>客户端需要一套可离线工作的本地事实，再通过同步协议逐步与服务端收敛。</p>
+              </div>
+
+              <figure class="client-flow">
+                <div class="client-flow__lane">
+                  <span>打开会话</span>
+                  <b>读本地数据库</b><i>→</i><b>立即渲染</b><i>→</i><b>按游标增量同步</b><i>→</i><b>合并并刷新</b>
+                </div>
+                <div class="client-flow__lane">
+                  <span>发送消息</span>
+                  <b>生成 Local ID</b><i>→</i><b>写入 pending</b><i>→</i><b>网络发送</b><i>→</i><b>ACK 后改状态</b>
+                </div>
+                <figcaption>本地状态先驱动界面，网络同步负责收敛；两条路径都不让 UI 直接依赖瞬时连接。</figcaption>
+              </figure>
+
+              <div class="schema-grid">
+                <div>
+                  <span>conversation</span>
+                  <code>conversation_id</code>
+                  <code>last_message_id</code>
+                  <code>read_sequence</code>
+                  <code>unread_count</code>
+                </div>
+                <div>
+                  <span>message</span>
+                  <code>local_id / server_id</code>
+                  <code>conversation_id</code>
+                  <code>sequence</code>
+                  <code>delivery_state</code>
+                </div>
+                <div>
+                  <span>sync_cursor</span>
+                  <code>scope</code>
+                  <code>last_sequence</code>
+                  <code>updated_at</code>
+                  <code>schema_version</code>
+                </div>
+              </div>
+
+              <p>
+                消息表负责不可变事实，发送状态允许单向推进；会话表保存摘要和已读位置；同步游标记录“本端确认消费到哪里”。
+                昵称、头像等易变信息不应复制进每条消息，而应通过用户资料缓存和变更事件更新。
+              </p>
+            </section>
+
+            <section class="article-section" aria-labelledby="service-architecture">
+              <div class="section-heading">
+                <p class="section-kicker">06 · Services</p>
+                <h2 id="service-architecture">服务端围绕消息路径拆分</h2>
+                <p>拆分的目的不是画出更多方框，而是隔离不同伸缩模式、故障边界与数据职责。</p>
+              </div>
+
+              <figure class="service-map" aria-label="IM 服务端消息路径">
+                <div class="service-map__clients"><span>iOS</span><span>Android</span><span>Web</span></div>
+                <div class="service-map__uplink"><span>long connection</span></div>
+                <div class="service-node service-node--edge"><b>Login / Gateway</b><small>鉴权 · 限流 · 连接归属</small></div>
+                <div class="service-map__fanout" aria-hidden="true">
+                  <i class="service-map__fanout-stem"></i>
+                  <i class="service-map__fanout-stem"></i>
+                  <i class="service-map__fanout-stem"></i>
+                </div>
+                <div class="service-map__branches">
+                  <div class="service-map__branch">
+                    <div class="service-node"><b>Message</b><small>校验 · 幂等 · 写入</small></div>
+                    <i class="service-map__branch-link" aria-hidden="true"></i>
+                    <div class="service-dependency"><b>Message store</b><small>顺序写 · 分片</small></div>
+                  </div>
+                  <div class="service-map__branch">
+                    <div class="service-node"><b>Route</b><small>在线定位 · 跨节点转发</small></div>
+                    <i class="service-map__branch-link" aria-hidden="true"></i>
+                    <div class="service-dependency"><b>Presence / Redis</b><small>在线状态 · 热游标</small></div>
+                  </div>
+                  <div class="service-map__branch">
+                    <div class="service-node"><b>Group</b><small>关系 · 成员 · 扩散策略</small></div>
+                    <i class="service-map__branch-link" aria-hidden="true"></i>
+                    <div class="service-dependency"><b>Relation store</b><small>群关系 · 成员版本</small></div>
+                  </div>
+                </div>
+                <div class="service-map__async">
+                  <span>domain events</span>
+                  <b>Event queue</b>
+                  <small>异步推送 · 搜索索引 · 离线通知</small>
+                </div>
+                <figcaption>
+                  <span><i class="legend-line legend-line--solid"></i>同步消息路径</span>
+                  <span><i class="legend-line legend-line--dashed"></i>存储与异步边界</span>
+                  <b>下游方框表示主要依赖，而不是唯一依赖。</b>
+                </figcaption>
+              </figure>
+
+              <div class="two-column-copy">
+                <div>
+                  <h3>在线路由与消息存储分开</h3>
+                  <p>
+                    在线状态短暂且高频，适合内存或 Redis；消息记录要求持久、可按会话顺序读取。
+                    两者分离后，路由节点重启不会改变消息事实，存储扩容也不必迁移连接。
+                  </p>
+                </div>
+                <div>
+                  <h3>群聊先选择扩散模型</h3>
+                  <p>
+                    小群可写扩散，为每个成员维护收件序列；超大群更适合读扩散，保存一份群消息并由成员游标读取。
+                    这不是永久二选一，系统可以按群规模与活跃度切换策略。
+                  </p>
+                </div>
+              </div>
+
+              <div class="media-note">
+                <span>媒体与实时通话</span>
+                <p>
+                  图片、语音和视频正文应进入对象存储，IM 只传资源身份、校验信息和展示元数据。
+                  音视频通话的信令可以复用 IM，媒体流则交给 WebRTC 或专用实时媒体基础设施；两条链路的可靠性目标不同。
+                </p>
+              </div>
+            </section>
+
+            <section class="article-section" aria-labelledby="operations">
+              <div class="section-heading">
+                <p class="section-kicker">07 · Operations</p>
+                <h2 id="operations">可用性必须能被观察</h2>
+                <p>连接数和 CPU 只是资源信号；真正的业务健康度来自消息路径上的阶段指标。</p>
+              </div>
+
+              <div class="signal-grid">
+                <div><span>连接</span><strong>在线连接数</strong><p>建立成功率 · 鉴权延迟 · 重连率 · 心跳超时</p></div>
+                <div><span>消息</span><strong>端到端延迟</strong><p>写入耗时 · ACK 延迟 · 重试率 · 重复率 · 序列空洞</p></div>
+                <div><span>同步</span><strong>游标落后量</strong><p>离线补拉量 · 多端收敛时间 · 未读数修正次数</p></div>
+                <div><span>存储</span><strong>持久化成功率</strong><p>分片热点 · 队列积压 · 索引延迟 · 备份恢复</p></div>
+              </div>
+
+              <div class="availability-note">
+                <span>99.9% 可用性</span>
+                <strong>≈ 每年 8.76 小时不可用</strong>
+                <p>
+                  预算应分配给可感知的用户路径。连接可建立但消息持续积压，不能算作服务可用；
+                  单个节点存活，也不能替代端到端探针和真实消息回环。
+                </p>
+              </div>
+
+              <p>
+                运维策略应覆盖分层隔离、水平分片、冗余、自动故障转移和容量保护。发布协议变更时，先保证旧客户端仍能解析新头部，
+                再灰度服务端，最后观察错误码、未知命令和反序列化失败是否异常上升。
+              </p>
+            </section>
+
+            <section class="article-section principles-section" aria-labelledby="principles">
+              <div class="section-heading">
+                <p class="section-kicker">08 · Principles</p>
+                <h2 id="principles">最后留下八条原则</h2>
+              </div>
+
+              <ol class="principle-list">
+                <li><span>01</span><p><strong>先定义消息身份，再讨论发送。</strong> 没有稳定 ID，就无法可靠重试和去重。</p></li>
+                <li><span>02</span><p><strong>ACK 必须绑定持久化事实。</strong> “写入 socket”不是业务成功。</p></li>
+                <li><span>03</span><p><strong>顺序依赖序列，不依赖时间。</strong> 客户端时钟不可信，跨节点时间也不天然有序。</p></li>
+                <li><span>04</span><p><strong>重连之后一定要同步。</strong> 连接状态和业务状态是两条独立的恢复链。</p></li>
+                <li><span>05</span><p><strong>本地数据库是离线事实层。</strong> UI 从本地状态工作，再与服务端逐步收敛。</p></li>
+                <li><span>06</span><p><strong>传输协议保持可替换。</strong> TCP、WebSocket 或 MQTT 不应泄漏进消息语义。</p></li>
+                <li><span>07</span><p><strong>按数据职责拆服务。</strong> 连接、路由、消息、关系和索引有不同的生命周期。</p></li>
+                <li><span>08</span><p><strong>用端到端证据定义可用。</strong> 最终要证明一条消息能被提交、同步和恢复。</p></li>
+              </ol>
+
+              <div class="closing-note">
+                <p>
+                  IM 的演进不是不断增加消息类型，而是不断收紧不确定性：把字节变成帧，把帧变成消息，
+                  把发送变成可确认的提交，再把一次连接扩展成可以跨故障恢复的长期状态。
+                </p>
+              </div>
+            </section>
+
+            <footer class="article-source">
+              <div>
+                <p class="section-kicker">Source note</p>
+                <h2>关于这篇文章</h2>
+                <p>
+                  本文基于长期整理的 IM 技术笔记重新编排。原笔记保留了更多历史选型、数据库字段、音视频参数与参考资料；
+                  这里将它们收敛为一条从“能聊”走向“可靠”的系统设计主线。
+                </p>
+              </div>
+              <a href="https://app.notion.com/p/4c0718e86da24deebb2b1bf0dcf786ae" target="_blank" rel="noreferrer">
+                查看原始研究笔记 <span aria-hidden="true">↗</span>
+              </a>
+            </footer>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 Tim</span>
+      <a href="/">ReverseScale · Independent software projects</a>
+    </footer>
+  </body>
+</html>

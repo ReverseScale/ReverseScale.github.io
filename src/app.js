@@ -158,6 +158,8 @@ function siteHeader() {
 }
 
 function renderHome() {
+  const featuredProjectLinks = projectLinks.slice(0, 4);
+
   return `
     ${siteHeader()}
     <section class="hero" aria-labelledby="hero-title">
@@ -171,8 +173,8 @@ function renderHome() {
         </div>
       </div>
       <div class="hero-work" aria-label="Selected projects">
-        <p><span>Selected work</span><span>${projectLinks.length} projects</span></p>
-        ${projectLinks.map(heroProjectCard).join("")}
+        <p><span>Selected work</span><span>${featuredProjectLinks.length} selected · ${projectLinks.length} total</span></p>
+        ${featuredProjectLinks.map(heroProjectCard).join("")}
       </div>
     </section>
 
@@ -234,12 +236,18 @@ function renderHome() {
     </section>
 
     <section class="section research-brief" id="research" aria-labelledby="research-title">
-      <div>
+      <div class="research-brief__copy">
         <p class="eyebrow">Research & notes</p>
-        <h2 id="research-title">Writing lives in Notion.</h2>
-        <p>${escapeHtml(profile.research.summary)} Project-specific documentation stays with each project.</p>
+        <h2 id="research-title">Notes become durable reading paths.</h2>
+        <p>${escapeHtml(profile.research.summary)} Selected notes are rewritten here as focused, self-contained articles.</p>
+        <a class="text-link" href="${profile.research.href}" target="_blank" rel="noreferrer">Open all research <span aria-hidden="true">↗</span></a>
       </div>
-      <a class="button button--secondary" href="${profile.research.href}" target="_blank" rel="noreferrer">Open Research <span aria-hidden="true">↗</span></a>
+      <a class="research-feature" href="${profile.research.featured.href}">
+        <span>${escapeHtml(profile.research.featured.label)}</span>
+        <strong>${escapeHtml(profile.research.featured.title)}</strong>
+        <p>${escapeHtml(profile.research.featured.summary)}</p>
+        <b>Read article <span aria-hidden="true">→</span></b>
+      </a>
     </section>
   `;
 }

@@ -47,10 +47,10 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn(".hero-work {\n    display: none;\n  }", styles)
         self.assertIn(".section {\n    padding: 56px 0;\n  }", styles)
 
-    def test_project_label_and_footer_year_do_not_go_stale(self) -> None:
+    def test_project_total_and_footer_year_do_not_go_stale(self) -> None:
         app_source = read("src/app.js")
 
-        self.assertIn("${projectLinks.length} projects", app_source)
+        self.assertIn("${projectLinks.length} total", app_source)
         self.assertIn("new Date().getFullYear()", app_source)
         self.assertNotIn("© 2026", app_source)
 
@@ -113,6 +113,32 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertIn("micro-visual--strings", styles)
         self.assertIn("micro-visual--pipeline", styles)
         self.assertIn("micro-visual--device-flow", styles)
+
+    def test_home_summary_limits_hero_projects_without_hiding_full_catalog(self) -> None:
+        script = """
+          globalThis.HTMLElement = class {
+            getAttribute() { return null; }
+          };
+          globalThis.customElements = {
+            define(_name, component) { globalThis.HomeComponent = component; }
+          };
+          await import('./src/app.js');
+          const home = new globalThis.HomeComponent();
+          home.connectedCallback();
+          console.log(JSON.stringify({ html: home.innerHTML }));
+        """
+        result = subprocess.run(
+            ["node", "--input-type=module", "--eval", script],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        rendered_html = json.loads(result.stdout)["html"]
+
+        self.assertEqual(rendered_html.count('class="hero-project '), 4)
+        self.assertEqual(rendered_html.count('class="project-card '), 8)
+        self.assertIn("4 selected · 8 total", rendered_html)
 
     def test_ai_config_is_a_first_class_project_with_a_local_case_study(self) -> None:
         script = """
@@ -247,7 +273,6 @@ class SiteSmokeTest(unittest.TestCase):
         app_source = read("src/app.js")
         data_source = read("src/site-data.js")
 
-        self.assertIn("projectLinks.map(heroProjectCard)", app_source)
         self.assertIn("projectLinks.map(projectCard)", app_source)
         self.assertIn('name: "Bakery"', data_source)
         self.assertIn('href: `${runtimeBaseURL}/bakery/`', data_source)
