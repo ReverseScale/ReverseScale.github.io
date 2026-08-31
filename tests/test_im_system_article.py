@@ -119,7 +119,7 @@ class ImSystemArticleTest(unittest.TestCase):
 
         self.assertIn('href="/im-system-evolution/"', home_html)
         self.assertIn("从能聊到可靠", home_html)
-        self.assertEqual(home_html.count('class="article-card"'), 1)
+        self.assertEqual(home_html.count('class="article-card"'), 2)
         self.assertIn('class="micro-visual micro-visual--message-path"', home_html)
         self.assertNotIn('class="section research-brief"', home_html)
         self.assertLess(home_html.index('class="project-grid"'), home_html.index('class="article-card"'))

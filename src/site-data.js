@@ -15,13 +15,27 @@ export const profile = Object.freeze({
     label: "Research",
     href: "https://app.notion.com/p/timsappworkspace/Research-and-Insight-5fda3475a090427da9ac9b5c59964381?source=copy_link",
     summary: "Notes and research live in Notion.",
-    featured: {
-      title: "从能聊到可靠：一套 IM 系统的演进路线",
-      href: "/im-system-evolution/",
-      label: "IM systems · 18 min read",
-      summary: "协议、消息可靠性、心跳重连、客户端状态与服务端架构的一条完整演进路径。",
-      topics: ["Message reliability", "Connection recovery", "Service topology"],
-    },
+    articles: [
+      {
+        title: "从能聊到可靠：一套 IM 系统的演进路线",
+        href: "/im-system-evolution/",
+        label: "IM systems · 18 min read",
+        category: "Reliable messaging systems",
+        visual: "message-path",
+        summary: "协议、消息可靠性、心跳重连、客户端状态与服务端架构的一条完整演进路径。",
+        topics: ["Message reliability", "Connection recovery", "Service topology"],
+      },
+      {
+        title: "不只是缓存：一套移动端离线包系统如何发布、校验、回滚与观测",
+        cardTitle: "不只是缓存：移动端离线包的发布、校验与回滚",
+        href: "/offline-package-system/",
+        label: "Web delivery · 16 min read",
+        category: "Offline package systems",
+        visual: "offline-package",
+        summary: "从版本清单和制品校验，到请求拦截、原子激活、失败降级与端到端观测。",
+        topics: ["Signed manifests", "Atomic activation", "Safe fallback"],
+      },
+    ],
   },
 });
 

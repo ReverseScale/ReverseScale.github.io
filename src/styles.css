@@ -968,6 +968,53 @@ h1 {
 .message-path__gateway i { font-style: normal; }
 .message-path__gateway small { color: var(--muted); font-size: 7px; }
 
+.micro-visual--offline-package {
+  display: grid;
+  grid-template-columns: minmax(92px, 1fr) auto minmax(110px, 1fr) auto minmax(92px, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: #e8ece3;
+  color: #52633f;
+}
+
+.micro-visual--offline-package > em {
+  font: 700 14px ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-style: normal;
+  text-align: center;
+}
+
+.offline-package__release,
+.offline-package__manifest,
+.offline-package__device {
+  display: grid;
+  min-height: 48px;
+  align-content: center;
+  gap: 4px;
+  border: 1px solid currentColor;
+  background: rgba(251, 250, 247, 0.78);
+  text-align: center;
+}
+
+.offline-package__manifest {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.offline-package__release i,
+.offline-package__manifest i,
+.offline-package__device i {
+  font: 750 8px ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-style: normal;
+}
+
+.offline-package__release small,
+.offline-package__manifest small,
+.offline-package__device small {
+  color: var(--muted);
+  font: 650 7px ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
 .project-card .micro-visual,
 .article-card .micro-visual {
   height: 104px;
@@ -1428,6 +1475,28 @@ h1 {
   .message-path__gateway small { font-size: 6px; }
 
   .micro-visual--message-path > em { font-size: 10px; }
+
+  .micro-visual--offline-package {
+    grid-template-columns: minmax(0, 1fr) auto minmax(64px, 1fr) auto minmax(0, 1fr);
+    gap: 5px;
+    padding: 9px 10px;
+  }
+
+  .offline-package__release,
+  .offline-package__manifest,
+  .offline-package__device {
+    min-height: 58px;
+  }
+
+  .offline-package__release i,
+  .offline-package__manifest i,
+  .offline-package__device i { font-size: 6px; }
+
+  .offline-package__release small,
+  .offline-package__manifest small,
+  .offline-package__device small { font-size: 6px; }
+
+  .micro-visual--offline-package > em { font-size: 10px; }
 
   .section {
     padding: 56px 0;

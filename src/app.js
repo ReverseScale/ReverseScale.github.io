@@ -138,12 +138,27 @@ const messagePathVisual = () => `
   </span>
 `;
 
+const offlinePackageVisual = () => `
+  <span class="micro-visual micro-visual--offline-package" aria-hidden="true">
+    <span class="offline-package__release"><i>Release</i><small>v42</small></span>
+    <em>→</em>
+    <span class="offline-package__manifest"><i>Manifest</i><small>hash · sign</small></span>
+    <em>→</em>
+    <span class="offline-package__device"><i>Verify</i><small>activate ↺</small></span>
+  </span>
+`;
+
+const articleVisual = (article) => {
+  if (article.visual === "offline-package") return offlinePackageVisual();
+  return messagePathVisual();
+};
+
 const articleCard = (article) => `
   <a class="article-card" href="${article.href}">
-    ${messagePathVisual()}
+    ${articleVisual(article)}
     <span class="project-card__meta">Research note · ${escapeHtml(article.label)}</span>
-    <span class="project-card__name">${escapeHtml(article.title)}</span>
-    <span class="project-card__label">Reliable messaging systems</span>
+    <span class="project-card__name">${escapeHtml(article.cardTitle ?? article.title)}</span>
+    <span class="project-card__label">${escapeHtml(article.category)}</span>
     <span class="project-card__summary">${escapeHtml(article.summary)}</span>
     <span class="project-card__points">
       ${article.topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")}
@@ -212,7 +227,7 @@ function renderHome() {
       </div>
       <div class="project-grid">
         ${projectLinks.map(projectCard).join("")}
-        ${articleCard(profile.research.featured)}
+        ${profile.research.articles.map(articleCard).join("")}
       </div>
     </section>
 

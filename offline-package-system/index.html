@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="系统拆解移动端离线包的发布、版本清单、制品校验、请求拦截、原子激活、失败回滚与端到端观测。"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="不只是缓存：一套移动端离线包系统如何发布、校验、回滚与观测" />
+    <meta
+      property="og:description"
+      content="离线包不是多存一份网页，而是一套需要完整性、安全边界和恢复证据的客户端发布系统。"
+    />
+    <meta property="og:url" content="https://reversescale.github.io/offline-package-system/" />
+    <title>不只是缓存：一套移动端离线包系统如何发布、校验、回滚与观测 | Tim</title>
+    <link rel="canonical" href="https://reversescale.github.io/offline-package-system/" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/offline-package-article.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "不只是缓存：一套移动端离线包系统如何发布、校验、回滚与观测",
+        "description": "系统拆解移动端离线包的发布、版本清单、制品校验、请求拦截、原子激活、失败回滚与端到端观测。",
+        "datePublished": "2026-08-31",
+        "dateModified": "2026-08-31",
+        "inLanguage": "zh-CN",
+        "author": {
+          "@type": "Person",
+          "name": "Tim",
+          "url": "https://reversescale.github.io/"
+        },
+        "mainEntityOfPage": "https://reversescale.github.io/offline-package-system/"
+      }
+    </script>
+  </head>
+  <body>
+    <header class="article-nav">
+      <a class="article-brand" href="/" aria-label="返回 Tim 的首页">
+        <span aria-hidden="true">T</span>
+        <strong>Tim</strong>
+      </a>
+      <nav aria-label="文章导航">
+        <a href="#topology">系统拓扑</a>
+        <a href="#interception">请求拦截</a>
+        <a href="#recovery">失败恢复</a>
+        <a href="/">所有项目 <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="offline-article">
+        <header class="article-hero">
+          <div class="article-hero__copy">
+            <p class="eyebrow">Research note · Web delivery</p>
+            <h1>不只是缓存：<br />一套移动端离线包系统如何发布、校验、回滚与观测</h1>
+            <p class="article-hero__lede">
+              离线包真正解决的不是“断网还能打开页面”，而是如何把一组 Web 资源作为可追踪的发布制品，
+              安全地送进 App、切换为当前版本，并在任何一步失败时回到已知可用状态。
+            </p>
+            <div class="article-meta">
+              <span>Tim</span>
+              <time datetime="2026-08-31">2026-08-31</time>
+              <span>约 16 分钟</span>
+            </div>
+          </div>
+
+          <div class="hero-release" aria-label="离线包从发布到激活的状态摘要">
+            <div class="hero-release__bar">
+              <span><i></i><i></i><i></i></span>
+              <b>package / checkout</b>
+              <em>active</em>
+            </div>
+            <div class="hero-release__manifest">
+              <span><small>version</small><b>42.7.1</b></span>
+              <span><small>artifact</small><b>checkout.zip</b></span>
+              <span><small>sha256</small><b>8f2a…c91e</b></span>
+              <span><small>signature</small><b class="is-valid">verified</b></span>
+            </div>
+            <div class="hero-release__switch">
+              <span>last known good</span><i>41.9.3</i><b>→</b><span>current</span><i>42.7.1</i>
+            </div>
+          </div>
+        </header>
+
+        <div class="article-shell">
+          <aside class="article-toc" aria-label="文章目录">
+            <p>阅读路径</p>
+            <ol>
+              <li><a href="#why"><span>01</span>问题边界</a></li>
+              <li><a href="#topology"><span>02</span>系统拓扑</a></li>
+              <li><a href="#manifest"><span>03</span>版本清单</a></li>
+              <li><a href="#delivery"><span>04</span>交付生命周期</a></li>
+              <li><a href="#interception"><span>05</span>请求拦截</a></li>
+              <li><a href="#recovery"><span>06</span>失败恢复</a></li>
+              <li><a href="#security"><span>07</span>安全边界</a></li>
+              <li><a href="#observability"><span>08</span>端到端观测</a></li>
+              <li><a href="#boundaries"><span>09</span>工程取舍</a></li>
+            </ol>
+          </aside>
+
+          <div class="article-body">
+            <section class="article-section article-intro" aria-labelledby="why">
+              <div class="section-heading">
+                <p class="section-kicker">01 · Problem</p>
+                <h2 id="why">先把离线包和 HTTP 缓存分开</h2>
+                <p>两者都能减少网络请求，但它们管理的是不同层次的事实。</p>
+              </div>
+              <p class="lead-paragraph">
+                HTTP 缓存保存响应，并依据新鲜度、验证器和缓存指令决定何时复用；离线包则把一组相互兼容的 HTML、JavaScript、CSS
+                和图片固定为一个<strong>版本化发布单元</strong>。前者优化请求，后者控制客户端实际运行哪一套资源。
+              </p>
+              <div class="comparison-grid">
+                <div>
+                  <span>HTTP cache</span>
+                  <h3>逐响应复用</h3>
+                  <p>资源可能来自不同发布时间，由协议缓存语义决定命中、过期和再验证。</p>
+                  <small>freshness · validator · revalidation</small>
+                </div>
+                <div>
+                  <span>Offline package</span>
+                  <h3>整包一致切换</h3>
+                  <p>版本清单声明完整资源集合，客户端校验通过后一次性切换当前版本。</p>
+                  <small>manifest · artifact · atomic activation</small>
+                </div>
+              </div>
+              <blockquote>
+                如果首页已经更新、业务脚本仍是旧版，缓存命中率再高也不是成功。离线包系统首先保障的是版本一致性，其次才是速度和离线可用。
+              </blockquote>
+            </section>
+
+            <section class="article-section" aria-labelledby="topology">
+              <div class="section-heading">
+                <p class="section-kicker">02 · Topology</p>
+                <h2 id="topology">把控制面和客户端数据面拆开</h2>
+                <p>控制面决定“应该运行什么”，客户端数据面负责“如何可信地运行它”。</p>
+              </div>
+
+              <figure class="system-map" aria-label="离线包控制面和客户端数据面的系统拓扑">
+                <div class="system-map__control">
+                  <span class="system-node"><small>Control plane</small><b>Release Console</b></span>
+                  <i>→</i>
+                  <span class="system-node"><small>Immutable bytes</small><b>Artifact Store / CDN</b></span>
+                  <i>+</i>
+                  <span class="system-node"><small>Desired state</small><b>Manifest Service</b></span>
+                </div>
+                <div class="system-map__bridge"><span>HTTPS · rollout policy · version identity</span></div>
+                <div class="system-map__client">
+                  <span class="system-node"><small>Stage</small><b>Package Manager</b></span>
+                  <span class="system-node"><small>Trust</small><b>Verifier</b></span>
+                  <span class="system-node"><small>Serve</small><b>Request Interceptor</b></span>
+                  <span class="system-node"><small>Evidence</small><b>Telemetry</b></span>
+                </div>
+                <figcaption>发布端不直接修改当前版本；客户端只有在下载、校验和准备全部成功后，才更新活动版本指针。</figcaption>
+              </figure>
+
+              <div class="two-column-copy">
+                <div>
+                  <h3>制品应不可变</h3>
+                  <p>同一个版本号或内容地址必须永远指向相同字节。发布错误用新版本修正，不能偷偷替换 CDN 上的旧包。</p>
+                </div>
+                <div>
+                  <h3>清单表达期望状态</h3>
+                  <p>清单描述版本、入口、大小、摘要、签名、兼容范围与灰度策略；客户端把它与本地状态比较，而不是猜测目录内容。</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="article-section" aria-labelledby="manifest">
+              <div class="section-heading">
+                <p class="section-kicker">03 · Manifest</p>
+                <h2 id="manifest">版本清单是发布契约</h2>
+                <p>它既是下载索引，也是完整性证明、兼容性边界和回滚依据。</p>
+              </div>
+
+              <pre class="code-block" aria-label="离线包版本清单示例"><code>{
+  <span>"package"</span>: <i>"checkout"</i>,
+  <span>"version"</span>: <i>"42.7.1"</i>,
+  <span>"entry"</span>: <i>"index.html"</i>,
+  <span>"artifact"</span>: {
+    <span>"url"</span>: <i>"https://cdn.example/packages/checkout/42.7.1.zip"</i>,
+    <span>"bytes"</span>: 1482403,
+    <span>"sha256"</span>: <i>"8f2a…c91e"</i>
+  },
+  <span>"minimumAppBuild"</span>: 620,
+  <span>"signature"</span>: <i>"base64…"</i>
+}</code></pre>
+
+              <div class="contract-grid">
+                <div><span>Identity</span><b>package + version</b><p>定位发布单元，支持幂等下载和事件关联。</p></div>
+                <div><span>Integrity</span><b>bytes + sha256</b><p>先验证长度，再验证内容摘要，避免截断或被替换。</p></div>
+                <div><span>Compatibility</span><b>minimumAppBuild</b><p>阻止新 Web 能力落到不支持的原生容器。</p></div>
+                <div><span>Authenticity</span><b>signature + key ID</b><p>确认清单来自受信发布者，而不只是在传输中没有损坏。</p></div>
+              </div>
+              <p class="inline-callout"><strong>增量包是优化，不是正确性基础。</strong> 客户端应始终能退回完整包路径；差分合成后仍需按目标版本摘要重新校验。</p>
+            </section>
+
+            <section class="article-section" aria-labelledby="delivery">
+              <div class="section-heading">
+                <p class="section-kicker">04 · Delivery</p>
+                <h2 id="delivery">交付是一条有提交点的事务</h2>
+                <p>下载完成不等于发布成功。真正的提交发生在活动版本指针被原子切换时。</p>
+              </div>
+
+              <div class="lifecycle-flow" aria-label="离线包五阶段交付生命周期">
+                <div class="lifecycle-stage"><span>01</span><b>Discover</b><p>拉取清单，比较当前版本、App 构建号和灰度规则。</p></div>
+                <div class="lifecycle-stage"><span>02</span><b>Download</b><p>写入 staging 目录；支持超时、断点和空间预算。</p></div>
+                <div class="lifecycle-stage"><span>03</span><b>Verify</b><p>校验清单签名、制品大小、摘要和解包约束。</p></div>
+                <div class="lifecycle-stage"><span>04</span><b>Prepare</b><p>解包后确认入口和必需文件，执行轻量预检。</p></div>
+                <div class="lifecycle-stage"><span>05</span><b>Activate</b><p>原子更新 current 指针，保留 last-known-good。</p></div>
+              </div>
+
+              <div class="transaction-note">
+                <div><span>staging/42.7.1</span><b>可删除的中间状态</b></div>
+                <i>verify ✓</i>
+                <div><span>packages/42.7.1</span><b>不可变的已验证版本</b></div>
+                <i>atomic switch</i>
+                <div><span>current → 42.7.1</span><b>唯一提交点</b></div>
+              </div>
+              <p>清理策略同样属于生命周期：先保护 current 与 last-known-good，再按最近使用时间和空间水位淘汰其余版本。绝不能让清理线程删除正在被 WebView 读取的目录。</p>
+            </section>
+
+            <section class="article-section" aria-labelledby="interception">
+              <div class="section-heading">
+                <p class="section-kicker">05 · Interception</p>
+                <h2 id="interception">请求拦截必须保持 Web 语义</h2>
+                <p>命中本地文件只是第一步；URL、来源、MIME、状态码和响应头仍要让 WebView 看见一致的世界。</p>
+              </div>
+
+              <figure class="request-path" aria-label="WebView 请求从策略判断到本地或网络响应的路径">
+                <div class="request-path__request"><small>WebView request</small><b>https://app.example/checkout/main.js</b></div>
+                <div class="request-path__decision"><span>规则匹配?</span><b>package · version · safe path</b></div>
+                <div class="request-path__branches">
+                  <div><span>HIT</span><b>verified local file</b><small>correct MIME · cache headers</small></div>
+                  <div><span>MISS</span><b>network request</b><small>preserve request semantics</small></div>
+                </div>
+                <figcaption>拦截器只读取已经激活的版本；staging 目录永远不能进入服务路径。</figcaption>
+              </figure>
+
+              <div class="platform-grid">
+                <div>
+                  <span>iOS / WebKit</span>
+                  <h3>显式注册资源方案</h3>
+                  <p><code>WKURLSchemeHandler</code> 可为 WebKit 原本不处理的 URL scheme 提供资源加载。实现必须正确响应任务开始、取消、MIME 与错误。</p>
+                </div>
+                <div>
+                  <span>Android / WebView</span>
+                  <h3>优先保持 HTTPS 风格来源</h3>
+                  <p><code>WebViewAssetLoader</code> 可通过 <code>shouldInterceptRequest</code> 将本地资源映射为 HTTP(S) URL，更容易维持同源策略和现代 Web 兼容性。</p>
+                </div>
+              </div>
+              <div class="decision-note">
+                <b>平台能力不是共享抽象</b>
+                <p>iOS 和 Android 的拦截入口不同，但上层契约可以一致：规范化 URL → 选择活动包 → 校验安全路径 → 返回带正确元数据的响应 → 记录命中结果。</p>
+              </div>
+            </section>
+
+            <section class="article-section" aria-labelledby="recovery">
+              <div class="section-heading">
+                <p class="section-kicker">06 · Recovery</p>
+                <h2 id="recovery">失败降级不是“再试一次”</h2>
+                <p>失败可能发生在清单、下载、校验、解包、激活或运行期；每个阶段都要保留下一条确定路径。</p>
+              </div>
+
+              <div class="fallback-chain" aria-label="离线包三级降级链">
+                <div class="fallback-step"><span>01 · preferred</span><b>Current package</b><p>已校验且通过运行期健康检查的活动版本。</p></div>
+                <div class="fallback-step"><span>02 · recovery</span><b>Last-known-good</b><p>上一个成功运行版本；切换无需重新下载。</p></div>
+                <div class="fallback-step"><span>03 · baseline</span><b>Network or bundled shell</b><p>远端页面可用时走网络，否则回到随 App 发布的最小壳。</p></div>
+              </div>
+
+              <table class="failure-table">
+                <thead><tr><th>失败阶段</th><th>状态处理</th><th>用户路径</th></tr></thead>
+                <tbody>
+                  <tr><td>清单不可达</td><td>不改变 current</td><td>继续使用本地已激活版本</td></tr>
+                  <tr><td>下载或摘要失败</td><td>删除 staging</td><td>当前版本不受影响，退避后重试</td></tr>
+                  <tr><td>激活后启动失败</td><td>标记 bad version</td><td>原子回滚 last-known-good</td></tr>
+                  <tr><td>本地资源缺失</td><td>记录 package miss</td><td>按策略走网络或基线页</td></tr>
+                </tbody>
+              </table>
+              <p class="inline-callout"><strong>防止回滚风暴。</strong> 坏版本应进入设备侧抑制列表，并由服务端停止灰度；否则每次启动都会下载、失败、回滚，持续消耗流量和启动时间。</p>
+            </section>
+
+            <section class="article-section" aria-labelledby="security">
+              <div class="section-heading">
+                <p class="section-kicker">07 · Security</p>
+                <h2 id="security">把离线包当成待执行代码</h2>
+                <p>压缩包最终会向 WebView 提供 HTML 和 JavaScript，因此其信任要求不应低于原生更新或远程配置。</p>
+              </div>
+
+              <div class="security-layers">
+                <div><span>01</span><h3>认证发布者</h3><p>在 App 内置受信公钥或可轮换的密钥集合，验证清单签名；不能把服务端下发的新公钥自动当作可信根。</p></div>
+                <div><span>02</span><h3>验证每个字节</h3><p>签名覆盖版本、摘要、大小和兼容范围；制品下载后再按摘要验证，任何不匹配都不得激活。</p></div>
+                <div><span>03</span><h3>约束解包边界</h3><p>拒绝绝对路径、<code>..</code> 穿越、符号链接逃逸、重复文件和超出大小或数量预算的条目。</p></div>
+                <div><span>04</span><h3>隔离服务路径</h3><p>只允许读取活动包根目录内的规范化路径；不把任意 <code>file://</code>、用户目录或 staging 暴露给 Web 内容。</p></div>
+              </div>
+              <div class="security-gate"><span>downloaded</span><i>×</i><b>untrusted</b><em>signature + hash + path checks</em><span>verified</span><i>→</i><b>activatable</b></div>
+            </section>
+
+            <section class="article-section" aria-labelledby="observability">
+              <div class="section-heading">
+                <p class="section-kicker">08 · Observability</p>
+                <h2 id="observability">按版本串起端到端证据</h2>
+                <p>只有“下载成功率”看不见真正的发布质量；每个事件都要带上包身份和阶段。</p>
+              </div>
+
+              <div class="signal-grid">
+                <div><span>发现</span><strong>manifest_fetch</strong><p>版本 · App build · 网络 · 命中灰度 · 响应耗时</p></div>
+                <div><span>交付</span><strong>package_prepare</strong><p>下载字节 · 耗时 · 摘要结果 · 解包失败原因</p></div>
+                <div><span>运行</span><strong>resource_serve</strong><p>URL 类别 · local hit/miss · MIME · fallback 路径</p></div>
+                <div><span>恢复</span><strong>package_rollback</strong><p>from/to 版本 · 触发信号 · bad version · 用户影响</p></div>
+              </div>
+
+              <div class="release-funnel">
+                <div><span>eligible devices</span><b>100%</b></div><i>→</i>
+                <div><span>verified</span><b>98.7%</b></div><i>→</i>
+                <div><span>activated</span><b>98.3%</b></div><i>→</i>
+                <div><span>healthy session</span><b>97.9%</b></div>
+              </div>
+              <p>关键告警应比较版本之间的差异：新版本的校验失败、首屏错误、本地 miss 或回滚率是否显著高于上一版本。没有版本维度，异常只会被全局平均值稀释。</p>
+            </section>
+
+            <section class="article-section principles-section" aria-labelledby="boundaries">
+              <div class="section-heading">
+                <p class="section-kicker">09 · Boundaries</p>
+                <h2 id="boundaries">什么时候值得做，什么时候不值得</h2>
+                <p>离线包提高发布控制力，也把一部分发布基础设施搬进了每台设备。</p>
+              </div>
+
+              <div class="tradeoff-grid">
+                <div class="is-fit"><span>适合</span><h3>高频 Web 业务</h3><p>首屏时延敏感、弱网使用明显、资源集合可版本化，并且团队有能力维护灰度、回滚和监控。</p></div>
+                <div class="is-fit"><span>适合</span><h3>原生壳 + Web 模块</h3><p>原生容器稳定，业务模块需要独立发布节奏，同时希望保留一致的安全与兼容性边界。</p></div>
+                <div><span>谨慎</span><h3>内容型页面</h3><p>若主要内容天然需要实时联网、更新频率低，标准 HTTP 缓存与 Service Worker 可能已经足够。</p></div>
+                <div><span>谨慎</span><h3>缺乏发布治理</h3><p>没有签名、灰度、回滚、事件模型和空间预算时，离线包会把网络问题变成更难清理的设备状态问题。</p></div>
+              </div>
+
+              <ol class="principle-list">
+                <li><span>01</span><p><strong>以不可变制品为基础。</strong> 相同身份永远对应相同字节。</p></li>
+                <li><span>02</span><p><strong>清单定义完整发布契约。</strong> 版本、摘要、兼容与签名必须一起演进。</p></li>
+                <li><span>03</span><p><strong>下载和激活分离。</strong> 只有验证完成后的原子切换才算发布成功。</p></li>
+                <li><span>04</span><p><strong>始终保留已知可用版本。</strong> 回滚路径要比新版本路径更短、更确定。</p></li>
+                <li><span>05</span><p><strong>拦截器维护 Web 语义。</strong> 本地命中不能破坏来源、安全策略和响应元数据。</p></li>
+                <li><span>06</span><p><strong>用运行期证据完成发布。</strong> 激活不是终点，健康会话才是。</p></li>
+              </ol>
+            </section>
+
+            <section class="references" aria-label="参考资料">
+              <div>
+                <p class="section-kicker">References</p>
+                <h2>实现边界的权威参考</h2>
+                <p>本文的系统主线来自个人离线包研究笔记；平台接口、缓存语义和签名要求以官方资料为准。</p>
+              </div>
+              <ul>
+                <li><a href="https://developer.apple.com/documentation/webkit/wkurlschemehandler" target="_blank" rel="noreferrer">Apple · WKURLSchemeHandler <span>↗</span></a></li>
+                <li><a href="https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.html" target="_blank" rel="noreferrer">Android · WebViewAssetLoader <span>↗</span></a></li>
+                <li><a href="https://www.rfc-editor.org/rfc/rfc9111.html" target="_blank" rel="noreferrer">RFC 9111 · HTTP Caching <span>↗</span></a></li>
+                <li><a href="https://mas.owasp.org/MASWE/MASVS-CRYPTO/MASWE-0011/" target="_blank" rel="noreferrer">OWASP MASWE-0011 · Missing Signature Verification <span>↗</span></a></li>
+              </ul>
+            </section>
+
+            <footer class="article-source">
+              <div>
+                <p class="section-kicker">Source note</p>
+                <h2>关于这篇文章</h2>
+                <p>原笔记收集了离线服务、包管理、更新策略、拦截实现和统计方案。本文将它们重新组织为一条从发布契约到运行期证据的系统设计路径。</p>
+              </div>
+              <a href="https://app.notion.com/0277da40f7194b75b01627c975b19487" target="_blank" rel="noreferrer">
+                查看原始研究笔记 <span aria-hidden="true">↗</span>
+              </a>
+            </footer>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 Tim</span>
+      <a href="/">ReverseScale · Independent software projects</a>
+    </footer>
+  </body>
+</html>
