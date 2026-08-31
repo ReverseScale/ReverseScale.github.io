@@ -115,9 +115,15 @@ class ImSystemArticleTest(unittest.TestCase):
             text=True,
         )
         rendered = json.loads(result.stdout)
+        home_html = rendered["html"]
 
-        self.assertIn('href="/im-system-evolution/"', rendered["html"])
-        self.assertIn("从能聊到可靠", rendered["html"])
+        self.assertIn('href="/im-system-evolution/"', home_html)
+        self.assertIn("从能聊到可靠", home_html)
+        self.assertEqual(home_html.count('class="article-card"'), 1)
+        self.assertIn('class="micro-visual micro-visual--message-path"', home_html)
+        self.assertNotIn('class="section research-brief"', home_html)
+        self.assertLess(home_html.index('class="project-grid"'), home_html.index('class="article-card"'))
+        self.assertLess(home_html.index('class="article-card"'), home_html.index('class="section architecture-brief"'))
 
     def test_article_is_a_semantic_long_form_reading_path(self) -> None:
         article_path = ROOT / "im-system-evolution" / "index.html"
@@ -205,6 +211,15 @@ class ImSystemArticleTest(unittest.TestCase):
         self.assertRegex(
             mobile_styles,
             r"\.article-toc a span\s*\{[^}]*font-size:\s*(?:1\d|\d{3,})px;",
+        )
+
+    def test_home_article_diagram_stacks_in_the_mobile_work_grid(self) -> None:
+        styles = (ROOT / "src" / "styles.css").read_text(encoding="utf-8")
+        mobile_styles = styles.split("@media (max-width: 680px)", maxsplit=1)[1]
+
+        self.assertRegex(
+            mobile_styles,
+            r"\.micro-visual--message-path\s*\{[^}]*grid-template-columns:\s*1fr;",
         )
 
 

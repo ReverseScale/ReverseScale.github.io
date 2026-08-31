@@ -128,6 +128,30 @@ const projectCard = (project) => `
   </a>
 `;
 
+const messagePathVisual = () => `
+  <span class="micro-visual micro-visual--message-path" aria-hidden="true">
+    <span class="message-path__clients"><i>iOS</i><i>Android</i><i>Web</i></span>
+    <em>→</em>
+    <span class="message-path__gateway"><i>Gateway</i><small>auth · route</small></span>
+    <em>→</em>
+    <span class="message-path__services"><i>Message</i><i>Route</i><i>Group</i></span>
+  </span>
+`;
+
+const articleCard = (article) => `
+  <a class="article-card" href="${article.href}">
+    ${messagePathVisual()}
+    <span class="project-card__meta">Research note · ${escapeHtml(article.label)}</span>
+    <span class="project-card__name">${escapeHtml(article.title)}</span>
+    <span class="project-card__label">Reliable messaging systems</span>
+    <span class="project-card__summary">${escapeHtml(article.summary)}</span>
+    <span class="project-card__points">
+      ${article.topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")}
+    </span>
+    <span class="project-card__link">Read article <span aria-hidden="true">→</span></span>
+  </a>
+`;
+
 const principleCard = (principle, index) => `
   <article class="principle-card">
     <span>0${index + 1}</span>
@@ -188,6 +212,7 @@ function renderHome() {
       </div>
       <div class="project-grid">
         ${projectLinks.map(projectCard).join("")}
+        ${articleCard(profile.research.featured)}
       </div>
     </section>
 
@@ -235,20 +260,6 @@ function renderHome() {
       </div>
     </section>
 
-    <section class="section research-brief" id="research" aria-labelledby="research-title">
-      <div class="research-brief__copy">
-        <p class="eyebrow">Research & notes</p>
-        <h2 id="research-title">Notes become durable reading paths.</h2>
-        <p>${escapeHtml(profile.research.summary)} Selected notes are rewritten here as focused, self-contained articles.</p>
-        <a class="text-link" href="${profile.research.href}" target="_blank" rel="noreferrer">Open all research <span aria-hidden="true">↗</span></a>
-      </div>
-      <a class="research-feature" href="${profile.research.featured.href}">
-        <span>${escapeHtml(profile.research.featured.label)}</span>
-        <strong>${escapeHtml(profile.research.featured.title)}</strong>
-        <p>${escapeHtml(profile.research.featured.summary)}</p>
-        <b>Read article <span aria-hidden="true">→</span></b>
-      </a>
-    </section>
   `;
 }
 

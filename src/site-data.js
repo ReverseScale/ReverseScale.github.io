@@ -20,6 +20,7 @@ export const profile = Object.freeze({
       href: "/im-system-evolution/",
       label: "IM systems · 18 min read",
       summary: "协议、消息可靠性、心跳重连、客户端状态与服务端架构的一条完整演进路径。",
+      topics: ["Message reliability", "Connection recovery", "Service topology"],
     },
   },
 });

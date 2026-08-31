@@ -205,12 +205,14 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertNotIn("capability token", html.lower())
         self.assertNotIn("password", html.lower())
 
-    def test_home_keeps_work_research_and_about_without_article_feed(self) -> None:
+    def test_home_keeps_work_article_and_about_without_article_feed(self) -> None:
         app_source = read("src/app.js")
 
         self.assertIn('id="work"', app_source)
         self.assertIn('id="about"', app_source)
-        self.assertIn('id="research"', app_source)
+        self.assertIn('class="nav-research"', app_source)
+        self.assertIn('class="article-card"', app_source)
+        self.assertNotIn('id="research"', app_source)
         self.assertIn("Notes and research live in Notion.", app_source + read("src/site-data.js"))
         self.assertNotIn("article-library", app_source)
         self.assertNotIn("renderArticlePage", app_source)
