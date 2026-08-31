@@ -213,13 +213,27 @@ class ImSystemArticleTest(unittest.TestCase):
             r"\.article-toc a span\s*\{[^}]*font-size:\s*(?:1\d|\d{3,})px;",
         )
 
-    def test_home_article_diagram_stacks_in_the_mobile_work_grid(self) -> None:
+    def test_home_article_uses_the_same_grid_span_and_height_as_project_cards(self) -> None:
         styles = (ROOT / "src" / "styles.css").read_text(encoding="utf-8")
         mobile_styles = styles.split("@media (max-width: 680px)", maxsplit=1)[1]
 
+        article_card_rule = styles.split(".article-card {", maxsplit=1)[1].split("}", maxsplit=1)[0]
+        self.assertNotIn("grid-column", article_card_rule)
+        self.assertRegex(styles, r"\.project-card,\s*\.article-card\s*\{[^}]*min-height:\s*390px;")
+        self.assertNotIn("min-height: 620px", mobile_styles)
+
+    def test_home_article_diagram_stays_in_the_standard_mobile_preview_height(self) -> None:
+        styles = (ROOT / "src" / "styles.css").read_text(encoding="utf-8")
+        mobile_styles = styles.split("@media (max-width: 680px)", maxsplit=1)[1]
+
+        self.assertNotIn("min-height: 270px", mobile_styles)
         self.assertRegex(
             mobile_styles,
-            r"\.micro-visual--message-path\s*\{[^}]*grid-template-columns:\s*1fr;",
+            r"\.micro-visual--message-path\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s+auto\s+minmax\(\d+px,\s*[^)]+\)\s+auto\s+minmax\(0,\s*1fr\);",
+        )
+        self.assertNotRegex(
+            mobile_styles,
+            r"\.micro-visual--message-path\s*>\s*em\s*\{[^}]*transform:\s*rotate",
         )
 
 

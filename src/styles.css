@@ -551,7 +551,6 @@ h1 {
 }
 
 .article-card {
-  grid-column: 1 / -1;
   border-top-color: var(--coral);
 }
 
@@ -1099,6 +1098,8 @@ h1 {
 }
 
 .architecture-preview__diagram {
+  --architecture-feature-gap: 12px;
+  --architecture-feature-center-offset: 4px;
   position: relative;
   z-index: 2;
   display: grid;
@@ -1106,23 +1107,71 @@ h1 {
   flex: 1;
   align-content: center;
   justify-items: center;
-  gap: 14px;
+  gap: 0;
   margin: auto;
 }
 
-.architecture-preview__diagram::after {
-  position: absolute;
-  top: 3%;
-  left: 50%;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #65d9ff;
-  box-shadow: 0 0 14px #65d9ff;
-  content: "";
-  transform: translateX(-50%);
-  animation: architecture-preview-flow 2.8s ease-in-out infinite;
+.architecture-preview__connector {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  color: rgba(101, 217, 255, 0.48);
+  pointer-events: none;
 }
+
+.architecture-preview__connector::before,
+.architecture-preview__connector::after,
+.architecture-preview__branch-node {
+  position: absolute;
+  background: currentColor;
+  content: "";
+}
+
+.architecture-preview__connector--single::before {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.architecture-preview__connector--fanout::before {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 50%;
+}
+
+.architecture-preview__connector--fanout::after,
+.architecture-preview__connector--merge::after {
+  top: 50%;
+  right: calc(100% / 6 - var(--architecture-feature-center-offset));
+  left: calc(100% / 6 - var(--architecture-feature-center-offset));
+  height: 1px;
+}
+
+.architecture-preview__connector--merge::before {
+  top: 50%;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.architecture-preview__branch-node {
+  width: 1px;
+  height: 50%;
+}
+
+.architecture-preview__connector--fanout .architecture-preview__branch-node {
+  top: 50%;
+}
+
+.architecture-preview__connector--merge .architecture-preview__branch-node {
+  top: 0;
+}
+
+.architecture-preview__branch-node:nth-child(1) { left: calc(100% / 6 - var(--architecture-feature-center-offset)); }
+.architecture-preview__branch-node:nth-child(2) { left: 50%; }
+.architecture-preview__branch-node:nth-child(3) { left: calc(500% / 6 + var(--architecture-feature-center-offset)); }
 
 .architecture-preview__diagram i {
   display: grid;
@@ -1150,29 +1199,10 @@ h1 {
 }
 
 .architecture-preview__features {
-  position: relative;
   display: grid;
   width: 100%;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.architecture-preview__features::before,
-.architecture-preview__features::after {
-  position: absolute;
-  left: 50%;
-  width: 1px;
-  height: 22px;
-  background: rgba(101, 217, 255, 0.48);
-  content: "";
-}
-
-.architecture-preview__features::before {
-  bottom: 100%;
-}
-
-.architecture-preview__features::after {
-  top: 100%;
+  gap: var(--architecture-feature-gap);
 }
 
 .architecture-preview__features i {
@@ -1200,23 +1230,6 @@ h1 {
   to {
     opacity: 1;
     transform: scale(1.1);
-  }
-}
-
-@keyframes architecture-preview-flow {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 0);
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, 230px);
   }
 }
 
@@ -1305,7 +1318,8 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .project-card {
+  .project-card,
+  .article-card {
     min-height: 390px;
   }
 
@@ -1388,20 +1402,32 @@ h1 {
     gap: 5px;
   }
 
-  .article-card { min-height: 620px; }
-
-  .article-card .micro-visual {
-    height: auto;
-    min-height: 270px;
-  }
-
   .micro-visual--message-path {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 16px;
+    grid-template-columns: minmax(0, 1fr) auto minmax(70px, .85fr) auto minmax(0, 1fr);
+    gap: 5px;
+    padding: 9px 10px;
   }
 
-  .micro-visual--message-path > em { transform: rotate(90deg); }
+  .message-path__clients,
+  .message-path__services {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .message-path__clients i,
+  .message-path__services i {
+    min-height: 18px;
+    font-size: 6px;
+  }
+
+  .message-path__gateway {
+    min-height: 58px;
+    font-size: 7px;
+  }
+
+  .message-path__gateway small { font-size: 6px; }
+
+  .micro-visual--message-path > em { font-size: 10px; }
 
   .section {
     padding: 56px 0;
@@ -1447,7 +1473,6 @@ h1 {
   }
 
   .architecture-preview::before,
-  .architecture-preview__diagram::after,
   .micro-visual--device-flow > em i,
   .micro-visual--log-runtime > em i,
   .micro-visual--design-system > em i,

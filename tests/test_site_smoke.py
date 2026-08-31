@@ -385,6 +385,17 @@ class SiteSmokeTest(unittest.TestCase):
         self.assertNotIn("架构解说", app_source)
         self.assertNotIn("进入交互解说", app_source)
 
+    def test_homepage_architecture_preview_connects_all_three_modules(self) -> None:
+        app_source = read("src/app.js")
+        styles = read("src/styles.css")
+
+        self.assertEqual(app_source.count('class="architecture-preview__branch-node"'), 6)
+        self.assertIn('architecture-preview__connector--fanout', app_source)
+        self.assertIn('architecture-preview__connector--merge', app_source)
+        self.assertIn(".architecture-preview__connector::before", styles)
+        self.assertIn(".architecture-preview__connector::after", styles)
+        self.assertIn(".architecture-preview__branch-node", styles)
+
     def test_architecture_explainer_is_written_in_simplified_chinese(self) -> None:
         source = read("src/app-architecture.js") + read("app-architecture/index.html")
 

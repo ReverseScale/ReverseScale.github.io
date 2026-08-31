@@ -227,9 +227,20 @@ function renderHome() {
         <span class="architecture-preview__meta"><span>Interactive explainer</span><span>8 levels · 34 decisions</span></span>
         <span class="architecture-preview__diagram" aria-hidden="true">
           <i class="architecture-preview__shell">App Shell</i>
+          <span class="architecture-preview__connector architecture-preview__connector--single"></span>
           <i class="architecture-preview__router">Router</i>
+          <span class="architecture-preview__connector architecture-preview__connector--fanout">
+            <span class="architecture-preview__branch-node"></span>
+            <span class="architecture-preview__branch-node"></span>
+            <span class="architecture-preview__branch-node"></span>
+          </span>
           <span class="architecture-preview__features">
             <i>Home Module</i><i>Catalog Module</i><i>Checkout Module</i>
+          </span>
+          <span class="architecture-preview__connector architecture-preview__connector--merge">
+            <span class="architecture-preview__branch-node"></span>
+            <span class="architecture-preview__branch-node"></span>
+            <span class="architecture-preview__branch-node"></span>
           </span>
           <i class="architecture-preview__core">UI Components · Utility Components</i>
         </span>
