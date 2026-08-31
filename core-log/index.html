@@ -11,7 +11,7 @@
     <meta property="og:title" content="Core Log — Portable native logging runtime" />
     <meta
       property="og:description"
-      content="A systems case study in portable adapters, governed asynchronous writes, trace context, rotation, recovery, and offline diagnosis."
+      content="A systems case study in runtime policy updates, lifecycle-safe adapters, governed asynchronous writes, trace context, rotation, recovery, and offline diagnosis."
     />
     <meta property="og:url" content="https://reversescale.github.io/core-log/" />
     <title>Core Log — Portable native logging runtime | Tim</title>
@@ -28,6 +28,7 @@
       </a>
       <nav aria-label="Core Log navigation">
         <a href="#mechanism">Mechanism</a>
+        <a href="#assurance">Assurance</a>
         <a href="#diagnosis">Diagnosis</a>
         <a href="#reliability">Reliability</a>
         <a href="/">All projects <span aria-hidden="true">↗</span></a>
@@ -127,6 +128,55 @@
         </core-log-pipeline>
       </section>
 
+      <section class="core-section policy-section" id="assurance" aria-labelledby="policy-title">
+        <div class="policy-layout">
+          <div class="policy-copy">
+            <p class="eyebrow"><span></span> Runtime policy control</p>
+            <h2 id="policy-title">Update the policy,<br />not the SDK.</h2>
+            <p>
+              Applications can load one cross-platform JSON policy at startup or reapply it
+              while the process is running. Field rules, content patterns, and a dynamic
+              blacklist all converge on the same native engine.
+            </p>
+            <ul class="policy-capabilities" aria-label="Runtime sanitization policy inputs">
+              <li><span>01</span><b>Field rules</b><small>Structured names · complete values</small></li>
+              <li><span>02</span><b>Content patterns</b><small>Bounded regular expressions</small></li>
+              <li><span>03</span><b>Dynamic blacklist</b><small>Runtime-sensitive literals</small></li>
+            </ul>
+          </div>
+
+          <div class="policy-console" aria-label="Transactional sanitization policy update">
+            <div class="policy-console__bar">
+              <span>policy / generation-18</span>
+              <b><i></i> active</b>
+            </div>
+            <div class="policy-console__revision">
+              <article>
+                <span>incoming revision</span>
+                <code>sanitization.v19.json</code>
+                <small>case rules · priorities · strategies</small>
+              </article>
+              <b aria-hidden="true">→</b>
+              <article class="policy-console__active">
+                <span>published revision</span>
+                <code>generation 19</code>
+                <small>one atomic replacement</small>
+              </article>
+            </div>
+            <ol class="policy-console__flow">
+              <li><span>01</span><b>Compile</b><small>Validate every rule before publication</small></li>
+              <li><span>02</span><b>Swap</b><small>Publish one complete policy generation</small></li>
+              <li><span>03</span><b>Invalidate</b><small>Retire results from stale caches</small></li>
+            </ol>
+            <div class="policy-console__fallback">
+              <span>invalid revision</span>
+              <b>Keep the last known-good policy.</b>
+              <small>Timeout, overload, or scan limits redact the whole affected payload instead of returning the original value.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="core-section diagnosis-section" id="diagnosis" aria-labelledby="diagnosis-title">
         <div class="diagnosis-copy">
           <p class="eyebrow"><span></span> Aggregation & diagnosis plane</p>
@@ -184,15 +234,58 @@
           <h2 id="reliability-title">Rotate without losing the write path.</h2>
           <p>File lifecycle is part of correctness. The runtime prepares a new mapped file, switches the active state, cleans the old mapping, and exposes both success and failure.</p>
         </div>
-        <div class="rotation-sequence" aria-label="Atomic file rotation and recovery sequence">
-          <article><span>01</span><i class="rotation-glyph rotation-glyph--preflight" aria-hidden="true"></i><b>Preflight</b><small>Size policy reached</small></article>
-          <i aria-hidden="true"></i>
-          <article><span>02</span><i class="rotation-glyph rotation-glyph--prepare" aria-hidden="true"></i><b>Prepare</b><small>Create and map next file</small></article>
-          <i aria-hidden="true"></i>
-          <article class="rotation-sequence__active"><span>03</span><i class="rotation-glyph rotation-glyph--switch" aria-hidden="true"></i><b>Switch</b><small>Update active state</small></article>
-          <i aria-hidden="true"></i>
-          <article><span>04</span><i class="rotation-glyph rotation-glyph--retire" aria-hidden="true"></i><b>Retire</b><small>Flush and close old file</small></article>
-          <div class="rotation-recovery"><span>if rotation fails</span><b>Recover the current mapping</b><small>Report failure when recovery cannot restore a safe writer.</small></div>
+        <div class="rotation-stack">
+          <div class="rotation-sequence" aria-label="Atomic file rotation and recovery sequence">
+            <article><span>01</span><i class="rotation-glyph rotation-glyph--preflight" aria-hidden="true"></i><b>Preflight</b><small>Size policy reached</small></article>
+            <i aria-hidden="true"></i>
+            <article><span>02</span><i class="rotation-glyph rotation-glyph--prepare" aria-hidden="true"></i><b>Prepare</b><small>Create and map next file</small></article>
+            <i aria-hidden="true"></i>
+            <article class="rotation-sequence__active"><span>03</span><i class="rotation-glyph rotation-glyph--switch" aria-hidden="true"></i><b>Switch</b><small>Update active state</small></article>
+            <i aria-hidden="true"></i>
+            <article><span>04</span><i class="rotation-glyph rotation-glyph--retire" aria-hidden="true"></i><b>Retire</b><small>Flush and close old file</small></article>
+            <div class="rotation-recovery"><span>if rotation fails</span><b>Recover the current mapping</b><small>Report failure when recovery cannot restore a safe writer.</small></div>
+          </div>
+          <div class="rotation-contract">
+            <div><span>callback contract</span><b>Rotation is an observable event.</b></div>
+            <dl>
+              <div><dt>Files</dt><dd>old → new</dd></div>
+              <div><dt>Measure</dt><dd>bytes · time</dd></div>
+              <div><dt>Outcome</dt><dd>success · error</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="core-section lifecycle-section" aria-labelledby="lifecycle-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Cross-runtime lifecycle safety</p>
+          <h2 id="lifecycle-title">Destroy one logger<br />without disturbing another.</h2>
+          <p>Logger identity survives language boundaries without turning a native address into a promise. Each call, callback, and engine cleanup is tied to an exact active instance generation.</p>
+        </div>
+        <div class="lifecycle-ledger" aria-label="Native logger lifecycle guarantees">
+          <article>
+            <span>01 / IDENTITY</span>
+            <i class="lifecycle-glyph lifecycle-glyph--handle" aria-hidden="true"></i>
+            <b>Opaque handles</b>
+            <small>Old IDs cannot resolve to a recreated logger, even if memory addresses are reused.</small>
+          </article>
+          <article>
+            <span>02 / CONCURRENCY</span>
+            <i class="lifecycle-glyph lifecycle-glyph--lease" aria-hidden="true"></i>
+            <b>Leased calls</b>
+            <small>Destroy retires the instance first and delays deletion until active calls finish.</small>
+          </article>
+          <article>
+            <span>03 / OWNERSHIP</span>
+            <i class="lifecycle-glyph lifecycle-glyph--generation" aria-hidden="true"></i>
+            <b>Generation tokens</b>
+            <small>A detached Flutter engine cannot clear a newer engine's rotation callback.</small>
+          </article>
+          <aside>
+            <span>failure contract</span>
+            <b>Retired handles fail closed.</b>
+            <small>They never drift into a new logger generation or report false success across JNI, Objective-C++, and Dart FFI.</small>
+          </aside>
         </div>
       </section>
 
@@ -211,6 +304,18 @@
             <article><span>CSV</span><b>Export & analysis</b></article>
           </div>
         </div>
+        <div class="retrieval-guard">
+          <div>
+            <span>mobile extraction guard</span>
+            <h3>Read evidence without exhausting the device.</h3>
+            <p>Flutter publishes a result only after the complete file has been validated, decrypted, parsed, and allocated. Truncated files, malformed records, or exhausted budgets return no partial buffer.</p>
+          </div>
+          <dl>
+            <div><dt>File budget</dt><dd>64 MiB</dd></div>
+            <div><dt>Record budget</dt><dd>4,096 records</dd></div>
+            <div><dt>Publication</dt><dd>Atomic result</dd></div>
+          </dl>
+        </div>
       </section>
 
       <section class="core-section portability-section" id="portability" aria-labelledby="portability-title">
@@ -228,6 +333,20 @@
           <article><span>Current</span><i class="adapter-glyph adapter-glyph--flutter" aria-hidden="true"></i><b>Flutter</b><small>FFI · plugin bridge</small></article>
           <article class="adapter-ledger__future"><span>Extension path</span><i class="adapter-glyph adapter-glyph--harmony" aria-hidden="true"></i><b>HarmonyOS</b><small>ArkTS · N-API</small></article>
           <article class="adapter-ledger__future"><span>Extension path</span><i class="adapter-glyph adapter-glyph--other" aria-hidden="true"></i><b>Other runtimes</b><small>Stable C ABI</small></article>
+        </div>
+      </section>
+
+      <section class="core-section proof-section" aria-labelledby="proof-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Release evidence</p>
+          <h2 id="proof-title">Artifacts are part<br />of the contract.</h2>
+          <p>Runtime guarantees only matter when consumers receive the native artifact that was actually reviewed and tested. Distribution checks bind source, ABI, and package shape before release.</p>
+        </div>
+        <div class="proof-ledger" aria-label="Verified native artifact boundaries">
+          <article><span>01</span><b>Four Android ABIs</b><small>arm64-v8a · armeabi-v7a · x86 · x86_64</small></article>
+          <article><span>02</span><b>Localized exports</b><small>Only the JNI and Flutter C ABI surface stays public.</small></article>
+          <article><span>03</span><b>Same-source evidence</b><small>Flutter integration consumes the native artifact from the reviewed revision.</small></article>
+          <article><span>04</span><b>Self-contained iOS</b><small>The Flutter package carries its verified XCFramework.</small></article>
         </div>
       </section>
 

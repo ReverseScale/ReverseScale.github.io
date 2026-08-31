@@ -78,8 +78,8 @@ export const projectLinks = [
     tone: "oxide",
     visual: "log-runtime",
     summary:
-      "A portable C/C++ logging runtime and cross-layer diagnosis plane that turn App, service, and IoT events into governed, correlated, durable evidence.",
-    points: ["Native core", "Cross-layer correlation", "Secure diagnosis"],
+      "A portable C/C++ logging runtime whose governed policies and lifecycle-safe bridges turn App, service, and IoT events into correlated, durable evidence.",
+    points: ["Runtime policy control", "Lifecycle-safe bridges", "Bounded diagnosis"],
   },
   {
     name: "AI Config",

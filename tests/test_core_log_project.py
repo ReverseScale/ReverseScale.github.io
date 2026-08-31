@@ -45,7 +45,10 @@ class CoreLogProjectTest(unittest.TestCase):
         self.assertEqual(payload["project"]["siteHref"], "/core-log/")
         self.assertEqual(payload["project"]["visual"], "log-runtime")
         self.assertIn("portable C/C++", payload["project"]["summary"])
-        self.assertIn("Native core", payload["project"]["points"])
+        self.assertEqual(
+            payload["project"]["points"],
+            ["Runtime policy control", "Lifecycle-safe bridges", "Bounded diagnosis"],
+        )
 
     def test_project_page_explains_the_portable_contract_and_evidence_lifecycle(self) -> None:
         html = read("core-log/index.html")
@@ -71,6 +74,39 @@ class CoreLogProjectTest(unittest.TestCase):
         self.assertIn('src="write-path-figure.html"', html)
         self.assertIn('href="../src/core-log.css"', html)
         self.assertIn('src="../src/core-log.js"', html)
+
+    def test_project_page_exposes_runtime_assurance_features_without_overclaiming(self) -> None:
+        html = read("core-log/index.html")
+        css = read("src/core-log.css")
+        parser = PageTextParser()
+        parser.feed(html)
+        page_text = parser.text()
+
+        for expected_claim in (
+            "Update the policy, not the SDK",
+            "Keep the last known-good policy",
+            "Destroy one logger without disturbing another",
+            "Rotation is an observable event",
+            "Read evidence without exhausting the device",
+            "64 MiB",
+            "4,096 records",
+            "Artifacts are part of the contract",
+            "Four Android ABIs",
+            "Same-source evidence",
+        ):
+            self.assertIn(expected_claim, page_text)
+
+        self.assertNotIn("Remote configuration platform", page_text)
+        self.assertNotIn("HarmonyOS is currently supported", page_text)
+        for surface_class in (
+            "policy-console",
+            "rotation-contract",
+            "lifecycle-ledger",
+            "retrieval-guard",
+            "proof-ledger",
+        ):
+            self.assertIn(f'class="{surface_class}', html)
+            self.assertIn(f".{surface_class}", css)
 
     def test_write_path_figure_and_brief_keep_claims_traceable(self) -> None:
         figure = read("core-log/write-path-figure.html")
